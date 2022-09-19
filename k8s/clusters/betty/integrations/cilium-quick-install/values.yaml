@@ -106,7 +106,7 @@ clustermesh:
     etcd:
       image:
         repository: quay.io/coreos/etcd
-        tag: v3.5.4@sha256:795d8660c48c439a7c3764c2330ed9222ab5db5bb524d8d0607cac76f7ba82a3
+        tag: v3.5.5@sha256:89b6debd43502d1088f3e02f39442fd3e951aa52bee846ed601cf4477114b89e
         pullPolicy: IfNotPresent
 
 rollOutCiliumPods: true
