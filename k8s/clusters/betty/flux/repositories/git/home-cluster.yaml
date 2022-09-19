@@ -1,0 +1,23 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: home-cluster
+  namespace: flux-system
+spec:
+  interval: 15m
+  ref:
+    branch: main
+  url: ssh://git@github.com/snoopy82481/new_template_k3s
+  secretRef:
+    name: github-deploy-key
+  ignore: |
+    #exclude all
+    /*
+    #include gitops dirs
+    !/k8s/global
+    !/k8s/clusters/betty
+    !/k8s/manifests
+    #exclude files from gitops dirs
+    /k8s/**/*.md
+    /k8s/**/*.tmpl

@@ -5,43 +5,59 @@ vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
-  K3S_PRIMARY_MASTER_NODE_USERNAME: "ubuntu"
-  K3S_PRIMARY_MASTER_NODE_ADDR: "192.168.42.10"
-  K3S_LB_ADDR: "192.168.1.1"
+  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
+  TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
+
+dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.CLUSTER_DIR}}/kubeconfig"
+  KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"
 
 includes:
-  blocky: .taskfiles/blocky.yml
-  formatter: .taskfiles/formatter.yml
-  linter: .taskfiles/linter.yml
+  ansible: .taskfiles/AnsibleTasks.yml
+  cluster: .taskfiles/ClusterTasks.yml
+  precommit: .taskfiles/PrecommitTasks.yml
+  terraform: .taskfiles/TerraformTasks.yml
+  sops: .taskfiles/SopsTasks.yml
 
 tasks:
-  deps:
-    - task: deps:ansible
-    - task: deps:pre-commit
 
-  deps:ansible:
-    desc: install/upgrade ansible deps
-    dir: ansible
+  init:
+    desc: Initialize workstation dependencies with Brew
     cmds:
-      - "ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force"
-      - "ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force"
+      - brew install {{.DEPS}} {{.CLI_ARGS}}
+    preconditions:
+      - sh: command -v brew
+        msg: |
+          Homebrew is not installed. Using MacOS, Linux or WSL?
+          Head over to https://brew.sh to get up and running.
+    vars:
+      DEPS: >-
+        age
+        ansible
+        direnv
+        fluxcd/tap/flux
+        go-task/tap/go-task
+        helm
+        ipcalc
+        jq
+        kubernetes-cli
+        kustomize
+        pre-commit
+        prettier
+        sops
+        stern
+        terraform
+        tflint
+        yamllint
+        yq
 
-  deps:pre-commit:
-    desc: install/upgrade pre-commit deps
+  verify:
+    desc: Verify env settings
     cmds:
-      - pre-commit install-hooks
+      - ./configure --verify
 
-  pre-commit:
-    desc: Run pre-commit
+  configure:
+    desc: Configure repository from env settings
     cmds:
-      - pre-commit run --all-files
-
-  kubeconfig:
-    desc: Remotely fetch kubeconfig from Kubernetes
-    cmds:
-      - rsync --verbose --progress --partial --rsync-path="sudo rsync" {{.K3S_PRIMARY_MASTER_NODE_USERNAME}}@{{.K3S_PRIMARY_MASTER_NODE_ADDR}}:/etc/rancher/k3s/k3s.yaml "{{.CLUSTER_DIR}}/kubeconfig"
-      - sed -i '' 's/127.0.0.1/{{.K3S_LB_ADDR}}/g' "{{.CLUSTER_DIR}}/kubeconfig"
-      - chmod go-r "{{.CLUSTER_DIR}}/kubeconfig"
+      - ./configure

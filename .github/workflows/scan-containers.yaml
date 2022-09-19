@@ -7,14 +7,14 @@ on: # yamllint disable-line rule:truthy
       - main
     paths:
       - "cluster/**.yaml"
-      - "ansible/**.yml.j2"
+      - "provision/ansible/**.yml.j2"
 
 jobs:
   detect-file-changes:
     name: Detect File Changes
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
         id: filter
         with:
@@ -36,7 +36,7 @@ jobs:
         file: ${{ fromJSON(needs.detect-file-changes.outputs.yaml_files) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Jo
         run: |
           sudo apt-get install jo
@@ -57,9 +57,9 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Scan Container
-        uses: aquasecurity/trivy-action@0.2.2
+        uses: aquasecurity/trivy-action@0.7.1
         with:
           image-ref: ${{ matrix.containers }}
           vuln-type: os,library
@@ -67,6 +67,6 @@ jobs:
           format: sarif
           output: trivy-results.sarif
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: trivy-results.sarif
