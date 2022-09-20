@@ -17,7 +17,7 @@ env:
 
 jobs:
   build:
-    name: MegaLinter
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,10 +25,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Generate Token
+        uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: "${{ secrets.BOT_APP_ID }}"
+          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
       - name: MegaLinter
         uses: oxsecurity/megalinter@v6.10.0
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ steps.generate-token.outputs.token }}"
+          PRINT_ALPACA: false
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
           ENABLE_LINTERS: |-
             ${{
@@ -50,12 +58,11 @@ jobs:
                 ','
               )
             }}
-          ANSIBLE_DIRECTORY: provision/ansible
-          ANSIBLE_ANSIBLE_LINT_CONFIG_FILE: .github/linters/.ansible-lint
-          KUBERNETES_DIRECTORY: cluster
+          COPYPASTE_JSCPD_CONFIG_FILE: .ci/jscpd/jscpd.json
+          KUBERNETES_DIRECTORY: k8s
           KUBERNETES_KUBEVAL_ARGUMENTS: --ignore-missing-schemas
+          KUBERNETES_KUBEVAL_FILTER_REGEX_INCLUDE: "(kubernetes)"
           MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .github/linters/.markdownlint.yaml
           MARKDOWN_MARKDOWNLINT_RULES_PATH: .github/
           YAML_YAMLLINT_CONFIG_FILE: .github/linters/.yamllint.yaml
-          YAML_PRETTIER_CONFIG_FILE: .github/linters/.prettierrc.yaml
-          YAML_PRETTIER_FILTER_REGEX_EXCLUDE: "(.*\\.sops\\.ya?ml)"
+          YAML_PRETTIER_CONFIG_FILE: .ci/prettier/.prettierrc.yaml
