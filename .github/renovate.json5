@@ -1,10 +1,11 @@
 {
   "enabled": true,
   "platform": "github",
-  "username": "snoopy82481",
+  "username": "snoopy82481[bot]",
+  "gitAuthor": "172381+snoopy82481[bot]@users.noreply.github.com",
   "onboarding": false,
   "requireConfig": false,
-  "repositories": ["snoopy82481/new_template_k3s"],
+  "repositories": ["snoopy82481/home_cluster"],
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
@@ -20,33 +21,27 @@
     ":separatePatchReleases",
     "docker:enableMajor",
     ":enablePreCommit",
-    "github>snoopy82481/new_template_k3s//.github/renovate/autoMerge",
-    "github>snoopy82481/new_template_k3s//.github/renovate/labels",
-    "github>snoopy82481/new_template_k3s//.github/renovate/semanticCommits"
+    ":automergeDigest",
+    ":automergeBranchPush",
+    "github>snoopy82481/home_cluster//.github/renovate/autoMerge.json5",
+    "github>snoopy82481/home_cluster//.github/renovate/commitMessage.json5",
+    "github>snoopy82481/home_cluster//.github/renovate/labels.json5",
+    "github>snoopy82481/home_cluster//.github/renovate/semanticCommits.json5",
+    "github>snoopy82481/home_cluster//.github/renovate/groups.json5"
   ],
-  "pre-commit": {
-    "enabled": true
-  },
   "flux": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["k8s/clusters/betty/.+\\.ya?ml$"]
   },
   "helm-values": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["k8s/clusters/betty/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$",
-      "provision/ansible/.+\\.ya?ml.j2$"
-    ]
+    "fileMatch": ["k8s/clusters/betty/.+\\.ya?ml$"]
   },
   "regexManagers": [
     {
       "description": "Process CRD dependencies",
-      "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
+      "fileMatch": ["k8s/clusters/betty/crds/.+\\.ya?ml$"],
       "matchStrings": [
         // GitRepository and Flux Kustomization where 'Git release/tag' matches 'Helm' version
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
@@ -56,71 +51,33 @@
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
     },
     {
-      "description": "Process various other dependencies",
+      "description": "Process various dependencies",
       "fileMatch": [
-        "provision/ansible/.+\\.ya?ml$",
-        "cluster/.+\\.ya?ml$"
+        "k8s/clusters/talos/betty/.+\\.ya?ml$",
+        "k8s/clusters/betty/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "description": "Process raw GitHub URLs",
+      "fileMatch": ["k8s/clusters/.+\\.ya?ml$"],
+      "matchStrings": [
+        "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*"
+      ],
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
     }
   ],
   "packageRules": [
-    // setup datasources
     {
-      "matchDatasources": ["helm"],
-      "separateMinorPatch": true,
-      "ignoreDeprecated": true
-    },
-    // global docker datasource settings
-    {
-      "matchDatasources": ["docker"],
-      "enabled": true,
-      "commitMessageTopic": "container image {{depName}}",
-      "commitMessageExtra": "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
-      "matchUpdateTypes": ["major", "minor", "patch"]
-    },
-    {
-      "description": "Group Cert-Manager image (for CRDs) and chart",
-      "groupName": "Cert-Manager",
-      "matchPackagePatterns": ["cert-manager"],
-      "matchDatasources": ["docker", "helm"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "separateMinorPatch": true
-    },
-    // add labels according to package and update types
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["major"],
-      "labels": ["renovate/image", "dep/major"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["minor"],
-      "labels": ["renovate/image", "dep/minor"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["patch"],
-      "labels": ["renovate/image", "dep/patch"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["major"],
-      "labels": ["renovate/helm", "dep/major"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["minor"],
-      "labels": ["renovate/helm", "dep/minor"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["patch"],
-      "labels": ["renovate/helm", "dep/patch"]
+      "description": "Use loose versioning for certain dependencies",
+      "matchDatasources": ["docker", "github-releases"],
+      "versioning": "loose",
+      "matchPackageNames": []
     }
   ]
 }
