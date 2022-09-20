@@ -1,21 +1,23 @@
 ---
-name: Scan Containers
+name: "Scan Containers"
 
 on: # yamllint disable-line rule:truthy
   pull_request:
     branches:
       - main
     paths:
-      - "cluster/**.yaml"
-      - "provision/ansible/**.yml.j2"
+      - "k8s/clusters/**.yaml"
 
 jobs:
   detect-file-changes:
     name: Detect File Changes
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: dorny/paths-filter@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Filter container Releases
+        uses: dorny/paths-filter@v2
         id: filter
         with:
           list-files: json
@@ -25,8 +27,10 @@ jobs:
               - added|modified: "**.yml"
               - added|modified: "**.yaml.j2"
               - added|modified: "**.yml.j2"
+
     outputs:
       yaml_files: ${{ steps.filter.outputs.yaml_files }}
+
   detect-containers:
     name: Detect Containers
     runs-on: ubuntu-latest
@@ -37,17 +41,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Install Jo
         run: |
           sudo apt-get install jo
+
       - name: Detect Containers in Files
         id: containers
         run: |
           containers=$(.github/scripts/container-parser.sh --file "${{ matrix.file }}")
           echo "${containers}"
           echo ::set-output name=containers::${containers}
+
     outputs:
       containers: ${{ steps.containers.outputs.containers }}
+
   scan-containers:
     name: Scan Containers
     runs-on: ubuntu-latest
@@ -58,6 +66,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Scan Container
         uses: aquasecurity/trivy-action@0.7.1
         with:
@@ -66,6 +75,7 @@ jobs:
           severity: CRITICAL,HIGH
           format: sarif
           output: trivy-results.sarif
+
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
