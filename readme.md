@@ -155,7 +155,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     * [x] Create README.md
     * [ ] Document workflow (Github Pages/Cloudflare pages)
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/snoopy82481/home_cluster/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
