@@ -1,5 +1,7 @@
 ---
 ignore: |
+  docs/
+  .vscode/
   *.sops.*
   gotk-components.yaml
 extends: default
