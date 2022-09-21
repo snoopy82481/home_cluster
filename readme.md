@@ -18,11 +18,15 @@
     <br/>
     <!-- PROJECT SHIELDS-->
     <div id="project_shields">
-      ![License][license-shield]
-      ![GitHub Workflow Status][workflow-shield]
-      [![Pre-commit][pre-commit-shield]][pre-comit-url]
-      ![Last-commit][last-commit-shield]
-      [![OS][os-sheild]][os-url]
+      <img src="https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge" alt="License" />
+      <img src="https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/Schedule:%20Renovate?color=informational&label=%20&logo=renovatebot&style=for-the-badge" alt="GitHub Workflow Status" />
+      <a href="https://github.com/pre-commit/pre-commit">
+        <img src="https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge" alt="Pre-commit" />
+      </a>
+      <img src="https://img.shields.io/github/last-commit/snoopy82481/home_cluster/master?style=for-the-badge" alt="Last Commit" />
+      <a href="https://www.talos.dev">
+        <img src="https://img.shields.io/badge/OS-Talos-informational?style=for-the-badge" alt="Talos Linux" />
+      </a>
     </div>
     <br/>
     <a href="https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml">Report Bug</a>
@@ -41,18 +45,18 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li>
+    <!-- <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#usage">Usage</a></li> -->
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <!-- <li><a href="#contact">Contact</a></li> -->
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -68,17 +72,30 @@ The cluster is managed by [Renovatebot](https://www.whitesourcesoftware.com/free
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Built With
+### :hammer_and_wrench: Built With
 
-* [![Kubernetes][kubernetes_shield]][kubernetes_url]
-* [![RenovateBot][renovatebot_shield]][renovatebot_url]
-* [![Flux][flux_shield]][flux_url]
-* [![Talos][talos_shield]][talos_url]
+<div id="built_with">
+  <a href="https://kubernetes.io">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" width="40" height="40" />
+  </a>&nbsp;
+  <a href="https://fluxcd.io">
+    <img src="docs/src/images/flux-horizontal-color.svg" alt="flux" width="80" height="40" />
+  </a>&nbsp;
+  <a href="https://code.visualstudio.com">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="40" height="40" />
+  </a>&nbsp;
+  <a href="https://talos.dev">
+    <img src="https://www.talos.dev/images/logo.svg" alt="talos" width="40" height="40" />
+  </a>&nbsp;
+  <a href="https://cilium.org">
+    <img src="docs/src/images/cilium-logo-darkbg-horizontal-color.svg" alt="cilium" width="80" height="40" />
+  </a>&nbsp;
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
-## Getting Started
+<!-- ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
@@ -86,7 +103,9 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
+
 * npm
+
   ```sh
   npm install npm@latest -g
   ```
@@ -95,30 +114,35 @@ This is an example of how to list things you need to use the software and how to
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
+
    ```sh
    git clone https://github.com/github_username/repo_name.git
    ```
+
 3. Install NPM packages
+
    ```sh
    npm install
    ```
+
 4. Enter your API in `config.js`
+
    ```js
    const API_KEY = 'ENTER YOUR API';
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+<!-- ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -165,20 +189,20 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 <!-- CONTACT -->
-## Contact
+<!-- ## Contact
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
 Project Link: [https://github.com/snoopy82481/home_cluster](https://github.com/snoopy82481/home_cluster)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-A lot of my insperation came from multiple users part of the k8s-at-home community
+A lot of my insperation came from multiple users part of the k8s-at-home community.<br/>
 There is a lot of code jacking from:
 
 * [@onedr0p](https://github.com/onedr0p)
