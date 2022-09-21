@@ -23,7 +23,7 @@
       <a href="https://github.com/pre-commit/pre-commit">
         <img src="https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge" alt="Pre-commit" />
       </a>
-      <img src="https://img.shields.io/github/last-commit/snoopy82481/home_cluster/master?style=for-the-badge" alt="Last Commit" />
+      <img src="https://img.shields.io/github/last-commit/snoopy82481/home_cluster/main?style=for-the-badge" alt="Last Commit" />
       <a href="https://www.talos.dev">
         <img src="https://img.shields.io/badge/OS-Talos-informational?style=for-the-badge" alt="Talos Linux" />
       </a>
