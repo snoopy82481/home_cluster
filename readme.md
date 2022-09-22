@@ -87,7 +87,7 @@ The cluster is managed by [Renovatebot](https://www.whitesourcesoftware.com/free
   <a href="https://talos.dev">
     <img src="https://www.talos.dev/images/logo.svg" alt="talos" width="40" height="40" />
   </a>&nbsp;
-  <a href="https://cilium.org">
+  <a href="https://cilium.io">
     <img src="docs/src/images/cilium-logo-darkbg-horizontal-color.svg" alt="cilium" width="80" height="40" />
   </a>&nbsp;
 </div>
@@ -116,7 +116,7 @@ This is an example of how to list things you need to use the software and how to
 2. Clone the repo
 
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/snoopy82481/home_cluster.git
    ```
 
 3. Install NPM packages
@@ -191,7 +191,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 <!-- ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Your Name - email@email_client.com
 
 Project Link: [https://github.com/snoopy82481/home_cluster](https://github.com/snoopy82481/home_cluster)
 
