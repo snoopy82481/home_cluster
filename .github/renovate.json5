@@ -1,8 +1,8 @@
 {
   "enabled": true,
   "platform": "github",
-  "username": "snoopy82481-bot",
-  "gitAuthor": "172381+snoopy82481-bot@users.noreply.github.com",
+  "username": "snoopy82481-bot[bot]",
+  "gitAuthor": "172381+snoopy82481-bot[bot]@users.noreply.github.com",
   "onboarding": false,
   "requireConfig": false,
   "repositories": ["snoopy82481/home_cluster"],
