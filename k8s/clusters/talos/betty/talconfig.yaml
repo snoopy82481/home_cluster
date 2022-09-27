@@ -1,7 +1,8 @@
 clusterName: betty
-talosVersion: v1.2.2
-kubernetesVersion: v1.25.0
-endpoint: https://192.168.20.254:6443
+
+talosVersion: v1.2.3
+kubernetesVersion: v1.25.1
+endpoint: "https://192.168.20.254:6443"
 
 allowSchedulingOnMasters: true
 
@@ -13,58 +14,63 @@ clusterSvcNets:
 cniConfig:
   name: custom
   urls:
-    - https://raw.githubusercontent.com/snoopy82481/home-cluster/main/k8s/clusters/betty/integrations/cilium-quick-install/quick-install.yaml
+    - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/k8s/clusters/betty/integrations/cilium-quick-install/quick-install.yaml
 
 nodes:
   - hostname: kmaster1
     ipAddress: 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
   - hostname: kmaster2
     ipAddress: 192.168.20.6
     controlPlane: true
     installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
   - hostname: kmaster3
     ipAddress: 192.168.20.7
     controlPlane: true
     installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
   - hostname: kworker1
     ipAddress: 192.168.20.8
     controlPlane: false
     installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
   - hostname: kworker2
     ipAddress: 192.168.20.9
     controlPlane: false
     installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
   - hostname: kworker3
     ipAddress: 192.168.20.10
     controlPlane: false
     installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
 
 controlPlane:
   inlinePatch:
     cluster:
-      etcd:
-        ca:
-          crt: ${etcdCert}
-          key: ${etcdCertKey}
-        extraArgs:
-          election-timeout: 5000
-          heartbeat-interval: 250
-          listen-metrics-urls: http://0.0.0.0:2381
-      aescbcEncryptionSecret: ${aescbcEncryptionKey}
-      aggregatorCA:
-        crt: ${k8sAggregatorCert}
-        key: ${k8sAggregatorCertKey}
+      allowSchedulingOnMasters: true
       apiServer:
+        admissionControl: []
         certSANs:
           - ${clusterEndpointIP}
-          - betty.${domainName}
+          - ${clusterName}.${domainName}
         extraArgs:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
-      ca:
-        crt: ${clusterCert}
-        key: ${clusterCertKey}
       controllerManager:
         extraArgs:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
@@ -81,56 +87,15 @@ controlPlane:
       scheduler:
         extraArgs:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
-      secret: ${clusterSecret}
-      serviceAccount:
-        key: ${k8sServiceAccountKey}
-      token: ${clusterToken}
 
     machine:
-      ca:
-        crt: ${machineCert}
-        key: ${machineCertKey}
       certSANs:
         - ${clusterEndpointIP}
-        - betty.${domainName}
+        - ${clusterName}.${domainName}
       kubelet:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
           rotate-server-certificates: "true"
-      install:
-        extraKernelArgs:
-          - "talos.logging.kernel=udp://192.168.83.42:6050/"
-      logging:
-        destinations:
-          - endpoint: "udp://192.168.83.42:6051/"
-            format: json_lines
-      time:
-        disabled: false
-        servers:
-          - us.pool.ntp.org
-      token: ${machineToken}
-
-worker:
-  inlinePatch:
-    cluster:
-      aescbcEncryptionSecret: ${aescbcEncryptionKey}
-      ca:
-        crt: ${clusterCert}
-        key: ${clusterCertKey}
-      secret: ${clusterSecret}
-      token: ${clusterToken}
-      discovery:
-        registries:
-          service:
-            disabled: true
-
-    machine:
-      ca:
-        crt: ${machineCert}
-        key: ${machineCertKey}
-      certSANs:
-        - ${clusterEndpointIP}
-        - cluster-0.${domainName}
       install:
         extraKernelArgs:
           - "talos.logging.kernel=udp://192.168.83.42:6050/"
@@ -144,9 +109,67 @@ worker:
       time:
         disabled: false
         servers:
-          - us.pool.ntp.org
-      token: ${machineToken}
+          - 192.168.20.1
+      files:
+        - content: |
+            [plugins."io.containerd.grpc.v1.cri"]
+              enable_unprivileged_ports = true
+              enable_unprivileged_icmp = true
+          op: create
+          path: /var/cri/conf.d/allow-unpriv-ports.toml
+      network:
+        interfaces:
+          - interface: eth0
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.20.1
+            dhcp: true
+            vip:
+              ip: 192.168.20.254
+
+worker:
+  inlinePatch:
+    cluster:
+      discovery:
+        registries:
+          service:
+            disabled: true
+
+    machine:
+      certSANs:
+        - ${clusterEndpointIP}
+        - ${clusterName}.${domainName}
       kubelet:
         extraArgs:
+          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
           rotate-server-certificates: "true"
-          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      install:
+        extraKernelArgs:
+          - "talos.logging.kernel=udp://192.168.83.42:6050/"
+      logging:
+        destinations:
+          - endpoint: "udp://192.168.83.42:6051/"
+            format: json_lines
+      sysctls:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+      time:
+        disabled: false
+        servers:
+          - 192.168.20.1
+      files:
+        - content: |
+            [plugins."io.containerd.grpc.v1.cri"]
+              enable_unprivileged_ports = true
+              enable_unprivileged_icmp = true
+          op: create
+          path: /var/cri/conf.d/allow-unpriv-ports.toml
+      network:
+        interfaces:
+          - interface: eth0
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.20.1
+            dhcp: true
