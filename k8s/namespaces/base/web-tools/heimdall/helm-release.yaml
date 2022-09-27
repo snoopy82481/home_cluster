@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app theme-park
-  namespace: default
+  name: &app heimdall
+  namespace: web-tools
 spec:
   interval: 15m
   chart:
@@ -22,24 +22,22 @@ spec:
     remediation:
       retries: 5
   values:
-    controller:
-      replicas: 3
-      strategy: RollingUpdate
     image:
-      repository: ghcr.io/onedr0p/theme-park
-      tag: 1.10.1@sha256:4881cddf347ffb4e288254afd086522feb49853ba55f2f4820c4858fcb65492f
+      repository: ghcr.io/linuxserver/heimdall
+      tag: v2.4.13-ls186@sha256:550e844865454bf9dac45baa0fa21433b9349a69d3ee5bb0d26c2ae6f171f023
+    env:
+      TZ: ${TIMEZONE}
     service:
       main:
         ports:
           http:
-            port: 8080
+            port: 80
     ingress:
       main:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
-          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -49,16 +47,7 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 50Mi
+    persistence:
+      config:
+        enabled: true
+        existingClaim: heimdall-config

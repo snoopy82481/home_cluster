@@ -56,8 +56,6 @@ spec:
         use-forwarded-headers: "true"
       metrics:
         enabled: false
-      extraArgs:
-        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-tls"
       podAnnotations:
         configmap.reloader.stakater.com/reload: "cloudflare-proxied-networks"
       topologySpreadConstraints:

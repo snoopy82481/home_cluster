@@ -8,9 +8,7 @@ spec:
   interval: 15m
   ref:
     branch: main
-  url: ssh://git@github.com/snoopy82481/new_template_k3s
-  secretRef:
-    name: github-deploy-key
+  url: https://github.com/snoopy82481/home_cluster.git
   ignore: |
     #exclude all
     /*
