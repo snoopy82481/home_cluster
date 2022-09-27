@@ -123,3 +123,6 @@ hostServices:
 
 debug:
   enabled: false
+
+securityContext:
+  privileged: true
