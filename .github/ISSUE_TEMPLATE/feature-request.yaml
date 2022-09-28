@@ -1,7 +1,7 @@
 ---
 name: Feature request
 description: Suggest an idea for this project
-title: '[ENHANCEMENT] <title>'
+title: "[ENHANCEMENT] <title>"
 labels: [enhancement]
 assignees: "snoopy82481"
 body:
@@ -10,8 +10,8 @@ body:
       label: Is there an existing issue for this?
       description: Please search to see if an issue already exists for the bug you encountered.
       options:
-      - label: I have searched the existing issues
-        required: true
+        - label: I have searched the existing issues
+          required: true
   - type: textarea
     attributes:
       label: Describe the solution you'd like

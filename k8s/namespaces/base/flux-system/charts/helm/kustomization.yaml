@@ -15,3 +15,5 @@ resources:
   - rook-ceph-charts.yaml
   - stakater-charts.yaml
   - weaveworks-kured-charts.yaml
+  - sealed-secrets-charts.yaml
+  - bitnami-charts.yaml

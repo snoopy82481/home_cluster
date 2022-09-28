@@ -1,7 +1,7 @@
 ---
 name: "Pull Report"
 description: Create a Pull Report
-title: '<title>'
+title: "<title>"
 labels: []
 assignees: "snoopy82481"
 body:
@@ -14,28 +14,28 @@ body:
   - type: checkboxes
     attributes:
       options:
-      - label: All commits are signed off. See the section [Developer's Certificate of Origin](https://developercertificate.org/)
-        required: true
+        - label: All commits are signed off. See the section [Developer's Certificate of Origin](https://developercertificate.org/)
+          required: true
   - type: checkboxes
     attributes:
       options:
-      - label: Provide a title or release-note blurb suitable for the release notes.
-        required: true
+        - label: Provide a title or release-note blurb suitable for the release notes.
+          required: true
   - type: checkboxes
     attributes:
       options:
-      - label: All pre-commit hook validation passed successfully.
-        required: true
+        - label: All pre-commit hook validation passed successfully.
+          required: true
   - type: checkboxes
     attributes:
       options:
-      - label: "All commits contain a well-written commit description including a title, description, and a Fixes: #XXX line if the commit addresses a particular GitHub issue."
-        required: true
+        - label: "All commits contain a well-written commit description including a title, description, and a Fixes: #XXX line if the commit addresses a particular GitHub issue."
+          required: true
   - type: checkboxes
     attributes:
       options:
-      - label: All workflow validation and compliance checks are passing.
-        required: true
+        - label: All workflow validation and compliance checks are passing.
+          required: true
   - type: textarea
     attributes:
       label: Issue Ref (Optional)

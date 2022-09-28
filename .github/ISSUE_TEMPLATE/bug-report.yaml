@@ -1,7 +1,7 @@
 ---
 name: "Bug report"
 description: File a bug/issue
-title: '[BUG] <title>'
+title: "[BUG] <title>"
 labels: [Bug, Needs Triage]
 assignees: "snoopy82481"
 body:
@@ -10,8 +10,8 @@ body:
       label: Is there an existing issue for this?
       description: Please search to see if an issue already exists for the bug you encountered.
       options:
-      - label: I have searched the existing issues
-        required: true
+        - label: I have searched the existing issues
+          required: true
   - type: textarea
     attributes:
       label: Current Behavior
@@ -44,9 +44,9 @@ body:
           - **Node**: 13.14.0
           - **npm**: 7.6.3
       value: |
-          - OS:
-          - Node:
-          - npm:
+        - OS:
+        - Node:
+        - npm:
       render: Markdown
     validations:
       required: false

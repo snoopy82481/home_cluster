@@ -111,7 +111,7 @@ spec:
           tls:
             - secretName: "{{ .Release.Name }}-tls"
               hosts:
-              - *host
+                - *host
 
     bgp:
       enabled: false
