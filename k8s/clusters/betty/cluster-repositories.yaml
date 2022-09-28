@@ -1,22 +1,4 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: GitRepository
-metadata:
-  name: home-cluster
-  namespace: flux-system
-spec:
-  interval: 15m
-  ref:
-    branch: main
-  url: https://github.com/snoopy82481/home_cluster
-  ignore: |
-    #exclude all
-    /*
-    #include gitops dirs
-    !/k8s
-    #exclude files from gitops dirs
-    /k8s/**/*.md
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
@@ -27,8 +9,6 @@ spec:
   path: ./k8s/global/flux/repositories
   prune: true
   wait: true
-  dependsOn:
-    - name: home-cluster
   sourceRef:
     kind: GitRepository
     name: home-cluster
@@ -47,8 +27,6 @@ spec:
   path: ./k8s/namespaces/clusters/betty/flux-system/repositories
   prune: true
   wait: true
-  dependsOn:
-    - name: home-cluster
   sourceRef:
     kind: GitRepository
     name: home-cluster
