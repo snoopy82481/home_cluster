@@ -14,13 +14,21 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
+  test:
+    enable: false
   install:
-    createNamespace: true
     remediation:
       retries: 5
+    skipCRDs: true
   upgrade:
     remediation:
       retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
   values:
     controller:
       replicas: 3
