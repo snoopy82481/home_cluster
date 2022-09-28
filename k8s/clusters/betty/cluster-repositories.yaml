@@ -1,0 +1,61 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: home-cluster
+  namespace: flux-system
+spec:
+  interval: 15m
+  ref:
+    branch: main
+  url: https://github.com/snoopy82481/home_cluster.git
+  ignore: |
+    #exclude all
+    /*
+    #include gitops dirs
+    !/k8s/global
+    !/k8s/clusters/betty
+    !/k8s/namespaces
+    #exclude files from gitops dirs
+    /k8s/**/*.md
+    /k8s/**/*.tmpl
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: global-repositories
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./k8s/global/flux/repositories
+  prune: true
+  wait: true
+  dependsOn:
+    - name: home-cluster
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-repositories
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./k8s/namespaces/clusters/betty/flux-system/repositories
+  prune: true
+  wait: true
+  dependsOn:
+    - name: home-cluster
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age

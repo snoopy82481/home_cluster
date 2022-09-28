@@ -2,38 +2,39 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: vpn-namespace
+  name: global-config
   namespace: flux-system
 spec:
-  interval: 5m
-  path: "./k8s/namespaces/base/vpn"
+  dependsOn:
+    - name: manage-flux
+  interval: 10m0s
+  path: ./k8s/global/flux/config
   prune: true
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: kube-system-reloader
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: "./k8s/namespaces/base/vpn/vpn-gateway"
-  prune: true
-  wait: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
       name: sops-age
-  postBuild:
-    substitute: {}
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-config
-      - kind: Secret
-        name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-config
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: manage-flux
+  interval: 10m0s
+  path: ./k8s/clusters/betty/config
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
