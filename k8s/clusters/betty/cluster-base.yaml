@@ -10,7 +10,6 @@ spec:
     - name: cluster-config
     - name: global-repositories
     - name: cluster-repositories
-    - name: cluster-namespaces
     - name: manage-flux
   path: ./k8s/namespaces/overlays/base
   prune: true
