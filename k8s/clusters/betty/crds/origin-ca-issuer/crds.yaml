@@ -11,4 +11,4 @@ spec:
   path: ./deploy/crds
   sourceRef:
     kind: GitRepository
-    name: origin-ca-issuer-source
+    name: origin-ca-issuer-chart-git
