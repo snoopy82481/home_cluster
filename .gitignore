@@ -9,7 +9,6 @@ kubeconfig
 *.agekey
 *.pub
 *.key
-github-deploy-key*
 # Ansible
 xanmanning.k3s*
 # Terraform
@@ -17,4 +16,3 @@ xanmanning.k3s*
 .terraform.tfstate*
 terraform.tfstate*
 megalinter-reports
-tmpl/

@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/base/networking"
+  path: "./k8s/namespaces/cluster/base/networking"
   prune: true
   wait: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/base/networking/cert-manager"
+  path: "./k8s/namespaces/cluster/base/networking/cert-manager"
   prune: true
   wait: true
   sourceRef:
@@ -45,7 +45,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/base/networking/cert-manager/cluster-issuers"
+  path: "./k8s/namespaces/cluster/base/networking/cert-manager/cluster-issuers"
   prune: true
   wait: true
   sourceRef:
@@ -62,7 +62,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/base/networking/external-dns"
+  path: "./k8s/namespaces/cluster/base/networking/external-dns"
   prune: true
   wait: true
   sourceRef:
@@ -87,7 +87,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/base/networking/metallb"
+  path: "./k8s/namespaces/cluster/base/networking/metallb"
   prune: true
   wait: true
   sourceRef:
@@ -112,7 +112,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/base/networking/origin-ca-issuer"
+  path: "./k8s/namespaces/cluster/base/networking/origin-ca-issuer"
   prune: true
   wait: true
   sourceRef:
