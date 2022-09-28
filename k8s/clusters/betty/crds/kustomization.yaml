@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - cert-manager
   - rook-ceph
-  - system-upgrade-controller
+  - origin-ca-issuer
