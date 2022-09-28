@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/base/flux-system/charts"
+  path: "./k8s/namespaces/cluster/betty/flux-system/charts"
   prune: true
   wait: false
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/base/flux-system/webhook"
+  path: "./k8s/namespaces/cluster/betty/flux-system/webhook"
   prune: true
   wait: false
   sourceRef:
