@@ -15,9 +15,6 @@ spec:
     #exclude all
     /*
     #include gitops dirs
-    !/k8s/global
-    !/k8s/clusters/betty
-    !/k8s/namespaces
+    !/k8s
     #exclude files from gitops dirs
     /k8s/**/*.md
-    /k8s/**/*.tmpl
