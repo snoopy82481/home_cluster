@@ -14,7 +14,7 @@ clusterSvcNets:
 cniConfig:
   name: custom
   urls:
-    - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/k8s/clusters/betty/integrations/cilium-quick-install/quick-install.yaml
+    - https://raw.githubusercontent.com/snoopy82481/home_cluster/develop/k8s/namespaces/base/kube-system/cilium/install/quick-install.yaml
 
 nodes:
   - hostname: kmaster1
@@ -65,6 +65,7 @@ controlPlane:
     cluster:
       allowSchedulingOnMasters: true
       apiServer:
+        disablePodSecurityPolicy: true
         admissionControl: []
         certSANs:
           - ${clusterEndpointIP}
