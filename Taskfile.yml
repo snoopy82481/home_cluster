@@ -7,6 +7,10 @@ vars:
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
+  CLUSTER: betty
+  GITHUB_USER: snoopy82481
+  GITHUB_REPO: home_cluster
+  GITHUB_BRANCH: main
 
 dotenv: [".config.env"]
 

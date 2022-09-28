@@ -80,3 +80,34 @@ tasks:
       - task: certificates
       - task: ingresses
       - task: pods
+
+  bootstrap:
+    desc: Bootstrap Flux cluster
+    cmds:
+      - cmd: |
+          flux bootstrap github \
+            --owner="{{.GITHUB_USER}}" \
+            --repository="{{.GITHUB_REPO}}" \
+            --path=k8s/clusters/"{{.CLUSTER}}" \
+            --branch="{{.GITHUB_BRANCH}}" \
+            --personal=true \
+            --private=false \
+            {{.CLI_ARGS}}
+        silent: true
+
+  secrets:
+    desc: "Install cluster secrets and configs; Only to be used when updating secrets manually"
+    cmds:
+      - kubectl create namespace flux-system --dry-run=client -oyaml | kubectl apply -f -
+      - cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+    silent: true
+
+  talos-apply:
+    desc: Apply Talos configs
+    cmds:
+      - talosctl -n 192.168.20.5 apply-config clusterconfig/betty-kmaster1.yaml --insecure
+      - talosctl -n 192.168.20.6 apply-config clusterconfig/betty-kmaster2.yaml --insecure
+      - talosctl -n 192.168.20.7 apply-config clusterconfig/betty-kmaster3.yaml --insecure
+      - talosctl -n 192.168.20.8 apply-config clusterconfig/betty-kworker1.yaml --insecure
+      - talosctl -n 192.168.20.9 apply-config clusterconfig/betty-kworker2.yaml --insecure
+      - talosctl -n 192.168.20.10 apply-config clusterconfig/betty-kworker3.yaml --insecure

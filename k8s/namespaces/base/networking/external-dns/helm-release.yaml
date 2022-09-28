@@ -23,10 +23,19 @@ spec:
   upgrade:
     remediation:
       retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
   values:
     interval: 5m
     logLevel: debug
+    logFormat: json
     provider: cloudflare
+    rbac:
+      create: true
     env:
       - name: CF_API_EMAIL
         valueFrom:
@@ -48,9 +57,3 @@ spec:
     txtOwnerId: "default"
     domainFilters:
       - "${SECRET_DOMAIN}"
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 25m
-      limits:
-        memory: 250Mi
