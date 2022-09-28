@@ -1,0 +1,31 @@
+# yamllint disable
+apiVersion: v1
+kind: Secret
+metadata:
+    name: vpnconfig
+    namespace: vpn
+stringData:
+    VPN_SERVICE_PROVIDER: ENC[AES256_GCM,data:hK/oaLBXJg==,iv:tnzRfQk654oZhPCT7s4leKy4xgGJoQuKzhg0cCrZP9I=,tag:t4iYB/LqmNl/yQObrDdvAQ==,type:str]
+    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:88DL4urpwqD7Nn6cPYTiXprRHnwrwleZPooSFnGazu4IqZ3CO6N6qTNkOHs=,iv:lJaEXQNnXEMtF2AsY59z6/3A9I1TF2rETowPhXU8z8M=,tag:5p+5gsKqxiKJN1/Eb5xjWA==,type:str]
+    WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:6vBSVt1FxFph7ETBwcrLtg==,iv:I8i12KWLhQGuIO5t3BfnSMQe9haX1Th/Ezk5ocr9B9g=,tag:qvVMMbII9U5oujgnYR2BWg==,type:str]
+    SERVER_CITIES: ENC[AES256_GCM,data:dhFQ8IOZ,iv:3jLosZ7Ipu8X8xkF9F2Y1fuM5q8pXGuFslb4y9/TBvI=,tag:kNsKU9jXmoy+7JlaEZNbGg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1eynu35v0tpg9remal6zeecfeg9e84a2qxake027wwgdn02rdfcls7nyv8r
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJWUZHYlB2Q1c3THBkdlhG
+            SmNtWTFoMDArdXNwaHpWUVNGeGt2NWNPTXdzCjRTOWQ1Z1p5SEZPc2hTQ25uNWxT
+            N2NpRkxxMkRLT0FqNyt1S1hVZnczR00KLS0tIDdqejZEVXZkL3hudXd2WlNrNE85
+            UzBFZVRwN0J0dlNMb3oyQ08wclVLQ0kK15nnKWE8159zQbuSMvzmxisCbXSn1x51
+            i2XqNqNR//gKd+sUNiT8jXgkPnZdCJ9Pkvx1M6t1LjqfRp/NwJrm3Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-08-25T20:40:39Z"
+    mac: ENC[AES256_GCM,data:3YMrwVcxlSvxwBKv5JamLd/EQwQuRz2GLHbwyx1kSLG1AZdH8WubiypSpdC537WeHkPd/Nk2q0l8iIZGJf8kr1juJxcFNlXzj23GfmwHXbRFQEsc5TWlHcVYHEh8uty9bbhQueXviIrBgX/Rdvt5440C//TaAEN27OlQHrX18GM=,iv:Fr2JX3lYeU0HicCstiU1zj7woDNeCAzV8HL6/Fbxx2Y=,tag:SuBwKxkpcGzs0tGlJFxoIA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
