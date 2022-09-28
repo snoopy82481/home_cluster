@@ -12,6 +12,6 @@ resources:
   - prometheus-community-charts.yaml
   - rook-ceph-charts.yaml
   - stakater-charts.yaml
-  - weaveworks-kured-charts.yaml
   - sealed-secrets-charts.yaml
   - bitnami-charts.yaml
+  - kubereboot-charts.yaml
