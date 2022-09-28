@@ -6,11 +6,11 @@ metadata:
   namespace: network-system
 spec:
   limits:
-  - default:
-      memory: 256Mi
-    defaultRequest:
-      memory: 128Mi
-    type: Container
+    - default:
+        memory: 256Mi
+      defaultRequest:
+        memory: 128Mi
+      type: Container
 ---
 apiVersion: v1
 kind: LimitRange
@@ -19,8 +19,8 @@ metadata:
   namespace: network-system
 spec:
   limits:
-  - default:
-      cpu: "0.2"
-    defaultRequest:
-      cpu: "0.1"
-    type: Container
+    - default:
+        cpu: "0.2"
+      defaultRequest:
+        cpu: "0.1"
+      type: Container

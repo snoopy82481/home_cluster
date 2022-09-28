@@ -42,39 +42,39 @@ radarr:
 
     custom_formats:
       - trash_ids:
-          - ed38b889b31be83fda192888e2286d83 #BR-DISK
-          - 90cedc1fea7ea5d11298bebd3d1d3223 #EVO (no WEBDL)
-          - 90a6f9a284dff5103f6346090e6280c8 #LQ
-          - dc98083864ea246d05a42df0d05f81cc #x265 (720/1080p)
-          - b8cd450cbfa689c0259a01d9e29ba3d6 #3D
-          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 #No-RlsGroup
-          - 7357cf5161efbf8c4d5d0c30b4815ee2 #Obfuscated
-          - 5c44f52a8714fdd79bb4d98e2673be1f #Retags
-          - 923b6abef9b17f937fab56cfcf89e1f1 #DV (WEBDL)
-          - 0f12c086e289cf966fa5948eac571f44 #Hybrid
-          - 570bc9ebecd92723d2d21500f4be314c #Remaster
-          - eca37840c13c6ef2dd0262b141a5482f #4K Remaster
-          - e0c07d59beb37348e975a930d5e50319 #Criterion Collection
-          - 957d0f44b592285f26449575e8b1167e #Special Edition
-          - eecf3a857724171f968a66cb5719e152 #IMAX
-          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de #IMAX Enhanced
-          - 1c7d7b04b15cc53ea61204bebbcc1ee2 #HQ
-          - 403f3f6266b90439cacc1e07cae4dc2d #HQ-Remux
-          - 26fa26253af4001701fedb56cec376dc #HQ-WEBDL
+          - ed38b889b31be83fda192888e2286d83 # BR-DISK
+          - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL)
+          - 90a6f9a284dff5103f6346090e6280c8 # LQ
+          - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
+          - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D
+          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
+          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
+          - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
+          - 923b6abef9b17f937fab56cfcf89e1f1 # DV (WEBDL)
+          - 0f12c086e289cf966fa5948eac571f44 # Hybrid
+          - 570bc9ebecd92723d2d21500f4be314c # Remaster
+          - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
+          - e0c07d59beb37348e975a930d5e50319 # Criterion Collection
+          - 957d0f44b592285f26449575e8b1167e # Special Edition
+          - eecf3a857724171f968a66cb5719e152 # IMAX
+          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
+          - 1c7d7b04b15cc53ea61204bebbcc1ee2 # HQ
+          - 403f3f6266b90439cacc1e07cae4dc2d # HQ-Remux
+          - 26fa26253af4001701fedb56cec376dc # HQ-WEBDL
           # TODO(Radarr update to include release group): Remove HQ-WEBDL, HQ-Remux, HQ
-          # - c20f169ef63c5f40c2def54abaf4438e #WEB Tier 01
-          # - 403816d65392c79236dcb6dd591aeda4 #WEB Tier 02
-          # - af94e0fe497124d1f9ce732069ec8c3b #WEB Tier 03
-          # - 3a3ff47579026e76d6504ebea39390de #Remux Tier 01
-          # - 9f98181fe5a3fbeb0cc29340da2a468a #Remux Tier 02
-          # - ed27ebfef2f323e964fb1f61391bcb35 #HD Bluray Tier 01
-          # - c20c8647f2746a1f4c4262b0fbbeeeae #HD Bluray Tier 02
-          - e7718d7a3ce595f289bfee26adc178f5 #Repack/Proper
-          - ae43b294509409a6a13919dedd4764c4 #Repack2
-          - 0d91270a7255a1e388fa85e959f359d8 #FreeLeech
-          - b6832f586342ef70d9c128d40c07b872 #Bad Dual Groups
-          - ff5bc9e8ce91d46c997ca3ac6994d6f8 #FraMeSToR
-          - 8cd3ac70db7ac318cf9a0e01333940a4 #SiC
+          # - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+          # - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+          # - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+          # - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
+          # - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
+          # - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
+          # - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
+          - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
+          - ae43b294509409a6a13919dedd4764c4 # Repack2
+          - 0d91270a7255a1e388fa85e959f359d8 # FreeLeech
+          - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
+          - ff5bc9e8ce91d46c997ca3ac6994d6f8 # FraMeSToR
+          - 8cd3ac70db7ac318cf9a0e01333940a4 # SiC
 
         quality_profiles:
           - name: Anime 1080p (Movie Versions + Misc)
@@ -87,7 +87,7 @@ radarr:
           - name: Remux-1080p (Audio Advanced + Movie Versions)!
 
       - trash_ids:
-          - 4b900e171accbfb172729b63323ea8ca #Multi
+          - 4b900e171accbfb172729b63323ea8ca # Multi
 
         quality_profiles:
           - name: Anime 1080p (Movie Versions + Misc)
@@ -108,20 +108,20 @@ radarr:
             score: -10000
 
       - trash_ids:
-          - 496f355514737f7d83bf7aa4d24f8169 #TrueHD ATMOS
-          - 2f22d89048b01681dde8afe203bf2e95 #DTS X
-          - 417804f7f2c4308c1f4c5d380d4c4475 #ATMOS (undefined)
-          - 1af239278386be2919e1bcee0bde047e #DD+ ATMOS
-          - 3cafb66171b47f226146a0770576870f #TrueHD
-          - dcf3ec6938fa32445f590a4da84256cd #DTS-HD MA
-          - a570d4a0e56a2874b64e5bfa55202a1b #FLAC
-          - e7c2fcae07cbada050a0af3357491d7b #PCM
-          - 8e109e50e0a0b83a5098b056e13bf6db #DTS-HD HRA
-          - 185f1dd7264c4562b9022d963ac37424 #DD+
-          - f9f847ac70a0af62ea4a08280b859636 #DTS-ES
-          - 1c1a4c5e823891c75bc50380a6866f73 #DTS
-          - 240770601cc226190c367ef59aba7463 #AAC
-          - c2998bd0d90ed5621d8df281e839436e #DD
+          - 496f355514737f7d83bf7aa4d24f8169 # TrueHD ATMOS
+          - 2f22d89048b01681dde8afe203bf2e95 # DTS X
+          - 417804f7f2c4308c1f4c5d380d4c4475 # ATMOS (undefined)
+          - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
+          - 3cafb66171b47f226146a0770576870f # TrueHD
+          - dcf3ec6938fa32445f590a4da84256cd # DTS-HD MA
+          - a570d4a0e56a2874b64e5bfa55202a1b # FLAC
+          - e7c2fcae07cbada050a0af3357491d7b # PCM
+          - 8e109e50e0a0b83a5098b056e13bf6db # DTS-HD HRA
+          - 185f1dd7264c4562b9022d963ac37424 # DD+
+          - f9f847ac70a0af62ea4a08280b859636 # DTS-ES
+          - 1c1a4c5e823891c75bc50380a6866f73 # DTS
+          - 240770601cc226190c367ef59aba7463 # AAC
+          - c2998bd0d90ed5621d8df281e839436e # DD
 
         quality_profiles:
           - name: Anime Remux-1080P  (Audio Advanced + Movie Versions)
@@ -130,7 +130,7 @@ radarr:
           - name: Remux-1080p (Audio Advanced + Movie Versions)!
 
       - trash_ids:
-          - 4a3b087eea2ce012fcc1ce319259a3be #Anime Dual Audio
+          - 4a3b087eea2ce012fcc1ce319259a3be # Anime Dual Audio
 
         quality_profiles:
           - name: Anime 1080p (Movie Versions + Misc)
@@ -152,55 +152,55 @@ radarr:
 
     custom_formats:
       - trash_ids:
-          - ed38b889b31be83fda192888e2286d83 #BR-DISK
-          - 90cedc1fea7ea5d11298bebd3d1d3223 #EVO (no WEBDL)
-          - 90a6f9a284dff5103f6346090e6280c8 #LQ
-          - dc98083864ea246d05a42df0d05f81cc #x265 (720/1080p)
-          - b8cd450cbfa689c0259a01d9e29ba3d6 #3D
-          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 #No-RlsGroup
-          - 7357cf5161efbf8c4d5d0c30b4815ee2 #Obfuscated
-          - b6832f586342ef70d9c128d40c07b872 #Bad Dual Groups
-          - 5c44f52a8714fdd79bb4d98e2673be1f #Retags
-          - 923b6abef9b17f937fab56cfcf89e1f1 #DV (WEBDL)
-          - 58d6a88f13e2db7f5059c41047876f00 #DV
-          - 55d53828b9d81cbe20b02efd00aa0efd #DV HLG
-          - a3e19f8f627608af0211acd02bf89735 #DV SDR
-          - e23edd2482476e595fb990b12e7c609c #DV HDR10
-          - 0f12c086e289cf966fa5948eac571f44 #Hybrid
-          - 570bc9ebecd92723d2d21500f4be314c #Remaster
-          - eca37840c13c6ef2dd0262b141a5482f #4K Remaster
-          - e0c07d59beb37348e975a930d5e50319 #Criterion Collection
-          - 957d0f44b592285f26449575e8b1167e #Special Edition
-          - eecf3a857724171f968a66cb5719e152 #IMAX
-          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de #IMAX Enhanced
-          - 1c7d7b04b15cc53ea61204bebbcc1ee2 #HQ
-          - 403f3f6266b90439cacc1e07cae4dc2d #HQ-Remux
-          - 26fa26253af4001701fedb56cec376dc #HQ-WEBDL
+          - ed38b889b31be83fda192888e2286d83 # BR-DISK
+          - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL)
+          - 90a6f9a284dff5103f6346090e6280c8 # LQ
+          - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
+          - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D
+          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
+          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
+          - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
+          - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
+          - 923b6abef9b17f937fab56cfcf89e1f1 # DV (WEBDL)
+          - 58d6a88f13e2db7f5059c41047876f00 # DV
+          - 55d53828b9d81cbe20b02efd00aa0efd # DV HLG
+          - a3e19f8f627608af0211acd02bf89735 # DV SDR
+          - e23edd2482476e595fb990b12e7c609c # DV HDR10
+          - 0f12c086e289cf966fa5948eac571f44 # Hybrid
+          - 570bc9ebecd92723d2d21500f4be314c # Remaster
+          - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
+          - e0c07d59beb37348e975a930d5e50319 # Criterion Collection
+          - 957d0f44b592285f26449575e8b1167e # Special Edition
+          - eecf3a857724171f968a66cb5719e152 # IMAX
+          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
+          - 1c7d7b04b15cc53ea61204bebbcc1ee2 # HQ
+          - 403f3f6266b90439cacc1e07cae4dc2d # HQ-Remux
+          - 26fa26253af4001701fedb56cec376dc # HQ-WEBDL
           # TODO(Radarr update to include release group): Remove HQ-WEBDL, HQ-Remux, HQ
-          # - c20f169ef63c5f40c2def54abaf4438e #WEB Tier 01
-          # - 403816d65392c79236dcb6dd591aeda4 #WEB Tier 02
-          # - af94e0fe497124d1f9ce732069ec8c3b #WEB Tier 03
-          # - 3a3ff47579026e76d6504ebea39390de #Remux Tier 01
-          # - 9f98181fe5a3fbeb0cc29340da2a468a #Remux Tier 02
-          # - ed27ebfef2f323e964fb1f61391bcb35 #HD Bluray Tier 01
-          # - c20c8647f2746a1f4c4262b0fbbeeeae #HD Bluray Tier 02
-          - e7718d7a3ce595f289bfee26adc178f5 #Repack/Proper
-          - ae43b294509409a6a13919dedd4764c4 #Repack2
-          - 0d91270a7255a1e388fa85e959f359d8 #FreeLeech
-          - dfb86d5941bc9075d6af23b09c2aeecd #HDR10
-          - b974a6cd08c1066250f1f177d7aa1225 #HDR10+
-          - 08d6d8834ad9ec87b1dc7ec8148e7a1f #PQ
-          - 9364dd386c9b4a1100dde8264690add7 #HLG
-          - 2a4d9069cc1fe3242ff9bdaebed239bb #HDR (undefined)
-          - 66aaa8c2c03c0191a95f0d655b75ab10 #UHD (CtrlHD)
-          - 4da96773192a51cf96178212642ca3bb #UHD (LEGI0N)
-          - ffebc267e9c98d3d383f37b238550079 #UHD (W4NK3R)
-          - 96848626e1570c122aba8642fe2714a2 #UHD (HQMUX)
-          - ac49fdbf6a662d380556f40ff4856f29 #UHD (WEBDV)
-          - afeb99e5db09290546f742503ce1cdb6 #UHD (DON)
-          - 65be7ce5ec4c31e684c7b8368b8bd6bb #UHD (SPHD)
-          - ff5bc9e8ce91d46c997ca3ac6994d6f8 #FraMeSToR
-          - 8cd3ac70db7ac318cf9a0e01333940a4 #SiC
+          # - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+          # - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+          # - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+          # - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
+          # - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
+          # - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
+          # - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
+          - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
+          - ae43b294509409a6a13919dedd4764c4 # Repack2
+          - 0d91270a7255a1e388fa85e959f359d8 # FreeLeech
+          - dfb86d5941bc9075d6af23b09c2aeecd # HDR10
+          - b974a6cd08c1066250f1f177d7aa1225 # HDR10+
+          - 08d6d8834ad9ec87b1dc7ec8148e7a1f # PQ
+          - 9364dd386c9b4a1100dde8264690add7 # HLG
+          - 2a4d9069cc1fe3242ff9bdaebed239bb # HDR (undefined)
+          - 66aaa8c2c03c0191a95f0d655b75ab10 # UHD (CtrlHD)
+          - 4da96773192a51cf96178212642ca3bb # UHD (LEGI0N)
+          - ffebc267e9c98d3d383f37b238550079 # UHD (W4NK3R)
+          - 96848626e1570c122aba8642fe2714a2 # UHD (HQMUX)
+          - ac49fdbf6a662d380556f40ff4856f29 # UHD (WEBDV)
+          - afeb99e5db09290546f742503ce1cdb6 # UHD (DON)
+          - 65be7ce5ec4c31e684c7b8368b8bd6bb # UHD (SPHD)
+          - ff5bc9e8ce91d46c997ca3ac6994d6f8 # FraMeSToR
+          - 8cd3ac70db7ac318cf9a0e01333940a4 # SiC
 
         quality_profiles:
           - name: 4k (Movie Versions + HDR Metadata)
@@ -209,7 +209,7 @@ radarr:
           - name: Remux-4k (Movie Versions + HDR Metadata)
 
       - trash_ids:
-          - 4b900e171accbfb172729b63323ea8ca #Multi
+          - 4b900e171accbfb172729b63323ea8ca # Multi
 
         quality_profiles:
           - name: 4k (Movie Versions + HDR Metadata)
@@ -222,27 +222,27 @@ radarr:
             score: -10000
 
       - trash_ids:
-          - 496f355514737f7d83bf7aa4d24f8169 #TrueHD ATMOS
-          - 2f22d89048b01681dde8afe203bf2e95 #DTS X
-          - 417804f7f2c4308c1f4c5d380d4c4475 #ATMOS (undefined)
-          - 1af239278386be2919e1bcee0bde047e #DD+ ATMOS
-          - 3cafb66171b47f226146a0770576870f #TrueHD
-          - dcf3ec6938fa32445f590a4da84256cd #DTS-HD MA
-          - a570d4a0e56a2874b64e5bfa55202a1b #FLAC
-          - e7c2fcae07cbada050a0af3357491d7b #PCM
-          - 8e109e50e0a0b83a5098b056e13bf6db #DTS-HD HRA
-          - 185f1dd7264c4562b9022d963ac37424 #DD+
-          - f9f847ac70a0af62ea4a08280b859636 #DTS-ES
-          - 1c1a4c5e823891c75bc50380a6866f73 #DTS
-          - 240770601cc226190c367ef59aba7463 #AAC
-          - c2998bd0d90ed5621d8df281e839436e #DD
+          - 496f355514737f7d83bf7aa4d24f8169 # TrueHD ATMOS
+          - 2f22d89048b01681dde8afe203bf2e95 # DTS X
+          - 417804f7f2c4308c1f4c5d380d4c4475 # ATMOS (undefined)
+          - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
+          - 3cafb66171b47f226146a0770576870f # TrueHD
+          - dcf3ec6938fa32445f590a4da84256cd # DTS-HD MA
+          - a570d4a0e56a2874b64e5bfa55202a1b # FLAC
+          - e7c2fcae07cbada050a0af3357491d7b # PCM
+          - 8e109e50e0a0b83a5098b056e13bf6db # DTS-HD HRA
+          - 185f1dd7264c4562b9022d963ac37424 # DD+
+          - f9f847ac70a0af62ea4a08280b859636 # DTS-ES
+          - 1c1a4c5e823891c75bc50380a6866f73 # DTS
+          - 240770601cc226190c367ef59aba7463 # AAC
+          - c2998bd0d90ed5621d8df281e839436e # DD
 
         quality_profiles:
           - name: Anime Remux-4k (Movie Versions + HDR Metadata)
           - name: Remux-4k (Movie Versions + HDR Metadata)
 
       - trash_ids:
-          - 4a3b087eea2ce012fcc1ce319259a3be #Anime Dual Audio
+          - 4a3b087eea2ce012fcc1ce319259a3be # Anime Dual Audio
 
         quality_profiles:
           - name: Anime 4k (Movie Versions + HDR Metadata)
@@ -251,74 +251,73 @@ radarr:
             score: 100
 
       - trash_ids:
-          - 496f355514737f7d83bf7aa4d24f8169 #TrueHD ATMOS
-          - 2f22d89048b01681dde8afe203bf2e95 #DTS X
-          - 417804f7f2c4308c1f4c5d380d4c4475 #ATMOS (undefined)
-          - 1af239278386be2919e1bcee0bde047e #DD+ ATMOS
-          - 3cafb66171b47f226146a0770576870f #TrueHD
-          - dcf3ec6938fa32445f590a4da84256cd #DTS-HD MA
-          - a570d4a0e56a2874b64e5bfa55202a1b #FLAC
-          - e7c2fcae07cbada050a0af3357491d7b #PCM
-          - 8e109e50e0a0b83a5098b056e13bf6db #DTS-HD HRA
-          - 185f1dd7264c4562b9022d963ac37424 #DD+
-          - f9f847ac70a0af62ea4a08280b859636 #DTS-ES
-          - 1c1a4c5e823891c75bc50380a6866f73 #DTS
-          - 240770601cc226190c367ef59aba7463 #AAC
-          - c2998bd0d90ed5621d8df281e839436e #DD
-          - e23edd2482476e595fb990b12e7c609c #DV HDR10
-          - 58d6a88f13e2db7f5059c41047876f00 #DV
-          - 55d53828b9d81cbe20b02efd00aa0efd #DV HLG
-          - a3e19f8f627608af0211acd02bf89735 #DV SDR
-          - b974a6cd08c1066250f1f177d7aa1225 #HDR10+
-          - dfb86d5941bc9075d6af23b09c2aeecd #HDR10
-          - e61e28db95d22bedcadf030b8f156d96 #HDR
-          - 2a4d9069cc1fe3242ff9bdaebed239bb #HDR (undefined)
-          - 08d6d8834ad9ec87b1dc7ec8148e7a1f #PQ
-          - 9364dd386c9b4a1100dde8264690add7 #HLG
-          - 0f12c086e289cf966fa5948eac571f44 #Hybrid
-          - 570bc9ebecd92723d2d21500f4be314c #Remaster
-          - eca37840c13c6ef2dd0262b141a5482f #4K Remaster
-          - e0c07d59beb37348e975a930d5e50319 #Criterion Collection
-          - 957d0f44b592285f26449575e8b1167e #Special Edition
-          - eecf3a857724171f968a66cb5719e152 #IMAX
-          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de #IMAX Enhanced
-          - 26fa26253af4001701fedb56cec376dc #HQ-WEBDL
-          - 403f3f6266b90439cacc1e07cae4dc2d #HQ-Remux
+          - 496f355514737f7d83bf7aa4d24f8169 # TrueHD ATMOS
+          - 2f22d89048b01681dde8afe203bf2e95 # DTS X
+          - 417804f7f2c4308c1f4c5d380d4c4475 # ATMOS (undefined)
+          - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
+          - 3cafb66171b47f226146a0770576870f # TrueHD
+          - dcf3ec6938fa32445f590a4da84256cd # DTS-HD MA
+          - a570d4a0e56a2874b64e5bfa55202a1b # FLAC
+          - e7c2fcae07cbada050a0af3357491d7b # PCM
+          - 8e109e50e0a0b83a5098b056e13bf6db # DTS-HD HRA
+          - 185f1dd7264c4562b9022d963ac37424 # DD+
+          - f9f847ac70a0af62ea4a08280b859636 # DTS-ES
+          - 1c1a4c5e823891c75bc50380a6866f73 # DTS
+          - 240770601cc226190c367ef59aba7463 # AAC
+          - c2998bd0d90ed5621d8df281e839436e # DD
+          - e23edd2482476e595fb990b12e7c609c # DV HDR10
+          - 58d6a88f13e2db7f5059c41047876f00 # DV
+          - 55d53828b9d81cbe20b02efd00aa0efd # DV HLG
+          - a3e19f8f627608af0211acd02bf89735 # DV SDR
+          - b974a6cd08c1066250f1f177d7aa1225 # HDR10+
+          - dfb86d5941bc9075d6af23b09c2aeecd # HDR10
+          - e61e28db95d22bedcadf030b8f156d96 # HDR
+          - 2a4d9069cc1fe3242ff9bdaebed239bb # HDR (undefined)
+          - 08d6d8834ad9ec87b1dc7ec8148e7a1f # PQ
+          - 9364dd386c9b4a1100dde8264690add7 # HLG
+          - 0f12c086e289cf966fa5948eac571f44 # Hybrid
+          - 570bc9ebecd92723d2d21500f4be314c # Remaster
+          - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
+          - e0c07d59beb37348e975a930d5e50319 # Criterion Collection
+          - 957d0f44b592285f26449575e8b1167e # Special Edition
+          - eecf3a857724171f968a66cb5719e152 # IMAX
+          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
+          - 26fa26253af4001701fedb56cec376dc # HQ-WEBDL
+          - 403f3f6266b90439cacc1e07cae4dc2d # HQ-Remux
           # TODO(Radarr update to include release group): Remove HQ-WEBDL, HQ-Remux, HQ, flights
-          # - c20f169ef63c5f40c2def54abaf4438e #WEB Tier 01
-          # - 403816d65392c79236dcb6dd591aeda4 #WEB Tier 02
-          # - af94e0fe497124d1f9ce732069ec8c3b #WEB Tier 03
-          # - 3a3ff47579026e76d6504ebea39390de #Remux Tier 01
-          # - 9f98181fe5a3fbeb0cc29340da2a468a #Remux Tier 02
-          # - ed27ebfef2f323e964fb1f61391bcb35 #HD Bluray Tier 01
-          # - c20c8647f2746a1f4c4262b0fbbeeeae #HD Bluray Tier 02
-          - 1d433e1e075704f1a8a1ae3e1c371460 #Flights (no IMAX)
-          - 66aaa8c2c03c0191a95f0d655b75ab10 #UHD (CtrlHD)
-          - afeb99e5db09290546f742503ce1cdb6 #UHD (DON)
-          - ffebc267e9c98d3d383f37b238550079 #UHD (W4NK3R)
-          - 96848626e1570c122aba8642fe2714a2 #UHD (HQMUX)
-          - 4da96773192a51cf96178212642ca3bb #UHD (LEGI0N)
-          - ac49fdbf6a662d380556f40ff4856f29 #UHD (WEBDV)
-          - 65be7ce5ec4c31e684c7b8368b8bd6bb #UHD (SPHD)
-          - e7718d7a3ce595f289bfee26adc178f5 #Repack/Proper
-          - ae43b294509409a6a13919dedd4764c4 #Repack2
-          - ed38b889b31be83fda192888e2286d83 #BR-DISK
-          - 90cedc1fea7ea5d11298bebd3d1d3223 #EVO (no WEBDL)
-          - 90a6f9a284dff5103f6346090e6280c8 #LQ
-          - dc98083864ea246d05a42df0d05f81cc #x265 (720/1080p)
-          - b8cd450cbfa689c0259a01d9e29ba3d6 #3D
-          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 #No-RlsGroup
-          - 7357cf5161efbf8c4d5d0c30b4815ee2 #Obfuscated
-          - 5c44f52a8714fdd79bb4d98e2673be1f #Retags
-          - b6832f586342ef70d9c128d40c07b872 #Bad Dual Groups
-          - 923b6abef9b17f937fab56cfcf89e1f1 #DV (WEBDL)
+          # - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+          # - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+          # - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+          # - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
+          # - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
+          # - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
+          # - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
+          - 66aaa8c2c03c0191a95f0d655b75ab10 # UHD (CtrlHD)
+          - afeb99e5db09290546f742503ce1cdb6 # UHD (DON)
+          - ffebc267e9c98d3d383f37b238550079 # UHD (W4NK3R)
+          - 96848626e1570c122aba8642fe2714a2 # UHD (HQMUX)
+          - 4da96773192a51cf96178212642ca3bb # UHD (LEGI0N)
+          - ac49fdbf6a662d380556f40ff4856f29 # UHD (WEBDV)
+          - 65be7ce5ec4c31e684c7b8368b8bd6bb # UHD (SPHD)
+          - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
+          - ae43b294509409a6a13919dedd4764c4 # Repack2
+          - ed38b889b31be83fda192888e2286d83 # BR-DISK
+          - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL)
+          - 90a6f9a284dff5103f6346090e6280c8 # LQ
+          - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
+          - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D
+          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
+          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
+          - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
+          - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
+          - 923b6abef9b17f937fab56cfcf89e1f1 # DV (WEBDL)
 
         quality_profiles:
           - name: WEBDL|Remux|Bluray|2160p
             reset_unmatched_scores: true
 
       - trash_ids:
-          - 1c7d7b04b15cc53ea61204bebbcc1ee2 #HQ
+          - 1c7d7b04b15cc53ea61204bebbcc1ee2 # HQ
 
         quality_profiles:
           - name: WEBDL|Remux|Bluray|2160p

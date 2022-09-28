@@ -37,8 +37,8 @@ spec:
           VPN_TYPE: wireguard
           VPN_INTERFACE: wg0
           UPDATER_PERIOD: 24h
-          FIREWALL: off
-          DOT: off
+          FIREWALL: false
+          DOT: false
 
         envFrom:
           - secretRef:

@@ -46,4 +46,3 @@ spec:
       - --dns01-recursive-nameservers-only
       - --default-issuer-name=letsencrypt-production
       - --default-issuer-kind=ClusterIssuer
-
