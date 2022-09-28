@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app theme-park
-  namespace: web-tools
+  name: &app overseerr
+  namespace: media
 spec:
   interval: 15m
   chart:
@@ -29,24 +29,30 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    controller:
-      replicas: 3
-      strategy: RollingUpdate
     image:
-      repository: ghcr.io/onedr0p/theme-park
-      tag: 1.10.1@sha256:4881cddf347ffb4e288254afd086522feb49853ba55f2f4820c4858fcb65492f
+      repository: ghcr.io/sct/overseerr
+      tag: 1.30.0@sha256:f38b4762a4c75496d31904b9c5d3e0d98cf499ce6ffa5dbf49544af7ff999e72
+    env:
+      TZ: ${TIMEZONE}
+      LOG_LEVEL: "info"
+      PORT: &port 5055
     service:
       main:
         ports:
           http:
-            port: 8080
+            port: *port
     ingress:
       main:
         enabled: true
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_DOMAIN}/css/base/overseerr/nord.css"></head>';
+            sub_filter_once on;
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -56,16 +62,14 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
+    persistence:
+      config:
+        enabled: true
+        existingClaim: overseerr-config-v1
+        mountPath: /app/config
     resources:
       requests:
-        cpu: 5m
-        memory: 10Mi
+        cpu: 10m
+        memory: 250Mi
       limits:
-        memory: 50Mi
+        memory: 500Mi

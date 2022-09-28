@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app recyclarr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 0.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    image:
+      repository: ghcr.io/recyclarr/recyclarr
+      tag: 2.5.0@sha256:6155263648f96fda5a8e7094b8b7e723ed4390b8d04abb8eb4d2caa0f152fb53
+    env:
+      TZ: ${TIMEZONE}
+    service:
+      main:
+        ports:
+          http:
+            port: 1080
+    initContainers:
+      init-configs:
+        image: ghcr.io/recyclarr/recyclarr:2.5.0@sha256:6155263648f96fda5a8e7094b8b7e723ed4390b8d04abb8eb4d2caa0f152fb53
+        envFrom:
+          - secretRef:
+              name: *app
+        command:
+          - "/bin/bash"
+          - -c
+        args:
+          - "envsubst < /config/recyclarr.yaml > /shared/recyclarr.yaml"
+        volumeMounts:
+          - name: config
+            mountPath: /config
+          - name: shared
+            mountPath: /shared
+    persistence:
+      config:
+        enable: true
+        type: configMap
+        name: *app
+        subpath: recyclarr.yaml
+        mountPath: /config/recyclarr.yaml
+        readonly: true
+      shared:
+        enabled: true
+        type: emptyDir
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        memory: 2000Mi

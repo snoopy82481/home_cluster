@@ -65,3 +65,9 @@ tasks:
     desc: Configure repository from env settings
     cmds:
       - ./configure
+
+  flux:
+    desc: "Install Fluxv2 into a cluster"
+    cmds:
+      - task: cluster:secrets
+      - task: cluster:bootstrap
