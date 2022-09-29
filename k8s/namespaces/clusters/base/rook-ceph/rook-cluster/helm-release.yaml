@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph-cluster
-      version: v1.10.1
+      version: v1.10.2
       sourceRef:
         kind: HelmRepository
         name: rook-ceph
@@ -60,13 +60,13 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "k8s-3"
+          - name: "kworker1"
             devices:
               - name: "sdb"
-          - name: "k8s-4"
+          - name: "kworker2"
             devices:
               - name: "sdb"
-          - name: "k8s-5"
+          - name: "kworker3"
             devices:
               - name: "sdb"
     cephBlockPools:
