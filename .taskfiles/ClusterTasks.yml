@@ -105,9 +105,9 @@ tasks:
   talos-apply:
     desc: Apply Talos configs
     cmds:
-      - talosctl -n 192.168.20.5 apply-config clusterconfig/betty-kmaster1.yaml --insecure
-      - talosctl -n 192.168.20.6 apply-config clusterconfig/betty-kmaster2.yaml --insecure
-      - talosctl -n 192.168.20.7 apply-config clusterconfig/betty-kmaster3.yaml --insecure
-      - talosctl -n 192.168.20.8 apply-config clusterconfig/betty-kworker1.yaml --insecure
-      - talosctl -n 192.168.20.9 apply-config clusterconfig/betty-kworker2.yaml --insecure
-      - talosctl -n 192.168.20.10 apply-config clusterconfig/betty-kworker3.yaml --insecure
+      - talosctl -n 192.168.20.5 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kmaster1.yaml --insecure
+      - talosctl -n 192.168.20.6 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kmaster2.yaml --insecure
+      - talosctl -n 192.168.20.7 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kmaster3.yaml --insecure
+      - talosctl -n 192.168.20.8 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kworker1.yaml --insecure
+      - talosctl -n 192.168.20.9 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kworker2.yaml --insecure
+      - talosctl -n 192.168.20.10 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kworker3.yaml --insecure
