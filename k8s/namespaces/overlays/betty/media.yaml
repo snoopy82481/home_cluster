@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media"
+  path: "./k8s/namespaces/clusters/betty/media"
   prune: true
   wait: true
   sourceRef:
@@ -20,37 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/bazarr"
-  prune: true
-  wait: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
-  postBuild:
-    substitute: {}
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-config
-      - kind: ConfigMap
-        name: global-config
-      - kind: Secret
-        name: cluster-secrets
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: networking-cert-manager
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/overseerr"
+  path: "./k8s/namespaces/clusters/betty/media/bazarr"
   prune: true
   wait: true
   sourceRef:
@@ -80,7 +50,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/prowlarr"
+  path: "./k8s/namespaces/clusters/betty/media/overseerr"
   prune: true
   wait: true
   sourceRef:
@@ -110,7 +80,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/radarr"
+  path: "./k8s/namespaces/clusters/betty/media/prowlarr"
   prune: true
   wait: true
   sourceRef:
@@ -140,7 +110,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/radarr4k"
+  path: "./k8s/namespaces/clusters/betty/media/radarr"
   prune: true
   wait: true
   sourceRef:
@@ -170,7 +140,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/recyclarr"
+  path: "./k8s/namespaces/clusters/betty/media/radarr4k"
   prune: true
   wait: true
   sourceRef:
@@ -200,7 +170,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/sabnzbd"
+  path: "./k8s/namespaces/clusters/betty/media/recyclarr"
   prune: true
   wait: true
   sourceRef:
@@ -230,7 +200,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/sonarr"
+  path: "./k8s/namespaces/clusters/betty/media/sabnzbd"
   prune: true
   wait: true
   sourceRef:
@@ -260,7 +230,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/sonarr-widowmaker"
+  path: "./k8s/namespaces/clusters/betty/media/sonarr"
   prune: true
   wait: true
   sourceRef:
@@ -290,7 +260,37 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/media/tautulli"
+  path: "./k8s/namespaces/clusters/betty/media/sonarr-widowmaker"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  dependsOn:
+    - name: networking-cert-manager
+      namespace: flux-system
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: ConfigMap
+        name: global-config
+      - kind: Secret
+        name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: networking-cert-manager
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/betty/media/tautulli"
   prune: true
   wait: true
   sourceRef:

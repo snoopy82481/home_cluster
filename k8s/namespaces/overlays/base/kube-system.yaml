@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/base/kube-system"
+  path: "./k8s/namespaces/clusters/base/kube-system"
   prune: true
   wait: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/base/kube-system/reloader"
+  path: "./k8s/namespaces/clusters/base/kube-system/reloader"
   prune: true
   wait: true
   sourceRef:
@@ -34,7 +34,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/base/kube-system/sealed-secrets"
+  path: "./k8s/namespaces/clusters/base/kube-system/sealed-secrets"
   prune: true
   wait: true
   sourceRef:
@@ -61,7 +61,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/base/kube-system/metrics-server"
+  path: "./k8s/namespaces/clusters/base/kube-system/metrics-server"
   prune: true
   wait: true
   sourceRef:

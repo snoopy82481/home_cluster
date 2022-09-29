@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/web-tools"
+  path: "./k8s/namespaces/clusters/betty/web-tools"
   prune: true
   wait: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/web-tools/heimdall"
+  path: "./k8s/namespaces/clusters/betty/web-tools/heimdall"
   prune: true
   wait: true
   sourceRef:
@@ -50,7 +50,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/cluster/betty/web-tools/theme-park"
+  path: "./k8s/namespaces/clusters/betty/web-tools/theme-park"
   prune: true
   wait: true
   sourceRef:
