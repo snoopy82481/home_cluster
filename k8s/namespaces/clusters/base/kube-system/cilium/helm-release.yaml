@@ -129,8 +129,8 @@ spec:
     disableEnvoyVersionCheck: false
 
     Cluster:
-      name: ${{CLUSTER_NAME}}
-      id: ${{CLUSTER_ID}}
+      name: ${CLUSTER_NAME}
+      id: ${CLUSTER_ID}
 
     clustermesh:
       useAPIServer: false
