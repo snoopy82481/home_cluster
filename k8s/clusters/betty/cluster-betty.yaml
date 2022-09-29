@@ -21,8 +21,6 @@ spec:
   postBuild:
     substitute: {}
     substituteFrom:
-      - kind: Secret
-        name: global-secrets
       - kind: ConfigMap
         name: cluster-config
       - kind: Secret
@@ -42,8 +40,6 @@ spec:
           postBuild:
             substitute: {}
             substituteFrom:
-              - kind: Secret
-                name: global-secrets
               - kind: ConfigMap
                 name:  cluster-config
               - kind: Secret

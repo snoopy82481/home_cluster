@@ -38,6 +38,8 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-config
+      - kind: ConfigMap
+        name: global-config
       - kind: Secret
         name: cluster-secrets
 ---
@@ -66,5 +68,7 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-config
+      - kind: ConfigMap
+        name: global-config
       - kind: Secret
         name: cluster-secrets
