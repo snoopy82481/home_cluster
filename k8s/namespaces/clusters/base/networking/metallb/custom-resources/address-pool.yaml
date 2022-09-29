@@ -7,12 +7,3 @@ metadata:
 spec:
   addresses:
     - "${METALLB_LB_RANGE}"
----
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
-metadata:
-  name: default
-  namespace: networking
-spec:
-  ipAddressPools:
-    - default
