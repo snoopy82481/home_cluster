@@ -9,13 +9,12 @@ spec:
   chart:
     spec:
       chart: metallb
-      version: 0.13.4
+      version: 0.13.5
       sourceRef:
         kind: HelmRepository
         name: metallb
         namespace: flux-system
   install:
-    createNamespace: true
     remediation:
       retries: 5
   upgrade:
@@ -28,4 +27,8 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    fullnameOverride: metallb
+    contoller:
+      loglevel: info
+    speaker:
+      tolerateMaster: true
+      loglevel: info
