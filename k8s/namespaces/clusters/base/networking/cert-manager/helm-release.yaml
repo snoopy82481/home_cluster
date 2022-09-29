@@ -30,7 +30,7 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    installCRDs: true
+    installCRDs: false
     webhook:
       enabled: true
     global:
