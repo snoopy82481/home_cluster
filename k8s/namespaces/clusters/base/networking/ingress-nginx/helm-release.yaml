@@ -40,7 +40,7 @@ spec:
       service:
         annotations:
           metallb.universe.tf/loadBalancerIPs: |-
-            ${METALLB_INGRESS_ADDR}
+            ${LB_INGRESS}
         externalTrafficPolicy: Local
       publishService:
         enabled: true
