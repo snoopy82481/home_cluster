@@ -34,59 +34,52 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    cluster:
-      name: "${CLUSTER_NAME}"
-      id: "${CLUSTER_ID}"
-
-    rollOutCiliumPods: true
-
-    localRedirectPolicy: true
+    image:
+      repository: quay.io/cilium/cilium
+      tag: v1.12.2@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36
+      pullPolicy: IfNotPresent
 
     kubeProxyReplacement: "strict"
-    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 
-    ipv4NativeRoutingCIDR: ${CLUSTER_CIDR}
-
-    k8sServiceHost: 192.168.20.5
+    k8sServiceHost: 192.168.20.254
     k8sServicePort: 6443
 
-    loadBalancer:
-      algorithm: "maglev"
-      mode: "dsr"
-
-    tunnel: "disabled"
+    extraConfig:
+      enable-envoy-config: "true"
 
     autoDirectNodeRoutes: true
 
-    endpointRoutes:
+    nodePort:
       enabled: true
-
-    ipam:
-      mode: "kubernetes"
-
-    operator:
-      rollOutPods: true
-      replicas: 1
-    #   prometheus:
-    #     enabled: true
-    #     serviceMonitor:
-    #       enabled: true
-
-    # prometheus:
-    #   enabled: true
-    #   serviceMonitor:
-    #     enabled: true
-    proxy:
-      prometheus:
-        enabled: true
+      range: "30000,32767"
 
     containerRuntime:
       integration: containerd
 
+    endpointRoutes:
+      enabled: false
+
+    enableIPv4Masquerade: true
+
+    enableIPv6Masquerade: true
+
+    masquerade: true
+
+    ipam:
+      mode: "kubernetes"
+      operator:
+        clusterPoolIPv4PodCIDRList: ["10.42.0.0/16"]
+        clusterPoolIPv4MaskSize: 24
+        clusterPoolIPv6PodCIDRList: ["fd00::/104"]
+        clusterPoolIPv6MaskSize: 120
+
+    bgp:
+      enabled: false
+      announce:
+        LoadBalancerIP: true
+
     hubble:
       enabled: true
-      serviceMonitor:
-        enabled: true
       metrics:
         enabled:
           - dns:query;ignoreAAAA
@@ -96,28 +89,74 @@ spec:
           - port-distribution
           - icmp
           - http
+      listenAddress: ':4244'
       relay:
         enabled: true
+        image:
+          repository: quay.io/cilium/hubble-relay
+          tag: v1.12.2@sha256:6f3496c28f23542f2645d614c0a9e79e3b0ae2732080da794db41c33e4379e5c
         rollOutPods: true
       ui:
         enabled: true
         rollOutPods: true
-        ingress:
-          enabled: true
-          ingressClassName: "nginx"
-          annotations:
-            cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          hosts:
-            - &host "hubble.${SECRET_DOMAIN}"
-          tls:
-            - secretName: "{{ .Release.Name }}-tls"
-              hosts:
-                - *host
 
-    bgp:
+    ipv6:
       enabled: false
 
+    kubeProxyReplacementHealthzBindAddr: '0.0.0.0:10256'
+
+    prometheus:
+      enabled: true
+      port: 9090
+      serviceMonitor:
+        enabled: false
+
+    operator:
+      rollOutPods: true
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: false
+
+    ipv4NativeRoutingCIDR: 10.42.0.0/16
+
+    tunnel: disabled
+
+    LoadBalancer:
+      algorithm: meglev
+      mode: hybrid
+
+    disableEnvoyVersionCheck: false
+
+    Cluster:
+      name: ${{CLUSTER_NAME}}
+      id: ${{CLUSTER_ID}}
+
+    clustermesh:
+      useAPIServer: false
+      apiserver:
+        image:
+          repository: quay.io/cilium/clustermesh-apiserver
+          tag: v1.12.2@sha256:9068b861e468a8d53421673aa9a6b576f91a5574a030b2af236c973d63c81747
+        etcd:
+          image:
+            repository: quay.io/coreos/etcd
+            tag: v3.5.5@sha256:89b6debd43502d1088f3e02f39442fd3e951aa52bee846ed601cf4477114b89e
+            pullPolicy: IfNotPresent
+
+    rollOutCiliumPods: true
+
     externalIPs:
+      enabled: true
+
+    hostPort:
+      enabled: false
+
+    hostServices:
+      enabled: true
+      protocols: tcp,udp
+
+    debug:
       enabled: false
 
     securityContext:
