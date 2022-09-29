@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: k8s-gateway-charts
+  name: k8s-gateway
   namespace: flux-system
 spec:
   interval: 1h
