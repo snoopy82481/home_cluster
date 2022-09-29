@@ -18,11 +18,9 @@ spec:
   test:
     enable: false
   install:
-    crds: CreateReplace
     remediation:
       retries: 5
   upgrade:
-    crds: CreateReplace
     remediation:
       retries: 5
       remediateLastFailure: true
