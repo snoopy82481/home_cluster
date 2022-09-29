@@ -137,6 +137,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: networking-metallb
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
