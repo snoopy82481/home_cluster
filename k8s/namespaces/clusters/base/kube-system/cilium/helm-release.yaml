@@ -36,7 +36,7 @@ spec:
   values:
     image:
       repository: quay.io/cilium/cilium
-      tag: v1.12.2@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36
+      tag: v1.12.2
       pullPolicy: IfNotPresent
 
     kubeProxyReplacement: "strict"
@@ -94,7 +94,7 @@ spec:
         enabled: true
         image:
           repository: quay.io/cilium/hubble-relay
-          tag: v1.12.2@sha256:6f3496c28f23542f2645d614c0a9e79e3b0ae2732080da794db41c33e4379e5c
+          tag: v1.12.2
         rollOutPods: true
       ui:
         enabled: true
@@ -152,11 +152,11 @@ spec:
       apiserver:
         image:
           repository: quay.io/cilium/clustermesh-apiserver
-          tag: v1.12.2@sha256:9068b861e468a8d53421673aa9a6b576f91a5574a030b2af236c973d63c81747
+          tag: v1.12.2
         etcd:
           image:
             repository: quay.io/coreos/etcd
-            tag: v3.5.5@sha256:89b6debd43502d1088f3e02f39442fd3e951aa52bee846ed601cf4477114b89e
+            tag: v3.5.5
             pullPolicy: IfNotPresent
 
     rollOutCiliumPods: true

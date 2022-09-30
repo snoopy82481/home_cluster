@@ -127,3 +127,8 @@ tasks:
     desc: Reboots all Talos nodes
     cmds:
       - talosctl reboot -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
+
+  talos-reset:
+    desc: Resets Talos to a fresh state
+    cmds:
+      - talosctl reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
