@@ -99,6 +99,21 @@ spec:
       ui:
         enabled: true
         rollOutPods: true
+        ingress:
+          main:
+            enabled: true
+            ingressClassName: "nginx"
+            annotations:
+              cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+            hosts:
+              - host: &host "hubble.${SECRET_DOMAIN}"
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              - secretName: "hubble-tls"
+                hosts:
+                  - *host
 
     ipv6:
       enabled: false
