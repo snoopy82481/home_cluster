@@ -30,9 +30,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -60,9 +57,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -90,9 +84,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -120,9 +111,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -150,9 +138,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -180,9 +165,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -210,9 +192,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -240,9 +219,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -270,9 +246,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -300,9 +273,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
