@@ -21,9 +21,12 @@ spec:
   upgrade:
     remediation:
       retries: 5
-  dependsOn:
-    - name: rook-ceph-operator
-      namespace: rook-ceph
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
   values:
     monitoring:
       enabled: false

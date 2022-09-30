@@ -60,6 +60,8 @@ spec:
   dependsOn:
     - name: rook-ceph-operator
       namespace: flux-system
+    - name: networking-ingress-nginx
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -89,6 +91,8 @@ spec:
       name: sops-age
   dependsOn:
     - name: rook-ceph-operator
+      namespace: flux-system
+    - name: rook-ceph-cluster
       namespace: flux-system
   postBuild:
     substitute: {}

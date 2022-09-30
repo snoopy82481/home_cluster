@@ -21,6 +21,12 @@ spec:
   upgrade:
     remediation:
       retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
   values:
     crds:
       enabled: false
