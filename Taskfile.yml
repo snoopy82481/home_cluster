@@ -7,7 +7,7 @@ vars:
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
-  TALOS_DIR: "{{.PROJECT_DIR}}/k8s/clusters/talos"
+  TALOS_DIR: "{{.PROJECT_DIR}}/k8s/clusters/talos/betty"
   CLUSTER: betty
   GITHUB_USER: snoopy82481
   GITHUB_REPO: home_cluster

@@ -105,9 +105,24 @@ tasks:
   talos-apply:
     desc: Apply Talos configs
     cmds:
-      - talosctl -n 192.168.20.5 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kmaster1.yaml --insecure
-      - talosctl -n 192.168.20.6 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kmaster2.yaml --insecure
-      - talosctl -n 192.168.20.7 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kmaster3.yaml --insecure
-      - talosctl -n 192.168.20.8 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kworker1.yaml --insecure
-      - talosctl -n 192.168.20.9 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kworker2.yaml --insecure
-      - talosctl -n 192.168.20.10 apply-config {{.TALOS_DIR}}/clusterconfig/betty-kworker3.yaml --insecure
+      - talosctl -n 192.168.20.5 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster1.yaml --insecure
+      - talosctl -n 192.168.20.6 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster2.yaml --insecure
+      - talosctl -n 192.168.20.7 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster3.yaml --insecure
+      - talosctl -n 192.168.20.8 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker1.yaml --insecure
+      - talosctl -n 192.168.20.9 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker2.yaml --insecure
+      - talosctl -n 192.168.20.10 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker3.yaml --insecure
+
+  talos-apply-patch:
+    desc: Apply Talos configs
+    cmds:
+      - talosctl -n 192.168.20.5 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster1.yaml
+      - talosctl -n 192.168.20.6 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster2.yaml
+      - talosctl -n 192.168.20.7 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster3.yaml
+      - talosctl -n 192.168.20.8 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker1.yaml
+      - talosctl -n 192.168.20.9 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker2.yaml
+      - talosctl -n 192.168.20.10 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker3.yaml
+
+  talos-reboot:
+    desc: Reboots all Talos nodes
+    cmds:
+      - talosctl reboot -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
