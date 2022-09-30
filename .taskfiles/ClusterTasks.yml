@@ -84,6 +84,7 @@ tasks:
   bootstrap:
     desc: Bootstrap Flux cluster
     cmds:
+      - task: secrets
       - cmd: |
           flux bootstrap github \
             --owner="{{.GITHUB_USER}}" \
