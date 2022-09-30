@@ -88,7 +88,7 @@ tasks:
           flux bootstrap github \
             --owner="{{.GITHUB_USER}}" \
             --repository="{{.GITHUB_REPO}}" \
-            --path=k8s/clusters/"{{.CLUSTER}}" \
+            --path=k8s/clusters/"{{.CLUSTER}}/deploy" \
             --branch="{{.GITHUB_BRANCH}}" \
             --personal=true \
             --private=false \
