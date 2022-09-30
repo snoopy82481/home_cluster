@@ -23,8 +23,8 @@ spec:
       retries: 5
   values:
     image:
-      repository: ghcr.io/onedr0p/sonarr
-      tag: 3.0.9.1549@sha256:790ba3b69b9e959ddf014507b20983794a9b2fad23b4f61c7dccc9890974aaba
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 4.0.0.124@sha256:1b29bee7415176e09ba74c946f12ac0e3f7a5209d01813533dafb60b4d1dbcef
     env:
       TZ: ${TIMEZONE}
       SONARR__INSTANCE_NAME: Sonarr_Anime

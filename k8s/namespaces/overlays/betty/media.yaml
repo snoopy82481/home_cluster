@@ -260,7 +260,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/clusters/betty/media/sonarr-widowmaker"
+  path: "./k8s/namespaces/clusters/betty/media/sonarranime"
   prune: true
   wait: true
   sourceRef:
