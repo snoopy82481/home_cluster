@@ -11,7 +11,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -25,7 +25,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
@@ -52,7 +52,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   dependsOn:
     - name: networking-cert-manager
       namespace: flux-system
@@ -78,7 +78,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
@@ -105,7 +105,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
@@ -132,7 +132,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
@@ -159,7 +159,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
@@ -186,7 +186,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
@@ -216,7 +216,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:

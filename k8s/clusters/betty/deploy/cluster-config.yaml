@@ -13,7 +13,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
@@ -33,7 +33,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-cluster
   decryption:
     provider: sops
     secretRef:
