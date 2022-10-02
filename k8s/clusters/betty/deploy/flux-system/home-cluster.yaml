@@ -17,7 +17,7 @@ spec:
     #include gitops dirs
     !/k8s/global
     !/k8s/clusters/betty
-    !/k8s/clusters/namespaces
+    !/k8s/namespaces
     #exclude files from gitops dirs
     /k8s/**/*.md
 ---
