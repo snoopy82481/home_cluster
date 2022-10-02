@@ -22,43 +22,37 @@ nodes:
     controlPlane: true
     installDisk: /dev/sda
     nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+      - 192.168.20.1
   - hostname: kmaster2
     ipAddress: 192.168.20.6
     controlPlane: true
     installDisk: /dev/sda
     nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+      - 192.168.20.1
   - hostname: kmaster3
     ipAddress: 192.168.20.7
     controlPlane: true
     installDisk: /dev/sda
     nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+      - 192.168.20.1
   - hostname: kworker1
     ipAddress: 192.168.20.8
     controlPlane: false
     installDisk: /dev/sda
     nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+      - 192.168.20.1
   - hostname: kworker2
     ipAddress: 192.168.20.9
     controlPlane: false
     installDisk: /dev/sda
     nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+      - 192.168.20.1
   - hostname: kworker3
     ipAddress: 192.168.20.10
     controlPlane: false
     installDisk: /dev/sda
     nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+      - 192.168.20.1
 
 controlPlane:
   inlinePatch:
