@@ -70,13 +70,13 @@ spec:
       media:
         enabled: true
         type: nfs
-        server: "truenas.${SECRET_DOMAIN}"
+        server: ${NAS_NAME}
         path: /mnt/storage0/Data
         mountPath: /media
       backup:
         enabled: true
         type: nfs
-        server: "truenas.${SECRET_DOMAIN}"
+        server: ${NAS_NAME}
         path: /mnt/storage0/backup
         mountPath: /backup
     resources:
