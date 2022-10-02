@@ -16,7 +16,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: web-tools-heimdall
   namespace: flux-system
 spec:
   interval: 5m
@@ -30,9 +30,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -46,7 +43,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: web-tools-theme-park
   namespace: flux-system
 spec:
   interval: 5m
@@ -60,9 +57,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: networking-cert-manager
-      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:

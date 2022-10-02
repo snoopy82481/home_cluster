@@ -16,7 +16,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-bazarr
   namespace: flux-system
 spec:
   interval: 5m
@@ -43,7 +43,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-overseerr
   namespace: flux-system
 spec:
   interval: 5m
@@ -70,7 +70,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-prowlarr
   namespace: flux-system
 spec:
   interval: 5m
@@ -97,7 +97,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-radarr
   namespace: flux-system
 spec:
   interval: 5m
@@ -124,7 +124,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-radarr4k
   namespace: flux-system
 spec:
   interval: 5m
@@ -151,7 +151,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-recyclarr
   namespace: flux-system
 spec:
   interval: 5m
@@ -178,7 +178,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-sabnzbd
   namespace: flux-system
 spec:
   interval: 5m
@@ -205,7 +205,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-sonarr
   namespace: flux-system
 spec:
   interval: 5m
@@ -232,7 +232,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-sonarranime
   namespace: flux-system
 spec:
   interval: 5m
@@ -259,7 +259,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-cert-manager
+  name: media-tautulli
   namespace: flux-system
 spec:
   interval: 5m
