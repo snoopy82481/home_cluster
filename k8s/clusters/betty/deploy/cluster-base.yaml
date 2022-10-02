@@ -10,7 +10,7 @@ spec:
     - name: cluster-config
     - name: global-repositories
     - name: cluster-repositories
-    - name: manage-flux
+    - name: flux-installation
   path: ./k8s/namespaces/overlays/base
   prune: true
   wait: true

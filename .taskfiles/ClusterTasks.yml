@@ -11,9 +11,10 @@ tasks:
   install:
     desc: Install Flux into your cluster
     cmds:
-      - kubectl apply --kustomize {{.CLUSTER_DIR}}/bootstrap/
+      - kubectl apply --kustomize k8s/global/bootstrap/
       - cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
-      - kubectl apply --kustomize {{.CLUSTER_DIR}}/flux/flux-system/
+      - sops --decrypt k8s/clusters/betty/deploy/flux-system/github-deploy-key.sops.yaml | kubectl apply -f -
+      - kubectl apply --kustomize ./k8s/clusters/betty/deploy/flux-system/
       - task: reconcile
     preconditions:
       - sh: test -f {{.SOPS_AGE_KEY_FILE}}
@@ -25,8 +26,8 @@ tasks:
   reconcile:
     desc: Force update Flux to pull in changes from your Git repository
     cmds:
-      - flux reconcile -n flux-system source git flux-system
-      - flux reconcile -n flux-system kustomization flux-system
+      - flux reconcile -n flux-system source git home-cluster
+      - flux reconcile -n flux-system kustomization home-cluster
 
   nodes:
     desc: List all the nodes in your cluster
@@ -131,4 +132,4 @@ tasks:
   talos-reset:
     desc: Resets Talos to a fresh state
     cmds:
-      - talosctl reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
+      - talosctl reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
