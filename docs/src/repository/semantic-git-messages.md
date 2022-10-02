@@ -16,6 +16,7 @@ Examples:
     The best source for this is [https://www.conventionalcommits.org/](https://www.conventionalcommits.org/)
 
 ## Semantic commit rundown
+
 See how a minor change to your commit message style can make you a better programmer.
 
 Format: `<type>(<scope>): <subject>`
@@ -24,7 +25,7 @@ Format: `<type>(<scope>): <subject>`
 
 ## Examplefolder-structure.md
 
-```
+```blank
 feat: add hat wobble
 ^--^  ^------------^
 |     |
@@ -48,6 +49,6 @@ More Examples:
 
 References:
 
-- https://www.conventionalcommits.org/
-- https://seesparkbox.com/foundry/semantic_commit_messages
-- http://karma-runner.github.io/1.0/dev/git-commit-msg.html
+- [https://www.conventionalcommits.org/](https://www.conventionalcommits.org/)
+- [https://seesparkbox.com/foundry/semantic_commit_messages](https://seesparkbox.com/foundry/semantic_commit_messages)
+- [http://karma-runner.github.io/1.0/dev/git-commit-msg.html](http://karma-runner.github.io/1.0/dev/git-commit-msg.html)

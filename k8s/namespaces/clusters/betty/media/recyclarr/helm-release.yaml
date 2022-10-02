@@ -44,7 +44,7 @@ spec:
         image: ghcr.io/recyclarr/recyclarr:2.5.0@sha256:6155263648f96fda5a8e7094b8b7e723ed4390b8d04abb8eb4d2caa0f152fb53
         envFrom:
           - secretRef:
-              name: *app
+              name: cluster-secrets
         command:
           - "/bin/bash"
           - -c
@@ -55,6 +55,12 @@ spec:
             mountPath: /config
           - name: shared
             mountPath: /shared
+        volumes:
+          - name: config
+            configMap:
+              name: *app
+          - name: shared
+            emptyDir: {}
     persistence:
       config:
         enable: true
