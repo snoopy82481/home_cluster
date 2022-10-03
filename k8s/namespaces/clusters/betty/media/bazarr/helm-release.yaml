@@ -63,6 +63,8 @@ spec:
       runAsGroup: 568
       fsGroup: 568
       fsGroupChangePolicy: OnRootMismatch
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: cluster-config
     persistence:
       config:
         enabled: true

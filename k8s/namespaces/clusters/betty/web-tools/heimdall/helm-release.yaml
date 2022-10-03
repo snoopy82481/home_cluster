@@ -50,4 +50,4 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: heimdall-config
+        existingClaim: heimdall-config-v1

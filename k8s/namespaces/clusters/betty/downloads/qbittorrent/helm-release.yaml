@@ -28,6 +28,7 @@ spec:
     hostname: qbittorrent
     podAnnotations:
       setGateway: "true"
+      configmap.reloader.stakater.com/reload: cluster-config
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

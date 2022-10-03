@@ -69,6 +69,8 @@ spec:
       fsGroupChangePolicy: OnRootMismatch
       supplementalGroups:
         - 100
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: cluster-config
     persistence:
       config:
         enabled: true

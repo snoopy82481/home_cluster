@@ -66,6 +66,8 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: cluster-config
     persistence:
       config:
         enabled: true

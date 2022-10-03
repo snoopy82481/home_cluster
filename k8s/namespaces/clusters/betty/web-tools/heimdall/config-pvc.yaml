@@ -2,12 +2,15 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: heimdall-config
+  name: heimdall-config-v1
   namespace: web-tools
+  labels:
+    app.kubernetes.io/name: &name heimdall
+    app.kubernetes.io/instance: *name
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-path
   resources:
     requests:
       storage: 128Mi
+  storageClassName: ceph-block

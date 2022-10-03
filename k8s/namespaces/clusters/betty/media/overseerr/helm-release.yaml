@@ -41,6 +41,8 @@ spec:
         ports:
           http:
             port: *port
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: cluster-config
     ingress:
       main:
         enabled: true
