@@ -55,7 +55,7 @@ spec:
             sub_filter
             '</head>'
             '<link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_DOMAIN}/css/base/radarr/nord.css">
-            <link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_PUBLIC_DOMAIN}/css/addons/radarr/radarr-4k-logo/radarr-4k-logo.css">
+            <link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_DOMAIN}/css/addons/radarr/radarr-4k-logo/radarr-4k-logo.css">
             </head>';
             sub_filter_once on;
         hosts:
