@@ -5,6 +5,8 @@ metadata:
   name: cluster-config
   namespace: flux-system
 data:
+  TIMEZONE: "America/Boise"
+
   CLUSTER_NAME: betty
   CLUSTER_ID: "0"
   CLUSTER_CERT: letsencrypt-production
