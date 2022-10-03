@@ -54,7 +54,8 @@
       "description": "Process various dependencies",
       "fileMatch": [
         "k8s/clusters/talos/betty/.+\\.ya?ml$",
-        "k8s/clusters/betty/.+\\.ya?ml$"
+        "k8s/clusters/betty/.+\\.ya?ml$",
+        "k8s/namespaces/clusters/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
@@ -64,7 +65,11 @@
     },
     {
       "description": "Process raw GitHub URLs",
-      "fileMatch": ["k8s/clusters/.+\\.ya?ml$"],
+      "fileMatch": [
+        "k8s/clusters/talos/betty/.+\\.ya?ml$",
+        "k8s/clusters/betty/.+\\.ya?ml$",
+        "k8s/namespaces/clusters/.+\\.ya?ml$"
+      ],
       "matchStrings": [
         "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*"
       ],
