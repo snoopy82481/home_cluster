@@ -30,13 +30,25 @@
     "github>snoopy82481/home_cluster//.github/renovate/groups.json5"
   ],
   "flux": {
-    "fileMatch": ["k8s/clusters/betty/.+\\.ya?ml$"]
+    "fileMatch": [
+      "k8s/clusters/talos/betty/.+\\.ya?ml$",
+      "k8s/clusters/betty/.+\\.ya?ml$",
+      "k8s/namespaces/clusters/.+\\.ya?ml$"
+    ]
   },
   "helm-values": {
-    "fileMatch": ["k8s/clusters/betty/.+\\.ya?ml$"]
+    "fileMatch": [
+      "k8s/clusters/talos/betty/.+\\.ya?ml$",
+      "k8s/clusters/betty/.+\\.ya?ml$",
+      "k8s/namespaces/clusters/.+\\.ya?ml$"
+    ]
   },
   "kubernetes": {
-    "fileMatch": ["k8s/clusters/betty/.+\\.ya?ml$"]
+    "fileMatch": [
+      "k8s/clusters/talos/betty/.+\\.ya?ml$",
+      "k8s/clusters/betty/.+\\.ya?ml$",
+      "k8s/namespaces/clusters/.+\\.ya?ml$"
+    ]
   },
   "regexManagers": [
     {
