@@ -40,8 +40,8 @@ spec:
       automaticPortSetup: false
     env:
       TZ: ${TIMEZONE}
-      QBITTORRENT_PORT: &port 8080
-      QBITTORRENT_BT_PORT: &port-bt 50413
+      QBITTORRENT__PORT: &port 8080
+      QBITTORRENT__BT_PORT: &port-bt 50413
     service:
       main:
         ports:

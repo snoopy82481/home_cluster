@@ -34,10 +34,11 @@ spec:
       tag: 4.2.4.6635@sha256:21d2d1cfc838f04167989076ac0505e09de110e1f5ea4dd955d5c46463577ad1
     env:
       TZ: ${TIMEZONE}
-      RADARR_INSTANCE_NAME: Radarr4k
-      RADARR_APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-      RADARR_PORT: &port 7878
-      RADARR_LOG_LEVEL: info
+      RADARR__INSTANCE_NAME: Radarr4k
+      RADARR__API_KEY: ${RADARR_UHD_APIKEY}
+      RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+      RADARR__PORT: &port 7878
+      RADARR__LOG_LEVEL: info
     service:
       main:
         ports:
