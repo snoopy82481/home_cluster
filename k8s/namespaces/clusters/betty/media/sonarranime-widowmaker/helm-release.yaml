@@ -31,7 +31,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/sonarr-widowmaker
-      tag: 4.0.0.2179@sha256:a23cd013f5124234230849bef26ab125ef42f520723756f0525c0dbedf4f7032
+      tag: 4.0.0.2179@sha256:493d550cf436f005b7d36291e3fdb81a303580efe7334a2a797d19f1d42adfb7
     env:
       TZ: ${TIMEZONE}
       SONARR__INSTANCE_NAME: Sonarr_Anime_Widowmaker
