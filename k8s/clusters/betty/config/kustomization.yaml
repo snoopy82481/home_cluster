@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - cluster-secrets.sops.yaml
   - cluster-config.yaml
-  - cloudflare.sops.yaml
