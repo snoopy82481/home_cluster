@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 sonarr:
-  - base_url: http://10.43.67.137:8989
+  - base_url: http://10.43.194.25:8989
     api_key: ${SONARR_APIKEY}
 
     quality_definition: series
@@ -13,26 +13,70 @@ sonarr:
         strict_negative_scores: false
         tags: [tv]
 
-  - base_url: http://10.43.72.207:8989
+  - base_url: http://10.43.85.201:8989
     api_key: ${SONARR_ANIME_APIKEY}
 
     quality_definition: anime
 
-    release_profiles:
+    custom_formats:
       - trash_ids:
-          - d428eda85af1df8904b4bbe4fc2f537c # Anime - First release profile
-          - 6cd9e10bb5bb4c63d2d7cd3279924c7b # Anime - Second release profile
-        strict_negative_scores: true
-        tags: [anime]
+          # Anime CF's
+          - 949c16fe0a8147f50ba82cc2df9411c9 # Anime BD Tier 01 (Top SeaDex Muxers)
+          - ed7f1e315e000aef424a58517fa48727 # Anime BD Tier 02 (SeaDex Muxers)
+          - 096e406c92baa713da4a72d88030b815 # Anime BD Tier 03 (SeaDex Muxers)
+          - 30feba9da3030c5ed1e0f7d610bcadc4 # Anime BD Tier 04 (SeaDex Muxers)
+          - 545a76b14ddc349b8b185a6344e28b04 # Anime BD Tier 05 (Remuxes)
+          - 25d2afecab632b1582eaf03b63055f72 # Anime BD Tier 06 (FanSubs)
+          - 0329044e3d9137b08502a9f84a7e58db # Anime BD Tier 07 (P2P/Scene)
+          - c81bbfb47fed3d5a3ad027d077f889de # Anime BD Tier 08 (Mini Encodes)
+          - e0014372773c8f0e1bef8824f00c7dc4 # Anime Web Tier 01 (Muxers)
+          - 19180499de5ef2b84b6ec59aae444696 # Anime Web Tier 02 (Top FanSubs)
+          - b5a83ef7296f3c5358236e3452ed1d97 # Anime Web Tier 03 (SubsPlease)
+          - 4fd5528a3a8024e6b49f9c67053ea5f3 # Anime Web Tier 04 (Official Subs)
+          - 29c2a13d091144f63307e4a8ce963a39 # Anime Web Tier 05 (FanSubs)
+          - dc262f88d74c651b12e9d90b39f6c753 # Anime Web Tier 06 (FanSubs)
+          - b4a1b3d705159cdca36d71e57ca86871 # Anime Raws
+          - e3515e519f3b1360cbfc17651944354c # Anime LQ Groups
+          - d2d7b8a9d39413da5f44054080e028a3 # v0
+          - 273bd326df95955e1b6c26527d1df89b # v1
+          - 228b8ee9aa0a609463efca874524a6b8 # v2
+          - 0e5833d3af2cc5fa96a0c29cd4477feb # v3
+          - 4fc15eeb8f2f9a749f918217d4234ad8 # v4
+          - 44a8ee6403071dd7b8a3a8dd3fe8cb20 # VRV
+          # Unwanted
+          - 85c61753df5da1fb2aab6f2a47426b09 # BR-DISK
+          - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
+          # Misc
+          - ec8fa7296b64e8cd390a1600981f3923 # Repack/Proper
+          - eb3d5cc0a2be0db205fb823640db6a3c # Repack v2
+          - 44e7c4de10ae50265753082e5dc76047 # Repack v3
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+
       - trash_ids:
-          - 76e060895c5b8a765c310933da0a5357 # Optionals
-        filter:
-          exclude:
-            - cec8880b847dd5d31d29167ee0112b57 # Golden Rule
-        tags: [anime]
+          - 7ba05c6e0e14e793538174c679126996 # Multi
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: -10000
+
+      - trash_ids:
+          - 418f50b10f1907201b6cfdf881f467b7 # Anime Dual Audio
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 100
+
+      - trash_ids:
+          - 026d5aadd1a6b4e550b134cb6c72b3ca # Uncensored
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 1000
 
 radarr:
-  - base_url: http://10.43.144.236:7878
+  - base_url: http://10.43.86.195:7878
     api_key: ${RADARR_APIKEY}
 
     quality_definition:
@@ -142,7 +186,7 @@ radarr:
           - name: Anime Remux-1080P  (Audio Advanced + Movie Versions)!
             score: 100
 
-  - base_url: http://10.43.123.135:7878
+  - base_url: http://10.43.255.6:7878
     api_key: ${RADARR_UHD_APIKEY}
 
     quality_definition:
