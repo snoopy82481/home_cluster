@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.124@sha256:1b29bee7415176e09ba74c946f12ac0e3f7a5209d01813533dafb60b4d1dbcef
+      tag: 4.0.0.124@sha256:4b2a08090f0caa00628125604c945e1dfc7c03e4419f753b2afd1786e398bbbd
     env:
       TZ: ${TIMEZONE}
       SONARR__INSTANCE_NAME: Sonarr_Anime
