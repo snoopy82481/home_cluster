@@ -5,7 +5,7 @@ metadata:
   name: vpn-gateway
   namespace: vpn
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       chart: pod-gateway
@@ -14,31 +14,29 @@ spec:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
-      interval: 5m
-  install:
-    createNamespace: true
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
+      interval: 15m
   values:
     image:
       repository: ghcr.io/angelnu/pod-gateway
       tag: v1.8.0@sha256:91a51d0cfcec00834ba3878e07fca2d7c3ce72ac259e2a2787600d0222dbdd9b
 
     additionalContainers:
-      gluten:
-        image:
-          repository: qmcgaw/gluetun
-          tag: v3.31.1@sha256:dabf4efdadafd6acce67bf89b11396e5c87dd1e25705b36fc9211730c943db47
+      gluetun:
+        image: qmcgaw/gluetun:v3.31.1@sha256:dabf4efdadafd6acce67bf89b11396e5c87dd1e25705b36fc9211730c943db47
 
         env:
-          VPN_TYPE: wireguard
-          VPN_INTERFACE: wg0
-          UPDATER_PERIOD: 24h
-          FIREWALL: false
-          DOT: false
+          - name: VPN_TYPE
+            value: wireguard
+          - name: VPN_INTERFACE
+            value: wg0
+          - name: FIREWALL
+            value: "off"
+          - name: DOT
+            value: "off"
+          - name: HEALTH_TARGET_ADDRESS
+            value: "1.1.1.1"
+          - name: HEALTH_VPN_DURATION_INITIAL
+            value: 30s
 
         envFrom:
           - secretRef:
