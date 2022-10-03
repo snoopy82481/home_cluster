@@ -83,6 +83,8 @@ spec:
       gatewayAnnotation: setGateway
       gatewayDefault: false
       gatewayLabel: setGateway
+      namespaceSelector:
+        label: "vpn-routed-gateway"
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller
         tag: v3.6.1@sha256:d607e73a3d9254b05123d252ffae9fdeb754e1f9ae9c1f64b093b07415f54359
