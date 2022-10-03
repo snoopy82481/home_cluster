@@ -66,6 +66,13 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups:
+        - 100
     podAnnotations:
       configmap.reloader.stakater.com/reload: cluster-config
     persistence:
