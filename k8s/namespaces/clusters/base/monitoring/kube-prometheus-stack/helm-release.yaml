@@ -1,0 +1,223 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 40.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    kubeApiServer:
+      enabled: true
+
+    kubeControllerManager:
+      enabled: true
+      endpoints:
+        - 192.168.20.5
+        - 192.168.20.6
+        - 192.168.20.7
+
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 192.168.20.5
+        - 192.168.20.6
+        - 192.168.20.7
+
+    kubeEtcd:
+      enabled: true
+      endpoints:
+        - 192.168.20.5
+        - 192.168.20.6
+        - 192.168.20.7
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
+
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+
+    kubeProxy:
+      enabled: false
+
+    kubeStateMetrics:
+      enabled: true
+
+    kube-state-metrics:
+      metricLabelsAllowlist:
+        - "persistentvolumeclaims=[*]"
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
+      resources:
+        requests:
+          cpu: 15m
+          memory: 127M
+        limits:
+          memory: 153M
+
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
+
+    nodeExporter:
+      enabled: true
+
+    prometheus-node-exporter:
+      resources:
+        requests:
+          cpu: 23m
+          memory: 64M
+        limits:
+          memory: 64M
+
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
+
+    prometheusOperator:
+      resources:
+        requests:
+          cpu: 35m
+          memory: 273M
+        limits:
+          memory: 326M
+
+      prometheusConfigReloader:
+        resources:
+          requests:
+            cpu: 11m
+            memory: 32M
+          limits:
+            memory: 32M
+
+    prometheus:
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "nginx"
+        annotations:
+          # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+        hosts:
+          - &host "prometheus.${SECRET_DOMAIN}"
+        tls:
+          - secretName: "prometheus-tls"
+            hosts:
+              - *host
+
+      thanosService:
+        enabled: true
+
+      thanosServiceMonitor:
+        enabled: true
+
+      thanosIngress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "nginx"
+        annotations:
+          # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+        hosts:
+          - &host "thanos-sidecar.${SECRET_DOMAIN}"
+        tls:
+          - secretName: "thanos-sidecar-tls"
+            hosts:
+              - *host
+
+      prometheusSpec:
+        replicas: 3
+        replicaExternalLabelName: __replica__
+        externalLabels:
+          cluster: betty
+        podAntiAffinity: hard
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        retentionSize: "6GB"
+        retention: 2d
+        enableAdminAPI: true
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 10Gi
+        resources:
+          requests:
+            cpu: 10m
+            memory: 500Mi
+          limits:
+            memory: 1000Mi
+
+        thanos:
+          image: quay.io/thanos/thanos:v0.28.0
+          version: v0.28.0
+
+        additionalScrapeConfigs:
+          - job_name: node-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "kmaster1.${SECRET_DOMAIN}:9100"
+                  - "kmaster2.${SECRET_DOMAIN}:9100"
+                  - "kmaster3.${SECRET_DOMAIN}:9100"
+                  - "kworker1.${SECRET_DOMAIN}:9100"
+                  - "kworker2.${SECRET_DOMAIN}:9100"
+                  - "kworker3.${SECRET_DOMAIN}:9100"
