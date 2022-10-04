@@ -151,6 +151,12 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 * [x] Talos Config
 * [x] Cilium CNI
+* [x] Return cluster to operational state
+* [ ] Add Hajimari to the cluster
+* [ ] Add monitoring
+    * [ ] Echo Server
+    * [ ] Graphana
+    * [ ] Prometheus
 * [ ] Documentation
     * [x] Create README.md
     * [ ] Document workflow (Github Pages/Cloudflare pages)
