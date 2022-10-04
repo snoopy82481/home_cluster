@@ -15,3 +15,4 @@ resources:
   - sealed-secrets-charts.yaml
   - bitnami-charts.yaml
   - kubereboot-charts.yaml
+  - grafana-charts.yaml
