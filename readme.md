@@ -133,8 +133,6 @@ This is an example of how to list things you need to use the software and how to
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
-
-
 <!-- USAGE EXAMPLES -->
 <!-- ## Usage
 
@@ -143,8 +141,6 @@ Use this space to show useful examples of how a project can be used. Additional 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -165,8 +161,6 @@ See the [open issues](https://github.com/snoopy82481/home_cluster/issues) for a 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -183,16 +177,12 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTACT -->
 <!-- ## Contact
@@ -202,8 +192,6 @@ Your Name - email@email_client.com
 Project Link: [https://github.com/snoopy82481/home_cluster](https://github.com/snoopy82481/home_cluster)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
@@ -217,8 +205,6 @@ There is a lot of code jacking from:
 * [@xUnholy](https://github.com/xUnholy)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [license-shield]: https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge
