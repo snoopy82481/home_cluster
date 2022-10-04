@@ -148,14 +148,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 * [x] Talos Config
 * [x] Cilium CNI
 * [x] Return cluster to operational state
-* [ ] Add Hajimari to the cluster
-* [ ] Add monitoring
-    * [ ] Echo Server
-    * [ ] Graphana
-    * [ ] Prometheus
+* [x] Add Hajimari to the cluster [Issue 125](https://github.com/snoopy82481/home_cluster/issues/125)
+* [ ] Add monitoring [Issue 128](https://github.com/snoopy82481/home_cluster/issues/128)
+  * [ ] Grafana
+  * [ ] Prometheus
 * [ ] Documentation
-    * [x] Create README.md
-    * [ ] Document workflow (Github Pages/Cloudflare pages)
+  * [x] Create README.md
+  * [ ] Document workflow (Github Pages/Cloudflare pages)
 
 See the [open issues](https://github.com/snoopy82481/home_cluster/issues) for a full list of proposed features (and known issues).
 
