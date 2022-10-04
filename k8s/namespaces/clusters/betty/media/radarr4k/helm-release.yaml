@@ -53,7 +53,7 @@ spec:
           hajimari.io/enable: true
           hajimari.io/group: Media
           hajimari.io/icon: filmstrip
-          hajimari.io/appName: *app
+          hajimari.io/appName: "Radarr 4k"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter
