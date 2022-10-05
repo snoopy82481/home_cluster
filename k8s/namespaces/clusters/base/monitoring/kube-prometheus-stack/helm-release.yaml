@@ -186,17 +186,17 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retentionSize: "6GB"
-        retention: 2d
+        retention: 14d
+        retentionSize: 45GB
         enableAdminAPI: true
         walCompression: true
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: ceph-block
+              storageClassName: "ceph-block"
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 50Gi
         resources:
           requests:
             cpu: 10m
