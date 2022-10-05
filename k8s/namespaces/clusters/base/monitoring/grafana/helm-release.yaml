@@ -33,31 +33,13 @@ spec:
     deploymentStrategy:
       type: Recreate
 
-    env:
-      GF_EXPLORE_ENABLED: true
-      GF_PANELS_DISABLE_SANITIZE_HTML: true
-      GF_LOG_FILTERS: rendering:debug
-      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-      GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
-      GF_SECURITY_ALLOW_EMBEDDING: true
-
     admin:
       existingSecret: grafana-admin
 
+    envFromSecrets:
+      - name: grafana
+
     grafana.ini:
-      server:
-        root_url: "https://grafana.${SECRET_DOMAIN}"
-      paths:
-        data: /var/lib/grafana/data
-        logs: /var/log/grafana
-        plugins: /var/lib/grafana/plugins
-        provisioning: /etc/grafana/provisioning
-      analytics:
-        check_for_updates: false
-      log:
-        mode: console
-      grafana_net:
-        url: https://grafana.net
       auth.basic:
         enabled: true
         disable_login_form: false
@@ -138,23 +120,20 @@ spec:
         datasources:
           - name: Prometheus
             type: prometheus
-            url: http://thanos-query.monitoring:9090/
+            url: http://thanos-query.monitoring.svc.cluster.local:9090/
             access: proxy
             isDefault: true
           - name: Loki
             type: loki
             access: proxy
-            url: http://loki.monitoring:3100
+            url: http://loki.monitoring.svc.cluster.local:3100
 
     dashboards:
       default:
         node-exporter-full:
           url: https://grafana.com/api/dashboards/1860/revisions/22/download
           datasource: Prometheus
-        zfs:
-          gnetId: 7845
-          revision: 4
-          datasource: Prometheus
+
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
