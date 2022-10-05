@@ -97,13 +97,17 @@ spec:
       ingress:
         enabled: true
         ingressClassName: "nginx"
+        annotations:
+          # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
         hosts:
           - host: &host "loki.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
+          - secretName: "loki-tls"
+            hosts:
               - *host
     write:
       replicas: 3
