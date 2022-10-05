@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rbac-origin-ca-issuer
+  namespace: flux-system
+spec:
+  interval: 30m
+  prune: false
+  wait: true
+  path: ./deploy/rbac
+  sourceRef:
+    kind: GitRepository
+    name: origin-ca-issuer-chart-git
