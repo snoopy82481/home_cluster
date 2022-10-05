@@ -16,3 +16,4 @@ resources:
   - bitnami-charts.yaml
   - kubereboot-charts.yaml
   - grafana-charts.yaml
+  - vector-charts.yaml
