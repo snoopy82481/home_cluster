@@ -108,10 +108,7 @@ spec:
             hajimari.io/appName: hubble
             hajimari.io/icon: lan
           hosts:
-            - host: &host "hubble.${SECRET_DOMAIN}"
-              paths:
-                - path: /
-                  pathType: Prefix
+            - &host "hubble.${SECRET_DOMAIN}"
           tls:
             - secretName: "hubble-tls"
               hosts:
