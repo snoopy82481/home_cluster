@@ -148,10 +148,12 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 * [x] Talos Config
 * [x] Cilium CNI
 * [x] Return cluster to operational state
-* [x] Add Hajimari to the cluster [Issue 125](https://github.com/snoopy82481/home_cluster/issues/125)
-* [ ] Add monitoring [Issue 128](https://github.com/snoopy82481/home_cluster/issues/128)
+* [x] Add Hajimari to the cluster [125](https://github.com/snoopy82481/home_cluster/issues/125)
+* [ ] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
   * [ ] Grafana
   * [ ] Prometheus
+* [ ] Harden Kubernetes
+  * [ ] Harden NGINX-Ingress [140](https://github.com/snoopy82481/home_cluster/issues/140)
 * [ ] Documentation
   * [x] Create README.md
   * [ ] Document workflow (Github Pages/Cloudflare pages)
