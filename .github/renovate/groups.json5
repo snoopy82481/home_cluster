@@ -15,6 +15,36 @@
       "matchDatasources": ["docker", "helm"],
       "group": { "commitMessageTopic": "{{{groupName}}} group" },
       "separateMinorPatch": true
+    },
+    {
+      "description": "Cilium image and chart",
+      "groupName": "Cilium",
+      "separateMinorPatch": true,
+      "matchDatasources": ["docker", "helm"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "matchPackageNames": [
+        "quay.io/cilium/cilium",
+        "quay.io/cilium/operator-generic",
+        "cilium"
+      ]
+    },
+    {
+      "description": "Thanos image and chart - versions do not match",
+      "groupName": "Thanos",
+      "matchDatasources": ["docker", "github-releases", "helm"],
+      "matchPackagePatterns": ["quay.io/thanos/thanos", "thanos"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": false
+    },
+    {
+      "description": "Vector image and chart - versions do not match",
+      "groupName": "Vector",
+      "matchDatasources": ["docker", "github-releases", "helm"],
+      "matchPackagePatterns": ["vector"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": false
     }
   ]
 }
