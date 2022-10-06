@@ -66,7 +66,7 @@ spec:
           # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
         hosts:
-          - &host "alert-manager.${SECRET_PUBLIC_DOMAIN}"
+          - &host "alert-manager.${SECRET_DOMAIN}"
         tls:
           - secretName: "alert-manager-tls"
             hosts:
