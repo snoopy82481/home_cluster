@@ -29,7 +29,7 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    replicas: 1
+    replicas: 3
     deploymentStrategy:
       type: Recreate
 
