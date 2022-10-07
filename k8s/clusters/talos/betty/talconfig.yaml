@@ -105,10 +105,10 @@ controlPlane:
           rotate-server-certificates: "true"
       install:
         extraKernelArgs:
-          - "talos.logging.kernel=udp://192.168.83.42:6050/"
+          - "talos.logging.kernel=udp://vector.idahobealefamily.com:6050/"
       logging:
         destinations:
-          - endpoint: "udp://192.168.83.42:6051/"
+          - endpoint: udp://vector.idahobealefamily.com:6051/
             format: json_lines
       sysctls:
         fs.inotify.max_user_watches: "1048576"
@@ -153,10 +153,10 @@ worker:
           rotate-server-certificates: "true"
       install:
         extraKernelArgs:
-          - "talos.logging.kernel=udp://192.168.83.42:6050/"
+          - "talos.logging.kernel=udp://vector.idahobealefamily.com:6050/"
       logging:
         destinations:
-          - endpoint: "udp://192.168.83.42:6051/"
+          - endpoint: "udp://vector.idahobealefamily.com:6051/"
             format: json_lines
       sysctls:
         fs.inotify.max_user_watches: "1048576"
