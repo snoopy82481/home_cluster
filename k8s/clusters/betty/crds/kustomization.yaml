@@ -5,3 +5,4 @@ resources:
   - cert-manager
   - rook-ceph
   - origin-ca-issuer
+  - cloudnative-pg
