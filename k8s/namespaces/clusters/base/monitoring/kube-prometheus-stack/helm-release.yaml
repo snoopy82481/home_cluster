@@ -72,7 +72,7 @@ spec:
             hosts:
               - *host
       alertmanagerSpec:
-        replicas: 3
+        replicas: 1
         podAntiAffinity: hard
         storage:
           volumeClaimTemplate:
@@ -81,9 +81,6 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-
-    alertmanagerSpec:
-      replicas: 1
 
     kubeApiServer:
       enabled: true
@@ -233,7 +230,7 @@ spec:
               - *host
 
       prometheusSpec:
-        replicas: 3
+        replicas: 1
         replicaExternalLabelName: __replica__
         externalLabels:
           cluster: betty
