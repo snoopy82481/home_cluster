@@ -76,7 +76,7 @@ spec:
     bgp:
       enabled: true
       announce:
-        LoadBalancerIP: true
+        loadbalancerIP: true
 
     hubble:
       enabled: true
