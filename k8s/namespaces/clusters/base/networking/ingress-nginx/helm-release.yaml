@@ -60,13 +60,13 @@ spec:
         proxy-body-size: "100M"
         ssl-protocols: "TLSv1.3 TLSv1.2"
         use-forwarded-headers: "true"
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-          namespace: default
-          namespaceSelector:
-            any: true
+      # metrics:
+      #   enabled: true
+      #   serviceMonitor:
+      #     enabled: true
+      #     namespace: default
+      #     namespaceSelector:
+      #       any: true
       podAnnotations:
         configmap.reloader.stakater.com/reload: "cloudflare-proxied-networks"
       topologySpreadConstraints:
