@@ -1,0 +1,64 @@
+---
+version: "3"
+
+vars:
+  TALOS_VERSION:
+    sh: "yq '.talosVersion' k8s/clusters/talos/betty/talconfig.yaml"
+
+tasks:
+
+  init-apply:
+    desc: Apply Talos configs
+    cmds:
+      - talosctl -n 192.168.20.5 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster1.yaml --insecure
+      - talosctl -n 192.168.20.6 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster2.yaml --insecure
+      - talosctl -n 192.168.20.7 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster3.yaml --insecure
+      - talosctl -n 192.168.20.8 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker1.yaml --insecure
+      - talosctl -n 192.168.20.9 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker2.yaml --insecure
+      - talosctl -n 192.168.20.10 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker3.yaml --insecure
+
+  patch-apply:
+    desc: Apply Talos configs
+    cmds:
+      - talosctl -n 192.168.20.5 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster1.yaml
+      - talosctl -n 192.168.20.6 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster2.yaml
+      - talosctl -n 192.168.20.7 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kmaster3.yaml
+      - talosctl -n 192.168.20.8 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker1.yaml
+      - talosctl -n 192.168.20.9 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker2.yaml
+      - talosctl -n 192.168.20.10 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker3.yaml
+
+  reboot:
+    desc: Reboots all Talos nodes
+    cmds:
+      - talosctl reboot -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
+
+  shutdown:
+    desc: Shuts down all Talos nodes
+    cmds:
+      - talosctl shutdown -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
+
+  reset:
+    desc: Resets Talos to a fresh state
+    cmds:
+      - talosctl reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
+
+  upgrade-cli:
+    desc: Upgrades taloscli
+    cmds:
+      - curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{.TALOS_VERSION}}}/talosctl-{{OS}}-{{ARCH}}
+      - chmod +x /usr/local/bin/talosctl
+
+
+  upgrade:
+    desc: Upgrades all Talos nodes
+    cmds:
+      - task: upgrade-cli
+      - talosctl upgrade -n {{.NODES}} --image "ghcr.io/siderolabs/installer:{{.TALOS_VERSION}}"
+    vars:
+      nodes: >-
+        192.168.20.5
+        192.168.20.6
+        192.168.20.7
+        192.168.20.8
+        192.168.20.9
+        192.168.20.10

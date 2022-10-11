@@ -1,6 +1,14 @@
 ---
 version: "3"
 
+includes:
+  ansible: .taskfiles/AnsibleTasks.yml
+  cluster: .taskfiles/ClusterTasks.yml
+  precommit: .taskfiles/PrecommitTasks.yml
+  terraform: .taskfiles/TerraformTasks.yml
+  sops: .taskfiles/SopsTasks.yml
+  talos: .taskfiles/TalosTasks.yml
+
 vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
@@ -17,13 +25,6 @@ dotenv: [".config.env"]
 
 env:
   KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"
-
-includes:
-  ansible: .taskfiles/AnsibleTasks.yml
-  cluster: .taskfiles/ClusterTasks.yml
-  precommit: .taskfiles/PrecommitTasks.yml
-  terraform: .taskfiles/TerraformTasks.yml
-  sops: .taskfiles/SopsTasks.yml
 
 tasks:
 
@@ -47,6 +48,7 @@ tasks:
         ipcalc
         jq
         kubernetes-cli
+        cilium-cli
         kustomize
         pre-commit
         prettier
@@ -72,3 +74,8 @@ tasks:
     cmds:
       - task: cluster:secrets
       - task: cluster:bootstrap
+
+  os:
+    desc: Shows ARCH
+    cmds:
+      - echo {{OS}}-{{ARCH}}
