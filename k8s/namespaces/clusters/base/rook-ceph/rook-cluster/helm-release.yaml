@@ -28,9 +28,9 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    monitoring:
-      enabled: true
-      createPrometheusRules: true
+    # monitoring:
+    #   enabled: true
+    #   createPrometheusRules: true
     ingress:
       dashboard:
         ingressClassName: "nginx"
