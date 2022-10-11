@@ -74,7 +74,7 @@ spec:
         clusterPoolIPv6MaskSize: 120
 
     bgp:
-      enabled: false
+      enabled: true
       announce:
         LoadBalancerIP: true
 
