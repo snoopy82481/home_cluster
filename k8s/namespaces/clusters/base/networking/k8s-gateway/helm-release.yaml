@@ -28,9 +28,6 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
-  dependsOn:
-    - name: metallb
-      namespace: networking
   values:
     image:
       repository: quay.io/oriedge/k8s_gateway
@@ -54,11 +51,13 @@ spec:
                 lameduck 5s
               }
               ready
+
               k8s_gateway ${SECRET_DOMAIN} {
-                apex  k8s-gateway.network
+                apex  k8s-gateway.networking
                 resources Ingress Service
                 ttl 300
               }
+
               prometheus 0.0.0.0:9153
               loop
               reload
@@ -72,7 +71,7 @@ spec:
       main:
         type: LoadBalancer
         externalTrafficPolicy: Local
-        loadBalancerIP: "${LB_K8S_GATEWAY_ADDR}"
+        loadBalancerIP: "${SVC_K8S_GATEWAY_ADDRESS}"
         ports:
           http:
             enabled: false
