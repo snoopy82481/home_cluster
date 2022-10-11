@@ -3,4 +3,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - helm-release.yaml
-  - ./k8s/clusters/betty/rbac/k8s-gateway/rbac.yaml
+  - ../../../../clusters/betty/rbac/k8s-gateway/rbac.yaml
