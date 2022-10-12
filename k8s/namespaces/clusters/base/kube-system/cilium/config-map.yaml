@@ -9,7 +9,7 @@ data:
     peers:
       - peer-address: ${GATEWAY_IP}
         peer-asn: 64512
-        my-asn: 64512
+        my-asn: 64513
     address-pools:
       - name: default
         protocol: bgp
