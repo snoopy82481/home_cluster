@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - cert-manager
   - rook-ceph
-  - origin-ca-issuer
+  # - origin-ca-issuer
   - cloudnative-pg
