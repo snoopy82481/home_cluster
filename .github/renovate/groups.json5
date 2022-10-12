@@ -45,6 +45,14 @@
       "matchUpdateTypes": ["minor", "patch"],
       "group": { "commitMessageTopic": "{{{groupName}}} group" },
       "separateMinorPatch": false
+    },
+    {
+      "description": "Node Feature Discovery kustomization (for CRDs) and chart",
+      "groupName": "Node Feature Discovery",
+      "matchPackagePatterns": ["node-feature-discovery"],
+      "matchDatasources": ["helm", "github-tags"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": true
     }
   ]
 }
