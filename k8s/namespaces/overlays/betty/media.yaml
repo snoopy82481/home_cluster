@@ -30,6 +30,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -57,6 +60,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -84,6 +90,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -111,6 +120,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -134,6 +146,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-cluster
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   decryption:
     provider: sops
     secretRef:
@@ -165,6 +180,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -192,6 +210,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -219,6 +240,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -246,6 +270,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
@@ -273,6 +300,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: media-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
