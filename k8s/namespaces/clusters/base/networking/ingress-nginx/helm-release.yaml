@@ -28,9 +28,6 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
-  dependsOn:
-    - name: cert-manager
-      namespace: networking
   values:
     controller:
       replicaCount: 1
