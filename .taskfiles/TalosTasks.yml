@@ -27,6 +27,11 @@ tasks:
       - talosctl -n 192.168.20.9 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker2.yaml
       - talosctl -n 192.168.20.10 apply-config -f {{.TALOS_DIR}}/clusterconfig/betty-kworker3.yaml
 
+  bootstrap:
+    desc: Bootstrap first etcd node
+    cmds:
+      - talosctl bootstrap -n 192.168.20.5
+
   reboot:
     desc: Reboots all Talos nodes
     cmds:
@@ -47,7 +52,6 @@ tasks:
     cmds:
       - curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{.TALOS_VERSION}}}/talosctl-{{OS}}-{{ARCH}}
       - chmod +x /usr/local/bin/talosctl
-
 
   upgrade:
     desc: Upgrades all Talos nodes
