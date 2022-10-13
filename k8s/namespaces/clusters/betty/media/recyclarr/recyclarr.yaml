@@ -217,17 +217,16 @@ radarr:
           - 957d0f44b592285f26449575e8b1167e # Special Edition
           - eecf3a857724171f968a66cb5719e152 # IMAX
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
-          - 1c7d7b04b15cc53ea61204bebbcc1ee2 # HQ
-          - 403f3f6266b90439cacc1e07cae4dc2d # HQ-Remux
-          - 26fa26253af4001701fedb56cec376dc # HQ-WEBDL
-          # TODO(Radarr update to include release group): Remove HQ-WEBDL, HQ-Remux, HQ
-          # - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
-          # - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
-          # - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
-          # - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
-          # - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
-          # - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
-          # - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
+          - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+          - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+          - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+          - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
+          - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
+          - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
+          - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
+          - 4d74ac4c4db0b64bff6ce0cffef99bf0 # UHD Bluray Tier 01
+          - a58f517a70193f8e578056642178419d # UHD Bluray Tier 02
+          - e71939fae578037e7aed3ee219bbe7c1 # UHD Bluray Tier 03
           - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
           - ae43b294509409a6a13919dedd4764c4 # Repack2
           - 0d91270a7255a1e388fa85e959f359d8 # FreeLeech
@@ -235,14 +234,6 @@ radarr:
           - b974a6cd08c1066250f1f177d7aa1225 # HDR10+
           - 08d6d8834ad9ec87b1dc7ec8148e7a1f # PQ
           - 9364dd386c9b4a1100dde8264690add7 # HLG
-          - 2a4d9069cc1fe3242ff9bdaebed239bb # HDR (undefined)
-          - 66aaa8c2c03c0191a95f0d655b75ab10 # UHD (CtrlHD)
-          - 4da96773192a51cf96178212642ca3bb # UHD (LEGI0N)
-          - ffebc267e9c98d3d383f37b238550079 # UHD (W4NK3R)
-          - 96848626e1570c122aba8642fe2714a2 # UHD (HQMUX)
-          - ac49fdbf6a662d380556f40ff4856f29 # UHD (WEBDV)
-          - afeb99e5db09290546f742503ce1cdb6 # UHD (DON)
-          - 65be7ce5ec4c31e684c7b8368b8bd6bb # UHD (SPHD)
           - ff5bc9e8ce91d46c997ca3ac6994d6f8 # FraMeSToR
           - 8cd3ac70db7ac318cf9a0e01333940a4 # SiC
 
@@ -326,23 +317,16 @@ radarr:
           - 957d0f44b592285f26449575e8b1167e # Special Edition
           - eecf3a857724171f968a66cb5719e152 # IMAX
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
-          - 26fa26253af4001701fedb56cec376dc # HQ-WEBDL
-          - 403f3f6266b90439cacc1e07cae4dc2d # HQ-Remux
-          # TODO(Radarr update to include release group): Remove HQ-WEBDL, HQ-Remux, HQ, flights
-          # - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
-          # - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
-          # - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
-          # - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
-          # - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
-          # - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
-          # - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
-          - 66aaa8c2c03c0191a95f0d655b75ab10 # UHD (CtrlHD)
-          - afeb99e5db09290546f742503ce1cdb6 # UHD (DON)
-          - ffebc267e9c98d3d383f37b238550079 # UHD (W4NK3R)
-          - 96848626e1570c122aba8642fe2714a2 # UHD (HQMUX)
-          - 4da96773192a51cf96178212642ca3bb # UHD (LEGI0N)
-          - ac49fdbf6a662d380556f40ff4856f29 # UHD (WEBDV)
-          - 65be7ce5ec4c31e684c7b8368b8bd6bb # UHD (SPHD)
+          - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+          - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+          - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+          - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
+          - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
+          - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
+          - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
+          - 4d74ac4c4db0b64bff6ce0cffef99bf0 # UHD Bluray Tier 01
+          - a58f517a70193f8e578056642178419d # UHD Bluray Tier 02
+          - e71939fae578037e7aed3ee219bbe7c1 # UHD Bluray Tier 03
           - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
           - ae43b294509409a6a13919dedd4764c4 # Repack2
           - ed38b889b31be83fda192888e2286d83 # BR-DISK
