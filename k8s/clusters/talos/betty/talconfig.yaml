@@ -21,50 +21,31 @@ nodes:
     ipAddress: 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
-    nameservers:
-      - 192.168.20.1
-      - 1.1.1.1
-      - 9.9.9.9
+
   - hostname: kmaster2
     ipAddress: 192.168.20.6
     controlPlane: true
     installDisk: /dev/sda
-    nameservers:
-      - 192.168.20.1
-      - 1.1.1.1
-      - 9.9.9.9
+
   - hostname: kmaster3
     ipAddress: 192.168.20.7
     controlPlane: true
     installDisk: /dev/sda
-    nameservers:
-      - 192.168.20.1
-      - 1.1.1.1
-      - 9.9.9.9
+
   - hostname: kworker1
     ipAddress: 192.168.20.8
     controlPlane: false
     installDisk: /dev/sda
-    nameservers:
-      - 192.168.20.1
-      - 1.1.1.1
-      - 9.9.9.9
+
   - hostname: kworker2
     ipAddress: 192.168.20.9
     controlPlane: false
     installDisk: /dev/sda
-    nameservers:
-      - 192.168.20.1
-      - 1.1.1.1
-      - 9.9.9.9
+
   - hostname: kworker3
     ipAddress: 192.168.20.10
     controlPlane: false
     installDisk: /dev/sda
-    nameservers:
-      - 192.168.20.1
-      - 1.1.1.1
-      - 9.9.9.9
 
 controlPlane:
   inlinePatch:
@@ -125,6 +106,8 @@ controlPlane:
           op: create
           path: /var/cri/conf.d/allow-unpriv-ports.toml
       network:
+        nameserver:
+          - 192.168.20.1
         interfaces:
           - interface: eth0
             mtu: 1500
@@ -173,6 +156,8 @@ worker:
           op: create
           path: /var/cri/conf.d/allow-unpriv-ports.toml
       network:
+        nameserver:
+          - 192.168.20.1
         interfaces:
           - interface: eth0
             mtu: 1500

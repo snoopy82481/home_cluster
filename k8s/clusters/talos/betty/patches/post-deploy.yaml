@@ -1,0 +1,7 @@
+- op: add
+  path: /cluster/network/cni
+  value:
+    name: none
+
+- op: remove
+  path: /cluster/extraManifests
