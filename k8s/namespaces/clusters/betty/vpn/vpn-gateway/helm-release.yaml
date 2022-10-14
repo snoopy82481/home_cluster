@@ -87,4 +87,4 @@ spec:
         label: "vpn-routed-gateway"
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller
-        tag: v3.6.1@sha256:d607e73a3d9254b05123d252ffae9fdeb754e1f9ae9c1f64b093b07415f54359
+        tag: v3.7.0@sha256:985eb60fd0017f657d5e66707f7e9b3f764f3337a87a379d26cd15e950bd79ad
