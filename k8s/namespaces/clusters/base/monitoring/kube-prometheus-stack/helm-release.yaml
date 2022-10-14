@@ -63,8 +63,7 @@ spec:
         pathType: Prefix
         ingressClassName: "nginx"
         annotations:
-          # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
         hosts:
           - &host "alert-manager.${SECRET_DOMAIN}"
         tls:
@@ -198,8 +197,7 @@ spec:
         pathType: Prefix
         ingressClassName: "nginx"
         annotations:
-          # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
         hosts:
           - &host "prometheus.${SECRET_DOMAIN}"
         tls:
@@ -218,8 +216,7 @@ spec:
         pathType: Prefix
         ingressClassName: "nginx"
         annotations:
-          # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           nginx.ingress.kubernetes.io/ssl-redirect: "true"
           nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
         hosts:

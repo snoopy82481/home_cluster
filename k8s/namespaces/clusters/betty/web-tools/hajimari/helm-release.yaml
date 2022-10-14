@@ -37,7 +37,7 @@ spec:
       TZ: ${TIMEZONE}
     hajimari:
       name: Stephen
-      defaultEnable: true
+      defaultEnable: false
       title: *app
       lightTheme: gazette
       darkTheme: tron

@@ -32,10 +32,10 @@ spec:
     speaker:
       tolerateMaster: true
       loglevel: info
-    # prometheus:
-    #   namespace: monitoring
-    #   serviceAccount: prometheus-prometheus
-    #   podMonitor:
-    #     enabled: true
-    #   prometheusRule:
-    #     enabled: true
+    prometheus:
+      namespace: monitoring
+      serviceAccount: prometheus-prometheus
+      podMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true

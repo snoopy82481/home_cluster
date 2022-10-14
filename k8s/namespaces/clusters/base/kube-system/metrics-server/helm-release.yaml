@@ -34,5 +34,5 @@ spec:
       - --metric-resolution=15s
     metrics:
       enabled: true
-    # serviceMonitor:
-    #   enabled: true
+    serviceMonitor:
+      enabled: true

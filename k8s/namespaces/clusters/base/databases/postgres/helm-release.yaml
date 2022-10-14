@@ -31,3 +31,6 @@ spec:
   values:
     crds:
       create: false
+    image:
+      repository: ghcr.io/cloudnative-pg/cloudnative-pg-testing
+      tag: main

@@ -271,7 +271,7 @@ spec:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-staging"
+        cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
       ingressClassName: nginx
       hosts:
         - "grafana.${SECRET_DOMAIN}"

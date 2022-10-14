@@ -46,8 +46,7 @@ spec:
         hostname: &host "thanos-query.${SECRET_DOMAIN}"
         ingressClassName: "nginx"
         annotations:
-          # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
         tls: true
         extraTls:
           - secretName: "thanos-query-tls"

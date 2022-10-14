@@ -105,8 +105,7 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          # cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
         hosts:
           - host: &host "loki.${SECRET_DOMAIN}"
             paths:
