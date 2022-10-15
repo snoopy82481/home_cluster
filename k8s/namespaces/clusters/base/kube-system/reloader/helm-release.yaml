@@ -32,8 +32,8 @@ spec:
     reloader:
       readOnlyRootFileSystem: true
 
-      podMonitor:
-        enabled: true
+      # podMonitor:
+      #   enabled: true
 
       reloadStrategy: annotations
 
