@@ -5,3 +5,4 @@ resources:
   - cert-manager
   - rook-ceph
   - cloudnative-pg
+  - kube-prometheus-stack
