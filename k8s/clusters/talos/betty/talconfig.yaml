@@ -84,13 +84,13 @@ controlPlane:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
           rotate-server-certificates: "true"
-      install:
-        extraKernelArgs:
-          - "talos.logging.kernel=udp://192.168.21.12:6050/"
-      logging:
-        destinations:
-          - endpoint: "udp://192.168.21.12:6051/"
-            format: json_lines
+      # install:
+      #   extraKernelArgs:
+      #     - "talos.logging.kernel=udp://192.168.21.12:6050/"
+      # logging:
+      #   destinations:
+      #     - endpoint: "udp://192.168.21.12:6051/"
+      #       format: json_lines
       sysctls:
         fs.inotify.max_user_watches: "1048576"
         fs.inotify.max_user_instances: "8192"
@@ -132,13 +132,13 @@ worker:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
           rotate-server-certificates: "true"
-      install:
-        extraKernelArgs:
-          - "talos.logging.kernel=udp://192.168.21.12:6050/"
-      logging:
-        destinations:
-          - endpoint: "udp://192.168.21.12:6051/"
-            format: json_lines
+      # install:
+      #   extraKernelArgs:
+      #     - "talos.logging.kernel=udp://192.168.21.12:6050/"
+      # logging:
+      #   destinations:
+      #     - endpoint: "udp://192.168.21.12:6051/"
+      #       format: json_lines
       sysctls:
         fs.inotify.max_user_watches: "1048576"
         fs.inotify.max_user_instances: "8192"
