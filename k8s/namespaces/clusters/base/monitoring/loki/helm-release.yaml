@@ -100,7 +100,6 @@ spec:
           reporting_enabled: false
     gateway:
       enabled: true
-      replicas: 1
       ingress:
         enabled: true
         ingressClassName: "nginx"
@@ -116,12 +115,10 @@ spec:
             hosts:
               - *host
     write:
-      replicas: 1
       persistence:
         size: 10Gi
         storageClass: ceph-block
     read:
-      replicas: 1
       extraVolumeMounts:
         - name: loki-rules
           mountPath: /rules/fake

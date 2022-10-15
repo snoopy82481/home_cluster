@@ -28,15 +28,11 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
-  dependsOn:
-    - name: loki
-      namespace: monitoring
   values:
     image:
       repository: timberio/vector
       tag: 0.24.1-debian
     role: Stateless-Aggregator
-    replicas: 3
     customConfig:
       data_dir: /vector-data-dir
       api:
@@ -50,9 +46,29 @@ spec:
           type: vector
           address: 0.0.0.0:6010
           version: "2"
-        opnsense_filterlog_logs:
+        pfsense_filterlog_logs:
           type: syslog
           address: 0.0.0.0:5140
+          mode: udp
+        talos_kernel_logs:
+          address: 0.0.0.0:6050
+          type: socket
+          mode: udp
+          max_length: 102400
+          decoding:
+            codec: json
+          host_key: __host
+        talos_service_logs:
+          address: 0.0.0.0:6051
+          type: socket
+          mode: udp
+          max_length: 102400
+          decoding:
+            codec: json
+          host_key: __host
+        truenas_service_logs:
+          type: syslog
+          address: 0.0.0.0:6052
           mode: udp
       transforms:
         kubernetes_logs_remap:
@@ -62,10 +78,10 @@ spec:
           source: |
             # Standardize 'app' index
             .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
-        opnsense_filterlog_remap:
+        pfsense_filterlog_remap:
           type: remap
           inputs:
-            - opnsense_filterlog_logs
+            - pfsense_filterlog_logs
           source: |
             msg = parse_csv!(string!(.message))
             # Only parse IPv4 / IPv6
@@ -88,20 +104,35 @@ spec:
                 }
               }
             }
-        opnsense_filterlog_route:
+        talos_kernel_logs_remap:
+          type: remap
+          inputs:
+            - talos_kernel_logs
+          source: |-
+            .__host, .err = replace(.__host, "192.168.20.5", "kmaster1")
+            .__host = replace(.__host, "192.168.20.6", "kmaster2")
+            .__host = replace(.__host, "192.168.20.7", "kmaster3")
+            .__host = replace(.__host, "192.168.20.8", "kworker1")
+            .__host = replace(.__host, "192.168.20.9", "kworker2")
+            .__host = replace(.__host, "192.168.20.10", "kworker3")
+        talos_service_logs_remap:
+          type: remap
+          inputs:
+            - talos_service_logs
+          source: |-
+            .__host, .err = replace(.__host, "192.168.20.5", "kmaster1")
+            .__host = replace(.__host, "192.168.20.6", "kmaster2")
+            .__host = replace(.__host, "192.168.20.7", "kmaster3")
+            .__host = replace(.__host, "192.168.20.8", "kworker1")
+            .__host = replace(.__host, "192.168.20.9", "kworker2")
+            .__host = replace(.__host, "192.168.20.10", "kworker3")
+        pfsense_filterlog_route:
           type: route
           inputs:
-            - opnsense_filterlog_remap
+            - pfsense_filterlog_remap
           route:
             pass_action: >-
               .filter_action == "pass"
-        opnsense_filterlog_geoip:
-          type: geoip
-          inputs:
-            - opnsense_filterlog_route.pass_action
-          database: /geoip/GeoLite2-City.mmdb
-          source: filter_source_ip
-          target: geoip
       sinks:
         loki_journal:
           type: loki
@@ -137,11 +168,10 @@ spec:
               {{`{{ kubernetes.pod_namespace }}`}}
             node: >-
               {{`{{ kubernetes.pod_node_name }}`}}
-        loki_opnsense_filterlog:
+        loki_pfsense_filterlog:
           type: loki
           inputs:
-            - opnsense_filterlog_route._unmatched
-            - opnsense_filterlog_geoip
+            - pfsense_filterlog_route._unmatched
           endpoint: http://loki-gateway:80
           encoding:
             codec: json
@@ -149,14 +179,41 @@ spec:
             max_bytes: 2049000
           out_of_order_action: accept
           labels:
-            hostname: opnsense
-    extraVolumeMounts:
-      - name: geoip
-        mountPath: /geoip
-    extraVolumes:
-      - name: geoip
-        persistentVolumeClaim:
-          claimName: vector-geoipupdate-config-v1
+            hostname: pfsense
+        talos_kernel:
+          type: loki
+          inputs:
+            - talos_kernel_logs_remap
+          endpoint: http://loki-gateway.monitoring:80
+          encoding:
+            codec: json
+            except_fields:
+              - __host
+          batch:
+            max_bytes: 1048576
+          out_of_order_action: rewrite_timestamp
+          labels:
+            hostname: >-
+              {{`{{ __host }}`}}
+            service: >-
+              {{`{{ facility }}`}}
+        talos_service:
+          type: loki
+          inputs:
+            - talos_service_logs_remap
+          endpoint: http://loki-gateway.monitoring:80
+          encoding:
+            codec: json
+            except_fields:
+              - __host
+          batch:
+            max_bytes: 400000
+          out_of_order_action: rewrite_timestamp
+          labels:
+            hostname: >-
+              {{`{{ __host }}`}}
+            service: >-
+              {{`{{ "talos-service" }}`}}
     service:
       enabled: true
       type: LoadBalancer

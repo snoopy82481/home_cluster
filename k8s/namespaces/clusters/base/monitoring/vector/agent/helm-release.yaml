@@ -28,11 +28,6 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
-  dependsOn:
-    - name: loki
-      namespace: monitoring
-    - name: vector-aggregator
-      namespace: monitoring
   values:
     image:
       repository: timberio/vector
@@ -71,3 +66,10 @@ spec:
       enabled: false
     securityContext:
       privileged: true
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "500m"
+      limits:
+        memory: "1024Mi"
+        cpu: "6000m"

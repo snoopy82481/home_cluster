@@ -28,9 +28,6 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
-  dependsOn:
-    - name: kube-prometheus-stack
-      namespace: monitoring
   values:
     query:
       enabled: true

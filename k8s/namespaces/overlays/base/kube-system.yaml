@@ -67,6 +67,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-cluster
+  dependsOn:
+    - name: networking-cert-manager
+      namespace: flux-system
   decryption:
     provider: sops
     secretRef:
