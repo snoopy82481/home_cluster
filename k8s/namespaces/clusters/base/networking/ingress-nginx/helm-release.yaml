@@ -64,7 +64,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-          namespace: default
+          namespace: networking
           namespaceSelector:
             any: true
       podAnnotations:
