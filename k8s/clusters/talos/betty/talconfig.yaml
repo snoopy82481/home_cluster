@@ -86,10 +86,10 @@ controlPlane:
           rotate-server-certificates: "true"
       install:
         extraKernelArgs:
-          - "talos.logging.kernel=udp://vector.idahobealefamily.com:6050/"
+          - "talos.logging.kernel=udp://192.168.21.12:6050/"
       logging:
         destinations:
-          - endpoint: udp://vector.idahobealefamily.com:6051/
+          - endpoint: "udp://192.168.21.12:6051/"
             format: json_lines
       sysctls:
         fs.inotify.max_user_watches: "1048576"
@@ -106,8 +106,6 @@ controlPlane:
           op: create
           path: /var/cri/conf.d/allow-unpriv-ports.toml
       network:
-        nameserver:
-          - 192.168.20.1
         interfaces:
           - interface: eth0
             mtu: 1500
@@ -156,8 +154,6 @@ worker:
           op: create
           path: /var/cri/conf.d/allow-unpriv-ports.toml
       network:
-        nameserver:
-          - 192.168.20.1
         interfaces:
           - interface: eth0
             mtu: 1500
