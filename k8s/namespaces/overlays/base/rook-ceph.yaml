@@ -30,6 +30,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: rook-ceph-namespace
+      namespace: flux-system
   postBuild:
     substitute: {}
     substituteFrom:
