@@ -6,12 +6,14 @@ resources:
   - bjw-s-charts.yaml
   - cilium-charts.yaml
   - cloudnative-pg-charts.yaml
+  - descheduler-charts.yaml
   - external-dns-charts.yaml
   - grafana-charts.yaml
   - ingress-nginx-charts.yaml
   - jetstack-charts.yaml
   - k8s-gateway-charts.yaml
   - kubereboot-charts.yaml
+  - kyverno-charts.yaml
   - metallb-charts.yaml
   - metrics-server-charts.yaml
   - prometheus-community-charts.yaml
