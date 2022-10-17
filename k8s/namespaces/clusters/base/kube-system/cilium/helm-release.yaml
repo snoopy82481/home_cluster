@@ -74,7 +74,7 @@ spec:
         clusterPoolIPv6MaskSize: 120
 
     bgp:
-      enabled: false
+      enabled: true
       announce:
         loadbalancerIP: true
 
@@ -138,7 +138,7 @@ spec:
 
     LoadBalancer:
       algorithm: meglev
-      mode: hybrid
+      mode: dsr
 
     disableEnvoyVersionCheck: false
 

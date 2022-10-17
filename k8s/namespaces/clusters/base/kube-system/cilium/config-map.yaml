@@ -8,8 +8,8 @@ data:
   config.yaml: |
     peers:
       - peer-address: ${GATEWAY_IP}
-        peer-asn: 64512
-        my-asn: 64513
+        peer-asn: 64501
+        my-asn: 64500
     address-pools:
       - name: default
         protocol: bgp
