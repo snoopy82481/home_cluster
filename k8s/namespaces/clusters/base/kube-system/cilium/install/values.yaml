@@ -1,7 +1,7 @@
 ---
 image:
   repository: quay.io/cilium/cilium
-  tag: v1.12.2@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36
+  tag: v1.12.3@sha256:30de50c4dc0a1e1077e9e7917a54d5cab253058b3f779822aec00f5c817ca826
   pullPolicy: IfNotPresent
 
 kubeProxyReplacement: "strict"
