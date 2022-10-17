@@ -37,10 +37,7 @@ spec:
       service:
         enable: true
         type: LoadBalancer
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: |-
-            ${SVC_NGINX_ADDRESS}
-        # loadBalancerIP: ${SVC_NGINX_ADDRESS}
+        loadBalancerIP: ${SVC_NGINX_ADDRESS}
         externalTrafficPolicy: Local
       publishService:
         enabled: true
