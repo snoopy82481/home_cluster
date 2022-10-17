@@ -102,7 +102,7 @@ clustermesh:
   apiserver:
     image:
       repository: quay.io/cilium/clustermesh-apiserver
-      tag: v1.12.2@sha256:9068b861e468a8d53421673aa9a6b576f91a5574a030b2af236c973d63c81747
+      tag: v1.12.3@sha256:9ff9499d3852466a6c55ae982ef7145f980676c939b4127fc1fa0f0e86b23e1b
     etcd:
       image:
         repository: quay.io/coreos/etcd
