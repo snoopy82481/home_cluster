@@ -84,4 +84,7 @@
     "hajimari",
     "theme-park"
   ],
+  "githubPullRequests.ignoredPullRequestBranches": [
+    "main"
+  ],
 }

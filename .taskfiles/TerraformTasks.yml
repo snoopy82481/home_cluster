@@ -3,20 +3,44 @@ version: "3"
 
 tasks:
 
-  init:
-    desc: Initialize terraform dependencies
-    dir: provision/terraform/cloudflare
+  cloudflare-init:
+    desc: Initialize cloudflare terraform dependencies
+    dir: infrastructure/terraform/cloudflare
     cmds:
       - terraform init {{.CLI_ARGS}}
 
-  plan:
-    desc: Show the changes terraform will make
-    dir: provision/terraform/cloudflare
+  cloudflare-plan:
+    desc: Show the changes cloudflare terraform will make
+    dir: infrastructure/terraform/cloudflare
     cmds:
       - terraform plan {{.CLI_ARGS}}
 
-  apply:
+  cloudflare-apply:
     desc: Apply the changes to Cloudflare
-    dir: provision/terraform/cloudflare
+    dir: infrastructure/terraform/cloudflare
     cmds:
       - terraform apply {{.CLI_ARGS}}
+
+  proxmox-init:
+    desc: Initialize proxmox terraform dependencies
+    dir: infrastructure/terraform/vm
+    cmds:
+      - terraform init {{.CLI_ARGS}}
+
+  proxmox-plan:
+    desc: Show the changes proxmox terraform will make
+    dir: infrastructure/terraform/vm
+    cmds:
+      - terraform plan {{.CLI_ARGS}}
+
+  proxmox-apply:
+    desc: Apply the changes to proxmox
+    dir: infrastructure/terraform/vm
+    cmds:
+      - terraform apply --auto-approve {{.CLI_ARGS}}
+
+  proxmox-destroy:
+    desc: Apply the changes to proxmox
+    dir: infrastructure/terraform/vm
+    cmds:
+      - terraform apply --destroy --auto-approve {{.CLI_ARGS}}
