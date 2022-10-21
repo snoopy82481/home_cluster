@@ -30,7 +30,7 @@ spec:
     cleanupOnFail: true
   values:
     crds:
-      create: false
+      create: true
     image:
       repository: ghcr.io/cloudnative-pg/cloudnative-pg-testing
       tag: main

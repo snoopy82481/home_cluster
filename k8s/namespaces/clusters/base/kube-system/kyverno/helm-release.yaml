@@ -29,7 +29,7 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    installCRDs: false
+    installCRDs: true
 
     serviceMonitor:
       enabled: true

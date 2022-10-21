@@ -29,7 +29,7 @@ spec:
     cleanupOnFail: true
   values:
     crds:
-      enabled: false
+      enabled: true
     monitoring:
       enabled: true
     resources:
