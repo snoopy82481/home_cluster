@@ -149,11 +149,14 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 * [x] Cilium CNI
 * [x] Return cluster to operational state
 * [x] Add Hajimari to the cluster [125](https://github.com/snoopy82481/home_cluster/issues/125)
-* [ ] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
-  * [ ] Grafana
-  * [ ] Prometheus
-* [ ] Harden Kubernetes
-  * [ ] Harden NGINX-Ingress [140](https://github.com/snoopy82481/home_cluster/issues/140)
+* [x] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
+  * [x] [Grafana](https://grafana.com)
+  * [x] [Prometheus](https://grafana.com/oss/prometheus/)
+  * [x] [Loki](https://grafana.com/oss/loki/)
+  * [x] [Thanos](https://thanos.io)
+  * [x] [Vector](https://vector.dev)
+* [x] Harden Kubernetes
+  * [x] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
 * [ ] Documentation
   * [x] Create README.md
   * [ ] Document workflow (Github Pages/Cloudflare pages)
