@@ -3,7 +3,7 @@ data "sops_file" "proxmox_secrets" {
 }
 
 provider "proxmox" {
-  pm_api_url          = "https://192.168.1.101:8006/api2/json"
+  pm_api_url          = "https://192.168.0.3:8006/api2/json"
   pm_api_token_id     = data.sops_file.proxmox_secrets.data["token_id"]
   pm_api_token_secret = data.sops_file.proxmox_secrets.data["token_secret"]
   pm_tls_insecure     = true
@@ -19,9 +19,9 @@ resource "proxmox_vm_qemu" "talos_master" {
 
   agent    = 0
   os_type  = "linux"
-  cores    = 6
-  sockets  = 1
-  cpu      = "IvyBridge"
+  cores    = 3
+  sockets  = 2
+  cpu      = "host"
   memory   = 16384
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"
@@ -54,9 +54,9 @@ resource "proxmox_vm_qemu" "talos_worker" {
 
   agent    = 0
   os_type  = "linux"
-  cores    = 4
-  sockets  = 1
-  cpu      = "IvyBridge"
+  cores    = 2
+  sockets  = 2
+  cpu      = "host"
   memory   = 12288
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"

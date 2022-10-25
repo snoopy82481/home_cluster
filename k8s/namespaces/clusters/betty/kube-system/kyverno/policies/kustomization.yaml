@@ -5,5 +5,9 @@ resources:
   - add-ndots.yaml
   - apply-ingress-external-dns-annotations.yaml
   - apply-ingress-whitelist-annotations.yaml
+  - baseline-latest.yaml
+  - disallow_default_namespace.yaml
   - inject-tz.yaml
+  - mutate-large-termination-gps.yaml
+  - prevent-naked-pods.yaml
   - sync-postgres-secrets.yaml
