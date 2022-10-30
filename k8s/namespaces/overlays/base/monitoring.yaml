@@ -242,3 +242,17 @@ spec:
         name: global-config
       - kind: Secret
         name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-kyverno
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring/kyverno"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
