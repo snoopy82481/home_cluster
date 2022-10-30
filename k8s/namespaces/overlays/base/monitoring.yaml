@@ -256,3 +256,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-cluster
+  dependsOn:
+    - name: monitoring-grafana
+      namespace: flux-system
+    - name: monitoring-namespace
+      namespace: flux-system
