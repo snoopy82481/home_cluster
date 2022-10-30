@@ -26,7 +26,7 @@ resource "proxmox_vm_qemu" "talos_master" {
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"
   bootdisk = "scsi0"
-  oncreate = false
+  oncreate = true
 
   disk {
     slot     = 0
@@ -61,7 +61,7 @@ resource "proxmox_vm_qemu" "talos_worker" {
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"
   bootdisk = "scsi0"
-  oncreate = false
+  oncreate = true
 
   disk {
     slot     = 0
