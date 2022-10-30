@@ -17,5 +17,5 @@ spec:
         - 0.0.0.0/0
       toPorts:
         - ports:
-            - port: 51820
+            - port: "51820"
               protocol: UDP
