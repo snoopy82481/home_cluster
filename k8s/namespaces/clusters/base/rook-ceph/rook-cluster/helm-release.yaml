@@ -29,7 +29,7 @@ spec:
     cleanupOnFail: true
   values:
     monitoring:
-      enabled: true
+      enabled: false
       createPrometheusRules: true
     ingress:
       dashboard:

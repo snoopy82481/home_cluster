@@ -79,7 +79,7 @@ spec:
       enabled: true
 
     serviceMonitor:
-      enabled: true
+      enabled: false
 
     affinity:
       podAntiAffinity:
