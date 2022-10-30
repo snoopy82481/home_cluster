@@ -139,6 +139,6 @@ spec:
         storageClass: ceph-block
     monitoring:
       selfMonitoring:
-        enabled: false
+        enabled: true
         grafanaAgent:
           installOperator: false
