@@ -31,7 +31,7 @@ spec:
   values:
     image:
       repository: timberio/vector
-      tag: 0.24.1-debian
+      tag: 0.25.0-debian
     role: Stateless-Aggregator
     customConfig:
       data_dir: /vector-data-dir
