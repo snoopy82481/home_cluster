@@ -56,6 +56,8 @@ spec:
   dependsOn:
     - name: networking-cert-manager
       namespace: flux-system
+    - name: networking-ingress-nginx
+      namespace: flux-system
   decryption:
     provider: sops
     secretRef:
