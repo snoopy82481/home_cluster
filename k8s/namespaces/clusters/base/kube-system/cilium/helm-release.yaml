@@ -57,7 +57,9 @@ spec:
       integration: containerd
 
     endpointRoutes:
-      enabled: false
+      enabled: true
+
+    localRedirectPolicy: true
 
     enableIPv4Masquerade: true
 
@@ -77,7 +79,6 @@ spec:
       enabled: true
       announce:
         loadbalancerIP: true
-        podCIDR: true
 
     hubble:
       enabled: true
