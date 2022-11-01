@@ -21,7 +21,8 @@ resource "proxmox_vm_qemu" "talos_master" {
   os_type  = "linux"
   cores    = 3
   sockets  = 2
-  cpu      = "host"
+  cpu      = "IvyBridge"
+  balloon  = 0
   memory   = 16384
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"
@@ -56,7 +57,8 @@ resource "proxmox_vm_qemu" "talos_worker" {
   os_type  = "linux"
   cores    = 2
   sockets  = 2
-  cpu      = "host"
+  cpu      = "IvyBridge"
+  balloon  = 0
   memory   = 12288
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"
