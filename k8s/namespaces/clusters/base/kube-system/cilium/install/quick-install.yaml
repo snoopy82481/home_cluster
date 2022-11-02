@@ -277,7 +277,8 @@ data:
   # A space separated list of metrics to enable. See [0] for available metrics.
   #
   # https://github.com/cilium/hubble/blob/master/Documentation/metrics.md
-  hubble-metrics: dns:query;ignoreAAAA
+  hubble-metrics:
+    dns:query;ignoreAAAA
     drop
     tcp
     flow
@@ -297,6 +298,7 @@ data:
   vtep-cidr: ""
   vtep-mask: ""
   vtep-mac: ""
+  bgp-announce-lb-ip: "true"
   enable-bgp-control-plane: "false"
   bpf-root: "/sys/fs/bpf"
   cgroup-root: "/run/cilium/cgroupv2"
@@ -912,13 +914,13 @@ spec:
         prometheus.io/port: "9090"
         prometheus.io/scrape: "true"
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "9492f826e76110b4bc68ce1f2831fbdef04badbc3700646eeb7e1aa709c13ef0"
+        cilium.io/cilium-configmap-checksum: "30945bf141381c2523d10e424b7b5f860d8f19faf08795efb9c13000f41228b4"
       labels:
         k8s-app: cilium
     spec:
       containers:
         - name: cilium-agent
-          image: "quay.io/cilium/cilium:v1.12.3@sha256:30de50c4dc0a1e1077e9e7917a54d5cab253058b3f779822aec00f5c817ca826"
+          image: "quay.io/cilium/cilium:v1.12.3@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
           imagePullPolicy: IfNotPresent
           command:
             - cilium-agent
@@ -1045,6 +1047,9 @@ spec:
               readOnly: true
             - name: xtables-lock
               mountPath: /run/xtables.lock
+            - name: bgp-config-path
+              mountPath: /var/lib/cilium/bgp
+              readOnly: true
             - name: hubble-tls
               mountPath: /var/lib/cilium/tls/hubble
               readOnly: true
@@ -1052,7 +1057,7 @@ spec:
         # Required to mount cgroup2 filesystem on the underlying Kubernetes node.
         # We use nsenter command with host's cgroup and mount namespaces enabled.
         - name: mount-cgroup
-          image: "quay.io/cilium/cilium:v1.12.3@sha256:30de50c4dc0a1e1077e9e7917a54d5cab253058b3f779822aec00f5c817ca826"
+          image: "quay.io/cilium/cilium:v1.12.3@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
           imagePullPolicy: IfNotPresent
           env:
             - name: CGROUP_ROOT
@@ -1080,7 +1085,7 @@ spec:
           securityContext:
             privileged: true
         - name: apply-sysctl-overwrites
-          image: "quay.io/cilium/cilium:v1.12.3@sha256:30de50c4dc0a1e1077e9e7917a54d5cab253058b3f779822aec00f5c817ca826"
+          image: "quay.io/cilium/cilium:v1.12.3@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
           imagePullPolicy: IfNotPresent
           env:
             - name: BIN_PATH
@@ -1106,7 +1111,7 @@ spec:
           securityContext:
             privileged: true
         - name: clean-cilium-state
-          image: "quay.io/cilium/cilium:v1.12.3@sha256:30de50c4dc0a1e1077e9e7917a54d5cab253058b3f779822aec00f5c817ca826"
+          image: "quay.io/cilium/cilium:v1.12.3@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
           imagePullPolicy: IfNotPresent
           command:
             - /init-container.sh
@@ -1211,6 +1216,9 @@ spec:
         - name: cilium-config-path
           configMap:
             name: cilium-config
+        - name: bgp-config-path
+          configMap:
+            name: bgp-config
         - name: hubble-tls
           projected:
             # note: the leading zero means this number is in octal representation: do not remove it
@@ -1257,7 +1265,7 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "9492f826e76110b4bc68ce1f2831fbdef04badbc3700646eeb7e1aa709c13ef0"
+        cilium.io/cilium-configmap-checksum: "30945bf141381c2523d10e424b7b5f860d8f19faf08795efb9c13000f41228b4"
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -1312,6 +1320,9 @@ spec:
             - name: cilium-config-path
               mountPath: /tmp/cilium/config-map
               readOnly: true
+            - name: bgp-config-path
+              mountPath: /var/lib/cilium/bgp
+              readOnly: true
           terminationMessagePolicy: FallbackToLogsOnError
       hostNetwork: true
       restartPolicy: Always
@@ -1336,6 +1347,9 @@ spec:
         - name: cilium-config-path
           configMap:
             name: cilium-config
+        - name: bgp-config-path
+          configMap:
+            name: bgp-config
 ---
 # Source: cilium/templates/hubble-relay/deployment.yaml
 apiVersion: apps/v1

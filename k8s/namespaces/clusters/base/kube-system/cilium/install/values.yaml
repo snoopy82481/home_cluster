@@ -1,7 +1,7 @@
 ---
 image:
   repository: quay.io/cilium/cilium
-  tag: v1.12.3@sha256:30de50c4dc0a1e1077e9e7917a54d5cab253058b3f779822aec00f5c817ca826
+  tag: v1.12.3
   pullPolicy: IfNotPresent
 
 kubeProxyReplacement: "strict"
@@ -39,9 +39,9 @@ ipam:
     clusterPoolIPv6MaskSize: 120
 
 bgp:
-  enabled: false
+  enabled: true
   announce:
-    LoadBalancerIP: true
+    loadbalancerIP: true
 
 hubble:
   enabled: true
@@ -59,7 +59,7 @@ hubble:
     enabled: true
     image:
       repository: quay.io/cilium/hubble-relay
-      tag: v1.12.3@sha256:320dff9389e3fc6e2d33863510d497e8bcf245a5755236ae466a0729cc656a79
+      tag: v1.12.3
     rollOutPods: true
   ui:
     enabled: true
