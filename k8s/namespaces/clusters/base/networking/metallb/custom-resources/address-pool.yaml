@@ -2,8 +2,9 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: default
+  name: metallb-bgp-pool
   namespace: networking
 spec:
   addresses:
-    - "${SVC_LB_RANGE}"
+    - "${NETWORK_BGP_SVC_CIDR}"
+  avoidBuggyIPs: true

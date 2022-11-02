@@ -27,11 +27,29 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
+    crds:
+      enabled: true
+
+    prometheusRule:
+      enabled: true
+
     contoller:
       loglevel: info
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
     speaker:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
       tolerateMaster: true
       loglevel: info
+      frr:
+        enabled: true
+
     prometheus:
       namespace: monitoring
       serviceAccount: prometheus-prometheus
