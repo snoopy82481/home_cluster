@@ -31,7 +31,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/sonarr
-      tag: 3.0.9.1549@sha256:b1cab45ad482b5036c1748dea86ca916dee7e9e9ef80693d0105f44e6d852c51
+      tag: 3.0.9.1549@sha256:3315ec6e824e36b7ac98f0dd1d8f6a88510051007a8bff683fb52ed56da46920
     env:
       TZ: "${TIMEZONE}"
       SONARR__INSTANCE_NAME: Sonarr_TV
