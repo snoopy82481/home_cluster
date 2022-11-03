@@ -254,7 +254,7 @@ spec:
             memory: 1000Mi
 
         thanos:
-          image: quay.io/thanos/thanos:v0.28.1
+          image: quay.io/thanos/thanos:v0.29.0
           version: v0.28.0
 
         additionalScrapeConfigs:
