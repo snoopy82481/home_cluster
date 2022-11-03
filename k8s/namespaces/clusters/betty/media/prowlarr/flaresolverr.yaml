@@ -33,11 +33,6 @@ spec:
         ports:
           http:
             port: 8191
-    persistence:
-      config:
-        enabled: true
-        existingClaim: flaresolverr-config-v1
-        mountPath: /config
     resources:
       requests:
         cpu: 10m
