@@ -19,3 +19,5 @@ spec:
         - ports:
             - port: "51820"
               protocol: UDP
+    - toEntities:
+        - cluster
