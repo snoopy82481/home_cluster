@@ -142,3 +142,7 @@ spec:
         enabled: false
         grafanaAgent:
           installOperator: false
+        lokiCanary:
+          enable: false
+    test:
+      enabled: false
