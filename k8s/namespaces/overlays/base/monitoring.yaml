@@ -1,0 +1,263 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-namespace
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-alertmanager-discord
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring/alertmanager-discord"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  dependsOn:
+    - name: networking-cert-manager
+      namespace: flux-system
+    - name: monitoring-namespace
+      namespace: flux-system
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: ConfigMap
+        name: global-config
+      - kind: Secret
+        name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-kube-prometheus-stack
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring/kube-prometheus-stack"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  dependsOn:
+    - name: networking-cert-manager
+      namespace: flux-system
+    - name: monitoring-namespace
+      namespace: flux-system
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: ConfigMap
+        name: global-config
+      - kind: Secret
+        name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-grafana
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring/grafana"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  dependsOn:
+    - name: networking-cert-manager
+      namespace: flux-system
+    - name: monitoring-namespace
+      namespace: flux-system
+    - name: databases-postgres
+      namespace: flux-system
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: ConfigMap
+        name: global-config
+      - kind: Secret
+        name: cluster-secrets
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: monitoring-thanos
+#   namespace: flux-system
+# spec:
+#   interval: 5m
+#   path: "./k8s/namespaces/clusters/base/monitoring/thanos"
+#   prune: true
+#   wait: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: home-cluster
+#   decryption:
+#     provider: sops
+#     secretRef:
+#       name: sops-age
+#   dependsOn:
+#     - name: monitoring-kube-prometheus-stack
+#       namespace: flux-system
+#   postBuild:
+#     substitute: {}
+#     substituteFrom:
+#       - kind: ConfigMap
+#         name: cluster-config
+#       - kind: ConfigMap
+#         name: global-config
+#       - kind: Secret
+#         name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-vector-agent
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring/vector/agent"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  dependsOn:
+    - name: networking-cert-manager
+      namespace: flux-system
+    - name: monitoring-namespace
+      namespace: flux-system
+    - name: monitoring-vector-aggregator
+      namespace: flux-system
+    - name: monitoring-loki
+      namespace: flux-system
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: ConfigMap
+        name: global-config
+      - kind: Secret
+        name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-vector-aggregator
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring/vector/aggregator"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  dependsOn:
+    - name: networking-cert-manager
+      namespace: flux-system
+    - name: monitoring-namespace
+      namespace: flux-system
+    - name: monitoring-loki
+      namespace: flux-system
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: ConfigMap
+        name: global-config
+      - kind: Secret
+        name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-loki
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring/loki"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  dependsOn:
+    - name: networking-cert-manager
+      namespace: flux-system
+    - name: monitoring-namespace
+      namespace: flux-system
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: ConfigMap
+        name: global-config
+      - kind: Secret
+        name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-kyverno
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/base/monitoring/kyverno"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  dependsOn:
+    - name: monitoring-grafana
+      namespace: flux-system
+    - name: monitoring-namespace
+      namespace: flux-system
