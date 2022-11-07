@@ -32,24 +32,34 @@ spec:
     image:
       repository: timberio/vector
       tag: 0.25.1-debian
+
     role: Stateless-Aggregator
+
     customConfig:
       data_dir: /vector-data-dir
+
       api:
         enabled: false
+
       sources:
         journal_logs:
           type: vector
           address: 0.0.0.0:6000
           version: "2"
+
         kubernetes_logs:
           type: vector
           address: 0.0.0.0:6010
           version: "2"
+
+        vector_metrics:
+          type: internal_metrics
+
         pfsense_filterlog_logs:
           type: syslog
           address: 0.0.0.0:5140
           mode: udp
+
         talos_kernel_logs:
           address: 0.0.0.0:6050
           type: socket
@@ -58,6 +68,7 @@ spec:
           decoding:
             codec: json
           host_key: __host
+
         talos_service_logs:
           address: 0.0.0.0:6051
           type: socket
@@ -66,18 +77,13 @@ spec:
           decoding:
             codec: json
           host_key: __host
+
         truenas_service_logs:
           type: syslog
           address: 0.0.0.0:6052
           mode: udp
+
       transforms:
-        kubernetes_logs_remap:
-          type: remap
-          inputs:
-            - kubernetes_logs
-          source: |
-            # Standardize 'app' index
-            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
         pfsense_filterlog_remap:
           type: remap
           inputs:
@@ -104,6 +110,7 @@ spec:
                 }
               }
             }
+
         talos_kernel_logs_remap:
           type: remap
           inputs:
@@ -115,6 +122,7 @@ spec:
             .__host = replace(.__host, "192.168.20.8", "kworker1")
             .__host = replace(.__host, "192.168.20.9", "kworker2")
             .__host = replace(.__host, "192.168.20.10", "kworker3")
+
         talos_service_logs_remap:
           type: remap
           inputs:
@@ -126,6 +134,7 @@ spec:
             .__host = replace(.__host, "192.168.20.8", "kworker1")
             .__host = replace(.__host, "192.168.20.9", "kworker2")
             .__host = replace(.__host, "192.168.20.10", "kworker3")
+
         pfsense_filterlog_route:
           type: route
           inputs:
@@ -133,12 +142,13 @@ spec:
           route:
             pass_action: >-
               .filter_action == "pass"
+
       sinks:
         loki_journal:
           type: loki
           inputs:
             - journal_logs
-          endpoint: http://loki-gateway:80
+          endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
           batch:
@@ -149,30 +159,40 @@ spec:
           labels:
             hostname: >-
               {{`{{ host }}`}}
+
         loki_kubernetes:
           type: loki
           inputs:
-            - kubernetes_logs_remap
-          endpoint: http://loki-gateway:80
+            - kubernetes_logs
+          endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
           batch:
             max_bytes: 2049000
-          out_of_order_action: accept
+          out_of_order_action: rewrite_timestamp
           remove_label_fields: true
           remove_timestamp: true
           labels:
-            app: >-
-              {{`{{ custom_app_name }}`}}
-            namespace: >-
-              {{`{{ kubernetes.pod_namespace }}`}}
-            node: >-
-              {{`{{ kubernetes.pod_node_name }}`}}
+            k8s_app: >-
+              {{`{{ "kubernetes.pod_labels.app\.kubernetes\.io/name" }}`}}
+            k8s_container: >-
+              {{`{{ "kubernetes.container_name" }}`}}
+            k8s_filename: >-
+              {{`{{ "kubernetes.file" }}`}}
+            k8s_instance: >-
+              {{`{{ "kubernetes.pod_labels.app\.kubernetes\.io/instance" }}`}}
+            k8s_namespace: >-
+              {{`{{ "kubernetes.pod_namespace" }}`}}
+            k8s_node: >-
+              {{`{{ "kubernetes.pod_node_name" }}`}}
+            k8s_pod: >-
+              {{`{{ "kubernetes.pod_name" }}`}}
+
         loki_pfsense_filterlog:
           type: loki
           inputs:
             - pfsense_filterlog_route._unmatched
-          endpoint: http://loki-gateway:80
+          endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
           batch:
@@ -180,6 +200,7 @@ spec:
           out_of_order_action: accept
           labels:
             hostname: pfsense
+
         talos_kernel:
           type: loki
           inputs:
@@ -197,6 +218,7 @@ spec:
               {{`{{ __host }}`}}
             service: >-
               {{`{{ facility }}`}}
+
         talos_service:
           type: loki
           inputs:
@@ -214,9 +236,24 @@ spec:
               {{`{{ __host }}`}}
             service: >-
               {{`{{ "talos-service" }}`}}
+            namespace: "talos:service"
+
+    podMonitor:
+      enabled: true
+      jobLabel: vector-aggregator
+      port: prometheus-sink
+
+    resources:
+      requests:
+        cpu: 35m
+        memory: 381M
+      limits:
+        memory: 726M
+
     service:
       enabled: true
       type: LoadBalancer
+
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -228,6 +265,7 @@ spec:
                     operator: In
                     values: ["Stateless-Aggregator"]
               topologyKey: kubernetes.io/hostname
+
   postRenderers:
     - kustomize:
         patchesJson6902:
@@ -236,7 +274,7 @@ spec:
               name: vector-aggregator
             patch:
               - op: add
-                path: /spec/externalIPs
+                path: /spec/loadBalancerIP
                 value: ["${SVC_SYSLOG_ADDR}"]
               - op: replace
                 path: /spec/externalTrafficPolicy
