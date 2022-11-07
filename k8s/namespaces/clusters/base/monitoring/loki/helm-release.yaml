@@ -138,11 +138,15 @@ spec:
         size: 10Gi
         storageClass: ceph-block
     monitoring:
+      serviceMonitor:
+        enabled: false
+        metricsInstance:
+          enabled: false
       selfMonitoring:
         enabled: false
         grafanaAgent:
           installOperator: false
         lokiCanary:
-          enable: false
+          enabled: false
     test:
       enabled: false
