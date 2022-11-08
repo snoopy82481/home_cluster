@@ -39,3 +39,30 @@ spec:
         name: cluster-secrets
       - kind: ConfigMap
         name: global-config
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: betty-flux-system-notifications-alert-manager
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./k8s/namespaces/clusters/betty/flux-system/notifications/alert-manager"
+  prune: true
+  wait: false
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: Secret
+        name: cluster-secrets
+      - kind: ConfigMap
+        name: global-config
