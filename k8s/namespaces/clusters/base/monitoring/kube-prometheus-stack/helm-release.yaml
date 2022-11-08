@@ -206,13 +206,13 @@ spec:
               - *host
 
       thanosService:
-        enabled: false
+        enabled: true
 
       thanosServiceMonitor:
-        enabled: false
+        enabled: true
 
       thanosIngress:
-        enabled: false
+        enabled: true
         pathType: Prefix
         ingressClassName: "nginx"
         annotations:
@@ -253,9 +253,9 @@ spec:
           limits:
             memory: 8000Mi
 
-        # thanos:
-        #   image: quay.io/thanos/thanos:v0.29.0
-        #   version: v0.28.0
+        thanos:
+          image: quay.io/thanos/thanos:v0.29.0
+          version: v0.28.0
 
         additionalScrapeConfigs:
           - job_name: pfsense
