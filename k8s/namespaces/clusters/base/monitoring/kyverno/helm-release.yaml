@@ -29,7 +29,7 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    installCRDs: true
+    installCRDs: false
 
     replicaCount: 3
 
