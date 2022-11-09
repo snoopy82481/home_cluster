@@ -155,8 +155,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
   * [x] [Loki](https://grafana.com/oss/loki/)
   * [x] [Thanos](https://thanos.io)
   * [x] [Vector](https://vector.dev)
-* [x] Harden Kubernetes
-  * [x] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
+* [ ] Harden Kubernetes
+  * [ ] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
 * [ ] Documentation
   * [x] Create README.md
   * [ ] Document workflow (Github Pages/Cloudflare pages)
