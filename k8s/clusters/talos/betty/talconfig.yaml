@@ -1,7 +1,8 @@
 clusterName: betty
 
 talosVersion: v1.2.6
-# kubernetesVersion: v1.25.2
+kubernetesVersion: v1.25.2
+domain: idahobealefamily.com
 endpoint: "https://192.168.20.254:6443"
 
 allowSchedulingOnMasters: true
@@ -12,37 +13,37 @@ clusterSvcNets:
   - 10.43.0.0/16
 
 cniConfig:
-  name: none
-  # urls:
-  #   - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/k8s/namespaces/clusters/base/kube-system/cilium/install/quick-install.yaml
+  name: custom
+  urls:
+    - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/k8s/namespaces/clusters/base/kube-system/cilium/install/quick-install.yaml
 
 nodes:
-  - hostname: kmaster1
+  - hostname: kmaster1.${domainName}
     ipAddress: 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
 
-  - hostname: kmaster2
+  - hostname: kmaster2.${domainName}
     ipAddress: 192.168.20.6
     controlPlane: true
     installDisk: /dev/sda
 
-  - hostname: kmaster3
+  - hostname: kmaster3.${domainName}
     ipAddress: 192.168.20.7
     controlPlane: true
     installDisk: /dev/sda
 
-  - hostname: kworker1
+  - hostname: kworker1.${domainName}
     ipAddress: 192.168.20.8
     controlPlane: false
     installDisk: /dev/sda
 
-  - hostname: kworker2
+  - hostname: kworker2.${domainName}
     ipAddress: 192.168.20.9
     controlPlane: false
     installDisk: /dev/sda
 
-  - hostname: kworker3
+  - hostname: kworker3.${domainName}
     ipAddress: 192.168.20.10
     controlPlane: false
     installDisk: /dev/sda
@@ -56,7 +57,7 @@ controlPlane:
         admissionControl: []
         certSANs:
           - ${clusterEndpointIP}
-          - ${clusterName}.${domainName}
+          - betty.${domainName}
         extraArgs:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
       controllerManager:
@@ -66,8 +67,8 @@ controlPlane:
         registries:
           service:
             disabled: true
-      # extraManifests:
-      #   - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.6.3/deploy/ha-install.yaml
+      extraManifests:
+        - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.6.3/deploy/ha-install.yaml
       proxy:
         disabled: true
         extraArgs:
@@ -79,7 +80,7 @@ controlPlane:
     machine:
       certSANs:
         - ${clusterEndpointIP}
-        - ${clusterName}.${domainName}
+        - betty.${domainName}
       kubelet:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
@@ -106,13 +107,15 @@ controlPlane:
           op: create
           path: /var/cri/conf.d/allow-unpriv-ports.toml
       network:
+        nameservers:
+          - 192.168.20.1
         interfaces:
           - interface: eth0
             mtu: 1500
             routes:
               - network: 0.0.0.0/0
                 gateway: 192.168.20.1
-            dhcp: true
+            dhcp: false
             vip:
               ip: 192.168.20.254
 
@@ -127,7 +130,7 @@ worker:
     machine:
       certSANs:
         - ${clusterEndpointIP}
-        - ${clusterName}.${domainName}
+        - betty.${domainName}
       kubelet:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
@@ -154,10 +157,12 @@ worker:
           op: create
           path: /var/cri/conf.d/allow-unpriv-ports.toml
       network:
+        nameservers:
+          - 192.168.20.1
         interfaces:
           - interface: eth0
             mtu: 1500
             routes:
               - network: 0.0.0.0/0
                 gateway: 192.168.20.1
-            dhcp: true
+            dhcp: false
