@@ -39,7 +39,7 @@ ipam:
     clusterPoolIPv6MaskSize: 120
 
 bgp:
-  enabled: true
+  enabled: false
   announce:
     loadbalancerIP: true
 

@@ -277,7 +277,8 @@ data:
   # A space separated list of metrics to enable. See [0] for available metrics.
   #
   # https://github.com/cilium/hubble/blob/master/Documentation/metrics.md
-  hubble-metrics: dns:query;ignoreAAAA
+  hubble-metrics:
+    dns:query;ignoreAAAA
     drop
     tcp
     flow
@@ -297,7 +298,6 @@ data:
   vtep-cidr: ""
   vtep-mask: ""
   vtep-mac: ""
-  bgp-announce-lb-ip: "true"
   enable-bgp-control-plane: "false"
   bpf-root: "/sys/fs/bpf"
   cgroup-root: "/run/cilium/cgroupv2"
@@ -1046,9 +1046,6 @@ spec:
               readOnly: true
             - name: xtables-lock
               mountPath: /run/xtables.lock
-            - name: bgp-config-path
-              mountPath: /var/lib/cilium/bgp
-              readOnly: true
             - name: hubble-tls
               mountPath: /var/lib/cilium/tls/hubble
               readOnly: true
@@ -1215,9 +1212,6 @@ spec:
         - name: cilium-config-path
           configMap:
             name: cilium-config
-        - name: bgp-config-path
-          configMap:
-            name: bgp-config
         - name: hubble-tls
           projected:
             # note: the leading zero means this number is in octal representation: do not remove it
@@ -1319,9 +1313,6 @@ spec:
             - name: cilium-config-path
               mountPath: /tmp/cilium/config-map
               readOnly: true
-            - name: bgp-config-path
-              mountPath: /var/lib/cilium/bgp
-              readOnly: true
           terminationMessagePolicy: FallbackToLogsOnError
       hostNetwork: true
       restartPolicy: Always
@@ -1346,9 +1337,6 @@ spec:
         - name: cilium-config-path
           configMap:
             name: cilium-config
-        - name: bgp-config-path
-          configMap:
-            name: bgp-config
 ---
 # Source: cilium/templates/hubble-relay/deployment.yaml
 apiVersion: apps/v1
