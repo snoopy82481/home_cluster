@@ -16,3 +16,4 @@ xanmanning.k3s*
 .terraform.tfstate*
 terraform.tfstate*
 megalinter-reports
+k8s/clusters/talos/betty/kubeconfig.old

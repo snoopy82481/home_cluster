@@ -8,7 +8,7 @@
     "**/terraform/**/*.tf": "terraform",
     "**/cluster/**/*.sops.toml": "plaintext"
   },
-  "prettier.configPath": ".github/linters/.prettierrc.yaml",
+  "prettier.configPath": ".ci/prettier/.prettierrc.yaml",
   "prettier.ignorePath": ".github/linters/.prettierignore",
   "explorer.autoReveal": false,
   "editor.fontLigatures": true,
