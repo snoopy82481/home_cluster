@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 sonarr:
-  - base_url: http://10.43.8.88:8989
+  - base_url: http://sonarr
     api_key: ${SONARR_APIKEY}
 
     quality_definition: series
@@ -13,7 +13,7 @@ sonarr:
         strict_negative_scores: false
         tags: [tv]
 
-  - base_url: http://10.43.85.143:8989
+  - base_url: http://sonarranime
     api_key: ${SONARR_ANIME_APIKEY}
 
     quality_definition: anime
@@ -76,7 +76,7 @@ sonarr:
             score: 1000
 
 radarr:
-  - base_url: http://10.43.175.31:7878
+  - base_url: http://radarr
     api_key: ${RADARR_APIKEY}
 
     quality_definition:
@@ -186,7 +186,7 @@ radarr:
           - name: Anime Remux-1080P  (Audio Advanced + Movie Versions)!
             score: 100
 
-  - base_url: http://10.43.239.232:7878
+  - base_url: http://radar4k
     api_key: ${RADARR_UHD_APIKEY}
 
     quality_definition:
