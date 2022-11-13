@@ -103,3 +103,20 @@ tasks:
       - kubectl create namespace flux-system --dry-run=client -oyaml | kubectl apply -f -
       - cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
     silent: true
+
+  rook-ceph-toolbox:
+    desc: Exec into the Rook Ceph toolbox
+    cmds:
+      - kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-direct-mount" -o jsonpath='{.items[0].metadata.name}') -- bash
+    silent: true
+
+  rook-password:
+    desc: Retrieve the rook-ceph password
+    silent: true
+    cmds:
+      - kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode && echo
+
+  delete-failed-pods:
+    desc: Deletes failed pods
+    cmds:
+      - kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
