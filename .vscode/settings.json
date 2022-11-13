@@ -65,6 +65,7 @@
     "external-dns",
     "ingress-nginx",
     "k8s-gateway",
+    "omada-controller",
     "metallb",
     "rook-ceph",
     "qbittorrent",
