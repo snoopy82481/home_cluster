@@ -186,7 +186,7 @@ radarr:
           - name: Anime Remux-1080P  (Audio Advanced + Movie Versions)!
             score: 100
 
-  - base_url: http://radar4k:7878
+  - base_url: http://radarr4k:7878
     api_key: ${RADARR_UHD_APIKEY}
 
     quality_definition:
