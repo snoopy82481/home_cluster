@@ -170,7 +170,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/clusters/betty/media/radarr_anime"
+  path: "./k8s/namespaces/clusters/betty/media/radarranime"
   prune: true
   wait: true
   sourceRef:
