@@ -1,0 +1,161 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app omada-controller
+  namespace: web-tools
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    global:
+      nameOverride: *app
+
+    image:
+      repository: mbentley/omada-controller
+      tag: 5.6-chromium-amd64@sha256:efafee69358831aab737f3887bfb5c7a30437e8d86eeb0f21aec9d94dcaacd40
+
+    env:
+      TZ: ${TIMEZONE}
+      MANAGE_HTTP_PORT: "8088"
+      MANAGE_HTTPS_PORT: "8043"
+      PORTAL_HTTP_PORT: "8088"
+      PORTAL_HTTPS_PORT: "8843"
+      SHOW_SERVER_LOGS: "true"
+      SHOW_MONGODB_LOGS: "true"
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          hajimari.io/enable: "false"
+        hosts:
+          - host: &host tplink.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: tplink-tls
+            hosts:
+              - *host
+    service:
+      main:
+        enabled: true
+        # primary: false
+        ports:
+          http:
+            enabled: true
+            port: 8043
+            targetPort: 8043
+            protocol: TCP
+      controller:
+        # primary: true
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: "${SVC_OMADA_CONTROLLER}"
+        externalTrafficPolicy: Local
+        ports:
+          mgmt-8088-tcp:
+            enabled: true
+            port: 8088
+            targetPort: 8088
+            protocol: TCP
+          mgmt-8043-tcp:
+            enabled: true
+            port: 8043
+            protocol: TCP
+            targetPort: 8043
+          portal-8843-tcp:
+            enabled: true
+            port: 8843
+            protocol: TCP
+            targetPort: 8843
+          eap-discovery:
+            enabled: true
+            port: 29810
+            protocol: UDP
+            targetPort: 29810
+          old-eap-mgmt:
+            enabled: true
+            port: 29811
+            protocol: TCP
+            targetPort: 29811
+          old-eap-adopt:
+            enabled: true
+            port: 29812
+            protocol: TCP
+            targetPort: 29812
+          old-eap-upgrade:
+            enabled: true
+            port: 29813
+            protocol: TCP
+            targetPort: 29813
+          eap-adopt:
+            enabled: true
+            port: 29814
+            protocol: TCP
+            targetPort: 29814
+          init-check:
+            enabled: true
+            port: 27001
+            protocol: UDP
+            targetPort: 27001
+          old-init-info:
+            enabled: true
+            port: 27002
+            protocol: TCP
+            targetPort: 27002
+          old-db-access:
+            enabled: true
+            port: 27017
+            protocol: TCP
+            targetPort: 27017
+          db-access:
+            enabled: true
+            port: 27217
+            protocol: TCP
+            targetPort: 27217
+
+    persistence:
+      data:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/data
+        existingClaim: omada-data
+      work:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/work
+        existingClaim: omada-work
+      logs:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/logs
+        existingClaim: omada-logs
+
+    resources:
+      requests:
+        memory: 1200Mi
+        cpu: 1200m
+      limits:
+        memory: 1500Mi
