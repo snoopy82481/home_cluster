@@ -62,23 +62,20 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-                service:
-                  name: main
-                  port: 8043
         tls:
           - secretName: tplink-tls
             hosts:
               - *host
     service:
-      # main:
-      #   enabled: true
-      #   # primary: false
-      #   ports:
-      #     http:
-      #       enabled: true
-      #       port: 8043
-      #       targetPort: 8043
-      #       protocol: TCP
+      main:
+        enabled: true
+        # primary: false
+        ports:
+          http:
+            enabled: true
+            port: 8043
+            targetPort: 8043
+            protocol: TCP
       controller:
         # primary: true
         enabled: true
