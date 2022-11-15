@@ -54,8 +54,26 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/group: "web-tools"
           hajimari.io/icon: "router-wireless-settings"
-          nginx.ingress.kubernetes.io/rewrites: "https://tplink.${SECRET_DOMAIN}:8043/"
-          nginx.ingress.kubernetes.io/proxy-hide-headers: "X-Forwarded-Proto"
+          nginx.ingress.kubernetes.io/server-snippets: |
+            ### OMADA CONTROLLER ###
+            server { listen 80; listen [::]:80;
+
+                server_name omada.*;
+
+                location / {
+                        rewrite ^ https://$host$request_uri? permanent;
+                }
+            }
+
+            server { listen 443 ssl; server_name omada.*;
+
+                include /config/nginx/ssl.conf;
+
+
+                location / {
+                        proxy_pass https://${SVC_OMADA_CONTROLLER}:8043/login;
+                }
+            }
         hosts:
           - host: &host tplink.${SECRET_DOMAIN}
             paths:
