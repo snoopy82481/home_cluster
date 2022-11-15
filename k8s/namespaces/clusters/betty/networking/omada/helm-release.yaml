@@ -54,7 +54,8 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/group: "web-tools"
           hajimari.io/icon: "router-wireless-settings"
-          nginx.ingress.kubernetes.io/rewrite: "serviceName=omada-controller-controller rewrite=tplink.${SECRET_DOMAIN}:8043"
+          nginx.ingress.kubernetes.io/listen-ports: 8080
+          nginx.ingress.kubernetes.io/listen-ports-ssl: 8043
         hosts:
           - host: &host tplink.${SECRET_DOMAIN}
             paths:
