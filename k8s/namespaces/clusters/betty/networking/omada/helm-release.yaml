@@ -55,6 +55,7 @@ spec:
           hajimari.io/group: "web-tools"
           hajimari.io/icon: "router-wireless-settings"
           nginx.ingress.kubernetes.io/rewrites: "https://tplink.${SECRET_DOMAIN}:8043/"
+          nginx.ingress.kubernetes.io/proxy-hide-headers: "X-Forwarded-Proto"
         hosts:
           - host: &host tplink.${SECRET_DOMAIN}
             paths:
