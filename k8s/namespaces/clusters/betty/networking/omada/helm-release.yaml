@@ -54,15 +54,13 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/group: "web-tools"
           hajimari.io/icon: "router-wireless-settings"
+          nginx.ingress.kubernetes.io/websocket-services: "omada-controller-controller"
           # nginx.ingress.kubernetes.io/permanent-redirect: "https://tplink.${SECRET_DOMAIN}:8043/"
         hosts:
           - host: &host tplink.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
-                service:
-                  name: mgmt-8043-tcp
-                  port: 8043
         tls:
           - secretName: tplink-tls
             hosts:
