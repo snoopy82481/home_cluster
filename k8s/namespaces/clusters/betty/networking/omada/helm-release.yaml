@@ -57,25 +57,25 @@ spec:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
           nginx.ingress.kubernetes.io/upstream-vhost: "tplink.${SECRET_DOMAIN}"
-          nginx.ingress.kubernetes.io/server-snippets: |
-            location / {
-              proxy_set_header Upgrade $http_upgrade;
-              proxy_http_version 1.1;
-              proxy_set_header X-Forwarded-Host $http_host;
-              proxy_set_header X-Forwarded-Proto nil;
-              proxy_set_header X-Forwarded-For $remote_addr;
-              proxy_set_header Host $host;
-              proxy_set_header Connection "upgrade";
-              proxy_cache_bypass $http_upgrade;
-            }
+          # nginx.ingress.kubernetes.io/server-snippets: |
+          #   location / {
+          #     proxy_set_header Upgrade $http_upgrade;
+          #     proxy_http_version 1.1;
+          #     proxy_set_header X-Forwarded-Host $http_host;
+          #     proxy_set_header X-Forwarded-Proto nil;
+          #     proxy_set_header X-Forwarded-For $remote_addr;
+          #     proxy_set_header Host $host;
+          #     proxy_set_header Connection "upgrade";
+          #     proxy_cache_bypass $http_upgrade;
+          #   }
         hosts:
           - host: &host tplink.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
-                service:
-                  name: nginx-controller-controller
-                  port: 8043
+                # service:
+                #   name: omada-controller
+                #   port: 8043
         tls:
           - secretName: tplink-tls
             hosts:
