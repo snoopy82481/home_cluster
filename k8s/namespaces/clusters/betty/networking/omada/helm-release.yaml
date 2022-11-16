@@ -73,6 +73,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: nginx-controller-controller
+                  port: 8043
         tls:
           - secretName: tplink-tls
             hosts:
