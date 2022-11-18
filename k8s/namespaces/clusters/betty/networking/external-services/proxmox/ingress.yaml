@@ -2,9 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: &app proxmox
+  namespace: networking
   labels:
-    name: *app
-    instance: *app
+    app.kubernetes.io/name: *app
+    app.kubernetes.io/instance: *app
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
