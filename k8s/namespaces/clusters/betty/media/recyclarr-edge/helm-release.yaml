@@ -31,8 +31,8 @@ spec:
     cleanupOnFail: true
   values:
     image:
-      repsitory: recyclarr/recyclarr
-      tag: edge@sha256:27925683a7bf9ee0fac3fd6f2fed71ad81aa4a06dd272d8c33519841dc5d6970
+      repsitory: ghcr.io/recyclarr/recyclarr
+      tag: edge@sha256:c5e31178893da297f78f071a386fab5cd7147dde411d97db121e411ae0b44371
 
     env:
       TZ: ${TIMEZONE}
