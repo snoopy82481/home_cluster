@@ -44,10 +44,14 @@ spec:
         type: configMap
         name: recyclarr-edge
         subPath:
-          - path: /config/recyclarr.yaml
+          - path: recyclarr.yaml
+            mountPath: /config/recyclarr.yaml
+            readOnly: true
       secret:
         enabled: true
         type: secret
         name: secret
         subPath:
-          - path: /config/secret.yaml
+          - path: secret.yaml
+            mountPath: /config/secret.yaml
+            readOnly: true
