@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: &app proxmox
+  labels:
+    name: *app
+    instance: *app
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+    hajimari.io/enable: "true"
+    hajimari.io/group: "Internal"
+    hajimari.io/icon: "server"
+    hajimari.io/appName: "Proxmox"
+spec:
+  rules:
+    - host: &host "proxmox.${SECRET_LOCAL_DOMAIN}"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: *app
+                port:
+                  number: 8006
+  tls:
+    - secretName: "{{ .Release.Name }}-tls"
+      hosts:
+        - *host
