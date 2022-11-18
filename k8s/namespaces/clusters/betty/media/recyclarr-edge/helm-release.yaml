@@ -38,6 +38,10 @@ spec:
       TZ: ${TIMEZONE}
       CRON_SCHEDULE: "@daily"
 
+    service:
+      main:
+        enabled: false
+
     persistence:
       config:
         enabled: true
