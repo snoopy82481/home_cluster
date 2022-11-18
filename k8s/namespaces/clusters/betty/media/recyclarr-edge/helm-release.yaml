@@ -47,15 +47,7 @@ spec:
         enabled: true
         type: configMap
         name: recyclarr-edge
-        subPath:
-          - path: recyclarr.yaml
-            mountPath: /config/recyclarr.yaml
-            readOnly: true
       secret:
         enabled: true
         type: secret
         name: recyclarr
-        subPath:
-          - path: secret.yaml
-            mountPath: /config/secret.yaml
-            readOnly: true
