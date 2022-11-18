@@ -36,7 +36,7 @@ spec:
   values:
     image:
       repository: quay.io/cilium/cilium
-      tag: v1.12.3
+      tag: v1.12.4
       pullPolicy: IfNotPresent
 
     kubeProxyReplacement: "strict"
