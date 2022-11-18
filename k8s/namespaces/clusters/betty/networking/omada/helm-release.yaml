@@ -83,15 +83,7 @@ spec:
     service:
       main:
         enabled: true
-        # primary: false
-        ports:
-          http:
-            enabled: true
-            port: 8043
-            targetPort: 8043
-            protocol: TCP
       controller:
-        # primary: true
         enabled: true
         type: LoadBalancer
         loadBalancerIP: "${SVC_OMADA_CONTROLLER}"
