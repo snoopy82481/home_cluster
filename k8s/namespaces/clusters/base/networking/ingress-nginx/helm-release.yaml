@@ -31,18 +31,23 @@ spec:
   values:
     controller:
       replicaCount: 1
+
       extraEnvs:
         - name: TZ
           value: "${TIMEZONE}"
+
       service:
         enable: true
         type: LoadBalancer
         loadBalancerIP: ${SVC_NGINX_ADDRESS}
         externalTrafficPolicy: Local
+
       publishService:
         enabled: true
+
       ingressClassResource:
         default: true
+
       config:
         client-header-timeout: 120
         client-body-buffer-size: "100M"
@@ -63,6 +68,7 @@ spec:
           "remote_user": "$remote_user", "bytes_sent": $bytes_sent, "request_time": $request_time, "status": $status, "vhost": "$host", "request_proto": "$server_protocol",
           "path": "$uri", "request_query": "$args", "request_length": $request_length, "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer",
           "http_user_agent": "$http_user_agent" }'
+
       metrics:
         enabled: true
         serviceMonitor:
@@ -70,8 +76,10 @@ spec:
           namespace: networking
           namespaceSelector:
             any: true
+
       podAnnotations:
         configmap.reloader.stakater.com/reload: "cloudflare-proxied-networks"
+
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
@@ -80,17 +88,25 @@ spec:
             matchLabels:
               app.kubernetes.io/name: ingress-nginx
               app.kubernetes.io/component: controller
+
     defaultBackend:
       enabled: true
+
       image:
         repository: ghcr.io/tarampampam/error-pages
         tag: 2.19.0
+
       replicaCount: 1
+
       extraEnvs:
         - name: TEMPLATE_NAME
           value: l7-dark
         - name: SHOW_DETAILS
           value: "false"
+
+      tcp:
+        "8043": "networking/omada-controller:8043"
+
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -107,6 +123,7 @@ spec:
                       values:
                         - default-backend
                 topologyKey: kubernetes.io/hostname
+
   valuesFrom:
     # Cloudflare Networks
     # https://www.cloudflare.com/ips/
