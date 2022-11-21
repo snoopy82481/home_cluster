@@ -271,6 +271,10 @@ spec:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+        hajimari.io/enable: "true"
+        hajimari.io/group: "Monitoring"
+        hajimari.io/icon: "chart-areaspline"
+        hajimari.io/appName: "Grafana"
       ingressClassName: nginx
       hosts:
         - "grafana.${SECRET_DOMAIN}"
