@@ -36,6 +36,10 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          hajimari.io/enable: "true"
+          hajimari.io/group: "Monitoring"
+          hajimari.io/icon: "database-settings"
+          hajimari.io/appName: "Rook-Ceph"
         host:
           name: &host "rook.${SECRET_DOMAIN}"
           path: "/"
