@@ -52,6 +52,8 @@ spec:
           - downloads
           - web-tools
           - networking
+          - monitoring
+          - rook-ceph
       searchProviders:
         - name: Google
           token: g
