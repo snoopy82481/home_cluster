@@ -1,7 +1,7 @@
 clusterName: betty
 
-talosVersion: v1.2.6
-kubernetesVersion: v1.25.2
+talosVersion: v1.2.7
+kubernetesVersion: v1.25.4
 endpoint: "https://192.168.20.254:6443"
 
 allowSchedulingOnMasters: true
@@ -100,8 +100,6 @@ controlPlane:
         scheduler:
           extraArgs:
             feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
-        network:
-          dnsDomain: ${domainName}
 
       machine:
         certSANs:
@@ -153,8 +151,6 @@ worker:
           registries:
             service:
               disabled: true
-        network:
-          dnsDomain: ${domainName}
 
       machine:
         certSANs:
