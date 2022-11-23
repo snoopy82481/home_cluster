@@ -50,8 +50,8 @@ tasks:
   upgrade-cli:
     desc: Upgrades taloscli
     cmds:
-      - curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{.TALOS_VERSION}}}/talosctl-{{OS}}-{{ARCH}}
-      - chmod +x /usr/local/bin/talosctl
+      - sudo curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{.TALOS_VERSION}}/talosctl-{{OS}}-{{ARCH}}
+      - sudo chmod +x /usr/local/bin/talosctl
 
   upgrade:
     desc: Upgrades all Talos nodes
