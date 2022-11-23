@@ -100,6 +100,8 @@ controlPlane:
         scheduler:
           extraArgs:
             feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+        network:
+          dnsDomain: ${domainName}
 
       machine:
         certSANs:
@@ -151,6 +153,8 @@ worker:
           registries:
             service:
               disabled: true
+        network:
+          dnsDomain: ${domainName}
 
       machine:
         certSANs:
