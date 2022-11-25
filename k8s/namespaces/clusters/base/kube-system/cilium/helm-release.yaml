@@ -75,6 +75,9 @@ spec:
         clusterPoolIPv6PodCIDRList: ["fd00::/104"]
         clusterPoolIPv6MaskSize: 120
 
+    bgpControlPlane:
+      enabled: true
+
     bgp:
       enabled: true
       announce:

@@ -1,0 +1,13 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPPeeringPolicy
+metadata:
+  name: bgp-config
+  namespace: kube-system
+spec:
+  virtualRouters:
+    - localASN: 64500
+      exportPodCIDR: true
+      neighbors:
+        - peer-address: ${GATEWAY_IP}
+          peerASN: 64501
