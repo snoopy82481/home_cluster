@@ -65,7 +65,8 @@ spec:
 
     enableIPv6Masquerade: true
 
-    masquerade: true
+    bpf:
+      masquerade: true
 
     ipam:
       mode: "kubernetes"
