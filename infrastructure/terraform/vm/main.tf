@@ -27,11 +27,11 @@ resource "proxmox_vm_qemu" "talos_master" {
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"
   bootdisk = "scsi0"
-  oncreate = true
+  oncreate = false
 
   disk {
     slot     = 0
-    size     = "20G"
+    size     = "40G"
     type     = "scsi"
     storage  = "local-lvm"
     iothread = 1
@@ -59,15 +59,15 @@ resource "proxmox_vm_qemu" "talos_worker" {
   sockets  = 2
   cpu      = "IvyBridge"
   balloon  = 0
-  memory   = 12288
+  memory   = 20480
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"
   bootdisk = "scsi0"
-  oncreate = true
+  oncreate = false
 
   disk {
     slot     = 0
-    size     = "20G"
+    size     = "40G"
     type     = "scsi"
     storage  = "local-lvm"
     iothread = 1
