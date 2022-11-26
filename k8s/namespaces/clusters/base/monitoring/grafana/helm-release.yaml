@@ -209,7 +209,10 @@ spec:
         nginx-dashboard:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus
-
+        pfSense:
+          gnetId: 12023
+          revision: 2
+          datasource: Prometheus
       thanos:
         bucket-replicate:
           url: https://raw.githubusercontent.com/thanos-io/thanos/main/examples/dashboards/bucket-replicate.json
