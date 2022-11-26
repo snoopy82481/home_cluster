@@ -78,10 +78,10 @@ spec:
     bgpControlPlane:
       enabled: true
 
-    bgp:
-      enabled: true
-      announce:
-        loadbalancerIP: true
+    # bgp:
+    #   enabled: true
+    #   announce:
+    #     loadbalancerIP: true
 
     hubble:
       enabled: true
