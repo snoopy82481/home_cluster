@@ -76,12 +76,12 @@ spec:
         clusterPoolIPv6MaskSize: 120
 
     bgpControlPlane:
-      enabled: true
+      enabled: false
 
-    # bgp:
-    #   enabled: true
-    #   announce:
-    #     loadbalancerIP: true
+    bgp:
+      enabled: true
+      announce:
+        loadbalancerIP: true
 
     hubble:
       enabled: true
