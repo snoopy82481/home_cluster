@@ -54,6 +54,7 @@ spec:
           - networking
           - monitoring
           - rook-ceph
+          - kube-system
       searchProviders:
         - name: Google
           token: g
