@@ -30,8 +30,8 @@ spec:
     cleanupOnFail: true
   values:
     image:
-      repository: ghcr.io/onedr0p/sonarr
-      tag: 3.0.9.1549@sha256:cd2f0ed265c35baa3b4b1ed1fb0612231f24930d5b1c0165a176fe4fe4f6b126
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 4.0.0.202@sha256:668748f62badcd44d05b39ff84ff4227a6dda26b0f9ecae1f62003cb5ecb819e
     env:
       TZ: "${TIMEZONE}"
       SONARR__INSTANCE_NAME: Sonarr_TV
