@@ -54,22 +54,17 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/group: "web-tools"
           hajimari.io/icon: "router-wireless-settings"
-          # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          # nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
-          # nginx.ingress.kubernetes.io/upstream-vhost: "tplink.${SECRET_DOMAIN}"
-          # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-          # nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
+          nginx.ingress.kubernetes.io/upstream-vhost: "tplink.${SECRET_DOMAIN}"
+          nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
 
-          # nginx.ingress.kubernetes.io/proxy-redirect-from: "~https://(.+):8043/(.+)/login$"
-          # nginx.ingress.kubernetes.io/proxy-redirect-to: "https://$http_host/$2/login"
+          nginx.ingress.kubernetes.io/proxy-redirect-from: "~https://(.+):8043/(.+)/login$"
+          nginx.ingress.kubernetes.io/proxy-redirect-to: "https://$http_host/$2/login"
 
           # Add a few more headers to make Omada happy
           nginx.ingress.kubernetes.io/configuration-snippet: |
-            # Add a proxy redirect because omada expects it and will redirect to the ssl port if
-            # it's not explicitly in the URL
-            proxy_redirect https://$http_host:$upstream_port/login https://$http_host/login;
-            proxy_buffering off;
-
             proxy_set_header        X-Real-IP                 $remote_addr;
             proxy_set_header        X-Forwarded-For           $proxy_add_x_forwarded_for;
             proxy_set_header        Cookie                    $http_cookie;
