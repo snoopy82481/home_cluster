@@ -266,7 +266,7 @@ spec:
             scrape_interval: 1m
             scrape_timeout: 10s
             honor_timestamps: true
-            metrics_path: /metrics
+            # metrics_path: /metrics
             static_configs:
               - targets:
                   - "pfsense.${SECRET_DOMAIN}:9100"
