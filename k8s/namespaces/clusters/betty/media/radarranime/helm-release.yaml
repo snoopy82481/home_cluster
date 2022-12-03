@@ -31,7 +31,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/radarr
-      tag: 4.2.4.6635@sha256:f2773903378aa5a7c3702f2731eca21bf40cf78c83971c6b37385d5586eb9e02
+      tag: 4.2.4.6635@sha256:01ce6ee69b2f747e79d90c9bbe30cf8e2b752b9be9dd6616718edec1cf0a8021
     env:
       TZ: ${TIMEZONE}
       RADARR__INSTANCE_NAME: Radarr_Anime
