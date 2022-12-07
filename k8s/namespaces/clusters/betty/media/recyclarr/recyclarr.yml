@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 
 sonarr:
-  #Sonarr TV
-  - base_url: http://sonarr.media.svc.cluster.local
+  standard:
+    base_url: http://sonarr.media.svc.cluster.local
     api_key: ${SONARR_APIKEY}
 
     quality_definition: series
@@ -99,8 +99,8 @@ sonarr:
         quality_profiles:
           - name: WEB-DL (2160p)
 
-  #Sonarr Anime
-  - base_url: http://sonarranime.media.svc.cluster.local
+  anime:
+    base_url: http://sonarranime.media.svc.cluster.local
     api_key: ${SONARR_ANIME_APIKEY}
 
     quality_definition: anime
@@ -163,8 +163,8 @@ sonarr:
             score: 1000
 
 radarr:
-  #Standard Radarr SQP-1
-  - base_url: http://radarr.media.svc.cluster.local
+  standard: # SQP-1
+    base_url: http://radarr.media.svc.cluster.local
     api_key: ${RADARR_APIKEY}
 
     quality_definition:
@@ -270,7 +270,8 @@ radarr:
           - name: Bluray|WEB-1080p
             score: -10000
 
-  - base_url: http://radarr4k.media.svc.cluster.local
+  uhd:
+    base_url: http://radarr4k.media.svc.cluster.local
     api_key: ${RADARR_UHD_APIKEY}
 
     quality_definition:
@@ -386,8 +387,8 @@ radarr:
           - name: Remux|Bluray|IMAX-E|2160p
             score: 0
 
-  # Radarr Anime
-  - base_url: http://radarranime.media.svc.cluster.local
+  anime:
+    base_url: http://radarranime.media.svc.cluster.local
     api_key: ${RADARR_ANIME_APIKEY}
 
     quality_definition:
