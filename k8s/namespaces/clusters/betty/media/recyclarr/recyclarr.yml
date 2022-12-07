@@ -2,7 +2,7 @@
 
 sonarr:
   #Sonarr TV
-  - base_url: http://sonarr:8989
+  - base_url: http://sonarr.media.svc.cluster.local
     api_key: ${SONARR_APIKEY}
 
     quality_definition: series
@@ -100,7 +100,7 @@ sonarr:
           - name: WEB-DL (2160p)
 
   #Sonarr Anime
-  - base_url: http://sonarranime:8989
+  - base_url: http://sonarranime.media.svc.cluster.local
     api_key: ${SONARR_ANIME_APIKEY}
 
     quality_definition: anime
@@ -164,7 +164,7 @@ sonarr:
 
 radarr:
   #Standard Radarr SQP-1
-  - base_url: http://radarr:7878
+  - base_url: http://radarr.media.svc.cluster.local
     api_key: ${RADARR_APIKEY}
 
     quality_definition:
@@ -270,7 +270,7 @@ radarr:
           - name: Bluray|WEB-1080p
             score: -10000
 
-  - base_url: http://radarr4k:7878
+  - base_url: http://radarr4k.media.svc.cluster.local
     api_key: ${RADARR_UHD_APIKEY}
 
     quality_definition:
@@ -387,7 +387,7 @@ radarr:
             score: 0
 
   # Radarr Anime
-  - base_url: http://radarranime:7878
+  - base_url: http://radarranime.media.svc.cluster.local
     api_key: ${RADARR_ANIME_APIKEY}
 
     quality_definition:
