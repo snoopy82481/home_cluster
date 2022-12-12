@@ -5,7 +5,8 @@ sonarr:
     base_url: http://sonarr.media.svc.cluster.local:8989
     api_key: ${SONARR_APIKEY}
 
-    quality_definition: series
+    quality_definition:
+      type: series
 
     custom_formats:
       - trash_ids:
@@ -103,7 +104,8 @@ sonarr:
     base_url: http://sonarranime.media.svc.cluster.local:8989
     api_key: ${SONARR_ANIME_APIKEY}
 
-    quality_definition: anime
+    quality_definition:
+      type: anime
 
     custom_formats:
       - trash_ids:
@@ -169,7 +171,6 @@ radarr:
 
     quality_definition:
       type: sqp-streaming
-      preferred_ratio: 1.0
 
     delete_old_custom_formats: true
 
@@ -276,7 +277,6 @@ radarr:
 
     quality_definition:
       type: sqp-uhd
-      preferred_ratio: 1.0
 
     delete_old_custom_formats: true
 
@@ -393,7 +393,6 @@ radarr:
 
     quality_definition:
       type: sqp-uhd
-      preferred_ratio: 1.0
 
     delete_old_custom_formats: true
 
