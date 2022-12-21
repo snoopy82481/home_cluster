@@ -2,17 +2,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: vector-aggregator
+  name: &app vector-aggregator
   namespace: monitoring
 spec:
   interval: 15m
   chart:
     spec:
-      chart: vector
-      version: 0.18.0
+      chart: app-template
+      version: 1.2.0
       sourceRef:
         kind: HelmRepository
-        name: vector
+        name: bjw-s-charts
         namespace: flux-system
   test:
     enable: false
@@ -29,250 +29,62 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
+    controller:
+      replicas: 1
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     image:
-      repository: timberio/vector
+      repository: docker.io/timberio/vector
       tag: 0.26.0-debian
 
-    role: Stateless-Aggregator
-
-    customConfig:
-      data_dir: /vector-data-dir
-
-      api:
-        enabled: false
-
-      sources:
-        journal_logs:
-          type: vector
-          address: 0.0.0.0:6000
-          version: "2"
-
-        kubernetes_logs:
-          type: vector
-          address: 0.0.0.0:6010
-          version: "2"
-
-        vector_metrics:
-          type: internal_metrics
-
-        pfsense_filterlog_logs:
-          type: syslog
-          address: 0.0.0.0:5140
-          mode: udp
-
-        talos_kernel_logs:
-          address: 0.0.0.0:6050
-          type: socket
-          mode: udp
-          max_length: 102400
-          decoding:
-            codec: json
-          host_key: __host
-
-        talos_service_logs:
-          address: 0.0.0.0:6051
-          type: socket
-          mode: udp
-          max_length: 102400
-          decoding:
-            codec: json
-          host_key: __host
-
-        truenas_service_logs:
-          type: syslog
-          address: 0.0.0.0:6052
-          mode: udp
-
-      transforms:
-        kubernetes_remap:
-          type: remap
-          inputs:
-            - kubernetes_source
-          source: |
-            # Standardize 'app' index
-            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
-
-        pfsense_filterlog_remap:
-          type: remap
-          inputs:
-            - pfsense_filterlog_logs
-          source: |
-            msg = parse_csv!(string!(.message))
-            # Only parse IPv4 / IPv6
-            if msg[8] == "4" || msg[8] == "6" {
-              .filter_interface = msg[4]
-              .filter_direction = msg[7]
-              .filter_action = msg[6]
-              .filter_ip_version = msg[8]
-              .filter_protocol = msg[16]
-              .filter_source_ip = msg[18]
-              .filter_destination_ip = msg[19]
-              if (msg[16] == "icmp" || msg[16] == "igmp" || msg[16] == "gre") {
-                .filter_data = msg[20]
-              } else {
-                .filter_source_port = msg[20]
-                .filter_destination_port = msg[21]
-                .filter_data_length = msg[22]
-                if msg[8] == "4" && msg[16] == "tcp" {
-                  .filter_tcp_flags = msg[23]
-                }
-              }
-            }
-
-        talos_kernel_logs_remap:
-          type: remap
-          inputs:
-            - talos_kernel_logs
-          source: |-
-            .__host, .err = replace(.__host, "192.168.20.5", "kmaster1")
-            .__host = replace(.__host, "192.168.20.6", "kmaster2")
-            .__host = replace(.__host, "192.168.20.7", "kmaster3")
-            .__host = replace(.__host, "192.168.20.8", "kworker1")
-            .__host = replace(.__host, "192.168.20.9", "kworker2")
-            .__host = replace(.__host, "192.168.20.10", "kworker3")
-
-        talos_service_logs_remap:
-          type: remap
-          inputs:
-            - talos_service_logs
-          source: |-
-            .__host, .err = replace(.__host, "192.168.20.5", "kmaster1")
-            .__host = replace(.__host, "192.168.20.6", "kmaster2")
-            .__host = replace(.__host, "192.168.20.7", "kmaster3")
-            .__host = replace(.__host, "192.168.20.8", "kworker1")
-            .__host = replace(.__host, "192.168.20.9", "kworker2")
-            .__host = replace(.__host, "192.168.20.10", "kworker3")
-
-        pfsense_filterlog_route:
-          type: route
-          inputs:
-            - pfsense_filterlog_remap
-          route:
-            pass_action: >-
-              .filter_action == "pass"
-
-      sinks:
-        loki_journal:
-          type: loki
-          inputs:
-            - journal_logs
-          endpoint: http://loki-gateway.monitoring:80
-          encoding:
-            codec: json
-          batch:
-            max_bytes: 2049000
-          out_of_order_action: accept
-          remove_label_fields: true
-          remove_timestamp: true
-          labels:
-            hostname: >-
-              {{`{{ host }}`}}
-
-        kubernetes:
-          type: loki
-          batch:
-            max_bytes: 2049000
-          encoding:
-            codec: json
-          endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
-          inputs:
-            - kubernetes_remap
-          labels:
-            app: '{{ custom_app_name }}'
-            namespace: '{{ kubernetes.pod_namespace }}'
-            node: '{{ kubernetes.pod_node_name }}'
-          out_of_order_action: accept
-          remove_label_fields: true
-          remove_timestamp: true
-
-        loki_pfsense_filterlog:
-          type: loki
-          inputs:
-            - pfsense_filterlog_route._unmatched
-          endpoint: http://loki-gateway.monitoring:80
-          encoding:
-            codec: json
-          batch:
-            max_bytes: 2049000
-          out_of_order_action: accept
-          labels:
-            hostname: pfsense
-
-        talos_kernel:
-          type: loki
-          inputs:
-            - talos_kernel_logs_remap
-          endpoint: http://loki-gateway.monitoring:80
-          encoding:
-            codec: json
-            except_fields:
-              - __host
-          batch:
-            max_bytes: 1048576
-          out_of_order_action: rewrite_timestamp
-          labels:
-            hostname: >-
-              {{`{{ __host }}`}}
-            service: >-
-              {{`{{ facility }}`}}
-
-        talos_service:
-          type: loki
-          inputs:
-            - talos_service_logs_remap
-          endpoint: http://loki-gateway.monitoring:80
-          encoding:
-            codec: json
-            except_fields:
-              - __host
-          batch:
-            max_bytes: 400000
-          out_of_order_action: rewrite_timestamp
-          labels:
-            hostname: >-
-              {{`{{ __host }}`}}
-            service: >-
-              {{`{{ "talos-service" }}`}}
-            namespace: "talos:service"
-
-    podMonitor:
-      enabled: true
-      jobLabel: vector-aggregator
-      port: prometheus-sink
-
-    resources:
-      requests:
-        cpu: 35m
-        memory: 381M
-      limits:
-        memory: 726M
+    args: ["--config", "/etc/vector/vector.yaml"]
 
     service:
-      enabled: true
-      type: LoadBalancer
+      main:
+        type: LoadBalancer
+        externalIPs: ["${SVC_SYSLOG_ADDR}"]
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            port: 8686
+          journald-logs:
+            enabled: true
+            port: 6000
+          kubernetes-logs:
+            enabled: true
+            port: 6010
+          pfsense-logs:
+            enabled: true
+            port: 5140
+            protocol: UDP
+          talos_kernel_logs:
+            enabled: true
+            port: 6050
+            protocol: UDP
+          talos_service_logs:
+            enabled: true
+            port: 6051
+            protocal: UDP
 
-    affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/component
-                    operator: In
-                    values: ["Stateless-Aggregator"]
-              topologyKey: kubernetes.io/hostname
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: vector-aggregator-configmap
+        subPath: vector.yaml
+        mountPath: /etc/vector/vector.yaml
+        readOnly: true
+      data:
+        enabled: true
+        type: emptyDir
+        mountPath: /vector-data-dir
 
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              kind: Service
-              name: vector-aggregator
-            patch:
-              - op: add
-                path: /spec/loadBalancerIP
-                value: ${SVC_SYSLOG_ADDR}
-              - op: replace
-                path: /spec/externalTrafficPolicy
-                value: Local
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
