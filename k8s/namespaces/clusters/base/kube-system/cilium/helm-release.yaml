@@ -14,7 +14,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.12.4
+      version: 1.12.5
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -36,7 +36,7 @@ spec:
   values:
     image:
       repository: quay.io/cilium/cilium
-      tag: v1.12.4
+      tag: v1.12.5
       pullPolicy: IfNotPresent
 
     kubeProxyReplacement: "strict"
