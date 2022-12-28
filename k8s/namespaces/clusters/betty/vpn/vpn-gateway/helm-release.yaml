@@ -46,9 +46,9 @@ spec:
           - name: SERVER_COUNTRIES
             value: USA
           - name: SERVER_HOSTNAMES
-            values: us177-wireguard
+            value: us177-wireguard
           - name: SERVER_CITIES
-            values: Seattle WA
+            value: Seattle WA
           - name: WIREGUARD_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
