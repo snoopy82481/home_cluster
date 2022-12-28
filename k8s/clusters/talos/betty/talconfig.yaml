@@ -1,7 +1,7 @@
 clusterName: betty
 
-talosVersion: v1.2.7
-kubernetesVersion: v1.25.4
+talosVersion: v1.3.1
+kubernetesVersion: v1.26.0
 endpoint: "https://192.168.20.254:6443"
 
 allowSchedulingOnMasters: true
