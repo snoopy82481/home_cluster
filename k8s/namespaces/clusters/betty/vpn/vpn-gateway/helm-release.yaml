@@ -22,6 +22,7 @@ spec:
 
     addons:
       vpn:
+        enabled: true
         type: gluetun
         image:
           repository: docker.io/qmcgaw/gluetun
