@@ -129,8 +129,7 @@ sinks:
     remove_label_fields: true
     remove_timestamp: true
     labels:
-      hostname: >-
-        {{`{{ host }}`}}
+      hostname: {{ host }}
 
   kubernetes:
     type: loki
@@ -175,10 +174,8 @@ sinks:
       max_bytes: 1048576
     out_of_order_action: rewrite_timestamp
     labels:
-      hostname: >-
-        {{`{{ __host }}`}}
-      service: >-
-        {{`{{ facility }}`}}
+      hostname: {{ __host }}
+      service: {{ facility }}
 
   talos_service:
     type: loki
@@ -193,8 +190,6 @@ sinks:
       max_bytes: 400000
     out_of_order_action: rewrite_timestamp
     labels:
-      hostname: >-
-        {{`{{ __host }}`}}
-      service: >-
-        {{`{{ "talos-service" }}`}}
+      hostname: {{ __host }}
+      service: {{ "talos-service" }}
       namespace: "talos:service"
