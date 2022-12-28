@@ -43,11 +43,12 @@ spec:
             value: "1.1.1.1"
           - name: HEALTH_VPN_DURATION_INITIAL
             value: 30s
+          - name: SERVER_COUNTRIES
+            value: USA
+          - name: SERVER_HOSTNAMES
+            values: us177-wireguard
           - name: SERVER_CITIES
-            valueFrom:
-              secretKeyRef:
-                name: vpnconfig
-                key: SERVER_CITIES
+            values: Seattle WA
           - name: WIREGUARD_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
