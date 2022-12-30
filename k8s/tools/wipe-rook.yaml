@@ -18,6 +18,13 @@ spec:
           "blkdiscard /dev/sdb",
           "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/sdb",
         ]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 250Mi
+        limits:
+          memory: 500Mi
+          cpu: 20m
 ---
 apiVersion: v1
 kind: Pod
@@ -38,6 +45,13 @@ spec:
           "blkdiscard /dev/sdb",
           "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/sdb",
         ]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 250Mi
+        limits:
+          memory: 500Mi
+          cpu: 20m
 ---
 apiVersion: v1
 kind: Pod
@@ -58,3 +72,10 @@ spec:
           "blkdiscard /dev/sdb",
           "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/sdb",
         ]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 250Mi
+        limits:
+          memory: 500Mi
+          cpu: 20m
