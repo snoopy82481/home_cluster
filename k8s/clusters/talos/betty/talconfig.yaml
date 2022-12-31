@@ -129,7 +129,7 @@ controlPlane:
                 enable_unprivileged_ports = true
                 enable_unprivileged_icmp = true
             op: create
-            path: /etc/cri/conf.d/allow-unpriv-ports.toml
+            path: /var/cri/conf.d/allow-unpriv-ports.toml
         network:
           nameservers:
             - 192.168.20.1
@@ -180,7 +180,7 @@ worker:
                 enable_unprivileged_ports = true
                 enable_unprivileged_icmp = true
             op: create
-            path: /etc/cri/conf.d/allow-unpriv-ports.toml
+            path: /var/cri/conf.d/allow-unpriv-ports.toml
         network:
           interfaces:
             - interface: eth0

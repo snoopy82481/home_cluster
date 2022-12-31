@@ -15,6 +15,7 @@ tasks:
       - cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
       - sops --decrypt k8s/clusters/betty/deploy/flux-system/github-deploy-key.sops.yaml | kubectl apply -f -
       - kubectl apply --kustomize ./k8s/clusters/betty/deploy/flux-system/
+      - sleep 5
       - task: reconcile
     preconditions:
       - sh: test -f {{.SOPS_AGE_KEY_FILE}}
