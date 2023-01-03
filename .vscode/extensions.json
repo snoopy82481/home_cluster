@@ -1,5 +1,9 @@
 {
   "recommendations": [
+      "albert.TabOut",
+      "will-stone.in-any-case",
+      "EditorConfig.editorconfig",
+      "PKief.material-icon-theme",
       "HashiCorp.terraform",
       "britesnow.vscode-toggle-quotes",
       "mitchdenny.ecdc",

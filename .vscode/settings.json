@@ -13,7 +13,11 @@
   "explorer.autoReveal": false,
   "editor.fontLigatures": true,
   "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs":"active",
+  "editor.guides.bracketPairs": true,
+  "editor.guides.bracketPairsHorizontal": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.hover.delay": 1500,
+  "files.trimTrailingWhitespace": true,
   "cSpell.enabled": false,
   "yaml.schemas": {
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "recyclarr.yaml",
