@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: ghcr.io/recyclarr/recyclarr
-      tag: edge@sha256:278b5a2e6b301c46ae0df9d56bfb9a53bf8c28f6efdd4a47f8d0796fe1a698c1
+      tag: edge@sha256:a30963e3be2fb4dd717808b9e16887083dc5057402694d3b47cd3c7e9a3ebe2d
 
     env:
       TZ: ${TIMEZONE}
