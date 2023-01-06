@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/flaresolverr/flaresolverr
-      tag: v3.0.0@sha256:5ca6e3977b50211e30a6dc1724418ccc9d893ba38a691c27f7bcd0ac6eb36b3f
+      tag: v3.0.1@sha256:1fef72ace275a34c1f0d59d9dff38ffb56a007c22072eb066ffea5e56e800414
       pullPolicy: IfNotPresent
     env:
       TZ: ${TIMEZONE}
