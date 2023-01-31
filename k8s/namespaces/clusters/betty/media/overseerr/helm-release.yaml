@@ -31,7 +31,7 @@ spec:
   values:
     image:
       repository: ghcr.io/sct/overseerr
-      tag: 1.32.1@sha256:041127456db2507812e27ec1b797503d05f12de5f4f843fe0220f6987f954db9
+      tag: 1.32.5@sha256:90f1cad1c21912a4d24e281599ef90d0fa51a8c30dd5ddab643b6345b6bcee92
     env:
       TZ: ${TIMEZONE}
       LOG_LEVEL: "info"
