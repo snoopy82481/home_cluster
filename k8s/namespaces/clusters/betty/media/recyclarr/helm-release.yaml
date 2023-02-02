@@ -46,7 +46,7 @@ spec:
           name: recyclarr
     service:
       main:
-        enable: false
+        enabled: false
     persistance:
       config:
         enable: true
