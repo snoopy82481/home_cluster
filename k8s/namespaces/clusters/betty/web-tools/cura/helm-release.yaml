@@ -46,7 +46,7 @@ spec:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           hajimari.io/enable: "true"
           hajimari.io/group: "web-tools"
-          hajimari.io/icon: "RulerSquare"
+          hajimari.io/icon: "ruler-square"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
