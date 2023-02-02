@@ -3,7 +3,7 @@
 sonarr:
   standard:
     base_url: http://sonarr.media.svc.cluster.local:8989
-    api_key: ${SONARR_APIKEY}
+    api_key: !env_var SONARR_APIKEY
 
     quality_definition:
       type: series
@@ -102,7 +102,7 @@ sonarr:
 
   anime:
     base_url: http://sonarranime.media.svc.cluster.local:8989
-    api_key: ${SONARR_ANIME_APIKEY}
+    api_key: !env_var SONARR_ANIME_APIKEY
 
     quality_definition:
       type: anime
@@ -145,6 +145,8 @@ sonarr:
 
       - trash_ids:
           - 7ba05c6e0e14e793538174c679126996 # Multi
+          - 15a05bc7c1a36e2b57fd628f8977e2fc # AV1
+          - 07a32f77690263bb9fda1842db7e273f # VOSTFR
 
         quality_profiles:
           - name: Remux-1080p - Anime
@@ -155,19 +157,19 @@ sonarr:
 
         quality_profiles:
           - name: Remux-1080p - Anime
-            score: 100
+            score: 10
 
       - trash_ids:
           - 026d5aadd1a6b4e550b134cb6c72b3ca # Uncensored
 
         quality_profiles:
           - name: Remux-1080p - Anime
-            score: 1000
+            score: 101
 
 radarr:
   standard: # SQP-1
     base_url: http://radarr.media.svc.cluster.local:7878
-    api_key: ${RADARR_APIKEY}
+    api_key: !env_var RADARR_APIKEY
 
     quality_definition:
       type: sqp-streaming
@@ -273,7 +275,7 @@ radarr:
 
   uhd:
     base_url: http://radarr4k.media.svc.cluster.local:7878
-    api_key: ${RADARR_UHD_APIKEY}
+    api_key: !env_var RADARR_UHD_APIKEY
 
     quality_definition:
       type: sqp-uhd
@@ -389,7 +391,7 @@ radarr:
 
   anime:
     base_url: http://radarranime.media.svc.cluster.local:7878
-    api_key: ${RADARR_ANIME_APIKEY}
+    api_key: !env_var RADARR_ANIME_APIKEY
 
     quality_definition:
       type: sqp-uhd

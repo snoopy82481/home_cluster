@@ -1,0 +1,58 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app recyclarr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 15m
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    controller:
+      type: cronjob
+      cronjob:
+        schedule: "@daily"
+        ttlSecondsAfterFinished: 86400
+    restartPolicy: OnFailure
+    image:
+      repository: ghcr.io/recyclarr/recyclarr
+      tag: 4.3.0@sha256:7ceb04ed0eeeb001b9257272af51b2e437c67fc66bc7f4aff7e4505ce9f8bb76
+    command: ["/app/recyclarr/recyclarr"]
+    args: ["sync"]
+    envFrom:
+      - secretRef:
+          name: recyclarr
+    service:
+      main:
+        enable: false
+    persistance:
+      config:
+        enable: true
+        type: configMap
+        name: recyclarr-configmap
+        subPath: recyclarr.yml
+        mountPath: /config/recyclarr.yml
+        defaultMode: 0775
+        readonly: true

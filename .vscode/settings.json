@@ -22,7 +22,7 @@
   "yaml.schemas": {
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "recyclarr.yaml",
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "settings.yaml",
-    "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.25.2-standalone/all.json": "k8s/**/*.yaml",
+    "https://raw.githubusercontent.com/louygan/kubernetes-json-schema_yannh/master/v1.26.0/all.json": "k8s/**/*.yaml",
     "recyclarr": "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json",
   },
   "material-icon-theme.folders.associations": {
