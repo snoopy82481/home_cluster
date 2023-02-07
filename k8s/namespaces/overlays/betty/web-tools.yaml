@@ -66,30 +66,30 @@ spec:
         name: global-config
       - kind: Secret
         name: cluster-secrets
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: web-tools-cura
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: "./k8s/namespaces/clusters/betty/web-tools/cura"
-  prune: true
-  wait: true
-  sourceRef:
-    kind: GitRepository
-    name: home-cluster
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  postBuild:
-    substitute: {}
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-config
-      - kind: ConfigMap
-        name: global-config
-      - kind: Secret
-        name: cluster-secrets
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: web-tools-cura
+#   namespace: flux-system
+# spec:
+#   interval: 5m
+#   path: "./k8s/namespaces/clusters/betty/web-tools/cura"
+#   prune: true
+#   wait: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: home-cluster
+#   decryption:
+#     provider: sops
+#     secretRef:
+#       name: sops-age
+#   postBuild:
+#     substitute: {}
+#     substituteFrom:
+#       - kind: ConfigMap
+#         name: cluster-config
+#       - kind: ConfigMap
+#         name: global-config
+#       - kind: Secret
+#         name: cluster-secrets
