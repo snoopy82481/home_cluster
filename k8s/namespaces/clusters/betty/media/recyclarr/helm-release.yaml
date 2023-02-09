@@ -47,12 +47,12 @@ spec:
     service:
       main:
         enabled: false
-    persistance:
+    persistence:
       config:
-        enable: true
+        enabled: true
         type: configMap
         name: recyclarr-configmap
         subPath: recyclarr.yml
         mountPath: /config/recyclarr.yml
         defaultMode: 0775
-        readonly: true
+        readOnly: true
