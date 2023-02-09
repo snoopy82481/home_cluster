@@ -53,7 +53,7 @@ spec:
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         custom-http-errors: |-
-          401,403,404,500,501,502,503
+          401,403,404,500,501,502,503,504
         enable-brotli: "true"
         forwarded-for-header: "CF-Connecting-IP"
         hsts-max-age: "31449600"
@@ -64,10 +64,14 @@ spec:
         use-forwarded-headers: "true"
         error-log-level: info
         log-format-escape-json: "true"
-        log-format-upstream: '{"time": "$time_iso8601", "remote_addr": "$proxy_protocol_addr", "x_forwarded_for": "$proxy_add_x_forwarded_for", "request_id": "$req_id",
-          "remote_user": "$remote_user", "bytes_sent": $bytes_sent, "request_time": $request_time, "status": $status, "vhost": "$host", "request_proto": "$server_protocol",
-          "path": "$uri", "request_query": "$args", "request_length": $request_length, "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer",
-          "http_user_agent": "$http_user_agent" }'
+        log-format-upstream: >-
+          {"time": "$time_iso8601", "remote_addr": "$proxy_protocol_addr",
+          "x_forwarded_for": "$proxy_add_x_forwarded_for", "request_id": "$req_id",
+          "remote_user": "$remote_user", "bytes_sent": $bytes_sent, "request_time": $request_time,
+          "status": $status, "vhost": "$host", "request_proto": "$server_protocol",
+          "path": "$uri", "request_query": "$args", "request_length": $request_length,
+          "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer",
+          "http_user_agent": "$http_user_agent"}
 
       metrics:
         enabled: true
@@ -88,6 +92,13 @@ spec:
             matchLabels:
               app.kubernetes.io/name: ingress-nginx
               app.kubernetes.io/component: controller
+
+      resources:
+        requests:
+          cpu: 10m
+          memory: 250Mi
+        limits:
+          memory: 500Mi
 
     defaultBackend:
       enabled: true
