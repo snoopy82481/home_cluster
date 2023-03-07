@@ -1476,7 +1476,7 @@ spec:
               mountPath: /tmp
           terminationMessagePolicy: FallbackToLogsOnError
         - name: backend
-          image: "quay.io/cilium/hubble-ui-backend:v0.10.0@sha256:cc5e2730b3be6f117b22176e25875f2308834ced7c3aa34fb598aa87a2c0a6a4"
+          image: "quay.io/cilium/hubble-ui-backend:v0.11.0@sha256:14c04d11f78da5c363f88592abae8d2ecee3cbe009f443ef11df6ac5f692d839"
           imagePullPolicy: IfNotPresent
           env:
             - name: EVENTS_SERVER_PORT
