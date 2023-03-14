@@ -1463,7 +1463,7 @@ spec:
       serviceAccountName: "hubble-ui"
       containers:
         - name: frontend
-          image: "quay.io/cilium/hubble-ui:v0.10.0@sha256:118ad2fcfd07fabcae4dde35ec88d33564c9ca7abe520aa45b1eb13ba36c6e0a"
+          image: "quay.io/cilium/hubble-ui:v0.11.0@sha256:bcb369c47cada2d4257d63d3749f7f87c91dde32e010b223597306de95d1ecc8"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
