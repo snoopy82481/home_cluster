@@ -60,7 +60,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/clusters/betty/networking/external-services/octoprint_e5s1"
+  path: "./k8s/namespaces/clusters/betty/networking/external-services/octoprint-e5s1"
   prune: true
   wait: true
   sourceRef:
@@ -87,7 +87,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/clusters/betty/networking/external-services/octoprint_kobra"
+  path: "./k8s/namespaces/clusters/betty/networking/external-services/octoprint-kobra"
   prune: true
   wait: true
   sourceRef:
