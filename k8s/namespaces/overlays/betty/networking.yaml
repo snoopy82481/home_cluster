@@ -56,11 +56,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-external-octoprint_e5s1
+  name: networking-external-octoprint-e5s1
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/clusters/betty/networking/external-services/octoprint-e5s1"
+  path: "./k8s/namespaces/clusters/betty/networking/external-services/octoprint_e5s1"
   prune: true
   wait: true
   sourceRef:
@@ -83,11 +83,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-external-octoprint_kobra
+  name: networking-external-octoprint-kobra
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./k8s/namespaces/clusters/betty/networking/external-services/octoprint-kobra"
+  path: "./k8s/namespaces/clusters/betty/networking/external-services/octoprint_kobra"
   prune: true
   wait: true
   sourceRef:
