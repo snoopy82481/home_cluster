@@ -7,7 +7,7 @@ on: # yamllint disable-line rule:truthy
       - main
     paths:
       - "k8s/clusters/**.yaml"
-      - "k8s/namespaces/clusters/**.yaml"
+      - "k8s/namespaces/**.yaml"
 
 jobs:
   detect-file-changes:

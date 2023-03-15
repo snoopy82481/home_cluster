@@ -1,4 +1,5 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabled": true,
   "platform": "github",
   "username": "snoopy82481-bot[bot]",
@@ -20,13 +21,13 @@
     ":semanticCommits",
     ":enablePreCommit",
     ":automergeDigest",
-    ":automergeBranchPush",
+    ":automergeBranch",
     "github>snoopy82481/home_cluster//.github/renovate/autoMerge.json5",
     "github>snoopy82481/home_cluster//.github/renovate/commitMessage.json5",
     "github>snoopy82481/home_cluster//.github/renovate/labels.json5",
     "github>snoopy82481/home_cluster//.github/renovate/semanticCommits.json5",
-    // "github>snoopy82481/home_cluster//.github/renovate/disabledDatasources.json5",
-    "github>snoopy82481/home_cluster//.github/renovate/groups.json5"
+    "github>snoopy82481/home_cluster//.github/renovate/groups.json5",
+    "helpers:pinGitHubActionDigests"
   ],
   "flux": {
     "fileMatch": ["k8s/.+\\.ya?ml$"]

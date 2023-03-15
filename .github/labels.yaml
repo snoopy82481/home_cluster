@@ -8,10 +8,14 @@
   color: "72ccf3"
   description: >-
     Changes made in the github directory
-- name: area/cluster
+- name: area/kubernetes
   color: "72ccf3"
   description: >-
-    Changes made in the cluster directory
+    Changes made in the kubernetes namespace directory
+- name: area/talos
+  color: "72ccf3"
+  description: >-
+    Changes made in the talos directory
 - name: area/terraform
   color: "72ccf3"
   description: >-
@@ -35,6 +39,8 @@
 - name: type/minor
   color: "FF9800"
 - name: type/major
+  color: "F6412D"
+- name: type/break
   color: "F6412D"
 # Size
 - name: size/XS
@@ -74,3 +80,5 @@
   color: "7B55D7"
 - name: question
   color: "cc317c"
+- name: community
+  color: "0e8a16"

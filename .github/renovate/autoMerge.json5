@@ -1,4 +1,5 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
       "description": "Auto merge containers",
@@ -26,15 +27,11 @@
     },
     {
       "description": "Auto merge GitHub Actions",
-      "matchDatasources": ["github-tags"],
+      "matchManagers": ["github-actions"],
       "automerge": true,
       "automergeType": "branch",
-      "requiredStatusChecks": null,
-      "matchUpdateTypes": ["minor","patch"],
-      "matchPackageNames": [
-        "renovatebot/github-action",
-        "lycheeverse/lychee-action"
-      ]
+      "ignoreTests": true,
+      "matchUpdateTypes": ["minor", "patch", "digest"]
     }
   ]
 }
