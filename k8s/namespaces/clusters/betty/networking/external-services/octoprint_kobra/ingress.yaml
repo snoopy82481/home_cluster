@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: &app proxmox
+  name: &app octoprint-kobra
   namespace: networking
   labels:
     app.kubernetes.io/name: *app
@@ -12,12 +12,12 @@ metadata:
     cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
     hajimari.io/enable: "true"
     hajimari.io/group: "Internal"
-    hajimari.io/icon: "server"
-    hajimari.io/appName: "Proxmox"
+    hajimari.io/icon: "printer-3d-nozzle"
+    hajimari.io/appName: *app
 spec:
   ingressClassName: nginx
   rules:
-    - host: &host "proxmox.${SECRET_DOMAIN}"
+    - host: &host "octoprint-kobra.${SECRET_DOMAIN}"
       http:
         paths:
           - pathType: Prefix
@@ -26,8 +26,8 @@ spec:
               service:
                 name: *app
                 port:
-                  number: 8006
+                  number: 81
   tls:
-    - secretName: proxmox-tls
+    - secretName: octoprint-kobra-tls
       hosts:
         - *host
