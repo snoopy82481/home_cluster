@@ -33,7 +33,7 @@ jobs:
           token: "${{ steps.generate-token.outputs.token }}"
 
       - name: MegaLinter
-        uses: oxsecurity/megalinter@v6.20.1
+        uses: oxsecurity/megalinter@fa252447a038abeedc60aeb3d9f913315bf5fcf2 # v6.20.1
         env:
           GITHUB_TOKEN: "${{ steps.generate-token.outputs.token }}"
           PRINT_ALPACA: false
