@@ -51,6 +51,13 @@ spec:
             value: "off"
           - name: DOT
             value: "off"
+          - name: UPDATER_PERIOD
+            value: "24h"
+          - name: UPDATER_VPN_SERVICE_PROVIDERS
+            valueFrom:
+              secretKeyRef:
+                name: vpnconfig
+                key: VPN_SERVICE_PROVIDER
         envFrom:
           - secretRef:
               name: vpnconfig
