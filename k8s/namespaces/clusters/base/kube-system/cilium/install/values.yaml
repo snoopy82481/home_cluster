@@ -59,7 +59,7 @@ hubble:
     enabled: true
     image:
       repository: quay.io/cilium/hubble-relay
-      tag: v1.13.0
+      tag: v1.13.1
     rollOutPods: true
   ui:
     enabled: true
