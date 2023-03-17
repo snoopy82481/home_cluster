@@ -1540,7 +1540,7 @@ operator:
   image:
     override: ~
     repository: "quay.io/cilium/operator"
-    tag: "v1.13.0"
+    tag: "v1.13.1"
     # operator-generic-digest
     genericDigest: "sha256:00508f78dae5412161fa40ee30069c2802aef20f7bdd20e91423103ba8c0df6e"
     # operator-azure-digest
