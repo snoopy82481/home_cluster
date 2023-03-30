@@ -10,7 +10,7 @@ on: # yamllint disable-line rule:truthy
 
 env:
   BOT_USERNAME: "snoopy82481[bot]"
-  KUBERNETES_DIR: k8s/namespaces/
+  KUBERNETES_DIR: k8s/
 
 jobs:
   changed-files:
