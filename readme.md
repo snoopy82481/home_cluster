@@ -68,7 +68,7 @@ This repo is in major disarray at the moment.  I am currently refactoring my exi
 
 This is a complete rework of my existing cluster, that I tend to learn [Talos Linux](https://www.talos.dev) with.
 
-The cluster is managed by [Renovatebot](https://www.whitesourcesoftware.com/free-developer-tools/renovate/) and [flux](https://toolkit.fluxcd.io/) for automation of most of the process. Except the actual deployment configurations.
+The cluster is managed by [Renovate](https://www.mend.io/renovate/) and [flux](https://toolkit.fluxcd.io/) for automation of most of the process. Except the actual deployment configurations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
