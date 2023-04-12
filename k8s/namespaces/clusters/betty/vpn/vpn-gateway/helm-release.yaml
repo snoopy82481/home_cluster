@@ -40,8 +40,7 @@ spec:
         enabled: true
         type: gluetun
         image:
-          # TODO: Replace with ghcr.io/qdm12/gluetun when a versioned tag is available
-          repository: docker.io/qmcgaw/gluetun
+          repository: gchr.io/qdm12/gluetun
           tag: v3.33.0@sha256:cadc352ebed5988c9fbc750f2759ea703dc7587f969d70342cc5eff05282024b
         env:
           - name: VPN_TYPE
