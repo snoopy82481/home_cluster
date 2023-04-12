@@ -92,7 +92,7 @@ controlPlane:
             service:
               disabled: true
         extraManifests:
-          - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.6.9/deploy/ha-install.yaml
+          - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.6.10/deploy/ha-install.yaml
         proxy:
           disabled: true
           extraArgs:
