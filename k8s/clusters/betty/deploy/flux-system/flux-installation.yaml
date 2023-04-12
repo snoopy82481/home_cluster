@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: flux-manifests
+  name: flux-installation
   namespace: flux-system
 spec:
   interval: 10m
@@ -23,7 +23,7 @@ spec:
   wait: true
   sourceRef:
     kind: OCIRepository
-    name: flux-manifests
+    name: flux-installation
   patches:
     - patch: |
         $patch: delete
