@@ -7,7 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: flux-installation
+    - name: flux
   interval: 10m0s
   path: ./k8s/global/flux/config
   prune: true
@@ -28,7 +28,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: flux-installation
+    - name: flux
   interval: 10m0s
   path: ./k8s/clusters/betty/config
   prune: true
