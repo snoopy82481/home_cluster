@@ -8,8 +8,6 @@ metadata:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
 spec:
-  type: ExternalName
-  externalName: octoprint-e5s1.
   ports:
     - name: http
       port: &port 82

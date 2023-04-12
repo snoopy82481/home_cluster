@@ -8,8 +8,6 @@ metadata:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
 spec:
-  type: ExternalName
-  externalName: octoprint-kobra.
   ports:
     - name: http
       port: &port 81

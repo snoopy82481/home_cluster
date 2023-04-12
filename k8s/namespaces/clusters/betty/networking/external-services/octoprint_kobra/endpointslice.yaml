@@ -1,0 +1,19 @@
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: &app octoprint-kobra
+  namespace: networking
+  labels:
+    app.kubernetes.io/name: *app
+    app.kubernetes.io/instance: *app
+    kubernetes.io/service-name: *app
+addressType: IPv4
+ports:
+  - name: http
+    appProtocol: http
+    protocol: TCP
+    port: 81
+endpoints:
+  - addresses:
+      - "192.168.0.176"
