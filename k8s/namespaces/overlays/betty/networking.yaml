@@ -1,5 +1,6 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: networking-tplink
@@ -26,7 +27,8 @@ spec:
       - kind: Secret
         name: cluster-secrets
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: networking-external-proxmox
@@ -53,7 +55,8 @@ spec:
       - kind: Secret
         name: cluster-secrets
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: networking-external-octoprint-e5s1
@@ -80,7 +83,8 @@ spec:
       - kind: Secret
         name: cluster-secrets
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: networking-external-octoprint-kobra
