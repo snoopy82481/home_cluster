@@ -13,11 +13,34 @@ spec:
       app.kubernetes.io/instance: vpn-gateway
       app.kubernetes.io/name: pod-gateway
   egress:
-    - toCIDR:
-        - 0.0.0.0/0
+    - toCIDRSet:
+        - cidr: 0.0.0.0/0
       toPorts:
         - ports:
             - port: "51820"
               protocol: UDP
     - toEntities:
         - cluster
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: vpn-gateway-pod-gateway
+  namespace: vpn
+  labels:
+    app.kubernetes.io/instance: vpn-gateway
+    app.kubernetes.io/name: pod-gateway
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: vpn-gateway
+      app.kubernetes.io/name: pod-gateway
+  egress:
+    - toCIDRSet:
+        - cidr: 0.0.0.0/0
+      toPorts:
+        - ports:
+            - port: "1194"
+              protocol: UDP
+    - toCIDRSet:
+        - cidr: 10.0.0.0/8
