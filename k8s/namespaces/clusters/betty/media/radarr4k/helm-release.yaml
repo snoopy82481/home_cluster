@@ -55,6 +55,7 @@ spec:
           hajimari.io/group: "Media"
           hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Radarr 4k"
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter
