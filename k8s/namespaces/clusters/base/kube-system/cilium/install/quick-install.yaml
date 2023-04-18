@@ -1369,7 +1369,7 @@ spec:
     spec:
       containers:
         - name: hubble-relay
-          image: "quay.io/cilium/hubble-relay:v1.13.1@sha256:ad7ce650c7877f8d769264e20bf5b9020ea778a9530cfae9d67a5c9d942c04cb"
+          image: "quay.io/cilium/hubble-relay:v1.13.2@sha256:51b772cab0724511583c3da3286439791dc67d7c35077fa30eaba3b5d555f8f4"
           imagePullPolicy: IfNotPresent
           command:
             - hubble-relay

@@ -101,7 +101,7 @@ spec:
         enabled: true
         image:
           repository: quay.io/cilium/hubble-relay
-          tag: v1.13.1
+          tag: v1.13.2
         rollOutPods: true
       ui:
         enabled: true
