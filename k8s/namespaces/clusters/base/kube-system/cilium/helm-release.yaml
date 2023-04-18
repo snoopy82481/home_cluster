@@ -160,7 +160,7 @@ spec:
       apiserver:
         image:
           repository: quay.io/cilium/clustermesh-apiserver
-          tag: v1.13.1
+          tag: v1.13.2
         etcd:
           image:
             repository: quay.io/coreos/etcd
