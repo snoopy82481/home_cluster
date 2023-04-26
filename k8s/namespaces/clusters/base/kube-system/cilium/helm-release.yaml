@@ -164,7 +164,7 @@ spec:
         etcd:
           image:
             repository: quay.io/coreos/etcd
-            tag: v3.5.7
+            tag: v3.5.8
             pullPolicy: IfNotPresent
 
     rollOutCiliumPods: true
