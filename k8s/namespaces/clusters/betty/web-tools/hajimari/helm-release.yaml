@@ -162,8 +162,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "weather-sunset"
+          hajimari.io/enable: "false"
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
@@ -177,7 +176,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: hajimari-config-v1
+        type: emptyDir
     podAnnotations:
       configmap.reloader.stakater.com/reload: "hajimari-settings"
     resources:
