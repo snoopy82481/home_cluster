@@ -1,0 +1,6 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "username": "snoopy82481-bot[bot]",
+  "gitAuthor": "172381+snoopy82481-bot[bot]@users.noreply.github.com",
+  "repositories": ["snoopy82481/home_cluster"]
+}
