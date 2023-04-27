@@ -67,6 +67,16 @@
       ],
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "semver"
+    },
+    {
+      "description": "Process Talos versioning",
+      "fileMatch": ["k8s/clusters/talos/betty/.+\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: image( versioning=(?<versioning>.+=?))?\n.*[:|=] \"?(?<depName>.+?):(?<currentValue>[^\"\n]+=?)\"?",
+        "# renovate: image depName=(?<depName>.+=?)( versioning=(?<versioning>.+=?))?\n.*[:|=] \"?(?<currentValue>[^\"\n]+=?)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
   ],
   "packageRules": [
