@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - secrets.sops.yaml
   - helm-release.yaml
+  - dnsendpoint-crd.yaml
