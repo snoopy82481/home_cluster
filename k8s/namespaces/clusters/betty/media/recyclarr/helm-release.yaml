@@ -16,6 +16,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 15m
+  maxHistory: 2
   test:
     enable: false
   install:
@@ -30,6 +31,8 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
+  uninstall:
+    keepHistory: false
   values:
     controller:
       type: cronjob

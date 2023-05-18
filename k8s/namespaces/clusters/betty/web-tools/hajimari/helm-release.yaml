@@ -16,7 +16,7 @@ spec:
         name: hajimari
         namespace: flux-system
       interval: 15m
-  maxHistory: 3
+  maxHistory: 2
   test:
     enable: false
   install:

@@ -15,6 +15,7 @@ spec:
         kind: HelmRepository
         name: kyverno
         namespace: flux-system
+  maxHistory: 2
   test:
     enable: false
   install:
@@ -29,6 +30,8 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
+  uninstall:
+    keepHistory: false
   values:
     installCRDs: false
 

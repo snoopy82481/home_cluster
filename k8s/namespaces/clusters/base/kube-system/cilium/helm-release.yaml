@@ -21,6 +21,9 @@ spec:
         name: cilium
         namespace: flux-system
       interval: 5m
+  maxHistory: 2
+  test:
+    enable: false
   install:
     createNamespace: true
     remediation:
@@ -34,6 +37,8 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
+  uninstall:
+    keepHistory: false
   values:
     image:
       repository: quay.io/cilium/cilium

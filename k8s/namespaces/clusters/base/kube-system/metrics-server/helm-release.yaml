@@ -15,6 +15,9 @@ spec:
         kind: HelmRepository
         name: metrics-server
         namespace: flux-system
+  maxHistory: 2
+  test:
+    enable: false
   install:
     remediation:
       retries: 5
@@ -27,6 +30,8 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
+  uninstall:
+    keepHistory: false
   values:
     args:
       - --kubelet-insecure-tls

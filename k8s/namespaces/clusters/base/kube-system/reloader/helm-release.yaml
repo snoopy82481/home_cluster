@@ -16,6 +16,9 @@ spec:
         name: stakater
         namespace: flux-system
       interval: 15m
+  maxHistory: 2
+  test:
+    enable: false
   install:
     createNamespace: true
     remediation:
@@ -29,6 +32,8 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
+  uninstall:
+    keepHistory: false
   values:
     reloader:
       readOnlyRootFileSystem: true
