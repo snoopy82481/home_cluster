@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   # - config-map.yaml
-  # - bgp-peering-policy.yaml
+  - bgp-peering-policy.yaml
