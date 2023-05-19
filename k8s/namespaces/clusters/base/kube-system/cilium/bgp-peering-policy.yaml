@@ -9,5 +9,5 @@ spec:
     - localASN: 64500
       exportPodCIDR: true
       neighbors:
-        - peerAddress: "192.168.0.1/32"
+        - peerAddress: ${GATEWAY_IP}
           peerASN: 64501
