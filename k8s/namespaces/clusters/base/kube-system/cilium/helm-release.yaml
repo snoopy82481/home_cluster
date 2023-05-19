@@ -40,11 +40,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: quay.io/cilium/cilium
-      tag: v1.13.2
-      pullPolicy: IfNotPresent
-
     kubeProxyReplacement: "strict"
 
     k8sServiceHost: 192.168.20.254
@@ -104,9 +99,6 @@ spec:
       listenAddress: ':4244'
       relay:
         enabled: true
-        image:
-          repository: quay.io/cilium/hubble-relay
-          tag: v1.13.2
         rollOutPods: true
       ui:
         enabled: true
@@ -159,18 +151,6 @@ spec:
     Cluster:
       name: ${CLUSTER_NAME}
       id: ${CLUSTER_ID}
-
-    clustermesh:
-      useAPIServer: false
-      apiserver:
-        image:
-          repository: quay.io/cilium/clustermesh-apiserver
-          tag: v1.13.2
-        etcd:
-          image:
-            repository: quay.io/coreos/etcd
-            tag: v3.5.9
-            pullPolicy: IfNotPresent
 
     rollOutCiliumPods: true
 
