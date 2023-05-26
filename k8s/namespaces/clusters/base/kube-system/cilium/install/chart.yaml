@@ -92,7 +92,7 @@ rollOutCiliumPods: false
 image:
   override: ~
   repository: "quay.io/cilium/cilium"
-  tag: "v1.13.2"
+  tag: "v1.13.3"
   pullPolicy: "IfNotPresent"
   # cilium-digest
   digest: "sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
@@ -1775,7 +1775,7 @@ preflight:
   image:
     override: ~
     repository: "quay.io/cilium/cilium"
-    tag: "v1.13.2"
+    tag: "v1.13.3"
     # cilium-digest
     digest: "sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
     useDigest: true
