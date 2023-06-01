@@ -9,7 +9,7 @@ metadata:
 spec:
   interval: 10m0s
   ref:
-    tag: v2.0.0-rc.3
+    tag: v2.0.0-rc.5
   url: https://github.com/fluxcd/flux2
   ignore: |
     # exclude all
