@@ -8,7 +8,7 @@ spec:
   nodeName: kworker1
   containers:
     - name: disk-wipe
-      image: busybox@sha256:b58e890a4eaaaf8a8b756af0632442acdc2a630fe771825403c8e51cb140d14c
+      image: busybox@sha256:6e494387c901caf429c1bf77bd92fb82b33a68c0e19f6d1aa6a3ac8d27a7049d
       securityContext:
         privileged: true
       command:
@@ -35,7 +35,7 @@ spec:
   nodeName: kworker2
   containers:
     - name: disk-wipe
-      image: busybox@sha256:b58e890a4eaaaf8a8b756af0632442acdc2a630fe771825403c8e51cb140d14c
+      image: busybox@sha256:6e494387c901caf429c1bf77bd92fb82b33a68c0e19f6d1aa6a3ac8d27a7049d
       securityContext:
         privileged: true
       command:
@@ -62,7 +62,7 @@ spec:
   nodeName: kworker3
   containers:
     - name: disk-wipe
-      image: busybox@sha256:b58e890a4eaaaf8a8b756af0632442acdc2a630fe771825403c8e51cb140d14c
+      image: busybox@sha256:6e494387c901caf429c1bf77bd92fb82b33a68c0e19f6d1aa6a3ac8d27a7049d
       securityContext:
         privileged: true
       command:
