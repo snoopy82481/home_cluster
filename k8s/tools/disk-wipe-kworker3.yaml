@@ -8,7 +8,7 @@ spec:
   nodeName: kworker3
   containers:
     - name: disk-wipe
-      image: busybox@sha256:b0b79277b9eae8c1e251c62cfdcff80be36684d73bc9caa12d466f43a624bea2
+      image: busybox@sha256:b58e890a4eaaaf8a8b756af0632442acdc2a630fe771825403c8e51cb140d14c
       securityContext:
         privileged: true
       command:
