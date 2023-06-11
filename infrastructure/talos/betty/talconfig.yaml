@@ -17,7 +17,7 @@ clusterSvcNets:
 cniConfig:
   name: custom
   urls:
-    - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/k8s/namespaces/clusters/base/kube-system/cilium/install/quick-install.yaml
+    - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/kubernetes/apps/kube-system/cilium/install/quick-install.yaml
 
 nodes:
   - hostname: kmaster1
