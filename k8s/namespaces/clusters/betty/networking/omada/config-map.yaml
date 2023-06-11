@@ -1,8 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: tcp-services
-  namespace: networking
-data:
-  8043: "networking/omada-controller-controller:8043"

@@ -3,7 +3,7 @@ version: "3"
 
 vars:
   TALOS_VERSION:
-    sh: "yq '.talosVersion' k8s/clusters/talos/betty/talconfig.yaml"
+    sh: "yq '.talosVersion' ./infrastructure/talos/betty/talconfig.yaml"
 
 tasks:
 

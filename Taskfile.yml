@@ -15,7 +15,7 @@ vars:
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
-  TALOS_DIR: "{{.PROJECT_DIR}}/k8s/clusters/talos/betty"
+  TALOS_DIR: "{{.PROJECT_DIR}}/infrastructure/talos/betty"
   CLUSTER: betty
   GITHUB_USER: snoopy82481
   GITHUB_REPO: home_cluster
@@ -41,6 +41,8 @@ tasks:
       DEPS: >-
         age
         ansible
+        cilium-cli
+        cloudflared
         direnv
         fluxcd/tap/flux
         go-task/tap/go-task
@@ -48,14 +50,12 @@ tasks:
         ipcalc
         jq
         kubernetes-cli
-        cilium-cli
         kustomize
         pre-commit
         prettier
         sops
         stern
-        terraform
-        tflint
+        weaveworks/tap/gitops
         yamllint
         yq
 

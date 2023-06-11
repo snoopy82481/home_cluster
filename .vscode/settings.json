@@ -94,4 +94,5 @@
   "githubPullRequests.ignoredPullRequestBranches": [
     "main"
   ],
+  "ansible.python.interpreterPath": "/bin/python",
 }
