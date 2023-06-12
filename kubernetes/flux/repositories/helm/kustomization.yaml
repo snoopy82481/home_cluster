@@ -24,3 +24,4 @@ resources:
   - ./stakater.yaml
   - ./vector.yaml
   - ./postfinance.yaml
+  - ./weave-gitops.yaml
