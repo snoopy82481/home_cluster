@@ -126,12 +126,13 @@ controlPlane:
           servers:
             - 192.168.20.1
         files:
-          - content: |
-              [plugins."io.containerd.grpc.v1.cri"]
-                enable_unprivileged_ports = true
-                enable_unprivileged_icmp = true
-            op: create
+          - op: create
             path: /etc/cri/conf.d/20-customization.part
+            content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
         network:
           nameservers:
             - 192.168.20.1
@@ -144,6 +145,9 @@ controlPlane:
               dhcp: true
               vip:
                 ip: 192.168.20.254
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
 
 worker:
   patches:

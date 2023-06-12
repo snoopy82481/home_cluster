@@ -120,12 +120,12 @@ spec:
           hajimari.io/icon: simple-icons:prometheus
         pathType: Prefix
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "prometheus.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "{{ .Release.Name }}-tls"
+          - secretName: "prometheus-tls"
             hosts:
               - *host
       prometheusSpec:
