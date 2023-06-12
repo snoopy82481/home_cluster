@@ -8,7 +8,6 @@ resources:
   - ./bazarr-anime/ks.yaml
   - ./bazarr-uhd/ks.yaml
   - ./overseerr/ks.yaml
-  - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./radarr4k/ks.yaml

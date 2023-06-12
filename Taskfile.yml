@@ -2,7 +2,6 @@
 version: "3"
 
 includes:
-  ansible: .taskfiles/AnsibleTasks.yml
   cluster: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
   terraform: .taskfiles/TerraformTasks.yml
@@ -12,9 +11,8 @@ includes:
 vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
-  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
-  TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  TERRAFORM_DIR: "{{.PROJECT_DIR}}/infrastructure/terraform"
   TALOS_DIR: "{{.PROJECT_DIR}}/infrastructure/talos/betty"
   CLUSTER: betty
   GITHUB_USER: snoopy82481
