@@ -33,6 +33,9 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
   values:
     image:
       repository: ghcr.io/toboshii/hajimari

@@ -22,6 +22,11 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: cert-manager
+      namespace: cert-manager
   values:
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
