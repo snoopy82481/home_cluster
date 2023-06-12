@@ -113,13 +113,13 @@ spec:
         nodes:
           - name: "kworker1"
             devices:
-              - name: "sdb"
+              - name: "/dev/sdb"
           - name: "kworker2"
             devices:
-              - name: "sdb"
+              - name: "/dev/sdb"
           - name: "kworker3"
             devices:
-              - name: "sdb"
+              - name: "/dev/sdb"
 
     ingress:
       dashboard:
