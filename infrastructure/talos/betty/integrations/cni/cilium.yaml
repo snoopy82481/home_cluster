@@ -414,7 +414,7 @@ data:
   disable-endpoint-crd: "false"
   disable-envoy-version-check: "false"
   enable-auto-protect-node-port-range: "true"
-  enable-bgp-control-plane: "false"
+  enable-bgp-control-plane: "true"
   enable-bpf-clock-probe: "true"
   enable-endpoint-health-checking: "true"
   enable-envoy-config: "true"
@@ -539,7 +539,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 49ea8d600a73293fceb0812b6fa3722da6725610177cf6453e675005f2a71221
+        cilium.io/cilium-configmap-checksum: fb5b05d779871d82ed0dd96e4e41a65f4345f0e2af3e8e9e79ddf37ab456fc07
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -639,7 +639,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 49ea8d600a73293fceb0812b6fa3722da6725610177cf6453e675005f2a71221
+        cilium.io/cilium-configmap-checksum: fb5b05d779871d82ed0dd96e4e41a65f4345f0e2af3e8e9e79ddf37ab456fc07
         container.apparmor.security.beta.kubernetes.io/cilium-agent: unconfined
         container.apparmor.security.beta.kubernetes.io/clean-cilium-state: unconfined
         prometheus.io/port: "9090"
