@@ -17,11 +17,6 @@ kind: ServiceAccount
 metadata:
   name: "cilium-operator"
   namespace: kube-system
-  annotations:
-    meta.helm.sh/release-name: cilium
-    meta.helm.sh/release-namespace: kube-system
-  labels:
-    app.kubernetes.io/managed-by: Helm
 ---
 # Source: cilium/templates/cilium-configmap.yaml
 apiVersion: v1
@@ -35,6 +30,8 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: Helm
 data:
+  disable-envoy-version-check: "false"
+
   # Identity allocation mode selects how identities are shared between cilium
   # nodes by setting how they are stored. The options are "crd" or "kvstore".
   # - "crd" stores identities in kubernetes as CRDs (custom resource definition).
@@ -61,6 +58,22 @@ data:
   # default, always and never.
   # https://docs.cilium.io/en/latest/security/policy/intro/#policy-enforcement-modes
   enable-policy: "default"
+  # If you want metrics enabled in all of your Cilium agents, set the port for
+  # which the Cilium agents will have their metrics exposed.
+  # This option deprecates the "prometheus-serve-addr" in the
+  # "cilium-metrics-config" ConfigMap
+  # NOTE that this will open the port on ALL nodes where Cilium pods are
+  # scheduled.
+  prometheus-serve-addr: ":9090"
+  # Port to expose Envoy metrics (e.g. "9964"). Envoy metrics listener will be disabled if this
+  # field is not set.
+  proxy-prometheus-port: "9964"
+  # If you want metrics enabled in cilium-operator, set the port for
+  # which the Cilium Operator will have their metrics exposed.
+  # NOTE that this will open the port on the nodes where Cilium operator pod
+  # is scheduled.
+  operator-prometheus-serve-addr: ":9963"
+  enable-metrics: "true"
 
   # Enable IPv4 addressing. If enabled, all endpoints are allocated an IPv4
   # address.
@@ -73,7 +86,6 @@ data:
   # custom-cni-conf to "true", otherwise Cilium may overwrite the configuration.
   custom-cni-conf: "false"
   enable-bpf-clock-probe: "true"
-  enable-bpf-tproxy: "true"
   # If you want cilium monitor to aggregate tracing for packets, set this level
   # to "low", "medium", or "maximum". The higher the level, the less packets
   # that will be seen in monitor output.
@@ -123,17 +135,17 @@ data:
   sidecar-istio-proxy-image: "cilium/istio_proxy"
 
   # Name of the cluster. Only relevant when building a mesh of clusters.
-  cluster-name: home-cluster
+  cluster-name: default
   # Unique ID of the cluster. Must be unique across all conneted clusters and
   # in the range of 1 and 255. Only relevant when building a mesh of clusters.
-  cluster-id: "1"
+  cluster-id: "0"
 
   # Encapsulation mode for communication between nodes
   # Possible values:
   #   - disabled
   #   - vxlan (default)
   #   - geneve
-  tunnel: "vxlan"
+  tunnel: "disabled"
 
   # Enables L7 proxy for L7 policy enforcement and visibility
   enable-l7-proxy: "true"
@@ -141,28 +153,24 @@ data:
   enable-ipv4-masquerade: "true"
   enable-ipv6-big-tcp: "false"
   enable-ipv6-masquerade: "true"
-  enable-bpf-masquerade: "true"
 
   enable-xt-socket-fallback: "true"
   install-no-conntrack-iptables-rules: "false"
 
-  auto-direct-node-routes: "false"
-  enable-bandwidth-manager: "true"
-  enable-bbr: "true"
-  enable-local-redirect-policy: "true"
+  auto-direct-node-routes: "true"
+  enable-local-redirect-policy: "false"
+  ipv4-native-routing-cidr: 10.42.0.0/16
 
   kube-proxy-replacement: "strict"
   kube-proxy-replacement-healthz-bind-address: "0.0.0.0:10256"
   bpf-lb-sock: "false"
+  node-port-range: "30000,32767"
   enable-health-check-nodeport: "true"
   node-port-bind-protection: "true"
   enable-auto-protect-node-port-range: "true"
-  bpf-lb-mode: "dsr"
-  bpf-lb-algorithm: "maglev"
   enable-svc-source-range-check: "true"
   enable-l2-neigh-discovery: "true"
   arping-refresh-period: "30s"
-  endpoint-status: "policy"
   cni-uninstall: "true"
   enable-endpoint-health-checking: "true"
   enable-health-checking: "true"
@@ -171,13 +179,13 @@ data:
   synchronize-k8s-nodes: "true"
   operator-api-serve-addr: "127.0.0.1:9234"
   ipam: "kubernetes"
-  disable-cnp-status-updates: "false"
+  disable-cnp-status-updates: "true"
   enable-vtep: "false"
   vtep-endpoint: ""
   vtep-cidr: ""
   vtep-mask: ""
   vtep-mac: ""
-  enable-bgp-control-plane: "true"
+  enable-bgp-control-plane: "false"
   procfs: "/host/proc"
   bpf-root: "/sys/fs/bpf"
   cgroup-root: "/sys/fs/cgroup"
@@ -193,6 +201,8 @@ data:
   tofqdns-max-deferred-connection-deletes: "10000"
   tofqdns-min-ttl: "3600"
   tofqdns-proxy-response-max-delay: "100ms"
+
+  enable-envoy-config: "true"
   agent-not-ready-taint-key: "node.cilium.io/agent-not-ready"
 ---
 # Source: cilium/templates/cilium-agent/clusterrole.yaml
@@ -597,6 +607,33 @@ subjects:
     name: "cilium"
     namespace: kube-system
 ---
+# Source: cilium/templates/cilium-agent/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: cilium-agent
+  namespace: kube-system
+  annotations:
+    meta.helm.sh/release-name: cilium
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9964"
+    k8s-app: cilium
+    app.kubernetes.io/name: cilium-agent
+    app.kubernetes.io/part-of: cilium
+spec:
+  clusterIP: None
+  type: ClusterIP
+  selector:
+    k8s-app: cilium
+  ports:
+    - name: envoy-metrics
+      port: 9964
+      protocol: TCP
+      targetPort: envoy-metrics
+---
 # Source: cilium/templates/cilium-agent/daemonset.yaml
 apiVersion: apps/v1
 kind: DaemonSet
@@ -622,8 +659,10 @@ spec:
   template:
     metadata:
       annotations:
+        prometheus.io/port: "9090"
+        prometheus.io/scrape: "true"
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "004f726f337100f9b0ec9bac011db0e1408e0b7b7463e3711cf7a83f2f067e67"
+        cilium.io/cilium-configmap-checksum: "49ea8d600a73293fceb0812b6fa3722da6725610177cf6453e675005f2a71221"
         # Set app AppArmor's profile to "unconfined". The value of this annotation
         # can be modified as long users know which profiles they have available
         # in AppArmor.
@@ -716,11 +755,24 @@ spec:
                   - "bash"
                   - "-c"
                   - |
-                    /cni-install.sh --enable-debug=false --cni-exclusive=false --log-file=/var/run/cilium/cilium-cni.log
+                    /cni-install.sh --enable-debug=false --cni-exclusive=true --log-file=/var/run/cilium/cilium-cni.log
             preStop:
               exec:
                 command:
                   - /cni-uninstall.sh
+          ports:
+            - name: peer-service
+              containerPort: 4244
+              hostPort: 4244
+              protocol: TCP
+            - name: prometheus
+              containerPort: 9090
+              hostPort: 9090
+              protocol: TCP
+            - name: envoy-metrics
+              containerPort: 9964
+              hostPort: 9964
+              protocol: TCP
           securityContext:
             seLinuxOptions:
               level: s0
@@ -978,7 +1030,7 @@ metadata:
 spec:
   # See docs on ServerCapabilities.LeasesResourceLock in file pkg/k8s/version/version.go
   # for more details.
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       io.cilium/app: operator
@@ -992,7 +1044,9 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "004f726f337100f9b0ec9bac011db0e1408e0b7b7463e3711cf7a83f2f067e67"
+        cilium.io/cilium-configmap-checksum: "49ea8d600a73293fceb0812b6fa3722da6725610177cf6453e675005f2a71221"
+        prometheus.io/port: "9963"
+        prometheus.io/scrape: "true"
       labels:
         io.cilium/app: operator
         name: cilium-operator
@@ -1029,6 +1083,11 @@ spec:
               value: "192.168.20.254"
             - name: KUBERNETES_SERVICE_PORT
               value: "6443"
+          ports:
+            - name: prometheus
+              containerPort: 9963
+              hostPort: 9963
+              protocol: TCP
           livenessProbe:
             httpGet:
               host: "127.0.0.1"
