@@ -73,6 +73,7 @@ data:
   # custom-cni-conf to "true", otherwise Cilium may overwrite the configuration.
   custom-cni-conf: "false"
   enable-bpf-clock-probe: "true"
+  enable-bpf-tproxy: "true"
   # If you want cilium monitor to aggregate tracing for packets, set this level
   # to "low", "medium", or "maximum". The higher the level, the less packets
   # that will be seen in monitor output.
@@ -146,7 +147,9 @@ data:
   install-no-conntrack-iptables-rules: "false"
 
   auto-direct-node-routes: "false"
-  enable-local-redirect-policy: "false"
+  enable-bandwidth-manager: "true"
+  enable-bbr: "true"
+  enable-local-redirect-policy: "true"
 
   kube-proxy-replacement: "strict"
   kube-proxy-replacement-healthz-bind-address: "0.0.0.0:10256"
@@ -159,6 +162,7 @@ data:
   enable-svc-source-range-check: "true"
   enable-l2-neigh-discovery: "true"
   arping-refresh-period: "30s"
+  endpoint-status: "policy"
   cni-uninstall: "true"
   enable-endpoint-health-checking: "true"
   enable-health-checking: "true"
@@ -167,7 +171,7 @@ data:
   synchronize-k8s-nodes: "true"
   operator-api-serve-addr: "127.0.0.1:9234"
   ipam: "kubernetes"
-  disable-cnp-status-updates: "true"
+  disable-cnp-status-updates: "false"
   enable-vtep: "false"
   vtep-endpoint: ""
   vtep-cidr: ""
@@ -428,7 +432,7 @@ rules:
       - get
       - list
       - watch
-      # To perform CiliumNode garbage collector
+        # To perform CiliumNode garbage collector
       - delete
   - apiGroups:
       - cilium.io
@@ -618,6 +622,8 @@ spec:
   template:
     metadata:
       annotations:
+        # ensure pods roll when configmap updates
+        cilium.io/cilium-configmap-checksum: "004f726f337100f9b0ec9bac011db0e1408e0b7b7463e3711cf7a83f2f067e67"
         # Set app AppArmor's profile to "unconfined". The value of this annotation
         # can be modified as long users know which profiles they have available
         # in AppArmor.
@@ -938,7 +944,7 @@ spec:
           hostPath:
             path: /run/xtables.lock
             type: FileOrCreate
-          # To read the clustermesh configuration
+        # To read the clustermesh configuration
         - name: clustermesh-secrets
           secret:
             secretName: cilium-clustermesh
@@ -986,7 +992,7 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "72e4972b0c309737fb1f6845e6f21774182c98a492177d99741bbff128cf2d9d"
+        cilium.io/cilium-configmap-checksum: "004f726f337100f9b0ec9bac011db0e1408e0b7b7463e3711cf7a83f2f067e67"
       labels:
         io.cilium/app: operator
         name: cilium-operator

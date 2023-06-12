@@ -1,6 +1,5 @@
----
-- op: remove
-  path: /cluster/network/cni/urls
+# - op: remove
+#   path: /cluster/network/cni/urls
 
 - op: add
   path: /cluster/network/cni/name

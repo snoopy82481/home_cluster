@@ -1,6 +1,7 @@
 ---
 bpf:
   masquerade: true
+  tproxy: true
 
 cluster:
   name: home-cluster
@@ -8,7 +9,6 @@ cluster:
 
 containerRuntime:
   integration: containerd
-  socketPath: /var/run/k3s/containerd/containerd.sock
 
 hubble:
   enabled: false
@@ -35,6 +35,12 @@ bgpControlPlane:
 
 cni:
   exclusive: false
+
+bgp:
+  enabled: false
+  announce:
+    loadbalancerIP: true
+    podCIDR: false
 
 loadBalancer:
   algorithm: maglev
@@ -63,3 +69,17 @@ cgroup:
   autoMount:
     enabled: false
   hostRoot: /sys/fs/cgroup
+
+rollOutCiliumPods: true
+localRedirectPolicy: true
+
+bandwidthManager:
+  enabled: true
+  bbr: true
+
+l7Proxy: true
+
+enableCnpStatusUpdates: true
+endpointStatus:
+  enabled: true
+  status: "policy"
