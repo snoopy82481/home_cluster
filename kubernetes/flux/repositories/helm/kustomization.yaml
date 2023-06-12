@@ -3,23 +3,24 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - angelnu.yaml
-  - bitnami.yaml
-  - bjw-s.yaml
-  - cilium.yaml
-  - cloudnative-pg.yaml
-  - descheduler.yaml
-  - dysnix.yaml
-  - external-dns.yaml
-  - grafana.yaml
-  - ingress-nginx.yaml
-  - jetstack.yaml
-  - k8s-gateway.yaml
-  - kubereboot.yaml
-  - kyverno.yaml
-  - metrics-server.yaml
-  - prometheus-community.yaml
-  - rook-ceph.yaml
-  - sealed-secrets.yaml
-  - stakater.yaml
-  - vector.yaml
+  - ./angelnu.yaml
+  - ./bitnami.yaml
+  - ./bjw-s.yaml
+  - ./cilium.yaml
+  - ./cloudnative-pg.yaml
+  - ./descheduler.yaml
+  - ./dysnix.yaml
+  - ./external-dns.yaml
+  - ./grafana.yaml
+  - ./ingress-nginx.yaml
+  - ./jetstack.yaml
+  - ./k8s-gateway.yaml
+  - ./kubereboot.yaml
+  - ./kyverno.yaml
+  - ./metrics-server.yaml
+  - ./prometheus-community.yaml
+  - ./rook-ceph.yaml
+  - ./sealed-secrets.yaml
+  - ./stakater.yaml
+  - ./vector.yaml
+  - ./postfinance.yaml

@@ -15,9 +15,7 @@ clusterSvcNets:
   - 10.43.0.0/16
 
 cniConfig:
-  name: custom
-  urls:
-    - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/kubernetes/apps/kube-system/cilium/install/quick-install.yaml
+  name: none
 
 nodes:
   - hostname: kmaster1
@@ -95,7 +93,8 @@ controlPlane:
             service:
               disabled: true
         extraManifests:
-          - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.1/deploy/ha-install.yaml
+          - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/cni/cilium.yaml
+          - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/kublet-csr-approver/kubelet-csr-approver.yaml
         proxy:
           disabled: true
           extraArgs:
