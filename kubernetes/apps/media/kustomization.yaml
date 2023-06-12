@@ -12,7 +12,7 @@ resources:
   - ./radarr/ks.yaml
   - ./radarr4k/ks.yaml
   - ./radarranime/ks.yaml
-  - ./recyclarr/ks.yaml
+  # - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
   - ./sonarr-anime/ks.yaml
