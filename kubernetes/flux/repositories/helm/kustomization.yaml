@@ -12,6 +12,7 @@ resources:
   - ./dysnix.yaml
   - ./external-dns.yaml
   - ./grafana.yaml
+  - ./hajimari.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
