@@ -82,7 +82,7 @@ spec:
           "http_user_agent": "$http_user_agent"}
 
       extraArgs:
-        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-staging-tls"
+        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
 
       metrics:
         enabled: true
