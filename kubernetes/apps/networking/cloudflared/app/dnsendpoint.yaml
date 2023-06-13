@@ -5,7 +5,8 @@ metadata:
   name: cloudflared
   namespace: networking
   annotations:
-    external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+    # external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/target: "true"
 spec:
   endpoints:
     - dnsName: "ingress.${SECRET_DOMAIN}"
