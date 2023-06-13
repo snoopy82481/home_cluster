@@ -22,7 +22,7 @@ spec:
         - peerAddress: "192.168.0.1/32"
           peerASN: 64501
 ---
-apiVersion: "cilium.io/v2alpha1"
+apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: main-pool
