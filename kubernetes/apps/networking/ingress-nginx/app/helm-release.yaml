@@ -81,6 +81,9 @@ spec:
           "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer",
           "http_user_agent": "$http_user_agent"}
 
+      extraArgs:
+        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-staging-tls"
+
       metrics:
         enabled: true
         serviceMonitor:

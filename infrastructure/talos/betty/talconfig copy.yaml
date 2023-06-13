@@ -19,15 +19,15 @@ cniConfig:
 
 additionalApiServerCertSans:
   - ${clusterEndpointIP}
-  - - ${clusterName}.${domainName}
 
 additionalMachineCertSans:
   - ${clusterEndpointIP}
   - ${clusterName}.${domainName}
 
 nodes:
-  - hostname: kmaster1.${domainName}
+  - hostname: kmaster1
     ipAddress: 192.168.20.5
+    disableSearchDomain: true
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -35,8 +35,9 @@ nodes:
         addresses:
           - 192.168.20.5/24
 
-  - hostname: kmaster2.${domainName}
+  - hostname: kmaster2
     ipAddress: 192.168.20.6
+    disableSearchDomain: true
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -44,8 +45,9 @@ nodes:
         addresses:
           - 192.168.20.6/24
 
-  - hostname: kmaster3.${domainName}
+  - hostname: kmaster3
     ipAddress: 192.168.20.7
+    disableSearchDomain: true
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -53,8 +55,9 @@ nodes:
         addresses:
           - 192.168.20.7/24
 
-  - hostname: kworker1.${domainName}
+  - hostname: kworker1
     ipAddress: 192.168.20.8
+    disableSearchDomain: true
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -62,8 +65,9 @@ nodes:
         addresses:
           - 192.168.20.8/24
 
-  - hostname: kworker2.${domainName}
+  - hostname: kworker2
     ipAddress: 192.168.20.9
+    disableSearchDomain: true
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -71,8 +75,9 @@ nodes:
         addresses:
           - 192.168.20.9/24
 
-  - hostname: kworker3.${domainName}
+  - hostname: kworker3
     ipAddress: 192.168.20.10
+    disableSearchDomain: true
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -87,6 +92,9 @@ controlPlane:
         apiServer:
           disablePodSecurityPolicy: true
           admissionControl: []
+          certSANs:
+            - ${clusterEndpointIP}
+            - ${clusterName}.${domainName}
           extraArgs:
             feature-gates: MixedProtocolLBService=true
         controllerManager:
@@ -108,6 +116,9 @@ controlPlane:
             feature-gates: MixedProtocolLBService=true
 
       machine:
+        certSANs:
+          - ${clusterEndpointIP}
+          - ${clusterName}.${domainName}
         kubelet:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
@@ -137,7 +148,6 @@ controlPlane:
         network:
           nameservers:
             - 192.168.20.1
-          disableSearchDomain: true
           interfaces:
             - interface: eth0
               mtu: 1500
@@ -161,6 +171,9 @@ worker:
               disabled: true
 
       machine:
+        certSANs:
+          - ${clusterEndpointIP}
+          - ${clusterName}.${domainName}
         kubelet:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
@@ -187,9 +200,6 @@ worker:
             op: create
             path: /etc/cri/conf.d/20-customization.part
         network:
-          nameservers:
-            - 192.168.20.1
-          disableSearchDomain: true
           interfaces:
             - interface: eth0
               mtu: 1500
