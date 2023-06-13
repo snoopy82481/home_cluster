@@ -89,7 +89,8 @@
     "vpn-gateway",
     "hajimari",
     "theme-park",
-    "cura"
+    "cura",
+    "cloudflared"
   ],
   "githubPullRequests.ignoredPullRequestBranches": [
     "main"
