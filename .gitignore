@@ -1,19 +1,27 @@
 # Trash
 .DS_Store
 Thumbs.db
+
 # k8s
 kubeconfig
+
 # vscode-sops
-.decrypted~*.yaml
+.decrypted~*
 .config.env
 *.agekey
 *.pub
 *.key
-# Ansible
-xanmanning.k3s*
+
 # Terraform
-.terraform
-.terraform.tfstate*
-terraform.tfstate*
-megalinter-reports
-k8s/clusters/talos/betty/kubeconfig.old
+## Local .terraform directories
+**/.terraform/*
+
+## .tfstate files
+*.tfstate
+*.tfstate.*
+
+## terraform plan output
+*tfplan*
+
+# Talos clusterconfigs
+infrastructure/talos/**/clusterconfig
