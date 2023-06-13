@@ -34,7 +34,7 @@ spec:
     env:
       TZ: ${TIMEZONE}
       SONARR__INSTANCE_NAME: Sonarr_Anime
-      # SONARR__API_KEY: ${SONARR_ANIME_APIKEY}
+      SONARR__API_KEY: ${SONARR_ANIME_APIKEY}
       SONARR__PORT: &port 8989
       SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
       SONARR__LOG_LEVEL: info
