@@ -90,7 +90,8 @@
     "hajimari",
     "theme-park",
     "cura",
-    "cloudflared"
+    "cloudflared",
+    "sonarruhd"
   ],
   "githubPullRequests.ignoredPullRequestBranches": [
     "main"
