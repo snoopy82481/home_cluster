@@ -21,11 +21,11 @@ spec:
       neighbors:
         - peerAddress: "192.168.0.1/32"
           peerASN: 64501
-# ---
-# apiVersion: "cilium.io/v2alpha1"
-# kind: CiliumLoadBalancerIPPool
-# metadata:
-#   name: main-pool
-# spec:
-#   cidrs:
-#     - cidr: 192.168.21.1/24
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: main-pool
+spec:
+  cidrs:
+    - cidr: 192.168.21.1/24
