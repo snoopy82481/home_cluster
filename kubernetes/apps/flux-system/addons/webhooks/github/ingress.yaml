@@ -5,6 +5,7 @@ metadata:
   name: flux-webhook
   namespace: flux-system
   annotations:
+    cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
     external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
     hajimari.io/enable: "false"
 spec:
@@ -21,5 +22,6 @@ spec:
                 port:
                   number: 80
   tls:
-    - hosts:
+    - secretName: "flux-webhook-tls"
+      hosts:
         - *host
