@@ -29,7 +29,7 @@ repos:
     rev: v2.1.1
     hooks:
       - id: forbid-secrets
-        exclude: k8s/namespaces/clusters/base/kube-system/cilium/install/quick-install.yaml
+        exclude: infrastructure/talos/betty/integrations/cni/cilium.yaml
   - repo: https://github.com/gruntwork-io/pre-commit
     rev: v0.1.22
     hooks:

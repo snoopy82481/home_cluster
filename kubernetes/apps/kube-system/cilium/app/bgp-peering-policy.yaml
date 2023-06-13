@@ -5,9 +5,27 @@ metadata:
   name: bgp-config
   namespace: kube-system
 spec:
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: "linux"
   virtualRouters:
     - localASN: 64500
-      exportPodCIDR: true
+      exportPodCIDR: false
+      serviceSelector:
+        matchExpressions:
+          - {
+            key: thisFakeSelector,
+            operator: NotIn,
+            values: ["will-match-and-announce-all-services"],
+          }
       neighbors:
         - peerAddress: "192.168.0.1/32"
           peerASN: 64501
+# ---
+# apiVersion: "cilium.io/v2alpha1"
+# kind: CiliumLoadBalancerIPPool
+# metadata:
+#   name: main-pool
+# spec:
+#   cidrs:
+#     - cidr: 192.168.21.1/24

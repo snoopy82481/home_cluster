@@ -39,23 +39,40 @@ bgpControlPlane:
 bgp:
   enabled: false
   announce:
-    loadbalancerIP: true
+    loadbalancerIP: false
 
 hubble:
-  enabled: false
+  enabled: true
+  serviceMonitor:
+    enabled: false
+
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
+
+  relay:
+    enabled: true
+    rollOutPods: true
+
+  ui:
+    enabled: true
+    ingress:
+      enabled: false
+    rollOutPods: true
 
 ipv6:
   enabled: false
 
-kubeProxyReplacementHealthzBindAddr: '0.0.0.0:10256'
-
-prometheus:
-  enabled: true
-  port: 9090
-  serviceMonitor:
-    enabled: false
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 
 operator:
+  replicas: 1
   rollOutPods: true
   prometheus:
     enabled: true
@@ -68,7 +85,7 @@ tunnel: disabled
 
 LoadBalancer:
   algorithm: meglev
-  mode: hybrid
+  mode: dsr
 
 disableEnvoyVersionCheck: false
 
@@ -117,3 +134,28 @@ cgroup:
   autoMount:
     enabled: false
   hostRoot: /sys/fs/cgroup
+
+bandwidthManager:
+  enabled: true
+  bbr: true
+
+bpf:
+  masquerade: true
+  tproxy: true
+
+localRedirectPolicy: true
+
+cni:
+  exclusive: false
+
+l7Proxy: true
+
+ingressController:
+  enabled: false
+  loadbalancerMode: shared
+
+enableCnpStatusUpdates: true
+
+endpointStatus:
+  enabled: true
+  status: "policy"
