@@ -9,7 +9,7 @@ data:
 
   CLUSTER_NAME: betty
   CLUSTER_ID: "0"
-  CLUSTER_CERT: letsencrypt-staging
+  CLUSTER_CERT: letsencrypt-production
 
   GATEWAY_IP: 192.168.0.1
 
