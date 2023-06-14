@@ -1,0 +1,17 @@
+{
+    "tv": {
+        "save_path": "/tv"
+    },
+    "tv-anime": {
+        "save_path": "/tv-anime"
+    },
+    "movies": {
+        "save_path": "/movies"
+    },
+    "movies_uhd": {
+        "save_path": "/movies_uhd"
+    },
+    "movies-anime": {
+        "save_path": "/movies-anime"
+    }
+}

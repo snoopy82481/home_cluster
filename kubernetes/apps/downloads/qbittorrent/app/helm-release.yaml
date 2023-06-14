@@ -28,40 +28,62 @@ spec:
     - name: cert-manager
       namespace: cert-manager
   values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+        configmap.reloader.stakater.com/reload: cluster-settings
+
     image:
       repository: ghcr.io/onedr0p/qbittorrent
       tag: 4.5.3@sha256:5f97e1e998a498cc27ba08abcdad5be61bd396f833157c6b6c1f3d672915f2fa
+
     hostname: qbittorrent
+
     podAnnotations:
       setGateway: "true"
-      configmap.reloader.stakater.com/reload: cluster-config
+
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
       fsGroupChangePolicy: OnRootMismatch
       supplementalGroups:
-        - 100
+        - 65539
+
+    initContainers:
+      copy-config:
+        image: ghcr.io/onedr0p/alpine:3.18.0@sha256:dd504f02473c176a0e68e4550ccaf6f6c0f14e9f64c08a59877f9c6153bf48a9
+        command:
+          - "/bin/sh"
+          - -c
+        args:
+          - |
+            for f in /data/configfiles/*; do
+              filename=$(basename $f)
+              envsubst < $f > /data/config/$filename;
+            done
+        volumeMounts:
+          - name: config
+            mountPath: /data/config
+          - name: configfiles
+            mountPath: /data/configfiles
+
     settings:
       automaticPortSetup: false
+
     env:
       TZ: ${TIMEZONE}
+      UMASK: "022"
       QBITTORRENT__PORT: &port 8080
-      QBITTORRENT__BT_PORT: &port-bt 50413
+      QBITTORRENT__USE_PROFILE: "true"
+
     service:
       main:
         ports:
           http:
             port: *port
-      bittorrent:
-        enabled: true
-        type: LoadBalancer
-        ports:
-          bittorrent:
-            enabled: true
-            port: *port-bt
-            protocol: TCP
-            targetPort: *port-bt
+
     ingress:
       main:
         enabled: true
@@ -87,25 +109,36 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
+
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent-config-v1
+        type: emptyDir
+        mountPath: /config/qBittorrent/config
+
       media:
         enabled: true
         type: nfs
         server: ${NAS_NAME}
         path: /mnt/storage0/Data
         mountPath: /media
-      backup:
+
+      configfiles:
         enabled: true
-        type: nfs
-        server: ${NAS_NAME}
-        path: /mnt/storage0/backup
-        mountPath: /backup
+        type: configMap
+        name: qbittorrent-configmap
+        mountPath: "-"
+
     resources:
       requests:
-        cpu: 10m
-        memory: 250Mi
+        cpu: 29m
+        memory: 1227M
       limits:
-        memory: 6000Mi
+        memory: 1227M
+
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /config/qBittorrent/data
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: ceph-block

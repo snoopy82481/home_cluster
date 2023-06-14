@@ -2,6 +2,20 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: downloads
 resources:
-  - ./config-pvc.yaml
   - ./helm-release.yaml
+  - ./qbittools-reannounce
+  - ./qbittools-tagging
+commonLabels:
+  app.kubernetes.io/name: qbittorrent
+  app.kubernetes.io/instance: qbittorrent
+  app.kubernetes.io/component: app
+configMapGenerator:
+  - name: qbittorrent-configmap
+    files:
+      - config/categories.json
+      - config/qBittorrent.conf
+      - config/watched_folders.json
+generatorOptions:
+  disableNameSuffixHash: true
