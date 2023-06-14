@@ -38,7 +38,7 @@ spec:
       repository: ghcr.io/onedr0p/qbittorrent
       tag: 4.5.3@sha256:5f97e1e998a498cc27ba08abcdad5be61bd396f833157c6b6c1f3d672915f2fa
 
-    hostname: qbittorrent
+    hostname: *app
 
     podAnnotations:
       setGateway: "true"
