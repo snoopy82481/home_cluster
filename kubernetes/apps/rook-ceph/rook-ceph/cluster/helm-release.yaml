@@ -126,7 +126,9 @@ spec:
         ingressClassName: nginx
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          hajimari.io/enable: "true"
           hajimari.io/appName: "Rook"
+          hajimari.io/group: "monitoring"
           hajimari.io/icon: mdi:chess-rook
         host:
           name: &host "rook.${SECRET_DOMAIN}"
