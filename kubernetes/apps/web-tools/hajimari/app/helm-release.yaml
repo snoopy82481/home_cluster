@@ -46,22 +46,23 @@ spec:
       title: Apps
       darkTheme: espresso
       alwaysTargetBlank: true
-      showGreeting: false
-      showAppGroups: false
+      showGreeting: true
+      showAppGroups: true
       showAppStatus: false
-      showBookmarkGroups: false
-      showGlobalBookmarks: false
+      showBookmarkGroups: true
+      showGlobalBookmarks: true
       showAppUrls: false
-      defaultEnable: true
+      defaultEnable: false
       namespaceSelector:
-        matchNames:
-          - media
-          - downloads
-          - web-tools
-          - networking
-          - monitoring
-          - rook-ceph
-          - kube-system
+        any: true
+        # matchNames:
+        #   - media
+        #   - downloads
+        #   - web-tools
+        #   - networking
+        #   - monitoring
+        #   - rook-ceph
+        #   - kube-system
       searchProviders:
         - name: Google
           token: g
