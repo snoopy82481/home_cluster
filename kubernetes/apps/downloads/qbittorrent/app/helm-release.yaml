@@ -116,6 +116,11 @@ spec:
         type: emptyDir
         mountPath: /config/qBittorrent/config
 
+      cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /config/qBittorrent/cache
+
       media:
         enabled: true
         type: nfs
