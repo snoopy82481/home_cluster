@@ -80,14 +80,14 @@ spec:
             hosts:
               - *host
     service:
-      # main:
-      #   enabled: true
-      #   ports:
-      #     http:
-      #       enabled: true
-      #       port: 8043
-      #       targetPort: 8043
-      #       protocol: TCP
+      main:
+        enabled: true
+        ports:
+          http:
+            enabled: true
+            port: 8043
+            targetPort: 8043
+            protocol: TCP
       controller:
         enabled: true
         type: LoadBalancer
