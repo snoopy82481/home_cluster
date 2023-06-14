@@ -87,7 +87,7 @@ spec:
       supplementalGroups:
         - 100
     podAnnotations:
-      configmap.reloader.stakater.com/reload: cluster-config
+      configmap.reloader.stakater.com/reload: cluster-settings
     persistence:
       config:
         enabled: true
