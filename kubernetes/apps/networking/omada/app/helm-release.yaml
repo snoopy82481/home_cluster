@@ -92,7 +92,7 @@ spec:
         enabled: true
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${SVC_NGINX_ADDRESS}
+          io.cilium/lb-ipam-ips: ${SVC_OMADA_CONTROLLER}
         externalTrafficPolicy: Cluster
         ports:
           mgmt-8088-tcp:
