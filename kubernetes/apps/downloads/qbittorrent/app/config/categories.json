@@ -1,17 +1,17 @@
 {
     "tv": {
-        "save_path": "/tv"
+        "save_path": "/media/torrents/tv"
     },
     "tv-anime": {
-        "save_path": "/tv-anime"
+        "save_path": "/media/torrents/tv-anime"
     },
     "movies": {
-        "save_path": "/movies"
+        "save_path": "/media/torrents/movies"
     },
     "movies_uhd": {
-        "save_path": "/movies_uhd"
+        "save_path": "/media/torrents/movies_uhd"
     },
     "movies-anime": {
-        "save_path": "/movies-anime"
+        "save_path": "/media/torrents/movies-anime"
     }
 }
