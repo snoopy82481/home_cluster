@@ -42,7 +42,7 @@ spec:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: "{{ .Release.Name }}-tls"
+        - secretName: "weave-gitops-tls"
           hosts:
             - *host
     networkPolicy:
