@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonaruhd-config-v1
+  name: sonarruhd-config-v1
   namespace: media
   labels:
     app.kubernetes.io/name: &name sonarruhd
