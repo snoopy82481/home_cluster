@@ -92,7 +92,8 @@
     "cura",
     "cloudflared",
     "sonarruhd",
-    "weave-gitops"
+    "weave-gitops",
+    "infra-vyos"
   ],
   "githubPullRequests.ignoredPullRequestBranches": [
     "main"
