@@ -3,7 +3,7 @@
   "packageRules": [
     {
       "description": "Ignore updating archive folder",
-      "ignorePaths": ["archive/**"]
+      "ignorePaths": ["**/archive/**"]
     }
   ]
 }
