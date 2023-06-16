@@ -18,8 +18,9 @@
     <br/>
     <!-- PROJECT SHIELDS-->
     <div id="project_shields">
-      <img src="https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge" alt="License" />
-      <img src="https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/Schedule:%20Renovate?color=informational&label=%20&logo=renovatebot&style=for-the-badge" alt="GitHub Workflow Status" />
+      [![License][license-shield]][license-url]
+      <!-- <img src="https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge" alt="License" /> -->
+      <img src="https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/schedule-renovate.yaml?color=informational&label=%20&logo=renovatebot&style=for-the-badge" alt="GitHub Workflow Status" />
       <a href="https://github.com/pre-commit/pre-commit">
         <img src="https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge" alt="Pre-commit" />
       </a>
@@ -152,9 +153,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 * [x] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
   * [x] [Grafana](https://grafana.com)
   * [x] [Prometheus](https://grafana.com/oss/prometheus/)
-  * [x] [Loki](https://grafana.com/oss/loki/)
-  * [x] [Thanos](https://thanos.io)
-  * [x] [Vector](https://vector.dev)
+  * [ ] [Loki](https://grafana.com/oss/loki/)
+  * [ ] [Thanos](https://thanos.io)
+  * [ ] [Vector](https://vector.dev)
 * [ ] Harden Kubernetes
   * [ ] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
 * [ ] Documentation
@@ -212,7 +213,8 @@ There is a lot of code jacking from:
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [license-shield]: https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge
-[workflow-shield]: https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/Schedule:%20Renovate?color=informational&label=%20&logo=renovatebot&style=for-the-badge
+[license-url]: https://github.com/snoopy82481/home_cluster/blob/main/LICENSE
+[workflow-shield]: https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/schedule-renovate.yaml?color=informational&label=%20&logo=renovatebot&style=for-the-badge
 [pre-commit-shield]: https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge
 [pre-comit-url]: https://github.com/pre-commit/pre-commit
 [last-commit-shield]: https://img.shields.io/github/last-commit/snoopy82481/home_cluster/master?style=for-the-badge
