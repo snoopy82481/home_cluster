@@ -41,9 +41,9 @@ set container name omada-controller environment SHOW_SERVER_LOGS value 'true'
 set container name omada-controller environment SHOW_MONGODB_LOGS value 'true'
 set container name omada-controller environment PGID value "1000"
 set container name omada-controller environment PUID value "1000"
-set container name omada-controller volume data source '/config/containers/omada/data'
+set container name omada-controller volume data source '/temp/omada/data'
 set container name omada-controller volume data destination '/opt/tplink/EAPController/data'
 set container name omada-controller volume data mode 'rw'
-set container name omada-controller volume logs source '/config/containers/omada/data'
+set container name omada-controller volume logs source '/temp/omada/data'
 set container name omada-controller volume logs destination '/opt/tplink/EAPController/logs'
 set container name omada-controller volume logs mode 'rw'
