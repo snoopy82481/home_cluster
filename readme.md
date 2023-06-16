@@ -9,18 +9,17 @@
     <img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" alt="home_cluster" width="144" height="144">
   </a>
 
-<h3 align="center">My home Kubernetes cluster</h3>
+  <h3 align="center">My home Kubernetes cluster</h3>
 
   <p align="center">
-    _... managed by Flux and serviced with RenovateBot_ :robot:
+    _... managed with Flux, Renovate and GitHub Actions_ 🤖
     <br/>
     <a href="https://github.com/snoopy82481/home_cluster"><strong>Explore the docs »</strong></a>
     <br/>
     <!-- PROJECT SHIELDS-->
     <div id="project_shields">
-      [![License][license-shield]][license-url]
-      <!-- <img src="https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge" alt="License" /> -->
-      <img src="https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/schedule-renovate.yaml?color=informational&label=%20&logo=renovatebot&style=for-the-badge" alt="GitHub Workflow Status" />
+      <img src="https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge" alt="License" />
+      <a href="https://github.com/snoopy82481/home_cluster/actions/workflows/schedule-renovate.yaml"><img src="https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/schedule-renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue" alt="GitHub Workflow Status" /></a>
       <a href="https://github.com/pre-commit/pre-commit">
         <img src="https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge" alt="Pre-commit" />
       </a>
