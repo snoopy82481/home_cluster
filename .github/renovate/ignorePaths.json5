@@ -1,9 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "packageRules": [
-    {
-      "description": "Ignore updating archive folder",
-      "ignorePaths": ["**/archive/**"]
-    }
-  ]
+  "description": "Ignore updating archive folder",
+  "ignorePaths": ["archive/**"]
 }
