@@ -60,8 +60,6 @@ spec:
         client-header-timeout: 120
         client-body-buffer-size: "100M"
         client-body-timeout: 120
-        custom-http-errors: |-
-          401,403,404,500,501,502,503,504
         enable-brotli: "true"
         enable-real-ip: "true"
         hsts-max-age: "31449600"
@@ -109,16 +107,4 @@ spec:
           memory: 500Mi
 
     defaultBackend:
-      enabled: true
-
-      image:
-        repository: ghcr.io/tarampampam/error-pages
-        tag: 2.24.0
-
-      replicaCount: 1
-
-      extraEnvs:
-        - name: TEMPLATE_NAME
-          value: l7-dark
-        - name: SHOW_DETAILS
-          value: "false"
+      enabled: false
