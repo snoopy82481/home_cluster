@@ -15,13 +15,23 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
+  test:
+    enable: false
   install:
-    createNamespace: true
     remediation:
       retries: 5
   upgrade:
     remediation:
       retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -34,7 +44,7 @@ spec:
     env:
       TZ: ${TIMEZONE}
       SONARR__INSTANCE_NAME: Sonarr_UHD
-      # SONARR__API_KEY: ${SONARR_UHD_APIKEY}
+      SONARR__API_KEY: ${SONARR_UHD_APIKEY}
       SONARR__PORT: &port 8989
       SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
       SONARR__LOG_LEVEL: info
