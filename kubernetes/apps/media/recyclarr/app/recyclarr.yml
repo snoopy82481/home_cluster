@@ -91,6 +91,7 @@ sonarr:
           # Unwanted
           - 85c61753df5da1fb2aab6f2a47426b09 # BR-DISK
           - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
+          - 9c14d194486c4014d422adc64092d794 # Dubs Only
           # Misc
           - ec8fa7296b64e8cd390a1600981f3923 # Repack/Proper
           - eb3d5cc0a2be0db205fb823640db6a3c # Repack v2
@@ -121,6 +122,27 @@ sonarr:
         quality_profiles:
           - name: Remux-1080p - Anime
             score: 101
+
+      - trash_ids:
+          - e6258996055b9fbab7e9cb2f75819294 # WEB Tier 01
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 450
+
+      - trash_ids:
+          - 58790d4e2fdcd9733aa7ae68ba2bb503 # WEB Tier 02
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 400
+
+      - trash_ids:
+          - d84935abd3f8556dcd51d4f27e22d0a6 # WEB Tier 03
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 350
 
   uhd:
     base_url: http://sonarruhd.media.svc.cluster.local:8989
@@ -463,6 +485,7 @@ radarr:
           - a786fbc0eae05afe3bb51aee3c83a9d4 # Anime Web Tier 06 (FanSubs)
           - 06b6542a47037d1e33b15aa3677c2365 # Anime Raws
           - b0fdc5897f68c9a68c70c25169f77447 # Anime LQ Groups
+          - b23eae459cc960816f2d6ba84af45055 # Dubs Only
           - c259005cbaeb5ab44c06eddb4751e70c # v0
           - 5f400539421b8fcf71d51e6384434573 # v1
           - 3df5e6dfef4b09bb6002f732bed5b774 # v2
@@ -484,3 +507,21 @@ radarr:
             score: 101
           - name: Remux-1080p - Anime!
             score: 101
+
+      - trash_ids:
+          - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 1050
+          - name: Remux-1080p - Anime!
+            score: 1050
+
+      - trash_ids:
+          - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 1000
+          - name: Remux-1080p - Anime!
+            score: 1000
