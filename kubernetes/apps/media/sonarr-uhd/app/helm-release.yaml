@@ -99,7 +99,7 @@ spec:
         enabled: true
         type: nfs
         server: ${NAS_NAME}
-        path: /mnt/storage0/backup
+        path: /mnt/storage1/backup
         mountPath: /backup
     resources:
       requests:
