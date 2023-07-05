@@ -19,7 +19,7 @@ cniConfig:
 
 additionalApiServerCertSans:
   - ${clusterEndpointIP}
-  - - ${clusterName}.${domainName}
+  - ${clusterName}.${domainName}
 
 additionalMachineCertSans:
   - ${clusterEndpointIP}
@@ -29,7 +29,6 @@ nodes:
   - hostname: kmaster1.${domainName}
     ipAddress: 192.168.20.5
     controlPlane: true
-    installDisk: /dev/sda
     networkInterfaces:
       - interface: eth0
         addresses:
@@ -38,7 +37,6 @@ nodes:
   - hostname: kmaster2.${domainName}
     ipAddress: 192.168.20.6
     controlPlane: true
-    installDisk: /dev/sda
     networkInterfaces:
       - interface: eth0
         addresses:
@@ -47,7 +45,6 @@ nodes:
   - hostname: kmaster3.${domainName}
     ipAddress: 192.168.20.7
     controlPlane: true
-    installDisk: /dev/sda
     networkInterfaces:
       - interface: eth0
         addresses:
@@ -56,7 +53,6 @@ nodes:
   - hostname: kworker1.${domainName}
     ipAddress: 192.168.20.8
     controlPlane: false
-    installDisk: /dev/sda
     networkInterfaces:
       - interface: eth0
         addresses:
@@ -65,7 +61,6 @@ nodes:
   - hostname: kworker2.${domainName}
     ipAddress: 192.168.20.9
     controlPlane: false
-    installDisk: /dev/sda
     networkInterfaces:
       - interface: eth0
         addresses:
@@ -74,7 +69,6 @@ nodes:
   - hostname: kworker3.${domainName}
     ipAddress: 192.168.20.10
     controlPlane: false
-    installDisk: /dev/sda
     networkInterfaces:
       - interface: eth0
         addresses:
@@ -96,8 +90,11 @@ controlPlane:
           registries:
             service:
               disabled: true
+        coreDNS:
+          disabled: true
         extraManifests:
           - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/cni/cilium.yaml
+          - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/coredns/coredns.yaml
           - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/kublet-csr-approver/kubelet-csr-approver.yaml
         proxy:
           disabled: true
@@ -113,6 +110,7 @@ controlPlane:
             feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
             rotate-server-certificates: "true"
         install:
+          disk: /dev/sda
           extraKernelArgs:
             - "talos.logging.kernel=udp://192.168.21.12:6050/"
         logging:
@@ -166,6 +164,7 @@ worker:
             feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
             rotate-server-certificates: "true"
         install:
+          disk: /dev/sda
           extraKernelArgs:
             - "talos.logging.kernel=udp://192.168.21.12:6050/"
         logging:
