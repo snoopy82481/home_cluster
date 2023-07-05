@@ -95,7 +95,7 @@ spec:
         enabled: true
         type: nfs
         server: ${NAS_NAME}
-        path: /mnt/storage0/Data
+        path: /mnt/storage1/data
         mountPath: /media
       backup:
         enabled: true
