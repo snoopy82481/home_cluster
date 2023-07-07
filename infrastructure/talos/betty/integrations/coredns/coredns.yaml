@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
     helm.sh/chart: coredns-1.24.1
-    k8s-app: coredns
+    k8s-app: kube-dns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
   name: coredns
@@ -28,7 +28,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
     helm.sh/chart: coredns-1.24.1
-    k8s-app: coredns
+    k8s-app: kube-dns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
   name: coredns
@@ -62,7 +62,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
     helm.sh/chart: coredns-1.24.1
-    k8s-app: coredns
+    k8s-app: kube-dns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
   name: coredns
@@ -107,7 +107,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
     helm.sh/chart: coredns-1.24.1
-    k8s-app: coredns
+    k8s-app: kube-dns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
   name: coredns
@@ -124,13 +124,13 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
     helm.sh/chart: coredns-1.24.1
-    k8s-app: coredns
+    k8s-app: kube-dns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
-  name: coredns
+  name: kube-dns
   namespace: kube-system
 spec:
-  clusterIP: ${COREDNS_ADDR}
+  clusterIP: 192.168.21.15
   ports:
     - name: udp-53
       port: 53
@@ -141,7 +141,7 @@ spec:
   selector:
     app.kubernetes.io/instance: coredns
     app.kubernetes.io/name: coredns
-    k8s-app: coredns
+    k8s-app: kube-dns
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -157,7 +157,7 @@ metadata:
     app.kubernetes.io/name: coredns
     app.kubernetes.io/version: 1.10.1
     helm.sh/chart: coredns-1.24.1
-    k8s-app: coredns
+    k8s-app: kube-dns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
   name: coredns
@@ -168,7 +168,7 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: coredns
       app.kubernetes.io/name: coredns
-      k8s-app: coredns
+      k8s-app: kube-dns
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -177,14 +177,14 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: baa06a73b8015c831764bdf10f3120088ec5ab064dd276c003421a1f8b880f73
+        checksum/config: 82539a4c2761b3e7a88c2683662a7817a263d0ca40128143b5e5ef3c5e352193
         scheduler.alpha.kubernetes.io/tolerations:
           '[{"key":"CriticalAddonsOnly",
           "operator":"Exists"}]'
       labels:
         app.kubernetes.io/instance: coredns
         app.kubernetes.io/name: coredns
-        k8s-app: coredns
+        k8s-app: kube-dns
     spec:
       affinity:
         nodeAffinity:
@@ -197,7 +197,7 @@ spec:
         - args:
             - -conf
             - /etc/coredns/Corefile
-          image: registry.k8s.io/coredns/coredns:v1.10.1
+          image: coredns/coredns:1.10.1
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 5

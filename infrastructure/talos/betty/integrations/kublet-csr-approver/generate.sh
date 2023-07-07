@@ -8,3 +8,4 @@ kustomize build \
   . \
   >> ./kubelet-csr-approver.yaml
 rm -rf charts
+prettier --config ../../../../../.ci/prettier/.prettierrc.yaml --write ./kubelet-csr-approver.yaml

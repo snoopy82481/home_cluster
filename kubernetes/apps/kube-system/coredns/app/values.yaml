@@ -1,13 +1,13 @@
+---
 fullnameOverride: coredns
-
-image:
-  repository: registry.k8s.io/coredns/coredns
-  tag: v1.10.1
 
 replicaCount: 1
 
+k8sAppLabelOverride: kube-dns
+
 service:
-  clusterIP: "${COREDNS_ADDR}"
+  name: kube-dns
+  clusterIP: ${SVC_CORDNS_ADDR}
 
 serviceAccount:
   create: true
