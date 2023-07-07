@@ -81,7 +81,7 @@ spec:
               - *host
     service:
       main:
-        enabled: false
+        enabled: true
         ports:
           http:
             enabled: true
