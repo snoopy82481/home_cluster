@@ -19,3 +19,11 @@ annotations:
 fieldSpecs:
   - path: metadata/annotations
     create: true
+---
+apiVersion: builtin
+kind: PatchTransformer
+metadata:
+  name: clusterIP
+patch: '[{"op": "replace", "path": "/spec/clusterIP", "value": "192.168.21.15"}]'
+target:
+  kind: Service

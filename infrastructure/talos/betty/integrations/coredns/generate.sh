@@ -8,3 +8,4 @@ kustomize build \
   . \
   >> ./coredns.yaml
 rm -rf charts
+prettier --config ../../../../../.ci/prettier/.prettierrc.yaml --write ./coredns.yaml
