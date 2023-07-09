@@ -8,4 +8,4 @@ kustomize build \
   . \
   >> ./cilium.yaml
 rm -rf charts
-prettier --config ../../../../../.ci/prettier/.prettierrc.yaml --write ./kubelet-csr-approver.yaml
+prettier --config ../../../../../.ci/prettier/.prettierrc.yaml --write ./cilium.yaml
