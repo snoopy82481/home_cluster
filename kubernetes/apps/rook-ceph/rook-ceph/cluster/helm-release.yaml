@@ -34,8 +34,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: cluster-apps-cert-manager
   values:
     toolbox:
       enabled: false

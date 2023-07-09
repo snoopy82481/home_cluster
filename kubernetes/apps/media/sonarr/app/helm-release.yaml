@@ -33,9 +33,9 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
+    - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: cluster-apps-cert-manager
+    - name: cert-manager
       namespace: cert-manager
   values:
     image:
