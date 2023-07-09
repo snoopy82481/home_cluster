@@ -34,7 +34,9 @@ spec:
     keepHistory: false
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
+      namespace: rook-ceph
     - name: cluster-apps-cert-manager
+      namespace: cert-manager
   values:
     image:
       repository: ghcr.io/sct/overseerr
