@@ -130,7 +130,7 @@ metadata:
   name: kube-dns
   namespace: kube-system
 spec:
-  clusterIP: 192.168.21.15
+  clusterIP: 10.43.0.10
   ports:
     - name: udp-53
       port: 53
