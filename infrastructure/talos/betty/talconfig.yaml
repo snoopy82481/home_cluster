@@ -5,7 +5,7 @@ clusterName: ${clusterName}
 talosVersion: v1.4.6
 # renovate: image depName=registry.k8s.io/kube-apiserver
 kubernetesVersion: v1.27.3
-endpoint: "https://192.168.20.254:6443"
+endpoint: "https://192.168.20.1:6443"
 
 allowSchedulingOnMasters: true
 
@@ -19,7 +19,6 @@ cniConfig:
 
 additionalApiServerCertSans:
   - ${clusterEndpointIP}
-  - ${clusterName}.${domainName}
 
 additionalMachineCertSans:
   - ${clusterEndpointIP}
@@ -29,50 +28,27 @@ nodes:
   - hostname: kmaster1.${domainName}
     ipAddress: 192.168.20.5
     controlPlane: true
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.20.5/24
 
   - hostname: kmaster2.${domainName}
     ipAddress: 192.168.20.6
     controlPlane: true
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.20.6/24
 
   - hostname: kmaster3.${domainName}
     ipAddress: 192.168.20.7
     controlPlane: true
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.20.7/24
 
   - hostname: kworker1.${domainName}
     ipAddress: 192.168.20.8
     controlPlane: false
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.20.8/24
 
   - hostname: kworker2.${domainName}
     ipAddress: 192.168.20.9
     controlPlane: false
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.20.9/24
+
 
   - hostname: kworker3.${domainName}
     ipAddress: 192.168.20.10
     controlPlane: false
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.20.10/24
 
 controlPlane:
   patches:
@@ -138,13 +114,19 @@ controlPlane:
           disableSearchDomain: true
           interfaces:
             - interface: eth0
-              mtu: 1500
-              routes:
-                - network: 0.0.0.0/0
-                  gateway: 192.168.20.1
+              vlans:
+                - routes: []
+                  dhcp: true
+                  vlanId: 20
+                  mtu: 1500
+                  dhcpOptions:
+                    routeMetric: 4096
               dhcp: true
-              vip:
-                ip: 192.168.20.254
+          extraHostEntries:
+            - ip: ${clusterEndpointIP}
+              aliases:
+                - ${clusterName}.${domainName}
+
     - |-
       - op: remove
         path: /cluster/apiServer/admissionControl
@@ -191,8 +173,11 @@ worker:
           disableSearchDomain: true
           interfaces:
             - interface: eth0
-              mtu: 1500
-              routes:
-                - network: 0.0.0.0/0
-                  gateway: 192.168.20.1
+              vlans:
+                - routes: []
+                  dhcp: true
+                  vlanId: 20
+                  mtu: 1500
+                  dhcpOptions:
+                    routeMetric: 4096
               dhcp: true
