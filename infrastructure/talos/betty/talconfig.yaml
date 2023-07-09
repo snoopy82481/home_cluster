@@ -117,13 +117,13 @@ controlPlane:
           disableSearchDomain: true
           interfaces:
             - interface: eth0
-              vlans:
-                - routes: []
-                  dhcp: true
-                  vlanId: 20
-                  mtu: 1500
-                  dhcpOptions:
-                    routeMetric: 4096
+              # vlans:
+              #   - routes: []
+              #     dhcp: true
+              #     vlanId: 20
+              #     mtu: 1500
+              #     dhcpOptions:
+              #       routeMetric: 4096
               dhcp: true
           extraHostEntries:
             - ip: ${clusterEndpointIP}
