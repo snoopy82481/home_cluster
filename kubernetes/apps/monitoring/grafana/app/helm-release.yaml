@@ -31,6 +31,8 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: cluster-apps-cert-manager
   values:
     admin:
       existingSecret: grafana-admin-secret
@@ -144,7 +146,7 @@ spec:
       hosts:
         - &host "grafana.${SECRET_DOMAIN}"
       tls:
-        - secretName: "{{ .Release.Name }}-tls"
+        - secretName: "grafana-tls"
           hosts:
             - *host
     persistence:

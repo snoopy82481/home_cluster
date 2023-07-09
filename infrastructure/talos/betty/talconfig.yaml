@@ -72,6 +72,9 @@ controlPlane:
           - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/cni/cilium.yaml
           - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/coredns/coredns.yaml
           - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/kublet-csr-approver/kubelet-csr-approver.yaml
+          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
         proxy:
           disabled: true
           extraArgs:

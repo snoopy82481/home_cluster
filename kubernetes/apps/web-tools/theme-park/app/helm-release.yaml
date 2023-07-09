@@ -33,7 +33,7 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: cert-manager
+    - name: cluster-apps-cert-manager
       namespace: cert-manager
   values:
     image:

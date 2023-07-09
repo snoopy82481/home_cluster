@@ -35,8 +35,7 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
+    - name: cluster-apps-cert-manager
   values:
     toolbox:
       enabled: false
