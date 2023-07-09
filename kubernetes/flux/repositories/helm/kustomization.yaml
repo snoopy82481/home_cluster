@@ -8,6 +8,7 @@ resources:
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
+  - ./coredns.yaml
   - ./descheduler.yaml
   - ./dysnix.yaml
   - ./external-dns.yaml
