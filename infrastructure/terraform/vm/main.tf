@@ -39,9 +39,11 @@ resource "proxmox_vm_qemu" "talos_master" {
   }
 
   network {
-    model   = "virtio"
-    bridge  = "vmbr1"
-    macaddr = var.master_mac[count.index]
+    model    = "virtio"
+    bridge   = "vmbr0"
+    firewall = true
+    tag      = 20
+    macaddr  = var.master_mac[count.index]
   }
 }
 
@@ -84,8 +86,10 @@ resource "proxmox_vm_qemu" "talos_worker" {
   }
 
   network {
-    model   = "virtio"
-    bridge  = "vmbr1"
-    macaddr = var.worker_mac[count.index]
+    model    = "virtio"
+    bridge   = "vmbr0"
+    firewall = true
+    tag      = 20
+    macaddr  = var.worker_mac[count.index]
   }
 }
