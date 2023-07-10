@@ -22,7 +22,7 @@ vars:
 dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"
+  KUBECONFIG: "{{.PROJECT_DIR}}/infrastructure/talos/betty/kubeconfig"
 
 tasks:
 
