@@ -2,6 +2,9 @@
     "tv": {
         "save_path": "/media/torrents/tv"
     },
+    "tv-uhd": {
+        "save_path": "/media/torrents/tv_uhd"
+    },
     "tv-anime": {
         "save_path": "/media/torrents/tv-anime"
     },

@@ -201,6 +201,7 @@ sonarr:
           - bb019e1cd00f304f80971c965de064dc # HDR (undefined)
           - 2a7e3be05d3861d6df7171ec74cad727 # PQ
           - 17e889ce13117940092308f48b48b45b # HLG
+          - 0dad0a507451acddd754fe6dc3a7f5e7  # HDR10Plus Boost
           # Remux groups
           - 9965a052eb87b0d10313b1cea89eb451 # Remux Tier 01
           - 8a1d0c3d7497e741736761a1da866a2e # Remux Tier 02
@@ -231,7 +232,6 @@ sonarr:
           - 5d2317d99af813b6529c7ebf01c83533 # VDL
           - c30d2958827d1867c73318a5a2957eb1 # RED
           - 77a7b25585c18af08f60b1547bb9b4fb # CC
-          - 0dad0a507451acddd754fe6dc3a7f5e7  # HDR10Plus Boost
           - 43b3cf48cb385cd3eac608ee6bca7f09 # UHD Streaming Boost
           - d2d299244a92b8a52d4921ce3897a256 # UHD Streaming Cut
           # Misc
@@ -252,7 +252,6 @@ sonarr:
 
         quality_profiles:
           - name: WEB-DL (2160p)
-          - name: Bluray|WEB-2160p
 
 radarr:
   standard: # SQP-1

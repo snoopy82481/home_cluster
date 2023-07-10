@@ -114,6 +114,9 @@ controlPlane:
           disableSearchDomain: true
           interfaces:
             - interface: eth0
+              routes:
+                - network: 0.0.0.0/0
+                  gateway: 192.168.20.1
               # vlans:
               #   - routes: []
               #     dhcp: true
@@ -173,6 +176,9 @@ worker:
           disableSearchDomain: true
           interfaces:
             - interface: eth0
+              routes:
+                - network: 0.0.0.0/0
+                  gateway: 192.168.20.1
               # vlans:
               #   - routes: []
               #     dhcp: true
