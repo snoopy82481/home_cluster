@@ -59,9 +59,15 @@ controlPlane:
           admissionControl: []
           extraArgs:
             feature-gates: MixedProtocolLBService=true
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
+          advertisedSubnets:
+            - 192.168.20.0/24
         controllerManager:
           extraArgs:
             feature-gates: MixedProtocolLBService=true
+            bind-address: 0.0.0.0
         discovery:
           registries:
             service:
@@ -79,19 +85,23 @@ controlPlane:
         scheduler:
           extraArgs:
             feature-gates: MixedProtocolLBService=true
+            bind-address: 0.0.0.0
 
       machine:
         kubelet:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
             rotate-server-certificates: "true"
+          nodeIP:
+            validSubnets:
+              - 192.168.20.0/24
         install:
           disk: /dev/sda
           extraKernelArgs:
-            - "talos.logging.kernel=udp://192.168.21.12:6050/"
+            - "talos.logging.kernel=udp://192.168.20.52:6050/"
         logging:
           destinations:
-            - endpoint: "udp://192.168.21.12:6051/"
+            - endpoint: "udp://192.168.20.52:6051/"
               format: json_lines
         sysctls:
           fs.inotify.max_user_watches: "1048576"
@@ -151,10 +161,10 @@ worker:
         install:
           disk: /dev/sda
           extraKernelArgs:
-            - "talos.logging.kernel=udp://192.168.21.12:6050/"
+            - "talos.logging.kernel=udp://192.168.20.52:6050/"
         logging:
           destinations:
-            - endpoint: "udp://192.168.21.12:6051/"
+            - endpoint: "udp://192.168.20.52:6051/"
               format: json_lines
         sysctls:
           fs.inotify.max_user_watches: "1048576"

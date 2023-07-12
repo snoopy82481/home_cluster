@@ -100,6 +100,10 @@ spec:
     kubeEtcd:
       enabled: true
       endpoints: *cp
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
     kubeProxy:
       enabled: false # Disabled because eBPF
     kubeScheduler:
