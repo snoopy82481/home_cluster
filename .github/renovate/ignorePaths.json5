@@ -1,5 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "Ignore updating archive folder",
-  "ignorePaths": ["archive/**"]
+  "ignorePaths": ["archive/**", "infrastructure/talos/betty/integrations"]
 }

@@ -17,9 +17,6 @@ clusterSvcNets:
 cniConfig:
   name: none
 
-additionalApiServerCertSans:
-  - ${clusterEndpointIP}
-
 additionalMachineCertSans:
   - ${clusterEndpointIP}
   - ${clusterName}.${domainName}

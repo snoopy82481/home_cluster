@@ -1,0 +1,59 @@
+---
+name: "Generate Manifest"
+
+on:
+  pull_request:
+
+env:
+  INTIGRATION_DIR: ./infrastructure/talos/betty/integrations
+
+jobs:
+  generate-manifest:
+    name: generate-manifest
+    runs-on: ubuntu-latest
+    if: contains(fromJSON('["cilium", "kubelet-csr-approver"]'), github.event.pull_request.title)
+    steps:
+      - name: Generate Token
+        uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92 # v1.8.0
+        id: generate-token
+        with:
+          app_id: "${{ secrets.BOT_APP_ID }}"
+          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          token: "${{ steps.generate-token.outputs.token }}"
+
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Setup Tools
+        shell: bash
+        run: brew install kustomize
+
+      - name: Parse PR Title
+        id: parse-title
+        run: |
+          title="${{ steps.pr-title.outputs.title }}"
+          parsed_title=""
+
+          if [[ $title =~ cilium ]]; then
+            parsed_title="cilium"
+          elif [[ $title =~ kubelet-csr-approver ]]; then
+            parsed_title="kubelet-csr-approver"
+          fi
+
+          echo "::set-output name=parsed-title::$parsed_title"
+
+      - name: Run Generate Manifest
+        run: |
+          title="${{ steps.parse-title.outputs.parsed-title }}"
+
+          if [[ "$title" = "cilium" ]]; then
+            cd "${{ env.INTEGRATION_DIR }}/cni"
+          elif [[ "$title" = "kubelet-csr-approver" ]]; then
+            cd "${{ env.INTEGRATION_DIR }}/kubelet-csr-approver"
+          fi
+
+          ./generate.sh
