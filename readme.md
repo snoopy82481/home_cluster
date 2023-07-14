@@ -12,7 +12,7 @@
   <h3 align="center">My home Kubernetes cluster</h3>
 
   <p align="center">
-    _... managed with Flux, Renovate and GitHub Actions_ 🤖
+    ... managed with Flux, Renovate and GitHub Actions 🤖
     <br/>
     <a href="https://github.com/snoopy82481/home_cluster"><strong>Explore the docs »</strong></a>
     <br/>
