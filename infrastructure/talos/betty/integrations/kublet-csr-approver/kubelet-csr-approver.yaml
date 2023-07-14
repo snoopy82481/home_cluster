@@ -10,8 +10,8 @@ metadata:
     app.kubernetes.io/instance: kubelet-csr-approver
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kubelet-csr-approver
-    app.kubernetes.io/version: v1.0.1
-    helm.sh/chart: kubelet-csr-approver-1.0.1
+    app.kubernetes.io/version: v1.0.2
+    helm.sh/chart: kubelet-csr-approver-1.0.2
   name: kubelet-csr-approver
   namespace: kube-system
 ---
@@ -87,8 +87,8 @@ metadata:
     app.kubernetes.io/instance: kubelet-csr-approver
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kubelet-csr-approver
-    app.kubernetes.io/version: v1.0.1
-    helm.sh/chart: kubelet-csr-approver-1.0.1
+    app.kubernetes.io/version: v1.0.2
+    helm.sh/chart: kubelet-csr-approver-1.0.2
   name: kubelet-csr-approver
   namespace: kube-system
 spec:
@@ -112,8 +112,8 @@ metadata:
     app.kubernetes.io/instance: kubelet-csr-approver
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kubelet-csr-approver
-    app.kubernetes.io/version: v1.0.1
-    helm.sh/chart: kubelet-csr-approver-1.0.1
+    app.kubernetes.io/version: v1.0.2
+    helm.sh/chart: kubelet-csr-approver-1.0.2
   name: kubelet-csr-approver
   namespace: kube-system
 spec:
@@ -142,7 +142,7 @@ spec:
               value: "true"
             - name: ALLOWED_DNS_NAMES
               value: "1"
-          image: ghcr.io/postfinance/kubelet-csr-approver:v1.0.1
+          image: ghcr.io/postfinance/kubelet-csr-approver:v1.0.2
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -167,14 +167,14 @@ spec:
                 - all
             privileged: false
             readOnlyRootFilesystem: true
+            runAsGroup: 65532
             runAsNonRoot: true
             runAsUser: 65532
+            seccompProfile:
+              type: RuntimeDefault
       securityContext: {}
       serviceAccountName: kubelet-csr-approver
       tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
-          operator: Equal
         - effect: NoSchedule
           key: node-role.kubernetes.io/control-plane
           operator: Equal
@@ -190,8 +190,8 @@ metadata:
     app.kubernetes.io/instance: kubelet-csr-approver
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kubelet-csr-approver
-    app.kubernetes.io/version: v1.0.1
-    helm.sh/chart: kubelet-csr-approver-1.0.1
+    app.kubernetes.io/version: v1.0.2
+    helm.sh/chart: kubelet-csr-approver-1.0.2
   name: kubelet-csr-approver-test-connection
   namespace: kube-system
 spec:
