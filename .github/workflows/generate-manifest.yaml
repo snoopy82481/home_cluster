@@ -44,7 +44,7 @@ jobs:
             parsed_title="kubelet-csr-approver"
           fi
 
-          echo "::set-output name=parsed-title::$parsed_title"
+          echo "parsed_title=$parsed_title" >> "${GITHUB_OUTPUT}"
 
       - name: Run Generate Manifest
         run: |
