@@ -163,21 +163,36 @@ sonarr:
 
         quality_profiles:
           - name: Remux-1080p - Anime
-            score: 450
+            score: 350
 
       - trash_ids:
           - 58790d4e2fdcd9733aa7ae68ba2bb503 # WEB Tier 02
 
         quality_profiles:
           - name: Remux-1080p - Anime
-            score: 400
+            score: 300
 
       - trash_ids:
           - d84935abd3f8556dcd51d4f27e22d0a6 # WEB Tier 03
 
         quality_profiles:
           - name: Remux-1080p - Anime
-            score: 350
+            score: 250
+
+      - trash_ids:
+          - 9965a052eb87b0d10313b1cea89eb451 # Remux Tier 01
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 1050
+
+      - trash_ids:
+          - 8a1d0c3d7497e741736761a1da866a2e # Remux Tier 02
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 1000
+
 
   uhd:
     base_url: http://sonarruhd.media.svc.cluster.local:8989
@@ -567,13 +582,13 @@ radarr:
           - 06b6542a47037d1e33b15aa3677c2365 # Anime Raws
           - b0fdc5897f68c9a68c70c25169f77447 # Anime LQ Groups
           - b23eae459cc960816f2d6ba84af45055 # Dubs Only
+          - 9172b2f683f6223e3a1846427b417a3d # VOSTFR
           - c259005cbaeb5ab44c06eddb4751e70c # v0
           - 5f400539421b8fcf71d51e6384434573 # v1
           - 3df5e6dfef4b09bb6002f732bed5b774 # v2
           - db92c27ba606996b146b57fbe6d09186 # v3
           - d4e5e842fad129a3c097bdb2d20d31a0 # v4
           - 60f6d50cbd3cfc3e9a8c00e3a30c3114 # VRV
-          - a5d148168c4506b55cf53984107c396e # 10bit
 
         quality_profiles:
           - name: Remux-1080p - Anime
@@ -606,3 +621,36 @@ radarr:
             score: 1000
           - name: Remux-1080p - Anime!
             score: 1000
+
+      - trash_ids:
+          - 8baaf0b3142bf4d94c42a724f034e27a # Remux Tier 03
+
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 950
+          - name: Remux-1080p - Anime!
+            score: 950
+
+      - trash_ids:
+          - a5d148168c4506b55cf53984107c396e  # 10bit
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 0
+
+      - trash_ids:
+          - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 350
+
+      - trash_ids:
+          - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 300
+
+      - trash_ids:
+          - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+        quality_profiles:
+          - name: Remux-1080p - Anime
+            score: 250
