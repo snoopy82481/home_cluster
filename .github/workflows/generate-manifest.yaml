@@ -35,12 +35,12 @@ jobs:
       - name: Parse PR Title
         id: parse-title
         run: |
-          title="${{ steps.pr-title.outputs.title }}"
+          title="${{ github.event.pull_request.title }}"
           parsed_title=""
 
-          if [[ $title =~ cilium ]]; then
+          if [[ "$title" =~ "cilium" ]]; then
             parsed_title="cilium"
-          elif [[ $title =~ kubelet-csr-approver ]]; then
+          elif [[ "$title" =~ "kubelet-csr-approver" ]]; then
             parsed_title="kubelet-csr-approver"
           fi
 
