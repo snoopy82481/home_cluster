@@ -39,7 +39,7 @@
   "regexManagers": [
     {
       "description": "Process CRD dependencies",
-      "fileMatch": ["kubernetes/.+\\.ya?ml$"],
+      "fileMatch": ["kubernetes/.+\\.ya?ml$", "infrastructure/talos/betty/integrations/.+\\.ya?ml$"],
       "matchStrings": [
         // GitRepository and Flux Kustomization where 'Git release/tag' matches 'Helm' version
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
