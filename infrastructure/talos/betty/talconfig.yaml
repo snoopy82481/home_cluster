@@ -42,7 +42,6 @@ nodes:
     ipAddress: 192.168.20.9
     controlPlane: false
 
-
   - hostname: kworker3.${domainName}
     ipAddress: 192.168.20.10
     controlPlane: false
@@ -75,6 +74,7 @@ controlPlane:
           - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
           - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
           - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
         proxy:
           disabled: true
           extraArgs:
