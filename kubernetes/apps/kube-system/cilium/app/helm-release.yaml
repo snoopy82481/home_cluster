@@ -60,7 +60,8 @@ spec:
         label: grafana_dashboard
         namespace: monitoring
         labelValue: "1"
-        annotations: {}
+        annotations:
+          grafana_folder: Cilium
       ui:
         ingress:
           enabled: true
@@ -86,3 +87,12 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+        dashboards:
+          enabled: true
+          annotations:
+            grafana_folder: Cilium
+
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Cilium

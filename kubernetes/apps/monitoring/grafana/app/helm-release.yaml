@@ -69,24 +69,36 @@ spec:
             isDefault: true
     dashboards:
       default:
-        # Ref: https://grafana.com/grafana/dashboards/5342-ceph-pools/
-        ceph-pools:
-          gnetId: 5342
-          revision: 9
+        cloudflared:
+          gnetId: 17457 # https://grafana.com/grafana/dashboards/17457?tab=revisions
+          revision: 6
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        external-dns:
+          gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
+          revision: 1
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5336-ceph-osd-single/
-        ceph-osd:
-          gnetId: 5336
-          revision: 9
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/2842-ceph-cluster/
-        ceph-cluster:
-          gnetId: 2842
-          revision: 16
+        node-exporter-full:
+          gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
+          revision: 31
           datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
+      rook-ceph:
+        ceph-pools:
+          gnetId: 5342 # Ref: https://grafana.com/grafana/dashboards/5342-ceph-pools/
+          revision: 9
+          datasource: Prometheus
+        ceph-osd:
+          gnetId: 5336 # Ref: https://grafana.com/grafana/dashboards/5336-ceph-osd-single/
+          revision: 9
+          datasource: Prometheus
+        ceph-cluster:
+          gnetId: 2842 # Ref: https://grafana.com/grafana/dashboards/2842-ceph-cluster/
+          revision: 16
+          datasource: Prometheus
+      flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
           datasource: Prometheus
@@ -96,6 +108,7 @@ spec:
         flux-logs:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
           datasource: Prometheus
+      kubernetes:
         kubernetes-api-server:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
           datasource: Prometheus
@@ -114,16 +127,23 @@ spec:
         kubernetes-pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
           datasource: Prometheus
-        ingress-nginx:
+      nginx:
+        nginx:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus
-        ingress-nginx-request-handling-performance:
+        nginx-request-handling-performance:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
     sidecar:
       dashboards:
         enabled: true
         searchNamespace: ALL
+        labelValue: ""
+        label: grafana_dashboard
+        folderAnnotation: grafana_folder
+        provider:
+          disableDelete: true
+          foldersFromFilesStructure: true
       datasources:
         enabled: true
         searchNamespace: ALL
