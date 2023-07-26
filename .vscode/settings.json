@@ -92,8 +92,5 @@
     "cloudflared",
     "infra-vyos"
   ],
-  "githubPullRequests.ignoredPullRequestBranches": [
-    "main"
-  ],
   "ansible.python.interpreterPath": "/bin/python",
 }
