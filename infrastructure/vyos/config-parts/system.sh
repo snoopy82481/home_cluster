@@ -6,7 +6,7 @@ set system host-name 'gateway'
 set system ipv6 disable-forwarding
 
 set system login user vyos authentication public-keys personal key ''
-set system login user vyos authenticatoin public-keys personal type ''
+set system login user vyos authentication public-keys personal type 'ssh-ed25519'
 
 set system name-server '1.1.1.1'
 

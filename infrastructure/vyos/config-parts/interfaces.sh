@@ -1,12 +1,12 @@
 #!/bin/vbash
 
 set interfaces ethernet eth0 description 'WAN'
-set interfaces ethernet eth0 hw-id ''
+set interfaces ethernet eth0 hw-id 'E8:EA:6A:03:17:0F'
 set interfaces ethernet eth0 address 'dhcp'
 
 set interfaces ethernet eth1 description 'LAN'
 set interfaces ethernet eth1 address '192.168.0.1/24'
-set interfaces ethernet eth1 hw-id ''
+set interfaces ethernet eth1 hw-id 'E8:EA:6A:03:17:10'
 set interfaces ethernet eth1 vif 10 description 'MGMT'
 set interfaces ethernet eth1 vif 10 address '192.168.10.1/24'
 set interfaces ethernet eth1 vif 20 description 'SERVERS'
