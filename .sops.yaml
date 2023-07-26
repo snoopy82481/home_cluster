@@ -5,13 +5,13 @@ creation_rules:
     age: >-
       age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
 
-  - path_regex: (global|clusters|namespaces|talos)/.*\.sops\.ya?ml
-    encrypted_regex: "((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))"
-    age: >-
-      age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
-
   - path_regex: kubernetes/.*\.sops\.ya?ml
     encrypted_regex: "^(data|stringData)$"
+    key_groups:
+      - age:
+          - age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
+
+  - path_regex: .*\.sops\.env
     key_groups:
       - age:
           - age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
