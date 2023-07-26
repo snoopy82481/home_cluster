@@ -6,7 +6,8 @@
     "**/ansible/**/*.sops.yml": "yaml",
     "**/ansible/**/inventory/**/*.yml": "yaml",
     "**/terraform/**/*.tf": "terraform",
-    "**/cluster/**/*.sops.toml": "plaintext"
+    "**/cluster/**/*.sops.toml": "plaintext",
+    "*.env": "dotenv"
   },
   "prettier.configPath": ".ci/prettier/.prettierrc.yaml",
   "prettier.ignorePath": ".github/linters/.prettierignore",
