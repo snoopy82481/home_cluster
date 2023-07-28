@@ -17,3 +17,8 @@ set interfaces ethernet eth1 vif 40 description 'GUEST'
 set interfaces ethernet eth1 vif 40 address '192.168.40.1/24'
 set interfaces ethernet eth1 vif 50 description 'TRUSTED'
 set interfaces ethernet eth1 vif 50 address '192.168.50.1/24'
+
+set interfaces wireguard wg01 address '192.168.1.1/24'
+set interfaces wireguard wg01 description 'WIREGUARD'
+set interfaces wireguard wg01 port '51820'
+set interfaces wireguard wg01 private-key "${SECRET_WIREGUARD_PRIVATE_KEY}"

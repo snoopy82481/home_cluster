@@ -25,7 +25,7 @@ set firewall group address-group tplink_devices address '192.168.10.2'
 set firewall group address-group tplink_devices address '192.168.10.3'
 set firewall group address-group tplink_devices address '192.168.10.4'
 
-set firewall group address-group printers address ''
+set firewall group address-group printers address '192.168.50.20'
 
 set firewall group address-group ios_devices address '192.168.50.2'
 set firewall group address-group ios_devices address '192.168.50.3'

@@ -110,3 +110,5 @@ set service dhcp-server shared-network-name TRUSTED subnet 192.168.50.0/24 stati
 set service dhcp-server shared-network-name TRUSTED subnet 192.168.50.0/24 static-mapping stephen-work-iphone mac-address ''
 set service dhcp-server shared-network-name TRUSTED subnet 192.168.50.0/24 static-mapping sherley-android ip-address '192.168.50.11'
 set service dhcp-server shared-network-name TRUSTED subnet 192.168.50.0/24 static-mapping sherley-android mac-address 'A0:4F:85:F6:43:99'
+set service dhcp-server shared-network-name TRUSTED subnet 192.168.50.0/24 static-mapping xerox-printer ip-address '192.168.50.20'
+set service dhcp-server shared-network-name TRUSTED subnet 192.168.50.0/24 static-mapping xerox-printer mac-address '9C:93:4E:EC:EA:E4'
