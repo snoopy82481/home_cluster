@@ -25,9 +25,6 @@ configMapGenerator:
   - name: recyclarr-radarr-uhd-configmap
     files:
       - radarr-uhd-config.yaml
-  - name: recyclarr-radarr-uhd-anime-configmap
-    files:
-      - radarr-uhd-anime-config.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

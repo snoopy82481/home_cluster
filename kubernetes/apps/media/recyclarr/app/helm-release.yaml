@@ -100,11 +100,3 @@ spec:
         mountPath: /config/configs/radarr-uhd-config.yaml
         defaultMode: 0775
         readOnly: true
-      radarr-uhd-anime-config:
-        enabled: true
-        type: configMap
-        name: recyclarr-radarr-uhd-anime-configmap
-        subPath: radarr-uhd-anime-config.yaml
-        mountPath: /config/configs/radarr-uhd-anime-config.yaml
-        defaultMode: 0775
-        readOnly: true
