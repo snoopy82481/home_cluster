@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-recyclarr-edge
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./kubernetes/apps/media/recyclarr-edge/app
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
