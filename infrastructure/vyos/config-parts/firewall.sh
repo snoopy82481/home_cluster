@@ -18,8 +18,8 @@ set firewall group address-group k8s_api address '192.168.5.2'
 
 set firewall group address-group k8s_ingress address '192.168.21.10'
 
-set firewall gropu address-group k8s_services network '10.43.0.0/16'
-set firewall gropu address-group k8s_cluster network '10.42.0.0/16'
+set firewall group address-group k8s_services network '10.43.0.0/16'
+set firewall group address-group k8s_cluster network '10.42.0.0/16'
 
 set firewall group address-group tplink_devices address '192.168.10.2'
 set firewall group address-group tplink_devices address '192.168.10.3'
@@ -38,3 +38,9 @@ set firewall group address-group ios_devices address '192.168.50.9'
 set firewall group address-group ios_devices address '192.168.50.10'
 
 set firewall group address-group nas address '192.168.20.14'
+
+# Port groups
+set firewall group port-group wireguard port '51820'
+
+set firewall group port-group Allowed_OUT_Ports_LAN port 53 # DNS
+set firewall group port-group Allowed_OUT_Ports_LAN port

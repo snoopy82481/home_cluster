@@ -75,3 +75,48 @@ set firewall name wan-trusted rule 999 description 'Rule: drop_invalid'
 set firewall name wan-trusted rule 999 action 'drop'
 set firewall name wan-trusted rule 999 state invalid 'enable'
 set fierwall name wan-trusted rule 999 log 'enable'
+
+# ---------------------------------
+
+# From LOCAL to WAN
+set firewall name local-wan description 'From LOCAL to WAN'
+set firewall name local-wan default-action 'accept'
+
+# From LOCAL to CONTAINERS
+set firewall name local-containers description 'From LOCAL to CONTAINERS'
+set firewall name local-containers default-action 'accept'
+set firewall name local-containers rule 40 action 'accept'
+set firewall name local-containers rule 40 description 'Rule: accept_dns'
+set firewall name local-containers rule 40 destination port 'domain'
+set firewall name local-containers rule 40 protocol 'tcp_udp'
+set firewall name local-containers rule 999 description 'Rule: drop_invalid'
+set firewall name local-containers rule 999 action 'drop'
+set firewall name local-containers rule 999 state invalid 'enable'
+set fierwall name local-containers rule 999 log 'enable'
+
+# From LOCAL to LAN
+set firewall name local-lan default-action 'drop'
+set firewall name local-lan description 'From LOCAL to LAN'
+set firewall name local-lan enable-default-log
+set firewall name local-lan rule 999 action 'drop'
+set firewall name local-lan rule 999 description 'Rule: drop_invalid'
+set firewall name local-lan rule 999 state invalid 'enable'
+set firewall name local-lan rule 999 log 'enable'
+
+# From LOCAL to MGMT
+set firewall name local-mgmt default-action 'drop'
+set firewall name local-mgmt description 'From LOCAL to MGMT'
+set firewall name local-mgmt enable-default-log
+set firewall name local-mgmt rule 40 action 'accept'
+set firewall name local-mgmt rule 40 description 'Rule: accept_dns'
+set firewall name local-mgmt rule 40 destination port 'domain'
+set firewall name local-mgmt rule 40 protocol 'tcp_udp'
+set firewall name local-mgmt rule 999 action 'drop'
+set firewall name local-mgmt rule 999 description 'Rule: drop_invalid'
+set firewall name local-mgmt rule 999 state invalid 'enable'
+set firewall name local-mgmt rule 999 log 'enable'
+
+# From LOCAL to SERVERS
+set firewall name local-servers default-action 'drop'
+set firewall name local-servers description 'From LOCAL to SERVERS'
+set firewall name local-servers enable-default-log
