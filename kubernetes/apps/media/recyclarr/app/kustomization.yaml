@@ -9,22 +9,22 @@ namespace: media
 configMapGenerator:
   - name: recyclarr-sonarr-configmap
     files:
-      - sonarr-config.yaml
+      - ./configs/sonarr-config.yaml
   - name: recyclarr-sonarr-anime-configmap
     files:
-      - sonarr-anime-config.yaml
+      - ./configs/sonarr-anime-config.yaml
   - name: recyclarr-sonarr-uhd-configmap
     files:
-      - sonarr-uhd-config.yaml
+      - ./configs/sonarr-uhd-config.yaml
   - name: recyclarr-radarr-configmap
     files:
-      - radarr-config.yaml
+      - ./configs/radarr-config.yaml
   - name: recyclarr-radarr-anime-configmap
     files:
-      - radarr-anime-config.yaml
+      - ./configs/radarr-anime-config.yaml
   - name: recyclarr-radarr-uhd-configmap
     files:
-      - radarr-uhd-config.yaml
+      - ./configs/radarr-uhd-config.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
