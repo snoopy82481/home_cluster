@@ -290,8 +290,6 @@ radarr:
         quality_profiles:
           - name: Remux|Bluray|IMAX-E|2160p - Anime
             score: 101
-          - name: Remux|Bluray|IMAX-E|2160p - Anime!
-            score: 101
 
       - trash_ids:
           - a5d148168c4506b55cf53984107c396e  # 10bit
