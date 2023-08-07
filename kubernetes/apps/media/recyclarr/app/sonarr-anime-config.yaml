@@ -14,12 +14,12 @@ sonarr:
         reset_unmatched_scores: true
         upgrade:
           allowed: true
-          until_quality: "Bluray-1080p Remux"
+          until_quality: "Bluray 1080p"
           until_score: 10000
         min_format_score: 100
         quality_sort: top
         qualities:
-          - name: "Bluray-1080p Remux"
+          - name: "Bluray 1080p"
             qualities:
               - "Bluray-1080p Remux"
               - Bluray-1080p
