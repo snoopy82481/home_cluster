@@ -21,7 +21,7 @@ sonarr:
         qualities:
           - name: Bluray-1080p
             qualities:
-              - Bluray-1080p Remux
+              - "Bluray-1080p Remux"
               - Bluray-1080p
           - name: Web 1080p
             qualities:
@@ -35,7 +35,7 @@ sonarr:
               - WEBRip-720p
               - HDTV-720p
           - name: Bluray-480p
-          - name: WEB 480p
+          - name: "WEB 480p"
             qualities:
               - WEBDL-480p
               - WEBRip-480p

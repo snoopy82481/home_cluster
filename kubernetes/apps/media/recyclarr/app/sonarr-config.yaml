@@ -24,6 +24,9 @@ sonarr:
               - WEBRip-1080p
           - name: HDTV-1080p
           - name: WEB 720p
+            qualities:
+              - WEBDL-720p
+              - WEBRip-720p
 
     replace_existing_custom_formats: true
     delete_old_custom_formats: true
