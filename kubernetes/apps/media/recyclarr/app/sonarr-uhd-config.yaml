@@ -92,4 +92,4 @@ sonarr:
           - d0c516558625b04b363fa6c5c2c7cfd4  # WEB Scene
 
         quality_profiles:
-          - name: WEB-2160p
+          - name: WEB-DL (2160p)
