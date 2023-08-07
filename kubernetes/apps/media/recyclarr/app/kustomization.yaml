@@ -7,9 +7,27 @@ resources:
   - ./helm-release.yaml
 namespace: media
 configMapGenerator:
-  - name: recyclarr-configmap
+  - name: recyclarr-sonarr-configmap
     files:
-      - recyclarr.yml
+      - sonarr-config.yaml
+  - name: recyclarr-sonarr-anime-configmap
+    files:
+      - sonarr-anime-config.yaml
+  - name: recyclarr-sonarr-uhd-configmap
+    files:
+      - sonarr-uhd-config.yaml
+  - name: recyclarr-radarr-configmap
+    files:
+      - radarr-config.yaml
+  - name: recyclarr-radarr-anime-configmap
+    files:
+      - radarr-anime-config.yaml
+  - name: recyclarr-radarr-uhd-configmap
+    files:
+      - radarr-uhd-config.yaml
+  - name: recyclarr-radarr-uhd-anime-configmap
+    files:
+      - radarr-uhd-anime-config.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
