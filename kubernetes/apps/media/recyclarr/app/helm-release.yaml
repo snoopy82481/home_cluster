@@ -63,12 +63,12 @@ spec:
       sonarr-anime-config:
         enabled: true
         type: configMap
-        name: sonarr-anime-config
+        name: recyclarr-sonarr-anime-configmap
         subPath: sonarr-anime-config.yaml
         mountPath: /config/sonarr-anime-config.yaml
         defaultMode: 0775
         readOnly: true
-      recyclarr-sonarr-uhd-config:
+      sonarr-uhd-config:
         enabled: true
         type: configMap
         name: recyclarr-sonarr-uhd-configmap
@@ -76,7 +76,7 @@ spec:
         mountPath: /config/sonarr-uhd-config.yaml
         defaultMode: 0775
         readOnly: true
-      recyclarr-radarr-config:
+      radarr-config:
         enabled: true
         type: configMap
         name: recyclarr-radarr-configmap
@@ -84,7 +84,7 @@ spec:
         mountPath: /config/radarr-config.yaml
         defaultMode: 0775
         readOnly: true
-      recyclarr-radarr-anime-config:
+      radarr-anime-config:
         enabled: true
         type: configMap
         name: recyclarr-radarr-anime-configmap
@@ -92,7 +92,7 @@ spec:
         mountPath: /config/radarr-anime-config.yaml
         defaultMode: 0775
         readOnly: true
-      recyclarr-radarr-uhd-config:
+      radarr-uhd-config:
         enabled: true
         type: configMap
         name: recyclarr-radarr-uhd-configmap
@@ -100,7 +100,7 @@ spec:
         mountPath: /config/radarr-uhd-config.yaml
         defaultMode: 0775
         readOnly: true
-      recyclarr-radarr-uhd-anime-config:
+      radarr-uhd-anime-config:
         enabled: true
         type: configMap
         name: recyclarr-radarr-uhd-anime-configmap
