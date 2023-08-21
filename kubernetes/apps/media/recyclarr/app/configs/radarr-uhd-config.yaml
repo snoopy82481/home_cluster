@@ -11,7 +11,8 @@ radarr:
 
     quality_profiles:
       - name: Remux|Bluray|IMAX-E|2160p
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
         upgrade:
           allowed: true
           until_quality: Remux|Bluray|IMAX-E|2160p
@@ -30,7 +31,8 @@ radarr:
           - name: Remux-1080p
 
       - name: Remux|Bluray|IMAX-E|2160p - Anime
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
         upgrade:
           allowed: true
           until_quality: Remux|Bluray|IMAX-E|2160p
