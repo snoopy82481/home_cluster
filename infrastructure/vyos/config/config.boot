@@ -287,91 +287,91 @@ nat {
             description "Force NTP for LAN"
             destination {
                 address !192.168.0.1
-                port ntp
+                port 123
             }
             inbound-interface eth1
             protocol udp
             translation {
                 address 192.168.0.1
-                port ntp
+                port 123
             }
         }
         rule 105 {
             description "Force NTP for MGMT"
             destination {
                 address !192.168.10.1
-                port ntp
+                port 123
             }
             inbound-interface eth1.10
             protocol udp
             translation {
                 address 192.168.10.1
-                port ntp
+                port 123
             }
         }
         rule 106 {
             description "Force NTP for SERVERS"
             destination {
                 address !192.168.20.1
-                port ntp
+                port 123
             }
             inbound-interface eth1.20
             protocol udp
             translation {
                 address 192.168.20.1
-                port ntp
+                port 123
             }
         }
         rule 107 {
             description "Force NTP for IOT"
             destination {
                 address !192.168.30.1
-                port ntp
+                port 123
             }
             inbound-interface eth1.30
             protocol udp
             translation {
                 address 192.168.30.1
-                port ntp
+                port 123
             }
         }
         rule 108 {
             description "Force NTP for GUEST"
             destination {
                 address !192.168.40.1
-                port ntp
+                port 123
             }
             inbound-interface eth1.40
             protocol udp
             translation {
                 address 192.168.40.1
-                port ntp
+                port 123
             }
         }
         rule 109 {
             description "Force NTP for TRUSTED"
             destination {
                 address !192.168.50.1
-                port ntp
+                port 123
             }
             inbound-interface eth1.50
             protocol udp
             translation {
                 address 192.168.50.1
-                port ntp
+                port 123
             }
         }
         rule 110 {
             description "Force NTP for Wireguard Trusted"
             destination {
                 address !192.168.1.1
-                port ntp
+                port 123
             }
             inbound-interface wg0
             protocol udp
             translation {
                 address 192.168.1.1
-                port ntp
+                port 123
             }
         }
     }
