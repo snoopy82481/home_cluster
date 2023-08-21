@@ -22,7 +22,7 @@ radarr:
         qualities:
           - name: Bluray-1080p
             qualities:
-              - Bluray-1080p Remux
+              - Remux-1080p
               - Bluray-1080p
           - name: Web 1080p
             qualities:
@@ -55,7 +55,7 @@ radarr:
         qualities:
           - name: Bluray-1080p
             qualities:
-              - Bluray-1080p Remux
+              - Remux-1080p
               - Bluray-1080p
           - name: Web 1080p
             qualities:
