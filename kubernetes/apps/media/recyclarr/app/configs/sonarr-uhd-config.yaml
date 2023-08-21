@@ -11,7 +11,8 @@ sonarr:
 
     quality_profiles:
       - name: WEB-DL (2160p)
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
         upgrade:
           allowed: true
           until_quality: "WEB 2160p"
