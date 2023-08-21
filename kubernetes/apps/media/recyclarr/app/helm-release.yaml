@@ -34,17 +34,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: cronjob
-      cronjob:
-        schedule: "@daily"
-        ttlSecondsAfterFinished: 86400
+    # controller:
+    #   type: cronjob
+    #   cronjob:
+    #     schedule: "@daily"
+    #     ttlSecondsAfterFinished: 86400
     restartPolicy: OnFailure
     image:
       repository: ghcr.io/recyclarr/recyclarr
       tag: 5.2.1@sha256:798c1d285d9c1d8c2c07e49f3e90e07cd21be7bc8b4659013bc0879806266d6b
-    command: ["/app/recyclarr/recyclarr"]
-    args: ["sync"]
+    # command: ["/app/recyclarr/recyclarr"]
+    # args: ["sync"]
     envFrom:
       - secretRef:
           name: recyclarr
