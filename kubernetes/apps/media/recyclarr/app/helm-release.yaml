@@ -34,23 +34,23 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    # controller:
-    #   type: cronjob
-    #   cronjob:
-    #     schedule: "@daily"
-    #     ttlSecondsAfterFinished: 86400
     restartPolicy: OnFailure
+
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+
     image:
       repository: ghcr.io/recyclarr/recyclarr
       tag: 5.3.1@sha256:ede628bd5a3064cc9299db23da3c3c7d99417cdae0fe31fdbe04daf9971edd57
-    # command: ["/app/recyclarr/recyclarr"]
-    # args: ["sync"]
+
     envFrom:
       - secretRef:
           name: recyclarr
+
     service:
       main:
         enabled: false
+
     persistence:
       sonarr-config:
         enabled: true
@@ -60,6 +60,7 @@ spec:
         mountPath: /config/configs/sonarr-config.yaml
         defaultMode: 0775
         readOnly: true
+
       sonarr-anime-config:
         enabled: true
         type: configMap
@@ -68,6 +69,7 @@ spec:
         mountPath: /config/configs/sonarr-anime-config.yaml
         defaultMode: 0775
         readOnly: true
+
       sonarr-uhd-config:
         enabled: true
         type: configMap
@@ -76,6 +78,7 @@ spec:
         mountPath: /config/configs/sonarr-uhd-config.yaml
         defaultMode: 0775
         readOnly: true
+
       radarr-config:
         enabled: true
         type: configMap
@@ -84,6 +87,7 @@ spec:
         mountPath: /config/configs/radarr-config.yaml
         defaultMode: 0775
         readOnly: true
+
       radarr-anime-config:
         enabled: true
         type: configMap
@@ -92,6 +96,7 @@ spec:
         mountPath: /config/configs/radarr-anime-config.yaml
         defaultMode: 0775
         readOnly: true
+
       radarr-uhd-config:
         enabled: true
         type: configMap
