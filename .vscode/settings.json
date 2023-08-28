@@ -25,6 +25,10 @@
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "settings.yaml",
     "https://raw.githubusercontent.com/louygan/kubernetes-json-schema_yannh/master/v1.26.0/all.json": "k8s/**/*.yaml",
     "recyclarr": "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json",
+    "https://taskfile.dev/schema.json": [
+      "**/Taskfile.yaml",
+      ".taskfiles/*.yml"
+    ]
   },
   "material-icon-theme.folders.associations": {
     ".taskfiles": "utils",

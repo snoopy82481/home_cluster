@@ -4,6 +4,8 @@ version: "3"
 vars:
   TALOS_VERSION:
     sh: "yq '.talosVersion' ./infrastructure/talos/betty/talconfig.yaml"
+  K8S_VERSION:
+    sh: "yq '.kubernetesVersion' ./infrastructure/talos/betty/talconfig.yaml"
 
 tasks:
 
@@ -57,7 +59,8 @@ tasks:
     desc: Upgrades all Talos nodes
     cmds:
       - task: upgrade-cli
-      - talosctl upgrade -n {{.NODES}} --image "ghcr.io/siderolabs/installer:{{.TALOS_VERSION}}"
+      - for: { var: nodes }
+        cmd: talosctl upgrade -n {{.ITEM}} --image "ghcr.io/siderolabs/installer:{{.TALOS_VERSION}}"
     vars:
       nodes: >-
         192.168.20.5
@@ -66,3 +69,8 @@ tasks:
         192.168.20.8
         192.168.20.9
         192.168.20.10
+
+  upgrade-k8s:
+    desc: Upgrades k8s
+    cmds:
+      - talosctl -n 192.168.20.5 upgrade-k8s --to {{.K8S_VERSION}} {{.CLI_ARGS}}
