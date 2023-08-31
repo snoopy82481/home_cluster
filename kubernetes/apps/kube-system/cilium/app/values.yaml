@@ -64,7 +64,7 @@ hubble:
 ipv6:
   enabled: false
 
-kubeProxyReplacement: "strict"
+kubeProxyReplacement: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 
 operator:
