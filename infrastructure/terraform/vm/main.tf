@@ -15,7 +15,7 @@ resource "proxmox_vm_qemu" "talos_master" {
 
   target_node = var.proxmox_host
   vmid        = var.master_vmid + count.index
-  iso         = "local:iso/talos-amd64.iso"
+  iso         = "local:iso/metal-amd64.iso"
 
   agent    = 0
   os_type  = "linux"
@@ -53,7 +53,7 @@ resource "proxmox_vm_qemu" "talos_worker" {
 
   target_node = var.proxmox_host
   vmid        = var.worker_vmid + count.index
-  iso         = "local:iso/talos-amd64.iso"
+  iso         = "local:iso/metal-amd64.iso"
 
   agent    = 0
   os_type  = "linux"
