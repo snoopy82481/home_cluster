@@ -4,7 +4,7 @@ clusterName: ${clusterName}
 # renovate: image depName=ghcr.io/siderolabs/installer
 talosVersion: v1.5.1
 # renovate: image depName=registry.k8s.io/kube-apiserver
-kubernetesVersion: v1.27.4
+kubernetesVersion: v1.28.0
 endpoint: "https://192.168.20.1:6443"
 
 allowSchedulingOnMasters: true
@@ -53,8 +53,6 @@ controlPlane:
         apiServer:
           disablePodSecurityPolicy: true
           admissionControl: []
-          extraArgs:
-            feature-gates: MixedProtocolLBService=true
         etcd:
           extraArgs:
             listen-metrics-urls: http://0.0.0.0:2381
@@ -62,7 +60,6 @@ controlPlane:
             - 192.168.20.0/24
         controllerManager:
           extraArgs:
-            feature-gates: MixedProtocolLBService=true
             bind-address: 0.0.0.0
         discovery:
           registries:
@@ -82,17 +79,14 @@ controlPlane:
           - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.67.1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
         proxy:
           disabled: true
-          extraArgs:
-            feature-gates: MixedProtocolLBService=true
         scheduler:
           extraArgs:
-            feature-gates: MixedProtocolLBService=true
             bind-address: 0.0.0.0
 
       machine:
         kubelet:
           extraArgs:
-            feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
+            feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: "true"
           nodeIP:
             validSubnets:
@@ -158,7 +152,7 @@ worker:
       machine:
         kubelet:
           extraArgs:
-            feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
+            feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: "true"
         install:
           disk: /dev/sda
