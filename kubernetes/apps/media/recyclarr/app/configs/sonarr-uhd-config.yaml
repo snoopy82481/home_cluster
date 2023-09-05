@@ -15,11 +15,11 @@ sonarr:
           enabled: true
         upgrade:
           allowed: true
-          until_quality: "WEB 2160p"
+          until_quality: WEB 2160p
           until_score: 10000
         quality_sort: top
         qualities:
-          - name: "WEB 2160p"
+          - name: WEB 2160p
             qualities:
               - WEBDL-2160p
               - WEBRip-2160p
@@ -30,6 +30,22 @@ sonarr:
     custom_formats:
       # Scores from TRaSH json
       - trash_ids:
+          # Audio
+          - 0d7824bb924701997f874e7ff7d4844a # TrueHD Atmos
+          - 9d00418ba386a083fbf4d58235fc37ef # DTS X
+          - b6fbafa7942952a13e17e2b1152b539a # ATMOS (undefined)
+          - 4232a509ce60c4e208d13825b7c06264 # DD+ ATMOS
+          - 1808e4b9cee74e064dfae3f1db99dbfe # TrueHD
+          - c429417a57ea8c41d57e6990a8b0033f # DTS-HD MA
+          - 851bd64e04c9374c51102be3dd9ae4cc # FLAC
+          - 30f70576671ca933adbdcfc736a69718 # PCM
+          - cfa5fbd8f02a86fc55d8d223d06a5e1f # DTS-HD HRA
+          - 63487786a8b01b7f20dd2bc90dd4a477 # DD+
+          - c1a25cd67b5d2e08287c957b1eb903ec # DTS-ES
+          - 5964f2a8b3be407d083498e4459d05d0 # DTS
+          - a50b8a0c62274a7c38b09a9619ba9d86 # AAC
+          - dbe00161b08a25ac6154c55f95e6318d # DD
+
           # HDR Formats
           - 7878c33f1963fefb3d6c8657d46c2f0a  # DV HDR10
           - 1f733af03141f068a540eec352589a89  # DV HLG
@@ -43,17 +59,13 @@ sonarr:
           - 2a7e3be05d3861d6df7171ec74cad727  # PQ
 
           # DV (WEBDL)
-          # The next line is uncommented by default, and ensures that releases with Dolby Vision
-          # will only be grabbed if they have HDR10 fallback. You can comment the line out if you do
-          # not need HDR10 fallback
           - 9b27ab6498ec0f31a3353992e19434ca  # DV (WEBDL)
-
-          # HDR10Plus Boost - Uncomment the next line if any of your devices DO support HDR10+
-          - 0dad0a507451acddd754fe6dc3a7f5e7  # HDR10Plus Boost
 
           # Unwanted UHD
           - 85c61753df5da1fb2aab6f2a47426b09  # BR-DISK
           - 9c11cd3f07101cdba90a2d81cf0e56b4  # LQ
+          - 47435ece6b99a0b477caf360e79ba0bb  # x265 (HD)
+          - fbcb31d8dabd2a319072b84fc0b7249c  # Extras
           - 2016d1676f5ee13a5b7257ff86ac9a93  # SDR
 
           # Misc
