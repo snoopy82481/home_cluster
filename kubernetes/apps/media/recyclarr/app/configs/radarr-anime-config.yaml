@@ -18,7 +18,7 @@ radarr:
           until_quality: Bluray-1080p
           until_score: 10000
         min_format_score: 100
-        score_set: radarr-anime
+        score_set: anime-radarr
         quality_sort: top
         qualities:
           - name: Bluray-1080p
@@ -52,7 +52,7 @@ radarr:
           until_quality: Bluray-1080p
           until_score: 10000
         min_format_score: 100
-        score_set: radarr-anime
+        score_set: anime-radarr
         quality_sort: top
         qualities:
           - name: Bluray-1080p
