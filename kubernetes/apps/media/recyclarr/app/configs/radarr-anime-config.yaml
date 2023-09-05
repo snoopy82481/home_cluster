@@ -108,6 +108,7 @@ radarr:
           - 06b6542a47037d1e33b15aa3677c2365  # Anime Raws
           - a5d148168c4506b55cf53984107c396e  # 10bit
           - 9172b2f683f6223e3a1846427b417a3d  # VOSTFR
+          - b23eae459cc960816f2d6ba84af45055  # Dubs Only
           # Anime Streaming Services
           - 60f6d50cbd3cfc3e9a8c00e3a30c3114  # VRV
           # Main Guide Remux Tier Scoring
@@ -139,11 +140,3 @@ radarr:
             score: 10
           - name: Remux-1080p - Anime!
             score: 10
-
-      - trash_ids:
-          - b23eae459cc960816f2d6ba84af45055  # Dubs Only
-        quality_profiles:
-          - name: Remux-1080p - Anime
-            score: -10000
-          - name: Remux-1080p - Anime!
-            score: -10000
