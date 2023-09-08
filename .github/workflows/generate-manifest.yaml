@@ -3,6 +3,8 @@ name: "Generate Manifest"
 
 on:
   pull_request:
+    paths:
+      - 'infrastructure/talos/betty/integrations/**/kustomization.yaml'
 
 env:
   INTIGRATION_DIR: ./infrastructure/talos/betty/integrations
@@ -11,7 +13,7 @@ jobs:
   generate-manifest:
     name: generate-manifest
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["cilium", "kubelet-csr-approver"]'), github.event.pull_request.title)
+    # if: contains(fromJSON('["cilium", "kubelet-csr-approver"]'), github.event.pull_request.title)
     steps:
       - name: Generate Token
         uses: tibdex/github-app-token@0d49dd721133f900ebd5e0dff2810704e8defbc6 # v1.8.2
