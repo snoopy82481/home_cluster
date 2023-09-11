@@ -3,10 +3,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: k8s-gateway
+  name: &app k8s-gateway
   namespace: networking
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: k8s-gateway
@@ -31,7 +31,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fullnameOverride: k8s-gateway
+    fullnameOverride: *app
 
     domain: "${SECRET_DOMAIN}"
 

@@ -55,14 +55,6 @@ spec:
       defaultEnable: false
       namespaceSelector:
         any: true
-        # matchNames:
-        #   - media
-        #   - downloads
-        #   - web-tools
-        #   - networking
-        #   - monitoring
-        #   - rook-ceph
-        #   - kube-system
       searchProviders:
         - name: Google
           token: g
@@ -166,7 +158,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        ingressClassName: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           hajimari.io/enable: "false"
