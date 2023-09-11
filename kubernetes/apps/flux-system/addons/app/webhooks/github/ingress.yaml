@@ -6,10 +6,10 @@ metadata:
   namespace: flux-system
   annotations:
     cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-    external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
     hajimari.io/enable: "false"
 spec:
-  ingressClassName: nginx
+  ingressClassName: external
   rules:
     - host: &host "flux-webhook.${SECRET_DOMAIN}"
       http:

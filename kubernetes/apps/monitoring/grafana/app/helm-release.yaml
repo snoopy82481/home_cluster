@@ -194,7 +194,7 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      ingressClassName: nginx
+      ingressClassName: internal
       annotations:
         cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
         hajimari.io/enable: "true"
