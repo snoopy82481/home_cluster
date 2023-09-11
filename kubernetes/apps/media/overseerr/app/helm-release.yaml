@@ -55,13 +55,13 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        ingressClassName: external
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           hajimari.io/enable: "true"
           hajimari.io/group: "Media"
           hajimari.io/icon: "eye"
-          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:

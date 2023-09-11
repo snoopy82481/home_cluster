@@ -36,26 +36,17 @@ spec:
   values:
     fullnameOverride: *app
 
-    logLevel: info
-
-    logFormat: json
-
     provider: cloudflare
 
     env:
-      - name: CF_API_EMAIL
+      - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: cloudflare-creds
-            key: email
-      - name: CF_API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cloudflare-creds
-            key: api-key
+            name: external-dns-secret
+            key: api-token
 
     extraArgs:
-      - --annotation-filter=external-dns.alpha.kubernetes.io/target
+      - --ingress-class=external
       - --cloudflare-proxied
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
@@ -66,9 +57,9 @@ spec:
       - ingress
       - crd
 
-    txtPrefix: "k8s."
+    txtPrefix: k8s.
 
-    txtOwnerId: "default"
+    txtOwnerId: default
 
     domainFilters:
       - "${SECRET_DOMAIN}"
