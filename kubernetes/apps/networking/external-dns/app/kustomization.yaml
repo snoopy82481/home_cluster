@@ -6,4 +6,4 @@ namespace: networking
 resources:
   - ./dnsendpoint-crd.yaml
   - ./secrets.sops.yaml
-  - ./helmrelease.yaml
+  - ./helm-release.yaml
