@@ -1,0 +1,124 @@
+---
+name: Talos image generation
+
+on:
+  pull_request:
+    paths:
+      - "infrastructure/talos/betty/talconfig.yaml"
+      - ".github/workflows/talos-images.yaml"
+
+env:
+  REGISTRY: ghcr.io
+  # renovate: image depName=ghcr.io/siderolabs/qemu-guest-agent
+  QEMU_GUEST_AGENT_VERSION: 8.1.0
+
+jobs:
+  get-talos-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get release version
+        id: talos-release
+        run: |
+          talos_release_tag=$(jq '.talosVersion' infrastructure/talos/betty/talconfig.yaml)
+          echo "talos_release_tag=$talos_release_tag" >> $GITHUB_OUTPUT
+
+      - name: Get release body
+        id: talos-body
+        run: |
+          talos_release_body=$(curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".body")
+          echo "talos_release_body=$talos_release_body" >> $GITHUB_OUTPUT
+    outputs:
+      talosReleaseTag: ${{ steps.talos-release.outputs.talos_release_tag }}
+      talosReleaseBody: ${{ steps.talos-release.outputs.talos_release_body }}
+
+  build-boot-assets:
+    needs: [get-talos-version]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: ghcr.io/siderolabs/imager:${{ needs.get-talos-version.outputs.talosReleaseTag }}
+      options: --privileged
+      volumes:
+        - /dev:/dev
+    steps:
+      - name: Build amd64 installer w/ addons
+        run: |
+          /bin/imager installer \
+            --arch amd64 \
+            --system-extension-image ghcr.io/siderolabs/qemu-guest-agent:${{ env.QEMU_GUEST_AGENT_VERSION }}
+
+      - name: Build amd64 iso w/ addons
+        run: |
+          /bin/imager iso \
+            --arch amd64 \
+            --system-extension-image ghcr.io/siderolabs/qemu-guest-agent:${{ env.QEMU_GUEST_AGENT_VERSION }} \
+            --extra-kernel-arg net.ifnames=0
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: talos-installer
+          path: /out/metal-*-installer.tar
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Upload iso artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: talos-iso
+          path: /out/metal-amd64.iso
+          if-no-files-found: error
+          retention-days: 1
+
+  create-release:
+    needs: [get-talos-version, build-boot-assets]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download build asset images
+        uses: actions/download-artifact@v3
+        with:
+          name: talos-iso
+          path: /tmp/talos-build-assets
+
+      - name: Create a new release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.get-talos-version.outputs.talosReleaseTag }}
+          body: ${{ needs.get-talos-version.outputs.talosReleaseBody }}
+          files: |
+            /tmp/talos-build-assets/metal-amd64.iso
+
+  push-container-image:
+    needs: [get-talos-version, build-boot-assets]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download build asset images
+        uses: actions/download-artifact@v3
+        with:
+          name: talos-installer
+          path: /tmp/talos-build-assets
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2.10.0
+        with:
+          version: v0.11.2
+          driver-opts: image=moby/buildkit:v0.12.0
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2.2.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: imjasonh/setup-crane@v0.3
+      - name: Crane push installer
+        run: |
+          crane push --platform amd64 /tmp/talos-build-assets/metal-amd64-installer.tar ${{ env.REGISTRY }}/${{ github.repository_owner }}/installer:${{ needs.get-talos-version.outputs.talosReleaseTag }}
