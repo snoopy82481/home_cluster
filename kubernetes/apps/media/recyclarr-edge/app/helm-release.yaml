@@ -36,7 +36,7 @@ spec:
   values:
     image:
       repository: recyclarr/recyclarr
-      tag: edge@sha256:e70014de637b980685067d7b0dc2aa3ed68fc86804062c472a19ea82c61aaf58
+      tag: edge@sha256:1d3506840bda1f26be6fede5f93ca7bc77158f7911f4e16e90cf531c1144c17c
     # command: ["/app/recyclarr/recyclarr"]
     # args: ["sync"]
     envFrom:
