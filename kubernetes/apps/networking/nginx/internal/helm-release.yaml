@@ -34,9 +34,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    fullnameOverride: *app
     controller:
-      fullnameOverride: *app
-
       replicaCount: 1
 
       service:
