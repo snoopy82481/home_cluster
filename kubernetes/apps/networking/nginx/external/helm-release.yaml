@@ -34,8 +34,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    fullnameOverride: *app
     controller:
-      fullnameOverride: *app
       replicaCount: 1
 
       service:
@@ -93,7 +93,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/name: *app
               app.kubernetes.io/component: controller
 
       resources:
