@@ -7,7 +7,7 @@ on:
       - 'infrastructure/talos/betty/integrations/**/kustomization.yaml'
 
 env:
-  INTIGRATION_DIR: infrastructure/talos/betty/integrations
+  INTIGRATION_DIR: ./infrastructure/talos/betty/integrations
 
 jobs:
   generate-manifest:
@@ -52,9 +52,9 @@ jobs:
         run: |
           title="${{ steps.parse-title.outputs.parsed_title }}"
 
-          if [[ "$title" = "cilium" ]]; then
+          if [[ "$title" == "cilium" ]]; then
             cd "$INTEGRATION_DIR/cni"
-          elif [[ "$title" = "kubelet-csr-approver" ]]; then
+          elif [[ "$title" == "kubelet-csr-approver" ]]; then
             cd "$INTEGRATION_DIR/kubelet-csr-approver"
           fi
 
