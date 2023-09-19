@@ -9,6 +9,9 @@ radarr:
     include:
       - template: sqp-1-1080p
 
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+
     custom_formats:
       - trash_ids:
           # IMAX-E - Uncomment the next line if you prefer WEBDL with IMAX Enhanced to BHDStudio

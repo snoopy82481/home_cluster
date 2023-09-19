@@ -9,6 +9,9 @@ sonarr:
     include:
       - template: anime-sonarr-v4
 
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+
     custom_formats:
       - trash_ids:
           - 026d5aadd1a6b4e550b134cb6c72b3ca  # Uncensored

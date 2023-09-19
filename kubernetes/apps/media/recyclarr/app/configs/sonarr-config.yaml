@@ -8,3 +8,6 @@ sonarr:
 
     include:
       - template: web-1080p-v4
+
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true

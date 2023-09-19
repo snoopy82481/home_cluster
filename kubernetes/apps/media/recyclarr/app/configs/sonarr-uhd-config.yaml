@@ -9,6 +9,9 @@ sonarr:
     include:
       - template: web-2160p-v4
 
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+
     custom_formats:
       # Scores from TRaSH json
       - trash_ids:

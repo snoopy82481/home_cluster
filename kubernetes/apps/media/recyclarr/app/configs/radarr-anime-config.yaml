@@ -9,6 +9,9 @@ radarr:
     include:
       - template: anime-radarr
 
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+
     custom_formats:
       - trash_ids:
           - 064af5f084a0a24458cc8ecd3220f93f  # Uncensored
