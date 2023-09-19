@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.0-beta.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,61 +22,81 @@ spec:
   upgrade:
     remediation:
       retries: 5
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: cert-manager
-      namespace: cert-manager
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-        configmap.reloader.stakater.com/reload: cluster-settings
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+          configmap.reloader.stakater.com/reload: cluster-settings
 
-    image:
-      repository: ghcr.io/onedr0p/qbittorrent
-      tag: 4.5.5@sha256:30dffe7ad04ea0e39db0b50c0bd5e79362f99f7ff6b250526d2f389b58d96f14
+        pod:
+          securityContext:
+            supplementalGroups:
+              - 65539
 
-    hostname: *app
+        containers:
+          main:
+            nameOverride: *app
+            image:
+              repository: ghcr.io/onedr0p/qbittorrent
+              tag: 4.5.5@sha256:30dffe7ad04ea0e39db0b50c0bd5e79362f99f7ff6b250526d2f389b58d96f14
+            env:
+              TZ: ${TIMEZONE}
+              UMASK: "022"
+              QBITTORRENT__PORT: &port 8080
+              QBITTORRENT__USE_PROFILE: "true"
+            resources:
+              requests:
+                cpu: 49m
+                memory: 1024Mi
+              limits:
+                memory: 8192Mi
 
-    podAnnotations:
-      setGateway: "true"
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: latest@sha256:088a23ddfe3d4843b0c14d5b7a2101ebfd0143e177a374fe4786da95b78583e0
+            env:
+              - name: VPN_TYPE
+                value: wireguard
+              - name: VPN_INTERFACE
+                value: wg0
+              - name: FIREWALL
+                value: "off"
+              - name: DOT
+                value: "off"
+              - name: UPDATER_PERIOD
+                value: "24h"
+              - name: UPDATER_VPN_SERVICE_PROVIDERS
+                valueFrom:
+                  secretKeyRef:
+                    name: qbittorrent-secret
+                    key: VPN_SERVICE_PROVIDER
+            envFrom:
+              - secretRef:
+                name: qbittorrent-secret
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
 
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups:
-        - 65539
-
-    initContainers:
-      copy-config:
-        image: ghcr.io/onedr0p/alpine:3.18.3@sha256:974f5883eb9b838792f1b27b812d8b9f80375ba9ac1f8b038fda27a53f6cd763
-        command:
-          - "/bin/sh"
-          - -c
-        args:
-          - |
-            for f in /data/configfiles/*; do
-              filename=$(basename $f)
-              envsubst < $f > /data/config/$filename;
-            done
-        volumeMounts:
-          - name: config
-            mountPath: /data/config
-          - name: configfiles
-            mountPath: /data/configfiles
-
-    settings:
-      automaticPortSetup: false
-
-    env:
-      TZ: ${TIMEZONE}
-      UMASK: "022"
-      QBITTORRENT__PORT: &port 8080
-      QBITTORRENT__USE_PROFILE: "true"
+        initContainers:
+          copy-config:
+            image: ghcr.io/onedr0p/alpine:3.18.3@sha256:974f5883eb9b838792f1b27b812d8b9f80375ba9ac1f8b038fda27a53f6cd763
+            command:
+              - "/bin/sh"
+              - -c
+            args:
+              - |
+                for f in /data/configfiles/*; do
+                  filename=$(basename $f)
+                  envsubst < $f > /data/config/$filename;
+                done
+            volumeMounts:
+              - name: config
+                mountPath: /data/config
+              - name: configfiles
+                mountPath: /data/configfiles
 
     service:
       main:
@@ -105,6 +125,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
@@ -123,23 +146,17 @@ spec:
 
       media:
         enabled: true
-        type: nfs
-        server: ${NAS_NAME}
-        path: /mnt/storage1/data
-        mountPath: /media
+        existingClaim: nas-media
+        advancedMounts:
+          main:
+            main:
+              - path: /data/nas-media
 
       configfiles:
         enabled: true
         type: configMap
         name: qbittorrent-configmap
         mountPath: "-"
-
-    resources:
-      requests:
-        cpu: 29m
-        memory: 1227M
-      limits:
-        memory: 1227M
 
     volumeClaimTemplates:
       - name: data

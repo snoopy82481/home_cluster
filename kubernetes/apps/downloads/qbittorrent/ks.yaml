@@ -9,7 +9,9 @@ spec:
   interval: 5m
   path: ./kubernetes/apps/downloads/qbittorrent/app
   dependsOn:
-    - name: cluster-apps-vpn-gateway
+    - name: cluster-apps-rook-ceph-cluster
+      namespace: flux-system
+    - name: cluster-apps-cert-manager
       namespace: flux-system
   prune: true
   wait: true
