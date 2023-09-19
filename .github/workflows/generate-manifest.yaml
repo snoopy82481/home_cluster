@@ -50,7 +50,7 @@ jobs:
 
       - name: Run Generate Manifest
         run: |
-          title="${{ steps.parse-title.outputs.parsed-title }}"
+          title="${{ steps.parse-title.outputs.parsed_title }}"
 
           if [[ "$title" = "cilium" ]]; then
             cd "${{ env.INTEGRATION_DIR }}/cni"
