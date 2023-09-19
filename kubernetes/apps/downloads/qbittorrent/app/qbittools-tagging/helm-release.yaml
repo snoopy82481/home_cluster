@@ -19,7 +19,12 @@ spec:
     - name: qbittorrent
 
   values:
-    controller:
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "@hourly"
+
       containers:
         main:
           image:

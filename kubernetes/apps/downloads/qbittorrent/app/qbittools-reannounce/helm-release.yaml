@@ -20,6 +20,11 @@ spec:
 
   values:
     controllers:
+      main:
+        type: deployment
+        replicas: 1
+        strategy: Recreate
+
       containers:
         main:
           image:
