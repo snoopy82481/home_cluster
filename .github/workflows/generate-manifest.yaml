@@ -53,9 +53,9 @@ jobs:
           title="${{ steps.parse-title.outputs.parsed_title }}"
 
           if [[ "$title" = "cilium" ]]; then
-            cd "${{ env.INTEGRATION_DIR }}/cni"
+            cd "$INTEGRATION_DIR/cni"
           elif [[ "$title" = "kubelet-csr-approver" ]]; then
-            cd "${{ env.INTEGRATION_DIR }}/kubelet-csr-approver"
+            cd "$INTEGRATION_DIR/kubelet-csr-approver"
           fi
 
           ./generate.sh
