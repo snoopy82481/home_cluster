@@ -53,9 +53,9 @@ jobs:
           title="${{ steps.parse-title.outputs.parsed_title }}"
 
           if [[ "$title" == "cilium" ]]; then
-            cd "$INTEGRATION_DIR/cni"
+            cd ./infrastructure/talos/betty/integrations/cni
           elif [[ "$title" == "kubelet-csr-approver" ]]; then
-            cd "$INTEGRATION_DIR/kubelet-csr-approver"
+            cd ./infrastructure/talos/betty/integrations//kubelet-csr-approver
           fi
 
           ./generate.sh
