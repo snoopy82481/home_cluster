@@ -55,7 +55,7 @@ jobs:
           if [[ "$title" == "cilium" ]]; then
             cd infrastructure/talos/betty/integrations/cni
           elif [[ "$title" == "kubelet-csr-approver" ]]; then
-            cd infrastructure/talos/betty/integrations//kubelet-csr-approver
+            cd infrastructure/talos/betty/integrations/kubelet-csr-approver
           fi
 
           ./generate.sh
