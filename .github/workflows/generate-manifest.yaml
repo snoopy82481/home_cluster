@@ -7,7 +7,7 @@ on:
       - 'infrastructure/talos/betty/integrations/**/kustomization.yaml'
 
 env:
-  INTIGRATION_DIR: ./infrastructure/talos/betty/integrations
+  INTIGRATION_DIR: infrastructure/talos/betty/integrations
 
 jobs:
   generate-manifest:
