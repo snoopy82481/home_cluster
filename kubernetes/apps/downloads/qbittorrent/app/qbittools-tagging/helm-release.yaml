@@ -25,31 +25,31 @@ spec:
         cronjob:
           schedule: "@hourly"
 
-      containers:
-        main:
-          image:
-            repository: ghcr.io/buroa/qbittools
-            tag: v0.9.3
-          args:
-            - tagging
-            - --not-working
-            - --unregistered
-            - --added-on
-            - --last-activity
-            - --tracker-down
-            - -s
-            - qbittorrent.downloads.svc.cluster.local
-            - -p
-            - "8080"
-          resources:
-            requests:
-              memory: 250Mi
-              cpu: 25m
-            limits:
-              memory: 500Mi
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+        containers:
+          main:
+            image:
+              repository: ghcr.io/buroa/qbittools
+              tag: v0.9.3
+            args:
+              - tagging
+              - --not-working
+              - --unregistered
+              - --added-on
+              - --last-activity
+              - --tracker-down
+              - -s
+              - qbittorrent.downloads.svc.cluster.local
+              - -p
+              - "8080"
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 25m
+              limits:
+                memory: 500Mi
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
 
     restartPolicy: OnFailure
 

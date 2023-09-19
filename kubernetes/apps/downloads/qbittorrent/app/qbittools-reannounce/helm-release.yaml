@@ -25,26 +25,26 @@ spec:
         replicas: 1
         strategy: Recreate
 
-      containers:
-        main:
-          image:
-            repository: ghcr.io/buroa/qbittools
-            tag: v0.9.3
-          args:
-            - reannounce
-            - -s
-            - qbittorrent.downloads.svc.cluster.local
-            - -p
-            - "8080"
-          resources:
-            requests:
-              memory: 250Mi
-              cpu: 25m
-            limits:
-              memory: 500Mi
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+        containers:
+          main:
+            image:
+              repository: ghcr.io/buroa/qbittools
+              tag: v0.9.3
+            args:
+              - reannounce
+              - -s
+              - qbittorrent.downloads.svc.cluster.local
+              - -p
+              - "8080"
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 25m
+              limits:
+                memory: 500Mi
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
 
     restartPolicy: OnFailure
 
