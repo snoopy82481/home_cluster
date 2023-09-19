@@ -158,6 +158,14 @@ spec:
         name: qbittorrent-configmap
         mountPath: "-"
 
+      gluetun-data:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          main:
+            gluetun:
+              - path: /tmp/gluetun
+
     volumeClaimTemplates:
       - name: data
         mountPath: /config/qBittorrent/data
