@@ -1,0 +1,133 @@
+---
+# yaml-language-server: schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app jellyfin
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 30m
+  maxHistory: 2
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: stateftulset
+      annotations:
+        reloader.stakater.com/auto: true
+
+    image:
+      repository: ghcr.io/onedr0p/jellyfin
+      tag: 10.8.11@sha256:02904ff44d66c9a549c1dbf7e5bb03f6185272786f871d5718da22ca9a0e600e
+
+    enableServiceLinks: false
+
+    env:
+      DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+      JELLYFIN_FFmpeg__probesize: 50000000
+      JELLYFIN_FFmpeg__analyzeduration: 50000000
+      JELLYFIN_PublishedServerUrl: &loadBalancerIP ${SVC_JELLYFIN_ADDRESS}
+      TZ: ${TZ}
+
+    service:
+      main:
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        annotations:
+          io.cilium/lb-ipam-ips: *loadBalancerIP
+        ports:
+          http:
+            port: &port 8096
+
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /health
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          hajimari.io/enable: "true"
+          hajimari.io/group: "Media"
+          hajimari.io/icon: "filmstrip"
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "{{ .Release.Name }}-tls"
+            hosts:
+              - *host
+
+    persistence:
+      media:
+        enabled: true
+        type: nfs
+        server: ${NAS_NAME}
+        path: /mnt/storage1/data
+        mountPath: /media
+      transcode:
+        enabled: true
+        type: emptyDir
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 44
+        - 109
+        - 65539
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 9248M
+      limits:
+        memory: 9248M
+
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 15Gi
+        storageClass: ceph-block

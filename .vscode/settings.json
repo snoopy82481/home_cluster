@@ -94,7 +94,8 @@
     "hajimari",
     "theme-park",
     "cloudflared",
-    "infra-vyos"
+    "infra-vyos",
+    "jellyfin"
   ],
   "ansible.python.interpreterPath": "/bin/python",
 }
