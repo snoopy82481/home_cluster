@@ -35,7 +35,7 @@ spec:
     keepHistory: false
   values:
     controller:
-      type: stateftulset
+      type: statefulset
       annotations:
         reloader.stakater.com/auto: true
 
