@@ -102,7 +102,7 @@ spec:
         enabled: true
         type: nfs
         server: ${NAS_NAME}
-        path: /mnt/storage1/data
+        path: /mnt/storage1/data/media
         mountPath: /media
       transcode:
         enabled: true
