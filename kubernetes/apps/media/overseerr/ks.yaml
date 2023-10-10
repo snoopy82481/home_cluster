@@ -13,3 +13,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  dependsOn:
+    - name: cluster-apps-cert-manager
+    - name: cluster-apps-nginx-external
+    - name: cluster-apps-rook-ceph-cluster

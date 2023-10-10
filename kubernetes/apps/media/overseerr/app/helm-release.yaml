@@ -6,11 +6,12 @@ metadata:
   name: &app overseerr
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
       version: 2.0.3
+      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -32,30 +33,49 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: cert-manager
-      namespace: cert-manager
   values:
-    image:
-      repository: ghcr.io/sct/overseerr
-      tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
-    env:
-      TZ: ${TIMEZONE}
-      LOG_LEVEL: "info"
-      PORT: &port 5055
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+          configmap.reloader.stakater.com/reload: cluster-settings
+
+        containers:
+          main:
+            nameOverride: *app
+
+            image:
+              repository: ghcr.io/sct/overseerr
+              tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
+
+            env:
+              TZ: ${TIMEZONE}
+              LOG_LEVEL: "info"
+              PORT: &port 5055
+
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+              fsGroup: 568
+              fsGroupChangePolicy: OnRootMismatch
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 500Mi
+
     service:
       main:
         ports:
           http:
             port: *port
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: cluster-settings
+
     ingress:
       main:
         enabled: true
-        ingressClassName: external
+        className: external
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           hajimari.io/enable: "true"
@@ -66,19 +86,17 @@ spec:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
+
     persistence:
       config:
         enabled: true
         existingClaim: overseerr-config-v1
-        mountPath: /app/config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 500Mi
+        globalMounts:
+          - path: /app/config
