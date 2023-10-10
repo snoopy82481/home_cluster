@@ -79,15 +79,11 @@ spec:
         existingClaim: bazarr-config-v1
       media:
         enabled: true
-        type: nfs
-        server: ${NAS_NAME}
-        path: /mnt/storage1/data
+        existingClaim: nas-data
         mountPath: /media
       backup:
         enabled: true
-        type: nfs
-        server: ${NAS_NAME}
-        path: /mnt/storage1/backup
+        existingClaim: nas-backup
         mountPath: /backup
     resources:
       requests:
