@@ -34,49 +34,59 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
 
-    image:
-      repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.11@sha256:041977cb09d964ed4e00dec2bd0af3208f0121b8385a69617d30657596ffa292
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 15Gi
+              storageClass: ceph-block
+              globalMounts:
+                - path: /config
 
-    enableServiceLinks: false
+        pod:
+          enableServiceLinks: false
 
-    env:
-      DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
-      JELLYFIN_FFmpeg__probesize: 50000000
-      JELLYFIN_FFmpeg__analyzeduration: 50000000
-      JELLYFIN_PublishedServerUrl: &loadBalancerIP ${SVC_JELLYFIN_ADDRESS}
-      TZ: ${TZ}
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 44
+              - 109
+              - 65539
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/jellyfin
+              tag: 10.8.11@sha256:041977cb09d964ed4e00dec2bd0af3208f0121b8385a69617d30657596ffa292
+            env:
+              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+              JELLYFIN_FFmpeg__probesize: 50000000
+              JELLYFIN_FFmpeg__analyzeduration: 500000000
+            resources:
+              requests:
+                cpu: 100m
+                memory: 9248M
+              limits:
+                memory: 9248M
 
     service:
       main:
         type: LoadBalancer
         externalTrafficPolicy: Cluster
         annotations:
-          io.cilium/lb-ipam-ips: *loadBalancerIP
+          io.cilium/lb-ipam-ips: ${SVC_JELLYFIN_ADDRESS}
         ports:
           http:
             port: &port 8096
-
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /health
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
 
     ingress:
       main:
@@ -91,7 +101,9 @@ spec:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
@@ -99,35 +111,10 @@ spec:
 
     persistence:
       media:
-        enabled: true
-        type: nfs
-        server: ${NAS_NAME}
-        path: /mnt/storage1/data/media
-        mountPath: /media
+        existingClaim: nas-data
+        globalMounts:
+          - path: /media
       transcode:
-        enabled: true
         type: emptyDir
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 44
-        - 109
-        - 65539
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 9248M
-      limits:
-        memory: 9248M
-
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 15Gi
-        storageClass: ceph-block
+        globalMounts:
+          - path: /transcode
