@@ -6,47 +6,80 @@ metadata:
   name: &app sonarranime
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
       version: 2.0.3
+      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
+  test:
+    enable: false
   install:
-    createNamespace: true
     remediation:
       retries: 5
   upgrade:
     remediation:
       retries: 5
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: cert-manager
-      namespace: cert-manager
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
   values:
-    image:
-      repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.697@sha256:f0076a88ad0f8875eb2ea961a733c69039f38b99f77290158d684f0c50e99a7c
-    env:
-      TZ: ${TIMEZONE}
-      SONARR__INSTANCE_NAME: Sonarr_Anime
-      SONARR__API_KEY: ${SONARR_ANIME_APIKEY}
-      SONARR__PORT: &port 8989
-      SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-      SONARR__LOG_LEVEL: info
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+          configmap.reloader.stakater.com/reload: cluster-settings
+
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 65539
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.0.697@sha256:f0076a88ad0f8875eb2ea961a733c69039f38b99f77290158d684f0c50e99a7c
+
+            env:
+              TZ: "${TIMEZONE}"
+              SONARR__INSTANCE_NAME: "Sonarr Anime"
+              SONARR__API_KEY: ${SONARR_ANIME_APIKEY}
+              SONARR__PORT: &port 8989
+              SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              SONARR__LOG_LEVEL: info
+
+            resources:
+              requests:
+                cpu: 20m
+                memory: 323M
+              limits:
+                memory: 323M
+
     service:
       main:
         ports:
           http:
             port: *port
+
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           hajimari.io/enable: "true"
@@ -62,34 +95,16 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups:
-        - 100
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: cluster-settings
+
     persistence:
       config:
         enabled: true
         existingClaim: sonarranime-config-v1
       media:
-        enabled: true
-        type: nfs
-        server: ${NAS_NAME}
-        path: /mnt/storage1/data
-        mountPath: /media
+        existingClaim: nas-data
+        globalMounts:
+          - path: /media
       backup:
-        enabled: true
-        type: nfs
-        server: ${NAS_NAME}
-        path: /mnt/storage1/backup
-        mountPath: /backup
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi
+        existingClaim: nas-backup
+        globalMounts:
+          - path: /backup
