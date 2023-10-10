@@ -12,7 +12,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
-  - ./radarr4k/ks.yaml
+  - ./radarr-uhd/ks.yaml
   - ./radarranime/ks.yaml
   - ./recyclarr/ks.yaml
   # - ./recyclarr-edge/ks.yaml
