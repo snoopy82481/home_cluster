@@ -97,7 +97,9 @@ spec:
         existingClaim: bazarr-config-v1
       media:
         existingClaim: nas-data
-        mountPath: /media
+        globalMounts:
+          - path: /media
       backup:
         existingClaim: nas-backup
-        mountPath: /backup
+        globalMounts:
+          - path: /backup
