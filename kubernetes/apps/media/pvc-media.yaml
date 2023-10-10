@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nas-data
+  namespace: media
+spec:
+  resources:
+    requests:
+      storage: 1Mi
+  storageClassName: nas-data
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nas-backup
+  namespace: media
+spec:
+  resources:
+    requests:
+      storage: 1Mi
+  storageClassName: nas-backup
+  accessModes:
+    - ReadWriteMany
