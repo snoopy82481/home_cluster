@@ -6,7 +6,7 @@ metadata:
   name: &app bazarr
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,6 +15,7 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+      interval: 30m
   maxHistory: 2
   test:
     enable: false
@@ -32,26 +33,47 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: cert-manager
-      namespace: cert-manager
   values:
-    image:
-      repository: ghcr.io/onedr0p/bazarr
-      tag: 1.3.0@sha256:6f78c727bff1fa56ba1be9fdd3d98e83b71a3405152dd6b47596af754d23e8a0
-    env:
-      TZ: ${TIMEZONE}
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+          configmap.reloader.stakater.com/reload: cluster-settings
+
+        containers:
+          main:
+            nameOverride: *app
+
+            image:
+              repository: ghcr.io/onedr0p/bazarr
+              tag: 1.3.0@sha256:6f78c727bff1fa56ba1be9fdd3d98e83b71a3405152dd6b47596af754d23e8a0
+
+            env:
+              TZ: ${TIMEZONE}
+
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+              fsGroup: 568
+              fsGroupChangePolicy: OnRootMismatch
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 2000Mi
+
     service:
       main:
         ports:
           http:
             port: 6767
+
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           hajimari.io/enable: "true"
@@ -66,28 +88,14 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: cluster-settings
+
     persistence:
       config:
         enabled: true
         existingClaim: bazarr-config-v1
       media:
-        enabled: true
         existingClaim: nas-data
         mountPath: /media
       backup:
-        enabled: true
         existingClaim: nas-backup
         mountPath: /backup
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi
