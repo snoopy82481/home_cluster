@@ -45,17 +45,17 @@ spec:
             - name: data
               mountPath: /opt/tplink/EAPController/data
               accessMode: "ReadWriteOnce"
-              storage: 5Gi
+              size: 5Gi
               storageClassName: ceph-block
             - name: work
               mountPath: /opt/tplink/EAPController/work
               accessMode: "ReadWriteOnce"
-              storage: 5Gi
+              size: 5Gi
               storageClassName: ceph-block
             - name: logs
               mountPath: /opt/tplink/EAPController/logs
               accessMode: "ReadWriteOnce"
-              storage: 5Gi
+              size: 5Gi
               storageClassName: ceph-block
 
 
