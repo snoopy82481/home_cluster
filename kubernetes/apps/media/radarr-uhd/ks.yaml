@@ -7,9 +7,13 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: ./kubernetes/apps/media/radarr4k/app
+  path: ./kubernetes/apps/media/radarr-uhd/app
   prune: true
   wait: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  dependsOn:
+    - name: cluster-apps-cert-manager
+    - name: cluster-apps-nginx-internal
+    - name: cluster-apps-rook-ceph-cluster

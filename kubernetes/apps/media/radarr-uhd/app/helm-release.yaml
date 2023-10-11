@@ -1,9 +1,9 @@
 ---
-# yaml-language-server: schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app jellyfin
+  name: &app radarruhd
   namespace: media
 spec:
   interval: 30m
@@ -11,11 +11,11 @@ spec:
     spec:
       chart: app-template
       version: 2.0.3
+      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 30m
   maxHistory: 2
   test:
     enable: false
@@ -36,57 +36,45 @@ spec:
   values:
     controllers:
       main:
-        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
-
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              accessMode: ReadWriteOnce
-              size: 15Gi
-              storageClass: ceph-block
-              globalMounts:
-                - path: /config
+          configmap.reloader.stakater.com/reload: cluster-settings
 
         pod:
-          enableServiceLinks: false
-
           securityContext:
             runAsUser: 568
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
-              - 44
-              - 109
               - 65539
 
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/jellyfin
-              tag: 10.8.11@sha256:041977cb09d964ed4e00dec2bd0af3208f0121b8385a69617d30657596ffa292
+              repository: ghcr.io/onedr0p/radarr-develop
+              tag: 5.0.3.8127@sha256:efe518bdc1d29bda31d4aa7177b2881a7f47f114c067e662415d72abc0a0e9ea
+
             env:
-              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
-              JELLYFIN_FFmpeg__probesize: 50000000
-              JELLYFIN_FFmpeg__analyzeduration: 500000000
+              TZ: ${TIMEZONE}
+              RADARR__INSTANCE_NAME: "Radarr UHD"
+              RADARR__API_KEY: ${RADARR_UHD_APIKEY}
+              RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              RADARR__PORT: &port 7878
+              RADARR__LOG_LEVEL: info
+
             resources:
               requests:
-                cpu: 100m
-                memory: 9248M
+                cpu: 14m
+                memory: 431M
               limits:
-                memory: 9248M
+                memory: 431M
 
     service:
       main:
-        type: LoadBalancer
-        externalTrafficPolicy: Cluster
-        annotations:
-          io.cilium/lb-ipam-ips: ${SVC_JELLYFIN_ADDRESS}
         ports:
           http:
-            port: &port 8096
+            port: *port
 
     ingress:
       main:
@@ -97,6 +85,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/group: "Media"
           hajimari.io/icon: "filmstrip"
+          hajimari.io/appName: "Radarr UHD"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -110,11 +99,14 @@ spec:
               - *host
 
     persistence:
+      config:
+        enabled: true
+        existingClaim: radarr4k-config-v1
       media:
         existingClaim: nas-data
         globalMounts:
           - path: /media
-      transcode:
-        type: emptyDir
+      backup:
+        existingClaim: nas-backup
         globalMounts:
-          - path: /transcode
+          - path: /backup

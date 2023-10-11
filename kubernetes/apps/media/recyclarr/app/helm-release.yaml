@@ -6,16 +6,16 @@ metadata:
   name: &app recyclarr
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 15m
+      interval: 30m
   maxHistory: 2
   test:
     enable: false
@@ -34,18 +34,45 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    restartPolicy: OnFailure
+    controllers:
+      main:
+        type: statefulset
 
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 1Gi
+              storageClass: ceph-block
+              globalMounts:
+                - path: /config
 
-    image:
-      repository: ghcr.io/recyclarr/recyclarr
-      tag: 6.0.1@sha256:d1b2659f660c8491477d31cd554defdaccfcbfef1e62ad1516374903dc749a09
+        annotations:
+          reloader.stakater.com/auto: "true"
 
-    envFrom:
-      - secretRef:
-          name: recyclarr
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/recyclarr/recyclarr
+              tag: 6.0.1@sha256:d1b2659f660c8491477d31cd554defdaccfcbfef1e62ad1516374903dc749a09
+
+            envFrom:
+              - secretRef:
+                  name: recyclarr
+
+            resources:
+              requests:
+                cpu: 5m
+                memory: 36M
+              limits:
+                memory: 128M
 
     service:
       main:
@@ -56,52 +83,70 @@ spec:
         enabled: true
         type: configMap
         name: recyclarr-sonarr-configmap
-        subPath: sonarr-config.yaml
-        mountPath: /config/configs/sonarr-config.yaml
-        defaultMode: 0775
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /config/configs/sonarr-config.yaml
+                subPath: sonarr-config.yaml
+                defaultMode: 0775
+                readOnly: true
 
       sonarr-anime-config:
         enabled: true
         type: configMap
         name: recyclarr-sonarr-anime-configmap
-        subPath: sonarr-anime-config.yaml
-        mountPath: /config/configs/sonarr-anime-config.yaml
-        defaultMode: 0775
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /config/configs/sonarr-anime-config.yaml
+                subPath: sonarr-anime-config.yaml
+                defaultMode: 0775
+                readOnly: true
 
       sonarr-uhd-config:
         enabled: true
         type: configMap
         name: recyclarr-sonarr-uhd-configmap
-        subPath: sonarr-uhd-config.yaml
-        mountPath: /config/configs/sonarr-uhd-config.yaml
-        defaultMode: 0775
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /config/configs/sonarr-uhd-config.yaml
+                subPath: sonarr-uhd-config.yaml
+                defaultMode: 0775
+                readOnly: true
 
       radarr-config:
         enabled: true
         type: configMap
         name: recyclarr-radarr-configmap
-        subPath: radarr-config.yaml
-        mountPath: /config/configs/radarr-config.yaml
-        defaultMode: 0775
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /config/configs/radarr-config.yaml
+                subPath: radarr-config.yaml
+                defaultMode: 0775
+                readOnly: true
 
       radarr-anime-config:
         enabled: true
         type: configMap
         name: recyclarr-radarr-anime-configmap
-        subPath: radarr-anime-config.yaml
-        mountPath: /config/configs/radarr-anime-config.yaml
-        defaultMode: 0775
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /config/configs/radarr-anime-config.yaml
+                subPath: radarr-anime-config.yaml
+                defaultMode: 0775
+                readOnly: true
 
       radarr-uhd-config:
         enabled: true
         type: configMap
         name: recyclarr-radarr-uhd-configmap
-        subPath: radarr-uhd-config.yaml
-        mountPath: /config/configs/radarr-uhd-config.yaml
-        defaultMode: 0775
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /config/configs/radarr-uhd-config.yaml
+                subPath: radarr-uhd-config.yaml
+                defaultMode: 0775
+                readOnly: true

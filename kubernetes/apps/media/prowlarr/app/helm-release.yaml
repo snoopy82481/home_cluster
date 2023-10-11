@@ -6,11 +6,12 @@ metadata:
   name: &app prowlarr
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
+      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -32,31 +33,68 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: cert-manager
-      namespace: cert-manager
   values:
-    image:
-      repository: ghcr.io/onedr0p/prowlarr-nightly
-      tag: 1.9.4.4022@sha256:c2d91ee0cd0b66dbef8629ddec48abe69202af93fff3ec56caf4e114c2d106f8
-    env:
-      TZ: ${TIMEZONE}
-      PROWLARR__INSTANCE_NAME: Prowlarr
-      PROWLARR__PORT: &port 9696
-      PROWLARR__LOG_LEVEL: info
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+          configmap.reloader.stakater.com/reload: cluster-settings
+
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/prowlarr-nightly
+              tag: 1.9.4.4019@sha256:2269d06faa141b04467063d598ccec64f68460628bb13377f7a10a105846ffb9
+
+            env:
+              PROWLARR__INSTANCE_NAME: Prowlarr
+              PROWLARR__PORT: &port 9696
+              PROWLARR__LOG_LEVEL: info
+              PROWLARR__ANALYTICS_ENABLED: "False"
+              PROWLARR__API_KEY: ${PROWLARR_APIKEY}
+
+            resources:
+              requests:
+                cpu: 18m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+
+          flaresolverr:
+            image:
+              repository: ghcr.io/flaresolverr/flaresolverr
+              tag: v3.3.6@sha256:07abf069637a3a2d94b82d4074bb61237ecfe62536ac8f6fc4664fd98329f7c4
+
+            env:
+              TZ: ${TIMEZONE}
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+
     service:
       main:
         ports:
           http:
             port: *port
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: cluster-settings
+          flaresolverr:
+            port: 8191
+            protocol: HTTP
+
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           hajimari.io/enable: "true"
@@ -66,30 +104,21 @@ spec:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
+
     persistence:
       config:
         enabled: true
         existingClaim: prowlarr-config-v1
-        mountPath: /config
+        globalMounts:
+          - path: /config
       backup:
-        enabled: true
-        type: nfs
-        server: ${NAS_NAME}
-        path: /mnt/storage1/backup
-        mountPath: /backup
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 500m
-      limits:
-        memory: 500Mi
+        existingClaim: nas-backup
+        globalMounts:
+          - path: /backup

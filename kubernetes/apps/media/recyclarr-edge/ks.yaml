@@ -9,7 +9,10 @@ spec:
   interval: 5m
   path: ./kubernetes/apps/media/recyclarr-edge/app
   prune: true
-  wait: true
+  wait: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  dependsOn:
+    - name: cluster-apps-recyclarr
+    - name: cluster-apps-rook-ceph-cluster
