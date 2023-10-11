@@ -106,16 +106,16 @@ spec:
                 add:
                   - NET_ADMIN
 
-      initContainers:
-        copy-config:
-          image:
-            repository: ghcr.io/onedr0p/alpine
-            tag: 3.18.4@sha256:dff22a9c3c326c07d7a82edefdedc6f4e65aae1fa461be06d280e423e5029947
-            pullPolicy: IfNotPresent
-          command:
-            - "/bin/sh"
-            - "-c"
-            - "cp -a /tmp/configfiles/. /config/qBittorrent/config/"
+        initContainers:
+          copy-config:
+            image:
+              repository: ghcr.io/onedr0p/alpine
+              tag: 3.18.4@sha256:dff22a9c3c326c07d7a82edefdedc6f4e65aae1fa461be06d280e423e5029947
+              pullPolicy: IfNotPresent
+            command:
+              - "/bin/sh"
+              - "-c"
+              - "cp -a /tmp/configfiles/. /config/qBittorrent/config/"
 
     service:
       main:
