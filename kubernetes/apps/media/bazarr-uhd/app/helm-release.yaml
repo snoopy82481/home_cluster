@@ -94,7 +94,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: bazarr-config-v1
+        existingClaim: bazarr-uhd-config-v1
       media:
         existingClaim: nas-data
         globalMounts:
