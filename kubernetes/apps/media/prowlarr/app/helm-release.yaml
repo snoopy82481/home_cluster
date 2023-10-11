@@ -67,7 +67,7 @@ spec:
               limits:
                 memory: 256Mi
 
-          flaresolver:
+          flaresolverr:
             image:
               repository: ghcr.io/flaresolverr/flaresolverr
               tag: v3.3.6@sha256:07abf069637a3a2d94b82d4074bb61237ecfe62536ac8f6fc4664fd98329f7c4
@@ -87,11 +87,9 @@ spec:
         ports:
           http:
             port: *port
-
-      flaresolver:
-        ports:
-          http:
+          flaresolverr:
             port: 8191
+            protocol: HTTP
 
     ingress:
       main:
