@@ -14,3 +14,7 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  dependsOn:
+    - name: cluster-apps-cert-manager
+    - name: cluster-apps-nginx-internal
+    - name: cluster-apps-rook-ceph-cluster

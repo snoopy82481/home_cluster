@@ -32,32 +32,59 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: cert-manager
-      namespace: cert-manager
   values:
     global:
       nameOverride: *app
 
-    image:
-      repository: mbentley/omada-controller
-      tag: 5.12@sha256:df9852ab86455101343c0d81ea878cc65b1af8453d6ed947c570e39dcadb85b4
+    controllers:
+      main:
+        type: statefulset
 
-    env:
-      TZ: ${TIMEZONE}
-      MANAGE_HTTP_PORT: "8088"
-      MANAGE_HTTPS_PORT: "8043"
-      PORTAL_HTTP_PORT: "8088"
-      PORTAL_HTTPS_PORT: "8843"
-      SHOW_SERVER_LOGS: "true"
-      SHOW_MONGODB_LOGS: "true"
+        statefulset:
+          volumeClaimTemplates:
+            - name: data
+              mountPath: /opt/tplink/EAPController/data
+              accessMode: "ReadWriteOnce"
+              storage: 5Gi
+              storageClassName: ceph-block
+            - name: work
+              mountPath: /opt/tplink/EAPController/work
+              accessMode: "ReadWriteOnce"
+              storage: 5Gi
+              storageClassName: ceph-block
+            - name: logs
+              mountPath: /opt/tplink/EAPController/logs
+              accessMode: "ReadWriteOnce"
+              storage: 5Gi
+              storageClassName: ceph-block
+
+
+        containers:
+          main:
+            image:
+              repository: mbentley/omada-controller
+              tag: 5.12@sha256:df9852ab86455101343c0d81ea878cc65b1af8453d6ed947c570e39dcadb85b4
+
+            env:
+              TZ: ${TIMEZONE}
+              MANAGE_HTTP_PORT: "8088"
+              MANAGE_HTTPS_PORT: "8043"
+              PORTAL_HTTP_PORT: "8088"
+              PORTAL_HTTPS_PORT: "8843"
+              SHOW_SERVER_LOGS: "true"
+              SHOW_MONGODB_LOGS: "true"
+
+            resources:
+              requests:
+                memory: 1200Mi
+                cpu: 1200m
+              limits:
+                memory: 1500Mi
 
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
           hajimari.io/enable: "true"
@@ -74,21 +101,16 @@ spec:
           - host: &host tplink.${SECRET_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: mgmt-8043-tcp
         tls:
           - secretName: tplink-tls
             hosts:
               - *host
+
     service:
       main:
-        enabled: true
-        ports:
-          http:
-            enabled: true
-            port: 8043
-            targetPort: 8043
-            protocol: TCP
-      controller:
         enabled: true
         type: LoadBalancer
         annotations:
@@ -155,24 +177,3 @@ spec:
             port: 27217
             protocol: TCP
             targetPort: 27217
-
-    persistence:
-      data:
-        enabled: true
-        mountPath: /opt/tplink/EAPController/data
-        existingClaim: omada-data
-      work:
-        enabled: true
-        mountPath: /opt/tplink/EAPController/work
-        existingClaim: omada-work
-      logs:
-        enabled: true
-        mountPath: /opt/tplink/EAPController/logs
-        existingClaim: omada-logs
-
-    resources:
-      requests:
-        memory: 1200Mi
-        cpu: 1200m
-      limits:
-        memory: 1500Mi
