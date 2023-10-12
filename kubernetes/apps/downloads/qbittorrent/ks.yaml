@@ -26,7 +26,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./kubernetes/cluster-0/apps/downloads/qbittorrent/tools
+  path: ./kubernetes/apps/downloads/qbittorrent/tools
   prune: true
   sourceRef:
     kind: GitRepository
