@@ -40,13 +40,6 @@ spec:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-
         containers:
           main:
             image:
@@ -59,6 +52,12 @@ spec:
               PROWLARR__LOG_LEVEL: info
               PROWLARR__ANALYTICS_ENABLED: "False"
               PROWLARR__API_KEY: ${PROWLARR_APIKEY}
+
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
 
             resources:
               requests:
