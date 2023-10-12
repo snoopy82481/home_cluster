@@ -101,7 +101,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr-config-v1
+        existingClaim: sonarruhd-config-v1
       media:
         existingClaim: nas-data
         globalMounts:
