@@ -8,7 +8,7 @@ spec:
   resources:
     requests:
       storage: 1Mi
-  storageClassName: nas-data
+  storageClassName: ""
   volumeName: nas-data-downloads
   accessModes:
     - ReadWriteMany
@@ -22,7 +22,7 @@ spec:
   resources:
     requests:
       storage: 1Mi
-  storageClassName: nas-backup
+  storageClassName: ""
   volumeName: nas-backup-downloads
   accessModes:
     - ReadWriteMany
