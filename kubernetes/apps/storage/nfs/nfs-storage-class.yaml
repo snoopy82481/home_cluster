@@ -2,7 +2,19 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: nas-media
+  name: nas-data
 provisioner: nfs
 parameters:
   archiveOnDelete: "false"
+  server: ${NAS_NAME}
+  path: /mnt/storage1/data
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nas-backup
+provisioner: nfs
+parameters:
+  archiveOnDelete: "false"
+  server: ${NAS_NAME}
+  path: /mnt/storage1/backup

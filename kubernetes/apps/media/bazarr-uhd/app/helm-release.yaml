@@ -96,10 +96,10 @@ spec:
         enabled: true
         existingClaim: bazarr-uhd-config-v1
       media:
-        existingClaim: nas-data
+        existingClaim: nas-data-media
         globalMounts:
           - path: /media
       backup:
-        existingClaim: nas-backup
+        existingClaim: nas-backup-media
         globalMounts:
           - path: /backup

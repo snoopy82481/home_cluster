@@ -160,7 +160,7 @@ spec:
             readOnly: false
 
       media:
-        existingClaim: nas-data
+        existingClaim: nas-data-downloads
         advancedMounts:
           main:
             main:

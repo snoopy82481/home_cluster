@@ -103,10 +103,10 @@ spec:
         enabled: true
         existingClaim: radarr-anime-config-v1
       media:
-        existingClaim: nas-data
+        existingClaim: nas-data-media
         globalMounts:
           - path: /media
       backup:
-        existingClaim: nas-backup
+        existingClaim: nas-backup-media
         globalMounts:
           - path: /backup
