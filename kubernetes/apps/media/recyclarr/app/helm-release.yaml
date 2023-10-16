@@ -79,10 +79,9 @@ spec:
         enabled: false
 
     persistence:
-      sonarr-config:
-        enabled: true
+      recyclarr-configs:
         type: configMap
-        name: recyclarr-sonarr-configmap
+        name: recyclarr-configs
         advancedMounts:
           main:
             main:
@@ -91,61 +90,26 @@ spec:
                 defaultMode: 0775
                 readOnly: true
 
-      sonarr-anime-config:
-        enabled: true
-        type: configMap
-        name: recyclarr-sonarr-anime-configmap
-        advancedMounts:
-          main:
-            main:
               - path: /config/configs/sonarr-anime-config.yaml
                 subPath: sonarr-anime-config.yaml
                 defaultMode: 0775
                 readOnly: true
 
-      sonarr-uhd-config:
-        enabled: true
-        type: configMap
-        name: recyclarr-sonarr-uhd-configmap
-        advancedMounts:
-          main:
-            main:
               - path: /config/configs/sonarr-uhd-config.yaml
                 subPath: sonarr-uhd-config.yaml
                 defaultMode: 0775
                 readOnly: true
 
-      radarr-config:
-        enabled: true
-        type: configMap
-        name: recyclarr-radarr-configmap
-        advancedMounts:
-          main:
-            main:
               - path: /config/configs/radarr-config.yaml
                 subPath: radarr-config.yaml
                 defaultMode: 0775
                 readOnly: true
 
-      radarr-anime-config:
-        enabled: true
-        type: configMap
-        name: recyclarr-radarr-anime-configmap
-        advancedMounts:
-          main:
-            main:
               - path: /config/configs/radarr-anime-config.yaml
                 subPath: radarr-anime-config.yaml
                 defaultMode: 0775
                 readOnly: true
 
-      radarr-uhd-config:
-        enabled: true
-        type: configMap
-        name: recyclarr-radarr-uhd-configmap
-        advancedMounts:
-          main:
-            main:
               - path: /config/configs/radarr-uhd-config.yaml
                 subPath: radarr-uhd-config.yaml
                 defaultMode: 0775
