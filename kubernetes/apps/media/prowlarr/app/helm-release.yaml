@@ -118,6 +118,6 @@ spec:
         globalMounts:
           - path: /config
       backup:
-        existingClaim: nas-backup
+        existingClaim: nas-backup-media
         globalMounts:
           - path: /backup
