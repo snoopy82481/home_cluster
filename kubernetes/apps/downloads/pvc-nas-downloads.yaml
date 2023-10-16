@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nas-backup
+  name: nas-backup-downloads
   namespace: downloads
 spec:
   resources:
