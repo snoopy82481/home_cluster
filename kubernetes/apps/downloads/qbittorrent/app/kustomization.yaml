@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: downloads
 resources:
   - ./vpnConfig.sops.yaml
+  - ./network-policy.yaml
   - ./helm-release.yaml
 commonLabels:
   app.kubernetes.io/name: qbittorrent
