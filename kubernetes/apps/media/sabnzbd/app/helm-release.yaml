@@ -114,10 +114,14 @@ spec:
 
     persistence:
       media:
-        existingClaim: nas-data-media
+        type: nfs
+        server: ${NAS_NAME}
+        path: ${NFS_DATA}
         globalMounts:
           - path: /media
       backup:
-        existingClaim: nas-backup-media
+        type: nfs
+        server: ${NAS_NAME}
+        path: ${NFS_BACKUP}
         globalMounts:
           - path: /backup

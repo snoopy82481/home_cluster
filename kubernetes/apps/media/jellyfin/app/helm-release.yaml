@@ -111,7 +111,9 @@ spec:
 
     persistence:
       media:
-        existingClaim: nas-data
+        type: nfs
+        server: ${NAS_NAME}
+        path: ${NFS_DATA}
         globalMounts:
           - path: /media
       transcode:

@@ -163,7 +163,9 @@ spec:
             readOnly: false
 
       media:
-        existingClaim: nas-data-downloads
+        type: nfs
+        server: ${NAS_NAME}
+        path: ${NFS_DATA}
         advancedMounts:
           main:
             main:
