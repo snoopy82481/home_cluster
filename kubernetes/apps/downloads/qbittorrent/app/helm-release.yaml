@@ -104,7 +104,7 @@ spec:
                 value: "24h"
               - name: FIREWALL_OUTBOUND_SUBNETS
                 # Allow access to k8s subnets
-                value: "10.43.0.0/16,10.42.0.0/16"
+                value: "10.0.0.0/8"
               - name: FIREWALL_INPUT_PORTS
                 value: "8080"
               - name: UPDATER_VPN_SERVICE_PROVIDERS
