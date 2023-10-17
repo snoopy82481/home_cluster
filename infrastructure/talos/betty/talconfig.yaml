@@ -72,19 +72,6 @@ controlPlane:
           registries:
             service:
               disabled: true
-        extraManifests:
-          - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/cni/cilium.yaml
-          - https://raw.githubusercontent.com/snoopy82481/home_cluster/main/infrastructure/talos/betty/integrations/kublet-csr-approver/kublet-csr-approver.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusagents.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
-          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.68.0/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
         proxy:
           disabled: true
         scheduler:
@@ -130,13 +117,6 @@ controlPlane:
               routes:
                 - network: 0.0.0.0/0
                   gateway: 192.168.20.1
-              # vlans:
-              #   - routes: []
-              #     dhcp: true
-              #     vlanId: 20
-              #     mtu: 1500
-              #     dhcpOptions:
-              #       routeMetric: 4096
               dhcp: true
           extraHostEntries:
             - ip: ${clusterEndpointIP}
@@ -191,11 +171,4 @@ worker:
               routes:
                 - network: 0.0.0.0/0
                   gateway: 192.168.20.1
-              # vlans:
-              #   - routes: []
-              #     dhcp: true
-              #     vlanId: 20
-              #     mtu: 1500
-              #     dhcpOptions:
-              #       routeMetric: 4096
               dhcp: true

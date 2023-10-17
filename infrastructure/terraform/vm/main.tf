@@ -17,7 +17,7 @@ resource "proxmox_vm_qemu" "talos_master" {
   vmid        = var.master_vmid + count.index
   iso         = "local:iso/metal-amd64.iso"
 
-  agent    = 0
+  agent    = 1
   os_type  = "linux"
   cores    = 3
   sockets  = 2
@@ -55,7 +55,7 @@ resource "proxmox_vm_qemu" "talos_worker" {
   vmid        = var.worker_vmid + count.index
   iso         = "local:iso/metal-amd64.iso"
 
-  agent    = 0
+  agent    = 1
   os_type  = "linux"
   cores    = 2
   sockets  = 2
