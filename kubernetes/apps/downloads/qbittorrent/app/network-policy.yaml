@@ -6,12 +6,12 @@ metadata:
   namespace: downloads
   labels:
     app.kubernetes.io/instance: qbittorrent
-    app.kubernetes.io/name: gluetun
+    app.kubernetes.io/name: qbittorrent
 spec:
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: qbittorrent
-      app.kubernetes.io/name: gluetun
+      app.kubernetes.io/name: qbittorrent
   egress:
     - toCIDRSet:
         - cidr: 0.0.0.0/0
@@ -29,12 +29,12 @@ metadata:
   namespace: vpn
   labels:
     app.kubernetes.io/instance: qbittorrent
-    app.kubernetes.io/name: gluetun
+    app.kubernetes.io/name: qbittorrent
 spec:
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: qbittorrent
-      app.kubernetes.io/name: gluetun
+      app.kubernetes.io/name: qbittorrent
   egress:
     - toCIDRSet:
         - cidr: 0.0.0.0/0
