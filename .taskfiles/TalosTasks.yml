@@ -70,7 +70,7 @@ tasks:
     cmds:
       - task: upgrade-cli
       - for: { var: nodes }
-        cmd: talosctl upgrade -n {{.ITEM}} --image "ghcr.io/siderolabs/installer:{{.TALOS_VERSION}}"
+        cmd: talosctl upgrade -n {{.ITEM}} --image "factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515:{{.TALOS_VERSION}}"
     vars:
       nodes: >-
         192.168.20.5

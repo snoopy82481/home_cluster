@@ -7,6 +7,7 @@ talosVersion: v1.5.4
 kubernetesVersion: v1.28.2
 endpoint: "https://192.168.20.1:6443"
 
+talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
 allowSchedulingOnMasters: true
 
 clusterPodNets:
@@ -25,26 +26,32 @@ nodes:
   - hostname: kmaster1.${domainName}
     ipAddress: 192.168.20.5
     controlPlane: true
+    installDisk: /dev/sda
 
   - hostname: kmaster2.${domainName}
     ipAddress: 192.168.20.6
     controlPlane: true
+    installDisk: /dev/sda
 
   - hostname: kmaster3.${domainName}
     ipAddress: 192.168.20.7
     controlPlane: true
+    installDisk: /dev/sda
 
   - hostname: kworker1.${domainName}
     ipAddress: 192.168.20.8
     controlPlane: false
+    installDisk: /dev/sda
 
   - hostname: kworker2.${domainName}
     ipAddress: 192.168.20.9
     controlPlane: false
+    installDisk: /dev/sda
 
   - hostname: kworker3.${domainName}
     ipAddress: 192.168.20.10
     controlPlane: false
+    installDisk: /dev/sda
 
 controlPlane:
   patches:
@@ -93,7 +100,6 @@ controlPlane:
             validSubnets:
               - 192.168.20.0/24
         install:
-          disk: /dev/sda
           extraKernelArgs:
             - "talos.logging.kernel=udp://192.168.20.52:6050/"
         logging:
@@ -156,7 +162,6 @@ worker:
             feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: "true"
         install:
-          disk: /dev/sda
           extraKernelArgs:
             - "talos.logging.kernel=udp://192.168.20.52:6050/"
         logging:
