@@ -17,5 +17,8 @@ configMapGenerator:
       - config/categories.json
       - config/qBittorrent.conf
       - config/watched_folders.json
+  - name: qbittorrent-dnsdist
+    files:
+      - ./config/dnsdist.conf
 generatorOptions:
   disableNameSuffixHash: true
