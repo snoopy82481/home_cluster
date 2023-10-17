@@ -107,8 +107,6 @@ spec:
                 value: "10.43.0.0/16,10.42.0.0/16"
               - name: FIREWALL_INPUT_PORTS
                 value: "8080"
-              - name: DNS_PLAINTEXT_ADDRESS
-                value: "192.168.20.1"
               - name: UPDATER_VPN_SERVICE_PROVIDERS
                 valueFrom:
                   secretKeyRef:
