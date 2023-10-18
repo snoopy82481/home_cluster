@@ -71,7 +71,7 @@ operator:
   replicas: 1
   rollOutPods: true
   prometheus:
-    enabled: true
+    enabled: false
     serviceMonitor:
       enabled: false
 
@@ -161,11 +161,12 @@ endpointStatus:
 envoy:
   enabled: false
   prometheus:
-    enabled: true
+    enabled: false
     serviceMonitor:
       enabled: false
 
 prometheus:
+  enabled: false
   serviceMonitor:
     enabled: false
     trustCRDsExist: true

@@ -79,8 +79,10 @@ spec:
                 - *host
 
     prometheus:
+      enabled: true
       serviceMonitor:
         enabled: true
+        trustCRDsExist: true
 
     operator:
       prometheus:
