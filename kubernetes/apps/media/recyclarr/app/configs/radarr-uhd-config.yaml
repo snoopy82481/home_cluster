@@ -3,7 +3,7 @@
 
 radarr:
   sqp-2:
-    base_url: http://radarr4k.media.svc.cluster.local:7878
+    base_url: http://radarruhd.media.svc.cluster.local:7878
     api_key: !env_var RADARR_UHD_APIKEY
 
     quality_definition:
