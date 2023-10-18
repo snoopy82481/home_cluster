@@ -100,7 +100,7 @@ spec:
                 value: "24h"
               - name: FIREWALL_OUTBOUND_SUBNETS
                 # Allow access to k8s subnets
-                value: "10.43.0.0/16,10.42.0.0/16,192.168.20.0/24"
+                value: "10.43.0.0/16,10.42.0.0/16"
               - name: FIREWALL_INPUT_PORTS
                 value: "8080"
               - name: UPDATER_VPN_SERVICE_PROVIDERS
@@ -110,6 +110,8 @@ spec:
                     key: VPN_SERVICE_PROVIDER
               - name: TZ
                 value: ${TIMEZONE}
+              - name: WIREGUARD_MTU
+                value: 1420
 
             envFrom:
               - secretRef:
