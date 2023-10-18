@@ -82,11 +82,6 @@ spec:
               limits:
                 memory: 8192Mi
 
-          dnsdist:
-            image:
-              repository: docker.io/powerdns/dnsdist-18
-              tag: 1.8.2@sha256:06584eb44627c46b3718ee754c36a81acf66fdf423b162cae9ecfa69bb362c9e
-
           gluetun:
             image:
               repository: ghcr.io/qdm12/gluetun
@@ -108,8 +103,6 @@ spec:
               - name: FIREWALL_OUTBOUND_SUBNETS
                 # Allow access to k8s subnets
                 value: "10.43.0.0/16,10.42.0.0/16"
-              - name: DNS_PLAINTEXT_ADDRESS
-                value: "127.0.0.2"
               - name: FIREWALL_INPUT_PORTS
                 value: "8080"
               - name: UPDATER_VPN_SERVICE_PROVIDERS
@@ -179,16 +172,6 @@ spec:
           main:
             main:
               - path: /media
-
-      dnsdist-config:
-        type: configMap
-        name: qbittorrent-dnsdist
-        advancedMounts:
-          main:
-            dnsdist:
-              - path: /etc/dnsdist/dnsdist.conf
-                subPath: dnsdist.conf
-                readOnly: true
 
       gluetun-data:
         type: emptyDir
