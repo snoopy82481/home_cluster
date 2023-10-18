@@ -110,8 +110,6 @@ spec:
                     key: VPN_SERVICE_PROVIDER
               - name: TZ
                 value: ${TIMEZONE}
-              - name: WIREGUARD_MTU
-                value: 1420
 
             envFrom:
               - secretRef:
