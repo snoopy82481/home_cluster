@@ -94,15 +94,13 @@ spec:
                 value: wg0
               - name: VPN_ENDPOINT_PORT
                 value: "51820"
-              - name: FIREWALL
-                value: "off"
               - name: DOT
                 value: "off"
               - name: UPDATER_PERIOD
                 value: "24h"
               - name: FIREWALL_OUTBOUND_SUBNETS
                 # Allow access to k8s subnets
-                value: "10.43.0.0/16,10.42.0.0/16"
+                value: "10.43.0.0/16,10.42.0.0/16,192.168.20.0/24"
               - name: FIREWALL_INPUT_PORTS
                 value: "8080"
               - name: UPDATER_VPN_SERVICE_PROVIDERS
@@ -142,7 +140,7 @@ spec:
             proxy_hide_header "content-security-policy";
             proxy_hide_header "X-Frame-Options";
             proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_DOMAIN}/css/base/qbittorrent/nord.css"></head>';
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.web-tools.svc.cluster.local/css/base/qbittorrent/nord.css"></head>';
             sub_filter_once on;
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
