@@ -48,13 +48,30 @@ spec:
       name: cilium-values
 
   values:
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Cilium
+
+    envoy:
+      enabled: true
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
+    gatewayAPI:
+      enabled: true
+
     hubble:
       relay:
         prometheus:
           serviceMonitor:
             enabled: true
+
       serviceMonitor:
         enabled: true
+
       dashboards:
         enabled: true
         label: grafana_dashboard
@@ -62,6 +79,7 @@ spec:
         labelValue: "1"
         annotations:
           grafana_folder: Cilium
+
       ui:
         ingress:
           enabled: true
@@ -78,12 +96,6 @@ spec:
               hosts:
                 - *host
 
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        trustCRDsExist: true
-
     operator:
       prometheus:
         enabled: true
@@ -94,14 +106,8 @@ spec:
           annotations:
             grafana_folder: Cilium
 
-    dashboards:
+    prometheus:
       enabled: true
-      annotations:
-        grafana_folder: Cilium
-
-    envoy:
-      enabled: true
-      prometheus:
+      serviceMonitor:
         enabled: true
-        serviceMonitor:
-          enabled: true
+        trustCRDsExist: true

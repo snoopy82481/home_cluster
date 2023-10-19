@@ -1,32 +1,9 @@
 ---
-k8sServiceHost: 192.168.20.1
-k8sServicePort: 6443
-
-extraConfig:
-  enable-envoy-config: "true"
-
 autoDirectNodeRoutes: true
 
-nodePort:
+bandwidthManager:
   enabled: true
-  range: "30000,32767"
-
-endpointRoutes:
-  enabled: false
-
-enableIPv4Masquerade: true
-
-enableIPv6Masquerade: true
-
-masquerade: true
-
-ipam:
-  mode: "kubernetes"
-  operator:
-    clusterPoolIPv4PodCIDRList: ["10.42.0.0/16"]
-    clusterPoolIPv4MaskSize: 24
-    clusterPoolIPv6PodCIDRList: ["fd00::/104"]
-    clusterPoolIPv6MaskSize: 120
+  bbr: true
 
 bgpControlPlane:
   enabled: true
@@ -35,6 +12,68 @@ bgp:
   enabled: false
   announce:
     loadbalancerIP: false
+
+bpf:
+  masquerade: true
+  tproxy: true
+  autoMount:
+    enabled: true
+
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+cni:
+  exclusive: false
+
+Cluster:
+  name: betty
+  id: 0
+
+clustermesh:
+  useAPIServer: false
+
+debug:
+  enabled: false
+
+disableEnvoyVersionCheck: false
+
+enableIPv4Masquerade: true
+
+enableIPv6Masquerade: true
+
+enableCnpStatusUpdates: true
+
+endpointStatus:
+  enabled: true
+  status: "policy"
+
+endpointRoutes:
+  enabled: false
+
+envoy:
+  enabled: false
+  prometheus:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+externalIPs:
+  enabled: true
+
+extraConfig:
+  enable-envoy-config: "true"
+
+gatewayAPI:
+  enabled: false
+
+hostPort:
+  enabled: false
+
+hostServices:
+  enabled: true
+  protocols: tcp,udp
 
 hubble:
   enabled: true
@@ -61,11 +100,44 @@ hubble:
       enabled: false
     rollOutPods: true
 
+ipam:
+  mode: "kubernetes"
+  operator:
+    clusterPoolIPv4PodCIDRList: ["10.42.0.0/16"]
+    clusterPoolIPv4MaskSize: 24
+    clusterPoolIPv6PodCIDRList: ["fd00::/104"]
+    clusterPoolIPv6MaskSize: 120
+
+ingressController:
+  enabled: false
+  loadbalancerMode: shared
+
+ipv4NativeRoutingCIDR: 10.42.0.0/16
+
 ipv6:
   enabled: false
 
+k8sServiceHost: 192.168.20.1
+
+k8sServicePort: 6443
+
 kubeProxyReplacement: true
+
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
+l7Proxy: true
+
+LoadBalancer:
+  algorithm: meglev
+  mode: dsr
+
+localRedirectPolicy: true
+
+masquerade: true
+
+nodePort:
+  enabled: true
+  range: "30000,32767"
 
 operator:
   replicas: 1
@@ -75,37 +147,13 @@ operator:
     serviceMonitor:
       enabled: false
 
-ipv4NativeRoutingCIDR: 10.42.0.0/16
-
-tunnel: "disabled"
-
-LoadBalancer:
-  algorithm: meglev
-  mode: dsr
-
-disableEnvoyVersionCheck: false
-
-Cluster:
-  name: betty
-  id: 0
-
-clustermesh:
-  useAPIServer: false
+prometheus:
+  enabled: false
+  serviceMonitor:
+    enabled: false
+    trustCRDsExist: true
 
 rollOutCiliumPods: true
-
-externalIPs:
-  enabled: true
-
-hostPort:
-  enabled: false
-
-hostServices:
-  enabled: true
-  protocols: tcp,udp
-
-debug:
-  enabled: false
 
 securityContext:
   capabilities:
@@ -126,47 +174,4 @@ securityContext:
       - SYS_ADMIN
       - SYS_RESOURCE
 
-cgroup:
-  autoMount:
-    enabled: false
-  hostRoot: /sys/fs/cgroup
-
-bandwidthManager:
-  enabled: true
-  bbr: true
-
-bpf:
-  masquerade: true
-  tproxy: true
-  autoMount:
-    enabled: true
-
-localRedirectPolicy: true
-
-cni:
-  exclusive: false
-
-l7Proxy: true
-
-ingressController:
-  enabled: false
-  loadbalancerMode: shared
-
-enableCnpStatusUpdates: true
-
-endpointStatus:
-  enabled: true
-  status: "policy"
-
-envoy:
-  enabled: false
-  prometheus:
-    enabled: false
-    serviceMonitor:
-      enabled: false
-
-prometheus:
-  enabled: false
-  serviceMonitor:
-    enabled: false
-    trustCRDsExist: true
+tunnel: "disabled"
