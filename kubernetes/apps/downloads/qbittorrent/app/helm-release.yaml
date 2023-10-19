@@ -63,6 +63,7 @@ spec:
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: "192.168.0.0/24, 192.168.20.0/24, 10.43.0.0/16, 10.42.0.0/16"
               QBT_Preferences__WebUI__LocalHostAuth: false
+              QBT_Preferences__WebUI__UseUPnP: false
               QBT_BitTorrent__Session__BTProtocol: TCP
               QBT_BitTorrent__Session__Interface: wg0
               QBT_BitTorrent__Session__InterfaceAddress:
@@ -161,9 +162,11 @@ spec:
     persistence:
       config:
         existingClaim: qbittorrent-config-v1
-        globalMounts:
-          - path: /config
-            readOnly: false
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+                readOnly: false
 
       media:
         type: nfs
