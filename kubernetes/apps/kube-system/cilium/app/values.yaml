@@ -62,9 +62,6 @@ envoy:
 externalIPs:
   enabled: true
 
-extraConfig:
-  enable-envoy-config: "true"
-
 gatewayAPI:
   enabled: false
 
