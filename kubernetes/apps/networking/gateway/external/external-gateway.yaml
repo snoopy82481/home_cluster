@@ -10,7 +10,7 @@ metadata:
 spec:
   gatewayClassName: cilium
   addresses:
-    - type: IPAddress
+    - type: "IPAddress"
       value: ${SVC_EXTERNAL_CILIUM_GATEWAY_ADDRESSS}
   listeners:
     - name: http-1
