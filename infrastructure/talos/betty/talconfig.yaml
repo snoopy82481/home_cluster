@@ -122,6 +122,10 @@ controlPlane:
             - ip: ${clusterEndpointIP}
               aliases:
                 - ${clusterName}.${domainName}
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
 
     - |-
       - op: remove
@@ -172,3 +176,7 @@ worker:
                 - network: 0.0.0.0/0
                   gateway: 192.168.20.1
               dhcp: true
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
