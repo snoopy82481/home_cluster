@@ -25,3 +25,4 @@ kubeconfig
 
 # Talos clusterconfigs
 infrastructure/talos/**/clusterconfig
+infrastructure/talos/**/_out

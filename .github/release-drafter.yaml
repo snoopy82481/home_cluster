@@ -12,8 +12,10 @@ categories:
     labels: ["area/github"]
   - title: "Ansible"
     labels: ["area/ansible"]
-  - title: "Terraform"
-    labels: ["area/terraform"]
+  - title: "Terraform-cloudflare"
+    labels: ["area/terraform-cloudflare"]
+  - title: "Terraform-vm"
+    labels: ["area/terraform-vm"]
   - title: "Maintenance"
     labels: ["docs"]
 version-resolver:

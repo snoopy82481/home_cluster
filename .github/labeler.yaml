@@ -4,8 +4,10 @@ area/ansible:
 area/github:
   - ".github/**/*"
 area/talos:
-  - "k8s/clusters/talos/**/*"
+  - "infrastructure/talos/**/*"
 area/kubernetes:
-  - "k8s/namespaces/**/*"
-area/terraform:
-  - "provision/terraform/**/*"
+  - "kubernetes/**/*"
+area/terraform-cloudflare:
+  - "infrastructure/terraform/cloudflare/*"
+area/terraform-vm:
+  - "infrastructure/terraform/vm/*"

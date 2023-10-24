@@ -16,10 +16,14 @@
   color: "72ccf3"
   description: >-
     Changes made in the talos directory
-- name: area/terraform
+- name: area/terraform-cloudflare
   color: "72ccf3"
   description: >-
-    Changes made in the terraform directory
+    Changes made in the terraform cloudflare directory
+- name: area/terraform-vm
+  color: "72ccf3"
+  description: >-
+    Changes made in the terraform vm directory
 # Renovate
 - name: renovate/ansible
   color: "ffc300"
