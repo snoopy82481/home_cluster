@@ -4,6 +4,8 @@ kind: Gateway
 metadata:
   name: cilium-internal
   namespace: networking
+  annotations:
+    cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
 spec:
   gatewayClassName: cilium
   addresses:
@@ -25,6 +27,7 @@ spec:
         namespaces:
           from: All
       tls:
+        mode: Terminate
         certificateRefs:
           - kind: Secret
             name: "${SECRET_DOMAIN/./-}-production-tls"
