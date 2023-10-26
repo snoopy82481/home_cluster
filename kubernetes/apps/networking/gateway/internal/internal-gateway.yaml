@@ -58,3 +58,18 @@ spec:
         certificateRefs:
           - kind: Secret
             name: bazarr-tls
+    - name: bazarr-anime
+      protocol: HTTPS
+      port: 443
+      hostname: "bazarr-anime.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              shared-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: bazarr-anime-tls

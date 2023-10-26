@@ -72,7 +72,7 @@ spec:
 
     ingress:
       main:
-        enabled: true
+        enabled: false
         className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
@@ -90,6 +90,19 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
+
+    route:
+      main:
+        enabled: true
+        parentRefs:
+          - name: cilium-internal
+            namespace: networking
+            sectionName: *app
+        hostnames:
+          - "bazarr-anime.${SECRET_DOMAIN}"
+        rules:
+          backendRefs:
+            - port: http
 
     persistence:
       config:
