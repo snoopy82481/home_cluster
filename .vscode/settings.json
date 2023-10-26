@@ -97,7 +97,8 @@
     "theme-park",
     "cloudflared",
     "infra-vyos",
-    "jellyfin"
+    "jellyfin",
+    "gateway"
   ],
   "ansible.python.interpreterPath": "/bin/python",
 }
