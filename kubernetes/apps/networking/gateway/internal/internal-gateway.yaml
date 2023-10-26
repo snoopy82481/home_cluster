@@ -43,3 +43,18 @@ spec:
         certificateRefs:
           - kind: Secret
             name: "${SECRET_DOMAIN/./-}-production-tls"
+    - name: bazarr
+      protocol: HTTPS
+      port: 443
+      hostname: "bazarr.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespace:
+          from: Selector
+          selector:
+            matchLabels:
+              shared-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: bazarr-tls
