@@ -48,7 +48,7 @@ spec:
       port: 443
       hostname: "bazarr.${SECRET_DOMAIN}"
       allowedRoutes:
-        namespace:
+        namespaces:
           from: Selector
           selector:
             matchLabels:
