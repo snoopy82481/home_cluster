@@ -5,6 +5,8 @@ kind: HelmRelease
 metadata:
   name: &app bazarr-uhd
   namespace: media
+  labels:
+    - hostname: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
 spec:
   interval: 30m
   chart:
@@ -72,7 +74,7 @@ spec:
 
     ingress:
       main:
-        enabled: true
+        enabled: false
         className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
@@ -80,7 +82,7 @@ spec:
           hajimari.io/group: "Media"
           hajimari.io/icon: "translate"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: *host
             paths:
               - path: /
                 service:
@@ -90,6 +92,18 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
+    route:
+      main:
+        enabled: true
+        parentRefs:
+          - name: cilium-internal
+            namespace: networking
+            sectionName: *app
+        hostnames:
+          - *host
+        rules:
+          backendRefs:
+            - port: http
 
     persistence:
       config:
