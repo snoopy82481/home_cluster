@@ -70,26 +70,26 @@ spec:
           http:
             port: 6767
 
-    # ingress:
-    #   main:
-    #     enabled: true
-    #     className: internal
-    #     annotations:
-    #       cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-    #       hajimari.io/enable: "true"
-    #       hajimari.io/group: "Media"
-    #       hajimari.io/icon: "translate"
-    #     hosts:
-    #       - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-    #         paths:
-    #           - path: /
-    #             service:
-    #               name: main
-    #               port: http
-    #     tls:
-    #       - secretName: "{{ .Release.Name }}-tls"
-    #         hosts:
-    #           - *host
+    ingress:
+      main:
+        enabled: false
+        className: internal
+        annotations:
+          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          hajimari.io/enable: "true"
+          hajimari.io/group: "Media"
+          hajimari.io/icon: "translate"
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: "{{ .Release.Name }}-tls"
+            hosts:
+              - *host
 
     route:
       main:
