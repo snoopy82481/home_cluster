@@ -5,6 +5,8 @@ kind: HelmRelease
 metadata:
   name: &app omada-controller
   namespace: networking
+  labels:
+    - hostname: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
 spec:
   interval: 15m
   chart:
@@ -43,21 +45,23 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: data
-              mountPath: /opt/tplink/EAPController/data
               accessMode: "ReadWriteOnce"
               size: 5Gi
               storageClassName: ceph-block
+              globalMounts:
+                - path: /opt/tplink/EAPController/data
             - name: work
-              mountPath: /opt/tplink/EAPController/work
               accessMode: "ReadWriteOnce"
               size: 5Gi
               storageClassName: ceph-block
+              globalMounts:
+                - path: /opt/tplink/EAPController/work
             - name: logs
-              mountPath: /opt/tplink/EAPController/logs
               accessMode: "ReadWriteOnce"
               size: 5Gi
               storageClassName: ceph-block
-
+              globalMounts:
+                - path: /opt/tplink/EAPController/logs
 
         containers:
           main:
@@ -108,6 +112,19 @@ spec:
           - secretName: tplink-tls
             hosts:
               - *host
+
+    route:
+      main:
+        enabled: false
+        parentRefs:
+          - name: cilium-internal
+            namespace: networking
+            sectionName: *app
+        hostnames:
+          - *host
+        rules:
+          backendRefs:
+            - port: mgmt-8043-tcp
 
     service:
       main:

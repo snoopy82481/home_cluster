@@ -26,3 +26,5 @@ kubeconfig
 # Talos clusterconfigs
 infrastructure/talos/**/clusterconfig
 infrastructure/talos/**/_out
+kubernetes/apps/networking/gateway/gateway.yaml
+kubernetes/apps/networking/nginx/ingress.yaml
