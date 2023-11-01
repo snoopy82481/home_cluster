@@ -59,18 +59,6 @@ spec:
               UMASK: "022"
               QBITTORRENT__PORT: &port 8080
               QBITTORRENT__BT_PORT: &btport 51820
-              QBT_Preferences__WebUI__AlternativeUIEnabled: false
-              QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-              QBT_Preferences__WebUI__AuthSubnetWhitelist: "192.168.0.0/24, 192.168.20.0/24, 10.43.0.0/16, 10.42.0.0/16"
-              QBT_Preferences__WebUI__LocalHostAuth: false
-              QBT_Preferences__WebUI__UseUPnP: false
-              QBT_BitTorrent__Session__BTProtocol: TCP
-              QBT_BitTorrent__Session__Interface: wg0
-              QBT_BitTorrent__Session__InterfaceAddress:
-                valueFrom:
-                  fieldRef:
-                    fieldPath: status.podIP
-              QBT_BitTorrent__Session__InterfaceName: wg0
 
             securityContext:
               runAsUser: 568
