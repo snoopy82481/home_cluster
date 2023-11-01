@@ -123,6 +123,8 @@ spec:
         ingressClassName: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Rook"
           hajimari.io/group: "monitoring"
