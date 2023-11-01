@@ -56,8 +56,9 @@ spec:
               operator: In
               values: ["internal"]
 
+      allowSnippetAnnotations: true
+
       config:
-        allow-snippet-annotations: "true"
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
