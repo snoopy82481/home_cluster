@@ -57,6 +57,7 @@ spec:
               values: ["internal"]
 
       config:
+        allow-snippet-annotations: "true"
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
@@ -75,7 +76,6 @@ spec:
         proxy-body-size: 0
         proxy-buffer-size: 16k
         ssl-protocols: TLSv1.3 TLSv1.2
-        allow-snippet-annotations: "true"
 
       extraArgs:
         default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
