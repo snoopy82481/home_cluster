@@ -6,7 +6,8 @@ metadata:
   namespace: networking
   # TODO will be supported in next release of external-dns
   annotations:
-    external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+    cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
 spec:
   gatewayClassName: cilium
   addresses:
@@ -28,6 +29,18 @@ spec:
         namespaces:
           from: All
       tls:
+        certificateRefs:
+          - kind: Secret
+            name: "${SECRET_DOMAIN/./-}-production-tls"
+    - name: https-2
+      protocol: HTTPS
+      port: 443
+      hostname: ${SECRET_DOMAIN}
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
         certificateRefs:
           - kind: Secret
             name: "${SECRET_DOMAIN/./-}-production-tls"
