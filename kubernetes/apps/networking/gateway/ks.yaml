@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-nginx-certificates
+    - name: cluster-apps-cert-manager-issuers
     - name: cluster-apps-cilium
   path: ./kubernetes/apps/networking/gateway/external
   prune: true
@@ -25,7 +25,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-nginx-certificates
+    - name: cluster-apps-cert-manager-issuers
     - name: cluster-apps-cilium
   path: ./kubernetes/apps/networking/gateway/internal
   prune: true
