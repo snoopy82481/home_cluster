@@ -59,7 +59,10 @@ spec:
         - group: Media
           apps:
             - name: bazarr
-              url: bazarr.${SECRET_DOMAIN}
+              url: https://bazarr.${SECRET_DOMAIN}
+              icon: mdi:translate
+            - name: bazarr-anime
+              url: https://bazarr-anime.${SECRET_DOMAIN}
               icon: mdi:translate
       namespaceSelector:
         any: true
