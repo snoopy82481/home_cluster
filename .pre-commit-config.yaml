@@ -39,7 +39,7 @@ repos:
         exclude: infrastructure/talos/betty/integrations/cni/cilium.yaml
 
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.22
+    rev: v0.1.23
     hooks:
       - id: terraform-fmt
       - id: terraform-validate
