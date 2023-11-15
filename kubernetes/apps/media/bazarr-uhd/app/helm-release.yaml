@@ -5,14 +5,12 @@ kind: HelmRelease
 metadata:
   name: &app bazarr-uhd
   namespace: media
-  labels:
-    - hostname: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 2.0.3
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -82,7 +80,7 @@ spec:
           hajimari.io/group: "Media"
           hajimari.io/icon: "translate"
         hosts:
-          - host: *host
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -100,7 +98,7 @@ spec:
             namespace: networking
             sectionName: *app
         hostnames:
-          - *host
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         rules:
           backendRefs:
             - port: http
