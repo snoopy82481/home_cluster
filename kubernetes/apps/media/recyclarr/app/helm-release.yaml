@@ -82,35 +82,30 @@ spec:
       recyclarr-configs:
         type: configMap
         name: recyclarr-configs
+        defaultMode: 0775
         advancedMounts:
           main:
             main:
               - path: /config/configs/sonarr-config.yaml
                 subPath: sonarr-config.yaml
-                defaultMode: 0775
                 readOnly: true
 
               - path: /config/configs/sonarr-anime-config.yaml
                 subPath: sonarr-anime-config.yaml
-                defaultMode: 0775
                 readOnly: true
 
               - path: /config/configs/sonarr-uhd-config.yaml
                 subPath: sonarr-uhd-config.yaml
-                defaultMode: 0775
                 readOnly: true
 
               - path: /config/configs/radarr-config.yaml
                 subPath: radarr-config.yaml
-                defaultMode: 0775
                 readOnly: true
 
               - path: /config/configs/radarr-anime-config.yaml
                 subPath: radarr-anime-config.yaml
-                defaultMode: 0775
                 readOnly: true
 
               - path: /config/configs/radarr-uhd-config.yaml
                 subPath: radarr-uhd-config.yaml
-                defaultMode: 0775
                 readOnly: true
