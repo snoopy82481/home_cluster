@@ -82,7 +82,6 @@ spec:
       recyclarr-configs:
         type: configMap
         name: recyclarr-configs
-        defaultMode: 0775
         advancedMounts:
           main:
             main:
