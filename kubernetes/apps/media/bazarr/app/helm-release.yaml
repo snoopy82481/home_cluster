@@ -99,7 +99,7 @@ spec:
             namespace: networking
             sectionName: *app
         hostnames:
-          - "bazarr.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         rules:
           backendRefs:
             - port: http
