@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "Use loose versioning for certain dependencies",
+      "matchDatasources": ["docker", "github-releases"],
+      "versioning": "loose",
+      "matchPackagePatterns": ["changedetection", "plex", "qbittorrent"]
+    }
+  ]
+}
