@@ -82,23 +82,21 @@ spec:
       recyclarr-configs:
         type: configMap
         name: recyclarr-configs
-        advancedMounts:
-          main:
-            main:
-              - path: /config/configs/sonarr-config.yaml
-                subPath: sonarr-config.yaml
+        globalMounts:
+          - path: /config/configs/sonarr-config.yaml
+            subPath: sonarr-config.yaml
 
-              - path: /config/configs/sonarr-anime-config.yaml
-                subPath: sonarr-anime-config.yaml
+          - path: /config/configs/sonarr-anime-config.yaml
+            subPath: sonarr-anime-config.yaml
 
-              - path: /config/configs/sonarr-uhd-config.yaml
-                subPath: sonarr-uhd-config.yaml
+          - path: /config/configs/sonarr-uhd-config.yaml
+            subPath: sonarr-uhd-config.yaml
 
-              - path: /config/configs/radarr-config.yaml
-                subPath: radarr-config.yaml
+          - path: /config/configs/radarr-config.yaml
+            subPath: radarr-config.yaml
 
-              - path: /config/configs/radarr-anime-config.yaml
-                subPath: radarr-anime-config.yaml
+          - path: /config/configs/radarr-anime-config.yaml
+            subPath: radarr-anime-config.yaml
 
-              - path: /config/configs/radarr-uhd-config.yaml
-                subPath: radarr-uhd-config.yaml
+          - path: /config/configs/radarr-uhd-config.yaml
+            subPath: radarr-uhd-config.yaml
