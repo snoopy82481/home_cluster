@@ -46,7 +46,7 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
-              - 10000
+              - 65542
 
         containers:
           main:
