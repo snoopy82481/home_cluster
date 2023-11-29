@@ -41,10 +41,12 @@ spec:
 
         pod:
           securityContext:
+            runAsUser: 568
+            runAsGroup: 568
             fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
+            fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
-              - 65539
+              - 10000
 
         containers:
           main:
@@ -59,10 +61,6 @@ spec:
               UMASK: "022"
               QBITTORRENT__PORT: &port 8080
               QBITTORRENT__BT_PORT: &btport 51820
-
-            securityContext:
-              runAsUser: 568
-              runAsGroup: 568
 
             resources:
               requests:
