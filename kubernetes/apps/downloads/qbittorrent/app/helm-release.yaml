@@ -62,6 +62,10 @@ spec:
               QBITTORRENT__PORT: &port 8080
               QBITTORRENT__BT_PORT: &btport 51820
 
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+
             resources:
               requests:
                 cpu: 49m
