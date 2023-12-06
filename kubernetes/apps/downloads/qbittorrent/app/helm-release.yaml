@@ -54,7 +54,7 @@ spec:
 
             image:
               repository: ghcr.io/onedr0p/qbittorrent
-              tag: 4.6.1@sha256:796f135bcb572a3fb3138b0c65034535c0a7b1dcb83940fe12e00cad1b47fcbb
+              tag: 4.6.2@sha256:ab8cc91bcf93d2a147767032d37c52ca2528439d037090657a18ea39cfeb272b
 
             env:
               TZ: ${TIMEZONE}
