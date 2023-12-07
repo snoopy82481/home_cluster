@@ -15,14 +15,21 @@ on:
   schedule:
     - cron: "0 * * * *"
   push:
-    branches: ["main"]
+    branches:
+      - main
     paths:
       - .github/renovate.json5
       - .github/renovate/**.json5
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   DRY_RUN: false
   LOG_LEVEL: debug
+  RENOVATE_PLATFORM: github
+  RENOVATE_PLATFORM_COMMIT: true
   RENOVATE_ONBOARDING_CONFIG_FILE_NAME: .github/renovate.json5
   RENOVATE_AUTODISCOVER: true
   RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
