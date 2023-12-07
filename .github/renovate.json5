@@ -1,24 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabled": true,
-  "platform": "github",
-  "onboarding": false,
-  "requireConfig": "optional",
-  "semanticCommits": "enabled",
+  "commitBodyTable": true,
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "suppressNotifications": ["prIgnoreNotification"],
-  "rebaseWhen": "conflicted",
-  "commitBodyTable": true,
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
   "extends": [
-    "config:base",
-    "docker:enableMajor",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":enablePreCommit",
     ":automergeDigest",
     ":automergeBranch",
+    "config:recommended",
+    "docker:enableMajor",
+    ":dependencyDashboard",
+    ":disableRateLimiting",
+    ":enablePreCommit",
     "github>snoopy82481/home_cluster//.github/renovate/autoMerge.json5",
     "github>snoopy82481/home_cluster//.github/renovate/commitMessage.json5",
     "github>snoopy82481/home_cluster//.github/renovate/customDatasources.json5",
@@ -28,7 +21,11 @@
     "github>snoopy82481/home_cluster//.github/renovate/labels.json5",
     "github>snoopy82481/home_cluster//.github/renovate/packageRules.json5",
     "github>snoopy82481/home_cluster//.github/renovate/semanticCommits.json5",
-    "helpers:pinGitHubActionDigests"
+    "helpers:pinGitHubActionDigests",
+    "replacements:k8s-registry-move",
+    "security:openssf-scorecard",
+    ":semanticCommits",
+    ":timezone(America/Boise)"
   ],
   "flux": {
     "fileMatch": ["kubernetes/.+\\.ya?ml$"]
@@ -38,5 +35,17 @@
   },
   "kubernetes": {
     "fileMatch": ["kubernetes/.+\\.ya?ml$"]
+  },
+  "onboarding": false,
+  "osvVulnerabilityAlerts": true,
+  "rebaseWhen": "conflicted",
+  "requireConfig": "optional",
+  "semanticCommits": "enabled",
+  "suppressNotifications": ["prIgnoreNotification"],
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": true,
+    "automergeType": "branch",
+    "schedule": ["at any time"]
   }
 }
