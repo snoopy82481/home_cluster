@@ -3,7 +3,6 @@
   "commitBodyTable": true,
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "dependencyDashboardOSVVulnerabilitySummary": "all",
   "extends": [
     ":automergeDigest",
     ":automergeBranch",
@@ -23,7 +22,6 @@
     "github>snoopy82481/home_cluster//.github/renovate/semanticCommits.json5",
     "helpers:pinGitHubActionDigests",
     "replacements:k8s-registry-move",
-    "security:openssf-scorecard",
     ":semanticCommits",
     ":timezone(America/Boise)"
   ],
@@ -37,15 +35,8 @@
     "fileMatch": ["kubernetes/.+\\.ya?ml$"]
   },
   "onboarding": false,
-  "osvVulnerabilityAlerts": true,
   "rebaseWhen": "conflicted",
   "requireConfig": "optional",
   "semanticCommits": "enabled",
-  "suppressNotifications": ["prIgnoreNotification"],
-  "vulnerabilityAlerts": {
-    "labels": ["security"],
-    "automerge": true,
-    "automergeType": "branch",
-    "schedule": ["at any time"]
-  }
+  "suppressNotifications": ["prIgnoreNotification"]
 }
