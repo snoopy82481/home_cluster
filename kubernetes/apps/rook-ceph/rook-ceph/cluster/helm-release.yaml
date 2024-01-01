@@ -110,13 +110,13 @@ spec:
         nodes:
           - name: "kworker1"
             devices:
-              - name: "/dev/sdb"
+              - name: "/dev/nvme0n1"
           - name: "kworker2"
             devices:
-              - name: "/dev/sdb"
+              - name: "/dev/nvme0n1"
           - name: "kworker3"
             devices:
-              - name: "/dev/sdb"
+              - name: "/dev/nvme0n1"
 
     ingress:
       dashboard:
