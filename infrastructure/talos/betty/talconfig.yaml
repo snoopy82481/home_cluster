@@ -7,7 +7,7 @@ talosVersion: v1.6.1
 kubernetesVersion: v1.29.0
 endpoint: "https://192.168.20.1:6443"
 
-talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+talosImageURL: factory.talos.dev/installer/a683c6815d2bc2730ebdede009776636f35f9b1b2f66fa8ca9e14f321bdda54d
 allowSchedulingOnMasters: true
 
 clusterPodNets:
@@ -18,9 +18,12 @@ clusterSvcNets:
 cniConfig:
   name: none
 
-additionalMachineCertSans:
+additionalMachineCertSans: &san
   - ${clusterEndpointIP}
   - ${clusterName}.${domainName}
+  - "127.0.0.1"
+
+additionalApiServerCertSans: *san
 
 nodes:
   - hostname: kmaster1.${domainName}
@@ -81,8 +84,10 @@ controlPlane:
       machine:
         kubelet:
           extraArgs:
-            feature-gates: GracefulNodeShutdown=true
+            feature-gates: GracefulNodeShutdown=true,NewVolumeManagerReconstruction=false
             rotate-server-certificates: "true"
+          extraConfig:
+            maxPods: 150
           nodeIP:
             validSubnets:
               - 192.168.20.0/24
@@ -108,6 +113,18 @@ controlPlane:
                 [plugins."io.containerd.grpc.v1.cri"]
                   enable_unprivileged_ports = true
                   enable_unprivileged_icmp = true
+          - op: overwrite
+            path: /etc/nfsmount.conf
+            permissions: 0o644
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.2
+              hard=True
+              noatime=True
+              nodiratime=True
+              rsize=131072
+              wsize=131072
+              nconnect=8
         network:
           nameservers:
             - 192.168.20.1
@@ -118,6 +135,12 @@ controlPlane:
                 - network: 0.0.0.0/0
                   gateway: 192.168.20.1
               dhcp: true
+              vlans:
+                - vlanId: 20
+                  mtu: 1500
+                  dhcp: true
+                  dhcpOptions:
+                    routeMetric: 4096
           extraHostEntries:
             - ip: ${clusterEndpointIP}
               aliases:
@@ -143,8 +166,13 @@ worker:
       machine:
         kubelet:
           extraArgs:
-            feature-gates: GracefulNodeShutdown=true
+            feature-gates: GracefulNodeShutdown=true,NewVolumeManagerReconstruction=false
             rotate-server-certificates: "true"
+          extraConfig:
+            maxPods: 150
+          nodeIP:
+            validSubnets:
+              - 192.168.20.0/24
         install:
           extraKernelArgs:
             - "talos.logging.kernel=udp://192.168.20.52:6050/"
@@ -166,6 +194,18 @@ worker:
                 enable_unprivileged_icmp = true
             op: create
             path: /etc/cri/conf.d/20-customization.part
+          - op: overwrite
+            path: /etc/nfsmount.conf
+            permissions: 0o644
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.2
+              hard=True
+              noatime=True
+              nodiratime=True
+              rsize=131072
+              wsize=131072
+              nconnect=8
         network:
           nameservers:
             - 192.168.20.1
@@ -176,6 +216,12 @@ worker:
                 - network: 0.0.0.0/0
                   gateway: 192.168.20.1
               dhcp: true
+              vlans:
+                - vlanId: 20
+                  mtu: 1500
+                  dhcp: true
+                  dhcpOptions:
+                    routeMetric: 4096
         features:
           kubePrism:
             enabled: true
