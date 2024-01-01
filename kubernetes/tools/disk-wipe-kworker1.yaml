@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-kworker3
+  name: disk-wipe-kworker1
   namespace: rook-ceph
 spec:
   restartPolicy: Never
-  nodeName: kworker3
+  nodeName: kworker1
   containers:
     - name: disk-wipe
       image: busybox@sha256:6e494387c901caf429c1bf77bd92fb82b33a68c0e19f6d1aa6a3ac8d27a7049d
@@ -14,8 +14,8 @@ spec:
         [
           "/bin/sh",
           "-c",
-          "blkdiscard /dev/sdb",
-          "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/sdb",
+          "blkdiscard /dev/nvme0n1",
+          "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/nvme0n1",
         ]
       resources:
         requests:

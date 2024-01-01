@@ -15,8 +15,8 @@ spec:
         [
           "/bin/sh",
           "-c",
-          "blkdiscard /dev/sdb",
-          "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/sdb",
+          "blkdiscard /dev/nvme0n1",
+          "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/nvme0n1",
         ]
       resources:
         requests:
@@ -42,8 +42,8 @@ spec:
         [
           "/bin/sh",
           "-c",
-          "blkdiscard /dev/sdb",
-          "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/sdb",
+          "blkdiscard /dev/nvme0n1",
+          "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/nvme0n1",
         ]
       resources:
         requests:
@@ -69,8 +69,8 @@ spec:
         [
           "/bin/sh",
           "-c",
-          "blkdiscard /dev/sdb",
-          "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/sdb",
+          "blkdiscard /dev/nvme0n1",
+          "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/nvme0n1",
         ]
       resources:
         requests:
