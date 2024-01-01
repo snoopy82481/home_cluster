@@ -5,7 +5,7 @@ vars:
   TALOS_VERSION:
     sh: "yq '.talosVersion' ./infrastructure/talos/betty/talconfig.yaml"
   TALOS_INSTALLER:
-    sh: "yp '.talosImageURL' ./infrastructure/talos/betty/talconfig.yaml"
+    sh: "yq '.talosImageURL' ./infrastructure/talos/betty/talconfig.yaml"
   K8S_VERSION:
     sh: "yq '.kubernetesVersion' ./infrastructure/talos/betty/talconfig.yaml"
 

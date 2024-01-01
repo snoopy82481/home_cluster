@@ -1,6 +1,6 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app hajimari
@@ -88,7 +88,7 @@ spec:
           searchUrl: https://www.reddit.com/search?q={query}
           url: https://www.reddit.com
         - name: YouTube
-          token: 'y'
+          token: "y"
           icon: simple-icons:youtube
           searchUrl: https://www.youtube.com/results?search_query={query}
           url: https://www.youtube.com
