@@ -4,16 +4,18 @@ kind: Kustomization
 namespace: kube-system
 
 helmCharts:
-  - name: cilium
-    repo: https://helm.cilium.io/
-    version: 1.14.5
-    releaseName: cilium
-    includeCRDs: true
+  - includeCRDs: true
+    name: cilium
     namespace: kube-system
+    releaseName: cilium
+    repo: https://helm.cilium.io/
     valuesFile: values.yaml
+    version: 1.14.5
 
 commonAnnotations:
   meta.helm.sh/release-name: cilium
   meta.helm.sh/release-namespace: kube-system
-commonLabels:
-  app.kubernetes.io/managed-by: Helm
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/managed-by: Helm

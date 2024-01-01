@@ -8,7 +8,6 @@ vars:
     sh: "yq '.kubernetesVersion' ./infrastructure/talos/betty/talconfig.yaml"
 
 tasks:
-
   init-apply:
     desc: Apply Talos configs
     cmds:
@@ -69,8 +68,9 @@ tasks:
     desc: Upgrades all Talos nodes
     cmds:
       - task: upgrade-cli
-      - for: { var: nodes }
-        cmd: talosctl upgrade -n {{.ITEM}} --image "factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515:{{.TALOS_VERSION}}"
+      - for: {var: nodes}
+        # cmd: talosctl upgrade -n {{.ITEM}} --image "factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515:{{.TALOS_VERSION}}"
+        cmd: talosctl upgrade -n {{.ITEM}} --image "factory.talos.dev/installer/a683c6815d2bc2730ebdede009776636f35f9b1b2f66fa8ca9e14f321bdda54d:{{.TALOS_VERSION}}"
     vars:
       nodes: >-
         192.168.20.5

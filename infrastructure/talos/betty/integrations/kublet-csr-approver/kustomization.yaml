@@ -4,16 +4,22 @@ kind: Kustomization
 namespace: kube-system
 
 helmCharts:
-  - name: kubelet-csr-approver
+  - includeCRDs: true
+    name: kubelet-csr-approver
+    namespace: kube-system
+    releaseName: kubelet-csr-approver
     repo: https://postfinance.github.io/kubelet-csr-approver
     version: 1.0.6
     releaseName: kubelet-csr-approver
     includeCRDs: true
     namespace: kube-system
     valuesFile: values.yaml
+    version: 1.0.5
 
 commonAnnotations:
   meta.helm.sh/release-name: cilium
   meta.helm.sh/release-namespace: kube-system
-commonLabels:
-  app.kubernetes.io/managed-by: Helm
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/managed-by: Helm
