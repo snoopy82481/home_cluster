@@ -54,7 +54,7 @@ spec:
               PROWLARR__API_KEY: ${PROWLARR_APIKEY}
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__THEME: dark
-              TZ: ${TZ}
+              TZ: ${TIMEZONE}
 
             probes:
               liveness: &probes
