@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -40,6 +40,14 @@ spec:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+
         containers:
           main:
             image:
@@ -52,12 +60,30 @@ spec:
               PROWLARR__LOG_LEVEL: info
               PROWLARR__ANALYTICS_ENABLED: "False"
               PROWLARR__API_KEY: ${PROWLARR_APIKEY}
+              PROWLARR__AUTHENTICATION_METHOD: External
+              PROWLARR__THEME: dark
+              TZ: ${TZ}
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
 
             securityContext:
-              runAsUser: 568
-              runAsGroup: 568
-              fsGroup: 568
-              fsGroupChangePolicy: OnRootMismatch
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
 
             resources:
               requests:
