@@ -47,28 +47,28 @@ spec:
 
     controllers:
       main:
-        type: statefulset
+        # type: statefulset
 
-        statefulset:
-          volumeClaimTemplates:
-            - name: data
-              accessMode: "ReadWriteOnce"
-              size: 5Gi
-              storageClassName: ceph-block
-              globalMounts:
-                - path: /opt/tplink/EAPController/data
-            - name: work
-              accessMode: "ReadWriteOnce"
-              size: 5Gi
-              storageClassName: ceph-block
-              globalMounts:
-                - path: /opt/tplink/EAPController/work
-            - name: logs
-              accessMode: "ReadWriteOnce"
-              size: 5Gi
-              storageClassName: ceph-block
-              globalMounts:
-                - path: /opt/tplink/EAPController/logs
+        # statefulset:
+        #   volumeClaimTemplates:
+        #     - name: data
+        #       accessMode: "ReadWriteOnce"
+        #       size: 5Gi
+        #       storageClassName: ceph-block
+        #       globalMounts:
+        #         - path: /opt/tplink/EAPController/data
+        #     - name: work
+        #       accessMode: "ReadWriteOnce"
+        #       size: 5Gi
+        #       storageClassName: ceph-block
+        #       globalMounts:
+        #         - path: /opt/tplink/EAPController/work
+        #     - name: logs
+        #       accessMode: "ReadWriteOnce"
+        #       size: 5Gi
+        #       storageClassName: ceph-block
+        #       globalMounts:
+        #         - path: /opt/tplink/EAPController/logs
 
         containers:
           main:
@@ -204,3 +204,28 @@ spec:
             port: 27217
             protocol: TCP
             targetPort: 27217
+
+    persistence:
+      data:
+        enabled: true
+        accessMode: "ReadWriteOnce"
+        size: 5Gi
+        storageClassName: ceph-block
+        globalMounts:
+          - path: /opt/tplink/EAPController/data
+
+      work:
+        enabled: true
+        accessMode: "ReadWriteOnce"
+        size: 5Gi
+        storageClassName: ceph-block
+        globalMounts:
+          - path: /opt/tplink/EAPController/work
+
+      logs:
+        enabled: true
+        accessMode: "ReadWriteOnce"
+        size: 5Gi
+        storageClassName: ceph-block
+        globalMounts:
+          - path: /opt/tplink/EAPController/logs
