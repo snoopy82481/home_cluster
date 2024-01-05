@@ -229,3 +229,10 @@ spec:
         storageClassName: ceph-block
         globalMounts:
           - path: /opt/tplink/EAPController/logs
+
+      backup:
+        type: nfs
+        server: ${NAS_NAME}
+        path: ${NFS_BACKUP}
+        globalMounts:
+          - path: /backup
