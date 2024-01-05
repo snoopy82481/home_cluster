@@ -1,12 +1,13 @@
 <!-- markdownlint-disable MD041 -->
 <!-- markdownlint-disable MD033 -->
+
 <a name="readme-top"></a>
 
 <!-- PROJECT LOGO -->
 <br/>
 <div align="center">
   <a href="https://github.com/snoopy82481/home_cluster">
-    <img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" alt="home_cluster" width="144" height="144">
+    <img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" alt="home_cluster" width="144" height="144">
   </a>
 
   <h3 align="center">My home Kubernetes cluster</h3>
@@ -62,9 +63,10 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-This repo is in major disarray at the moment.  I am currently refactoring my existing repo [new_template_k3s][old_repo_url].
+This repo is in major disarray at the moment. I am currently refactoring my existing repo [new_template_k3s][old_repo_url].
 
 This is a complete rework of my existing cluster, that I tend to learn [Talos Linux](https://www.talos.dev) with.
 
@@ -143,29 +145,31 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
-* [x] Talos Config
-* [x] Cilium CNI
-* [x] Return cluster to operational state
-* [x] Add Hajimari to the cluster [125](https://github.com/snoopy82481/home_cluster/issues/125)
-* [x] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
-  * [x] [Grafana](https://grafana.com)
-  * [x] [Prometheus](https://grafana.com/oss/prometheus/)
-  * [ ] [Loki](https://grafana.com/oss/loki/)
-  * [ ] [Thanos](https://thanos.io)
-  * [ ] [Vector](https://vector.dev)
-* [ ] Harden Kubernetes
-  * [ ] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
-* [ ] Documentation
-  * [x] Create README.md
-  * [ ] Document workflow (Github Pages/Cloudflare pages)
+- [x] Talos Config
+- [x] Cilium CNI
+- [x] Return cluster to operational state
+- [x] Add Hajimari to the cluster [125](https://github.com/snoopy82481/home_cluster/issues/125)
+- [x] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
+  - [x] [Grafana](https://grafana.com)
+  - [x] [Prometheus](https://grafana.com/oss/prometheus/)
+  - [ ] [Loki](https://grafana.com/oss/loki/)
+  - [ ] [Thanos](https://thanos.io)
+  - [ ] [Vector](https://vector.dev)
+- [ ] Harden Kubernetes
+  - [ ] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
+- [ ] Documentation
+  - [x] Create README.md
+  - [ ] Document workflow (Github Pages/Cloudflare pages)
 
 See the [open issues](https://github.com/snoopy82481/home_cluster/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -182,6 +186,7 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
@@ -198,19 +203,21 @@ Project Link: [https://github.com/snoopy82481/home_cluster](https://github.com/s
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
 A lot of my insperation came from multiple users part of the k8s-at-home community.<br/>
 There is a lot of code jacking from:
 
-* [@onedr0p](https://github.com/onedr0p)
-* [@bjw-s](https://github.com/bjw-s)
-* [@Truxnell](https://github.com/Truxnell)
-* [@xUnholy](https://github.com/xUnholy)
+- [@onedr0p](https://github.com/onedr0p)
+- [@bjw-s](https://github.com/bjw-s)
+- [@Truxnell](https://github.com/Truxnell)
+- [@xUnholy](https://github.com/xUnholy)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
+
 [license-shield]: https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge
 [license-url]: https://github.com/snoopy82481/home_cluster/blob/main/LICENSE
 [workflow-shield]: https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/schedule-renovate.yaml?color=informational&label=%20&logo=renovatebot&style=for-the-badge
