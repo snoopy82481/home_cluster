@@ -102,9 +102,7 @@ spec:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         rules:
           backendRefs:
-            - kind: Service
-              name: *app
-              namespace: *ns
+            - name: *app
               port: *port
 
     persistence:
