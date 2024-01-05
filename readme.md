@@ -20,7 +20,7 @@
     <!-- PROJECT SHIELDS-->
     <div id="project_shields">
       <img src="https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge" alt="License" />
-      <a href="https://github.com/snoopy82481/home_cluster/actions/workflows/schedule-renovate.yaml"><img src="https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/schedule-renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue" alt="GitHub Workflow Status" /></a>
+      <a href="https://github.com/snoopy82481/home_cluster/actions/workflows/renovate.yaml"><img src="https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue" alt="GitHub Workflow Status" /></a>
       <a href="https://github.com/pre-commit/pre-commit">
         <img src="https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge" alt="Pre-commit" />
       </a>
