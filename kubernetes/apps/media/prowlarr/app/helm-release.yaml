@@ -40,6 +40,16 @@ spec:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 10000
+
         containers:
           main:
             image:
@@ -71,12 +81,6 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
-
-            securityContext:
-              runAsUser: 568
-              runAsGroup: 568
-              fsGroup: 568
-              fsGroupChangePolicy: OnRootMismatch
 
             resources:
               requests:
