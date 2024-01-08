@@ -39,4 +39,5 @@ data:
   SVC_INTERNAL_CILIUM_GATEWAY_ADDRESSS: 192.168.20.58
 
   NFS_DATA: /mnt/storage1/data
+  NFS_MEDIA: /mnt/storage1/data/media
   NFS_BACKUP: /mnt/storage0/backup

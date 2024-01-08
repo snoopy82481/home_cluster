@@ -113,7 +113,7 @@ spec:
       media:
         type: nfs
         server: ${NAS_NAME}
-        path: ${NFS_DATA}
+        path: ${NFS_MEDIA}
         globalMounts:
           - path: /media
       transcode:
