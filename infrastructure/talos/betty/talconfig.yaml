@@ -57,6 +57,15 @@ nodes:
     installDisk: /dev/sda
 
 controlPlane:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915-ucode
+
   patches:
     - |-
       cluster:
@@ -155,6 +164,15 @@ controlPlane:
         path: /cluster/apiServer/admissionControl
 
 worker:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915-ucode
+
   patches:
     - |-
       cluster:

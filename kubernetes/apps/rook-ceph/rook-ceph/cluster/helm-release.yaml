@@ -108,9 +108,9 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "kworker1"
-            devices:
-              - name: "/dev/nvme0n1"
+          # - name: "kworker1"
+          #   devices:
+          #     - name: "/dev/nvme0n1"
           - name: "kworker2"
             devices:
               - name: "/dev/nvme0n1"
