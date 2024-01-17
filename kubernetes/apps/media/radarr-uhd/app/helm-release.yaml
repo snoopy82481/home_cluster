@@ -44,10 +44,11 @@ spec:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
-              - 65539
+              - 10000
 
         containers:
           main:
@@ -64,11 +65,11 @@ spec:
               RADARR__LOG_LEVEL: info
 
             resources:
+              limits: &resources
+                memory: 1Gi
               requests:
-                cpu: 14m
-                memory: 431M
-              limits:
-                memory: 431M
+                <<: *resources
+                cpu: 10m
 
     service:
       main:
