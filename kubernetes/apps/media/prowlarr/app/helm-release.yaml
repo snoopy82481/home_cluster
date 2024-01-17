@@ -95,29 +95,11 @@ spec:
               limits:
                 memory: 256Mi
 
-          flaresolverr:
-            image:
-              repository: ghcr.io/flaresolverr/flaresolverr
-              tag: v3.3.13@sha256:213bb58aa341a0188e64ce2c21e1c5748b167c719828bc61dd904eb0fb1aec63
-
-            env:
-              TZ: ${TIMEZONE}
-
-            resources:
-              requests:
-                cpu: 10m
-                memory: 100Mi
-              limits:
-                memory: 500Mi
-
     service:
       main:
         ports:
           http:
             port: *port
-          flaresolverr:
-            port: 8191
-            protocol: HTTP
 
     ingress:
       main:
