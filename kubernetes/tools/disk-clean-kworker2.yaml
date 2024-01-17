@@ -2,22 +2,24 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-kworker2
+  name: disk-clean-kworker2
   namespace: default
 spec:
   restartPolicy: Never
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
   nodeName: kworker2
   containers:
-    - name: disk-wipe
-      image: busybox@sha256:ba76950ac9eaa407512c9d859cea48114eeff8a6f12ebaa5d32ce79d4a017dd8
+    - name: disk-clean
+      image: busybox
       securityContext:
         privileged: true
-      command:
-        [
-          "/bin/sh",
-          "-c",
-          "dd if=/dev/zero bs=1M count=100 oflag=direct of=/dev/nvme0n1",
-        ]
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command: ["/bin/sh", "-c", "rm -rf /node/rook-data/*"]
       resources:
         requests:
           cpu: 10m

@@ -1,0 +1,58 @@
+k9s:
+  liveViewAutoRefresh: false
+  refreshRate: 2
+  maxConnRetry: 5
+  enableMouse: false
+  enableImageScan: false
+  headless: false
+  logoless: false
+  crumbsless: false
+  readOnly: false
+  noExitOnCtrlC: false
+  noIcons: false
+  shellPod:
+    image: busybox:1.35.0
+    namespace: default
+    limits:
+      cpu: 100m
+      memory: 100Mi
+  skipLatestRevCheck: false
+  logger:
+    tail: 100
+    buffer: 5000
+    sinceSeconds: 300
+    fullScreen: false
+    textWrap: false
+    showTime: false
+  currentContext: admin@betty
+  currentCluster: betty
+  keepMissingClusters: false
+  clusters:
+    betty:
+      namespace:
+        active: networking
+        lockFavorites: false
+        favorites:
+          - flux-system
+          - networking
+          - web-tools
+          - cert-manager
+          - all
+          - downloads
+          - kube-system
+          - rook-ceph
+          - media
+      view:
+        active: pods
+      featureGates:
+        nodeShell: false
+      portForwardAddress: localhost
+  thresholds:
+    cpu:
+      critical: 90
+      warn: 70
+    memory:
+      critical: 90
+      warn: 70
+  screenDumpDir: /tmp/k9s-screens-stephen
+  disablePodCounting: false
