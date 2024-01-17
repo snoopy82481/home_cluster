@@ -126,11 +126,6 @@ spec:
       config:
         enabled: true
         existingClaim: prowlarr-config-v1
-        advancedMounts:
-          main:
-            main:
-              - path: /config
-                readOnly: false
 
       backup:
         type: nfs
