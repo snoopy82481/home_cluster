@@ -30,6 +30,8 @@ nodes:
     ipAddress: 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
+    networkInterfaces:
+      -
 
   - hostname: kmaster2.${domainName}
     ipAddress: 192.168.20.6

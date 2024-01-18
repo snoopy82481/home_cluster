@@ -21,6 +21,7 @@
   "files.trimTrailingWhitespace": true,
   "cSpell.enabled": false,
   "yaml.schemas": {
+    "Kubernetes": "cluster/*.yaml",
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "recyclarr.yaml",
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "settings.yaml",
     "https://raw.githubusercontent.com/louygan/kubernetes-json-schema_yannh/master/v1.26.0/all.json": "k8s/**/*.yaml",
@@ -28,7 +29,8 @@
     "https://taskfile.dev/schema.json": [
       "**/Taskfile.yaml",
       ".taskfiles/*.yml"
-    ]
+    ],
+    "https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json": "file:///home/stephen/Documents/Development/home_cluster/infrastructure/talos/betty/talconfig.yaml"
   },
   "material-icon-theme.folders.associations": {
     ".taskfiles": "utils",
