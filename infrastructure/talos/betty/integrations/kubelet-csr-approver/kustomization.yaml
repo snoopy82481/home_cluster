@@ -13,7 +13,7 @@ helmCharts:
     valuesFile: values.yaml
 
 commonAnnotations:
-  meta.helm.sh/release-name: cilium
+  meta.helm.sh/release-name: kubelet-csr-approver
   meta.helm.sh/release-namespace: kube-system
 labels:
   - includeSelectors: true

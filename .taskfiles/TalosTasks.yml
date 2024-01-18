@@ -69,9 +69,9 @@ tasks:
   upgrade-nodes:
     desc: Upgrades all Talos nodes
     cmds:
-      - for: { var: nodes }
+      - for: {var: nodes}
         # cmd: talosctl upgrade -n {{.ITEM}} --image "factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515:{{.TALOS_VERSION}}"
-        cmd: talosctl upgrade -n {{.ITEM}} --image "factory.talos.dev/installer/a683c6815d2bc2730ebdede009776636f35f9b1b2f66fa8ca9e14f321bdda54d:{{.TALOS_VERSION}}"
+        cmd: talosctl upgrade -n {{.ITEM}} --image "factory.talos.dev/installer/df491c50a5acc05b977ef00c32050e1ceb0df746e40b33c643ac8a9bfb7c7263:{{.TALOS_VERSION}}"
       - task: upgrade-cli
     vars:
       nodes: >-

@@ -7,7 +7,7 @@ talosVersion: v1.6.1
 kubernetesVersion: v1.29.0
 endpoint: "https://192.168.20.1:6443"
 
-talosImageURL: factory.talos.dev/installer/a683c6815d2bc2730ebdede009776636f35f9b1b2f66fa8ca9e14f321bdda54d
+talosImageURL: factory.talos.dev/installer/df491c50a5acc05b977ef00c32050e1ceb0df746e40b33c643ac8a9bfb7c7263
 allowSchedulingOnMasters: true
 
 clusterPodNets:
