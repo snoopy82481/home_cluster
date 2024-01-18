@@ -7,8 +7,13 @@ talosVersion: v1.6.2
 kubernetesVersion: v1.29.1
 endpoint: "https://192.168.20.1:6443"
 
-talosImageURL: factory.talos.dev/installer/df491c50a5acc05b977ef00c32050e1ceb0df746e40b33c643ac8a9bfb7c7263
+# talosImageURL: factory.talos.dev/installer/df491c50a5acc05b977ef00c32050e1ceb0df746e40b33c643ac8a9bfb7c7263
 allowSchedulingOnMasters: true
+
+imageFactory:
+  registryURL: factory.talos.dev
+  schematicEndpoint: /schematics
+  protocol: https
 
 clusterPodNets:
   - 10.42.0.0/16
@@ -30,8 +35,6 @@ nodes:
     ipAddress: 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
-    networkInterfaces:
-      -
 
   - hostname: kmaster2.${domainName}
     ipAddress: 192.168.20.6
@@ -142,14 +145,14 @@ controlPlane:
           disableSearchDomain: true
           interfaces:
             - interface: eth0
-              routes:
-                - network: 0.0.0.0/0
-                  gateway: 192.168.20.1
               dhcp: true
               vlans:
                 - vlanId: 20
                   mtu: 1500
                   dhcp: true
+                  routes:
+                    - network: 0.0.0.0/0
+                      gateway: 192.168.20.1
                   dhcpOptions:
                     routeMetric: 4096
           extraHostEntries:
@@ -232,14 +235,14 @@ worker:
           disableSearchDomain: true
           interfaces:
             - interface: eth0
-              routes:
-                - network: 0.0.0.0/0
-                  gateway: 192.168.20.1
               dhcp: true
               vlans:
                 - vlanId: 20
                   mtu: 1500
                   dhcp: true
+                  routes:
+                    - network: 0.0.0.0/0
+                      gateway: 192.168.20.1
                   dhcpOptions:
                     routeMetric: 4096
         features:
