@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: disk-clean-kworker3
-  namespace: default
+  namespace: rook-ceph
 spec:
   restartPolicy: Never
   volumes:
