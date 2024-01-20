@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: "Renovate"
 
 on:
@@ -12,11 +13,14 @@ on:
         description: Log Level
         default: debug
         required: false
+      version:
+        description: Renovate version
+        default: latest
+        required: false
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 * * * *" # Every hour
   push:
-    branches:
-      - main
+    branches: ["main"]
     paths:
       - .github/renovate.json5
       - .github/renovate/**.json5
@@ -26,15 +30,13 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DRY_RUN: false
-  LOG_LEVEL: debug
-  RENOVATE_PLATFORM: github
-  RENOVATE_PLATFORM_COMMIT: true
-  RENOVATE_ONBOARDING_CONFIG_FILE_NAME: .github/renovate.json5
+  LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
   RENOVATE_AUTODISCOVER: true
   RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
-  RENOVATE_USERNAME: "${{ secrets.BOT_USERNAME }}[bot]"
-  RENOVATE_GIT_AUTHOR: "${{ secrets.BOT_USERNAME }} <${{ secrets.BOT_USER_ID }}+${{ secrets.BOT_USERNAME }}[bot]@users.noreply.github.com>"
+  RENOVATE_DRY_RUN: "${{ inputs.dryRun == true }}"
+  RENOVATE_PLATFORM: github
+  RENOVATE_PLATFORM_COMMIT: true
+  WORKFLOW_RENOVATE_VERSION: "${{ inputs.version || 'latest' }}"
 
 jobs:
   renovate:
@@ -42,24 +44,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate Token
-        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
-        id: generate-token
+        uses: actions/create-github-app-token@v1
+        id: app-token
         with:
-          app_id: "${{ secrets.BOT_APP_ID }}"
-          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout@v4
         with:
-          token: "${{ steps.generate-token.outputs.token }}"
-
-      - name: Override default config from dispatch variables
-        run: |
-          echo "RENOVATE_DRY_RUN=${{ github.event.inputs.dryRun || env.RENOVATE_DRY_RUN }}" >> "${GITHUB_ENV}"
-          echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
+          token: "${{ steps.app-token.outputs.token }}"
 
       - name: Renovate
-        uses: renovatebot/github-action@f9c81dddc9b589e4e6ae0326d1e36f6bc415d230 # v39.2.4
+        uses: renovatebot/github-action@v39.2.4
         with:
-          configurationFile: "${{ env.RENOVATE_ONBOARDING_CONFIG_FILE_NAME }}"
-          token: "${{ steps.generate-token.outputs.token }}"
+          configurationFile: .github/renovate.json5
+          token: "${{ steps.app-token.outputs.token }}"
+          renovate-version: "${{ env.WORKFLOW_RENOVATE_VERSION }}"
