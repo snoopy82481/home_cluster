@@ -35,31 +35,66 @@ nodes:
     ipAddress: 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: enp2s0
+        dhcp: true
+        vlans:
+          - &vlan20
+            vlanId: 20
+            mtu: 1500
+            dhcp: true
+            dhcpOptions:
+              routeMetric: 4096
 
   - hostname: kmaster2.${domainName}
     ipAddress: 192.168.20.6
     controlPlane: true
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: enp2s0
+        dhcp: true
+        vlans:
+          - *vlan20
 
   - hostname: kmaster3.${domainName}
     ipAddress: 192.168.20.7
     controlPlane: true
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eno1
+        dhcp: true
+        vlans:
+          - *vlan20
 
   - hostname: kworker1.${domainName}
     ipAddress: 192.168.20.8
     controlPlane: false
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        vlans:
+          - *vlan20
 
   - hostname: kworker2.${domainName}
     ipAddress: 192.168.20.9
     controlPlane: false
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eno1
+        dhcp: true
+        vlans:
+          - *vlan20
 
   - hostname: kworker3.${domainName}
     ipAddress: 192.168.20.10
     controlPlane: false
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eno1
+        dhcp: true
+        vlans:
+          - *vlan20
 
 controlPlane:
   schematic:
@@ -68,8 +103,8 @@ controlPlane:
         - net.ifnames=0
       systemExtensions:
         officialExtensions:
-          - siderolabs/intel-ucode
           - siderolabs/i915-ucode
+          - siderolabs/intel-ucode
 
   patches:
     - |-
@@ -107,6 +142,7 @@ controlPlane:
               - 192.168.20.0/24
         install:
           extraKernelArgs:
+            - "pcie_aspm=off"
             - "talos.logging.kernel=udp://192.168.20.52:6050/"
         logging:
           destinations:
@@ -143,18 +179,6 @@ controlPlane:
           nameservers:
             - 192.168.20.1
           disableSearchDomain: true
-          interfaces:
-            - interface: eth0
-              dhcp: true
-              vlans:
-                - vlanId: 20
-                  mtu: 1500
-                  dhcp: true
-                  routes:
-                    - network: 0.0.0.0/0
-                      gateway: 192.168.20.1
-                  dhcpOptions:
-                    routeMetric: 4096
           extraHostEntries:
             - ip: ${clusterEndpointIP}
               aliases:
@@ -175,8 +199,8 @@ worker:
         - net.ifnames=0
       systemExtensions:
         officialExtensions:
-          - siderolabs/intel-ucode
           - siderolabs/i915-ucode
+          - siderolabs/intel-ucode
 
   patches:
     - |-
@@ -198,6 +222,8 @@ worker:
               - 192.168.20.0/24
         install:
           extraKernelArgs:
+            - "pcie_aspm=off"
+            - "nvme_core.default_ps_max_latency_us=0"
             - "talos.logging.kernel=udp://192.168.20.52:6050/"
         logging:
           destinations:
@@ -233,18 +259,6 @@ worker:
           nameservers:
             - 192.168.20.1
           disableSearchDomain: true
-          interfaces:
-            - interface: eth0
-              dhcp: true
-              vlans:
-                - vlanId: 20
-                  mtu: 1500
-                  dhcp: true
-                  routes:
-                    - network: 0.0.0.0/0
-                      gateway: 192.168.20.1
-                  dhcpOptions:
-                    routeMetric: 4096
         features:
           kubePrism:
             enabled: true
