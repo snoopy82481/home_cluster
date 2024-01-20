@@ -5,8 +5,6 @@ kind: HelmRelease
 metadata:
   name: &app omada-controller
   namespace: networking
-  labels:
-    - hostname: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
 spec:
   interval: 15m
   chart:
@@ -47,29 +45,6 @@ spec:
 
     controllers:
       main:
-        # type: statefulset
-
-        # statefulset:
-        #   volumeClaimTemplates:
-        #     - name: data
-        #       accessMode: "ReadWriteOnce"
-        #       size: 5Gi
-        #       storageClassName: ceph-block
-        #       globalMounts:
-        #         - path: /opt/tplink/EAPController/data
-        #     - name: work
-        #       accessMode: "ReadWriteOnce"
-        #       size: 5Gi
-        #       storageClassName: ceph-block
-        #       globalMounts:
-        #         - path: /opt/tplink/EAPController/work
-        #     - name: logs
-        #       accessMode: "ReadWriteOnce"
-        #       size: 5Gi
-        #       storageClassName: ceph-block
-        #       globalMounts:
-        #         - path: /opt/tplink/EAPController/logs
-
         containers:
           main:
             image:
@@ -208,31 +183,31 @@ spec:
     persistence:
       data:
         enabled: true
+        type: persistentVolumeClaim
         accessMode: "ReadWriteOnce"
         size: 5Gi
-        storageClassName: ceph-block
         globalMounts:
           - path: /opt/tplink/EAPController/data
 
       work:
         enabled: true
+        type: persistentVolumeClaim
         accessMode: "ReadWriteOnce"
         size: 5Gi
-        storageClassName: ceph-block
         globalMounts:
           - path: /opt/tplink/EAPController/work
 
       logs:
         enabled: true
+        type: persistentVolumeClaim
         accessMode: "ReadWriteOnce"
         size: 5Gi
-        storageClassName: ceph-block
         globalMounts:
           - path: /opt/tplink/EAPController/logs
 
       backup:
         type: nfs
         server: ${NAS_NAME}
-        path: ${NFS_BACKUP}
+        path: ${NFS_BACKUP}/omada_controller
         globalMounts:
-          - path: /backup
+          - path: /opt/tplink/EAPController/data/autobackup
