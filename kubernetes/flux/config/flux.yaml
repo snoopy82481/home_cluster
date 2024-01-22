@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
@@ -10,6 +11,7 @@ spec:
   ref:
     tag: v2.2.2
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -39,7 +41,7 @@ spec:
     - patch: |
         - op: add
           path: /spec/template/spec/containers/0/args/-
-          value: --concurrent=8
+          value: --concurrent=12
         - op: add
           path: /spec/template/spec/containers/0/args/-
           value: --kube-api-qps=500
@@ -69,18 +71,18 @@ spec:
       target:
         kind: Deployment
         name: (kustomize-controller|helm-controller|source-controller)
-    # Enable drift detection for HelmReleases and set the log level to debug
-    # https://fluxcd.io/flux/components/helm/helmreleases/#drift-detection
-    # - patch: |
-    #     - op: add
-    #       path: /spec/template/spec/containers/0/args/-
-    #       value: --feature-gates=DetectDrift=true,CorrectDrift=false
-    #     - op: add
-    #       path: /spec/template/spec/containers/0/args/-
-    #       value: --log-level=debug
-    #   target:
-    #     kind: Deployment
-    #     name: helm-controller
+    # Enable in-memory-kustomize builds
+    # Ref: https://fluxcd.io/flux/installation/configuration/vertical-scaling/#enable-in-memory-kustomize-builds
+    - patch: |
+        - op: replace
+          path: /spec/template/spec/volumes/0
+          value:
+            name: temp
+            emptyDir:
+              medium: Memory
+      target:
+        kind: Deployment
+        name: kustomize-controller
     # Enable Helm near OOM detection
     # https://fluxcd.io/flux/cheatsheets/bootstrap/#enable-helm-near-oom-detection
     - patch: |

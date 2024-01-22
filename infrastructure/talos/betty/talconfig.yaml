@@ -38,13 +38,9 @@ nodes:
     networkInterfaces:
       - interface: enp2s0
         dhcp: true
-        vlans:
-          - &vlan20
-            vlanId: 20
-            mtu: 1500
-            dhcp: true
-            dhcpOptions:
-              routeMetric: 4096
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kmaster2.${domainName}
     ipAddress: 192.168.20.6
@@ -53,8 +49,9 @@ nodes:
     networkInterfaces:
       - interface: enp2s0
         dhcp: true
-        vlans:
-          - *vlan20
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kmaster3.${domainName}
     ipAddress: 192.168.20.7
@@ -63,8 +60,9 @@ nodes:
     networkInterfaces:
       - interface: eno1
         dhcp: true
-        vlans:
-          - *vlan20
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kworker1.${domainName}
     ipAddress: 192.168.20.8
@@ -73,8 +71,9 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        vlans:
-          - *vlan20
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kworker2.${domainName}
     ipAddress: 192.168.20.9
@@ -83,8 +82,9 @@ nodes:
     networkInterfaces:
       - interface: eno1
         dhcp: true
-        vlans:
-          - *vlan20
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kworker3.${domainName}
     ipAddress: 192.168.20.10
@@ -93,8 +93,9 @@ nodes:
     networkInterfaces:
       - interface: eno1
         dhcp: true
-        vlans:
-          - *vlan20
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
 controlPlane:
   schematic:
