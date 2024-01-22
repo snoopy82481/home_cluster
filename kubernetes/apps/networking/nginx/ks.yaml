@@ -26,7 +26,7 @@ spec:
   dependsOn:
     # - name: cluster-apps-nginx-certificates
     - name: cluster-apps-gateway-internal
-    - name: cluster-apps-cilium
+    - name: cilium
   path: ./kubernetes/apps/networking/nginx/external
   prune: true
   sourceRef:
@@ -46,7 +46,7 @@ spec:
   dependsOn:
     # - name: cluster-apps-nginx-certificates
     - name: cluster-apps-gateway-internal
-    - name: cluster-apps-cilium
+    - name: cilium
   path: ./kubernetes/apps/networking/nginx/internal
   prune: true
   sourceRef:
