@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cert-manager-issuers
-    - name: cluster-apps-cilium
+    - name: cilium
   path: ./kubernetes/apps/networking/gateway/external
   prune: true
   sourceRef:
@@ -26,7 +26,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cert-manager-issuers
-    - name: cluster-apps-cilium
+    - name: cilium
   path: ./kubernetes/apps/networking/gateway/internal
   prune: true
   sourceRef:
