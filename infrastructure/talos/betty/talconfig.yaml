@@ -1,5 +1,5 @@
 ---
-clusterName: ${clusterName}
+clusterName: ${CLUSTER_NAME}
 
 # renovate: image depName=ghcr.io/siderolabs/installer
 talosVersion: v1.6.2
@@ -16,23 +16,23 @@ imageFactory:
   protocol: https
 
 clusterPodNets:
-  - 10.42.0.0/16
+  - ${CLUSTER_PODNET}
 clusterSvcNets:
-  - 10.43.0.0/16
+  - ${CLUSTER_SUBNET}
 
 cniConfig:
   name: none
 
 additionalMachineCertSans: &san
-  - ${clusterEndpointIP}
-  - ${clusterName}.${domainName}
+  - ${CLUSTERENDPOINTIP}
+  - ${CLUSTER_NAME}.${DOMAINNAME}
   - "127.0.0.1"
 
 additionalApiServerCertSans: *san
 
 nodes:
-  - hostname: kmaster1.${domainName}
-    ipAddress: 192.168.20.5
+  - hostname: kmaster1.${DOMAINNAME}
+    ipAddress: &kmaster1 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -42,8 +42,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 192.168.20.1
 
-  - hostname: kmaster2.${domainName}
-    ipAddress: 192.168.20.6
+  - hostname: kmaster2.${DOMAINNAME}
+    ipAddress: &kmaster2 192.168.20.6
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -53,8 +53,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 192.168.20.1
 
-  - hostname: kmaster3.${domainName}
-    ipAddress: 192.168.20.7
+  - hostname: kmaster3.${DOMAINNAME}
+    ipAddress: &kmaster3 192.168.20.7
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -64,8 +64,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 192.168.20.1
 
-  - hostname: kworker1.${domainName}
-    ipAddress: 192.168.20.8
+  - hostname: kworker1.${DOMAINNAME}
+    ipAddress: &kworker1 192.168.20.8
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -75,8 +75,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 192.168.20.1
 
-  - hostname: kworker2.${domainName}
-    ipAddress: 192.168.20.9
+  - hostname: kworker2.${DOMAINNAME}
+    ipAddress: &kworker2 192.168.20.9
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -86,8 +86,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 192.168.20.1
 
-  - hostname: kworker3.${domainName}
-    ipAddress: 192.168.20.10
+  - hostname: kworker3.${DOMAINNAME}
+    ipAddress: &kworker3 192.168.20.10
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -181,17 +181,29 @@ controlPlane:
             - 192.168.20.1
           disableSearchDomain: true
           extraHostEntries:
-            - ip: ${clusterEndpointIP}
+            - ip: ${CLUSTERENDPOINTIP}
               aliases:
-                - ${clusterName}.${domainName}
+                - ${CLUSTER_NAME}.${DOMAINNAME}
         features:
           kubePrism:
             enabled: true
             port: 7445
 
+    # Disable default API server admission plugins.
     - |-
       - op: remove
         path: /cluster/apiServer/admissionControl
+
+    # Enable K8s Talos API Access
+    - |-
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:operator
+            allowedKubernetesNamespaces:
+              - system-controllers
 
 worker:
   schematic:

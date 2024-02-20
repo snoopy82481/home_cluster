@@ -1,3 +1,6 @@
-domainName: idahobealefamily.com
-clusterEndpointIP: 192.168.20.1
-clusterName: betty
+DOMAINNAME: idahobealefamily.com
+CLUSTERENDPOINTIP: 192.168.20.1
+CLUSTER_NAME: betty
+CLUSTER_SUBNET: 10.43.0.0/16
+CLUSTER_PODNET: 10.42.0.0/16
+VXLAN_PORT: 8472

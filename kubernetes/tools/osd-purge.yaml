@@ -42,7 +42,7 @@ spec:
             - "--preserve-pvc"
             - "false"
             - "--force-osd-removal"
-            - "false"
+            - "true"
             - "--osd-ids"
             - "1"
           env:

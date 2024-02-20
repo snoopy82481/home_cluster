@@ -3,20 +3,21 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: disk-wipe-kworker2
-  namespace: rook-ceph
+  namespace: default
 spec:
   restartPolicy: Never
   nodeName: kworker2
   containers:
     - name: disk-wipe
-      image: busybox@sha256:6d9ac9237a84afe1516540f40a0fafdc86859b2141954b4d643af7066d598b74
+      image: ubuntu:latest
       securityContext:
         privileged: true
       command:
         [
           "/bin/sh",
           "-c",
-          "dd if=/dev/zero bs=1M count=100 oflag=direct of=/dev/nvme0n1",
+          "blkdiscard -v /dev/nvme0n1",
+          "partprobe /dev/nvme0n1",
         ]
       resources:
         requests:
