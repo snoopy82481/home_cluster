@@ -7,18 +7,20 @@ resources:
   - ./vpnConfig.sops.yaml
   - ./network-policy.yaml
   - ./helm-release.yaml
-commonLabels:
-  app.kubernetes.io/name: qbittorrent
-  app.kubernetes.io/instance: qbittorrent
-  app.kubernetes.io/component: app
 configMapGenerator:
-  - name: qbittorrent-configmap
-    files:
+  - files:
       - config/categories.json
       - config/qBittorrent.conf
       - config/watched_folders.json
-  - name: qbittorrent-dnsdist
-    files:
+    name: qbittorrent-configmap
+  - files:
       - ./config/dnsdist.conf
+    name: qbittorrent-dnsdist
 generatorOptions:
   disableNameSuffixHash: true
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: app
+      app.kubernetes.io/instance: qbittorrent
+      app.kubernetes.io/name: qbittorrent

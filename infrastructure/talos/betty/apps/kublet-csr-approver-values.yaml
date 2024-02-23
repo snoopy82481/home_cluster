@@ -1,0 +1,3 @@
+---
+providerRegex: ^(kmaster1|kmaster2|kmaster3)$
+bypassDnsResolution: true

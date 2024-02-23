@@ -1,17 +1,12 @@
 ---
 creation_rules:
   - path_regex: infrastructure/.*\.sops\.ya?ml
-    unencrypted_regex: "^(kind)$"
-    age: >-
-      age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
-
-  - path_regex: kubernetes/.*\.sops\.ya?ml
-    encrypted_regex: "^(data|stringData)$"
     key_groups:
       - age:
           - age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
 
-  - path_regex: .*\.sops\.env
+  - path_regex: kubernetes/.*\.sops\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
     key_groups:
       - age:
           - age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm

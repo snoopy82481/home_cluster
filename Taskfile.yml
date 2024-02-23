@@ -1,79 +1,86 @@
 ---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-includes:
-  cluster: .taskfiles/ClusterTasks.yml
-  precommit: .taskfiles/PrecommitTasks.yml
-  terraform: .taskfiles/TerraformTasks.yml
-  sops: .taskfiles/SopsTasks.yml
-  talos: .taskfiles/TalosTasks.yml
-
 vars:
-  PROJECT_DIR:
-    sh: "git rev-parse --show-toplevel"
+  # Directory paths
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
-  TERRAFORM_DIR: "{{.PROJECT_DIR}}/infrastructure/terraform"
-  TALOS_DIR: "{{.PROJECT_DIR}}/infrastructure/talos/betty"
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/infrastructure/terraform"
+  TALOS_DIR: "{{.ROOT_DIR}}/infrastructure/talos/betty"
+  BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
+  PRIVATE_DIR: "{{.ROOT_DIR}}/.private"
+  SCRIPTS_DIR: "{{.ROOT_DIR}}/scripts"
+  # GitHub settings
   CLUSTER: betty
   GITHUB_USER: snoopy82481
   GITHUB_REPO: home_cluster
   GITHUB_BRANCH: main
-
-dotenv: [".config.env"]
+  # File paths
+  AGE_FILE: "{{.ROOT_DIR}}/age.key"
+  BOOTSTRAP_CONFIG_FILE: "{{.ROOT_DIR}}/config.yaml"
+  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
+  MAKEJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/makejinja.toml"
+  PIP_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.txt"
+  # Binary paths
+  PYTHON_BIN: "python3"
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/infrastructure/talos/betty/kubeconfig"
+  KUBECONFIG: "{{.KUBECONFIG_FILE}}"
+  PYTHONDONOTWRITEBYTECODE: "1"
+  SOPS_AGE_KEY_FILE: "{{.AGE_FILE}}"
+  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
+
+includes:
+  kubernetes:
+    aliases: ["k8s"]
+    taskfile: .taskfiles/kubernetes/Taskfile.yaml
+  flux: .taskfiles/flux/Taskfile.yaml
+  repository:
+    aliases: ["repo"]
+    taskfile: .taskfiles/repository/Taskfile.yaml
+  talos: .taskfiles/talos/Taskfile.yaml
+  sops: .taskfiles/sops/Taskfile.yaml
+  workstation: .taskfiles/workstation/Taskfile.yaml
 
 tasks:
+  default: task -l
 
   init:
-    desc: Initialize workstation dependencies with Brew
+    desc: Initialize configuration files
     cmds:
-      - brew install {{.DEPS}} {{.CLI_ARGS}}
-    preconditions:
-      - sh: command -v brew
-        msg: |
-          Homebrew is not installed. Using MacOS, Linux or WSL?
-          Head over to https://brew.sh to get up and running.
-    vars:
-      DEPS: >-
-        age
-        ansible
-        cilium-cli
-        cloudflared
-        direnv
-        fluxcd/tap/flux
-        go-task/tap/go-task
-        helm
-        ipcalc
-        jq
-        kubernetes-cli
-        kustomize
-        pre-commit
-        prettier
-        sops
-        stern
-        weaveworks/tap/gitops
-        yamllint
-        yq
-
-  verify:
-    desc: Verify env settings
-    cmds:
-      - ./configure --verify
+      - mkdir -p {{.PRIVATE_DIR}}
+      - cp -n {{.BOOTSTRAP_CONFIG_FILE | replace ".yaml" ".sample.yaml"}} {{.BOOTSTRAP_CONFIG_FILE}}
+      - cmd: echo === Configuration file copied ===
+        silent: true
+      - cmd: echo Proceed with updating the configuration files...
+        silent: true
+      - cmd: echo {{.BOOTSTRAP_CONFIG_FILE}}
+        silent: true
+    status:
+      - test -f "{{.BOOTSTRAP_CONFIG_FILE}}"
 
   configure:
-    desc: Configure repository from env settings
+    desc: Configure repository from bootstrap vars
+    prompt: Any conflicting config in the root kubernetes and ansible directories will be overwritten... continue?
+    deps: ["workstation:direnv", "workstation:venv", "sops:age-keygen", "init"]
     cmds:
-      - ./configure
+      - task: .template
+      - task: sops:encrypt
+      - task: .validate
 
-  flux:
-    desc: "Install Fluxv2 into a cluster"
-    cmds:
-      - task: cluster:secrets
-      - task: cluster:bootstrap
+  .template:
+    internal: true
+    cmd: "{{.VIRTUAL_ENV}}/bin/makejinja"
+    preconditions:
+      - {msg: "Missing virtual environment", sh: "test -d {{.VIRTUAL_ENV}}"}
+      - msg: "Missing Makejinja config file"
+        sh: "test -f {{.MAKEJINJA_CONFIG_FILE}}"
+      - msg: "Missing Makejinja plugin file"
+        sh: "test -f {{.BOOTSTRAP_DIR}}/scripts/plugin.py"
+      - msg: "Missing bootstrap config file"
+        sh: "test -f {{.BOOTSTRAP_CONFIG_FILE}}"
 
-  os:
-    desc: Shows ARCH
+  .validate:
+    internal: true
     cmds:
-      - echo {{OS}}-{{ARCH}}
+      - task: kubernetes:kubeconform

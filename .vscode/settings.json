@@ -1,5 +1,12 @@
 {
   "ansible.ansibleLint.arguments": "-c .github/linters/.ansible-lint",
+  "ansible.ansible.path": ".venv/bin/ansible",
+  "ansible.python.activationScript": ".venv/bin/activate",
+  "ansible.python.interpreterPath": ".venv/bin/python3",
+  "ansible.validation.enabled": true,
+  "ansible.validation.lint.arguments": "-c ansible/.ansible-lint",
+  "ansible.validation.lint.enabled": true,
+  "ansible.validation.lint.path": ".venv/bin/ansible-lint",
   "files.associations": {
     "*.json5": "jsonc",
     "**/ansible/**/*.yml": "ansible",
@@ -102,5 +109,4 @@
     "jellyfin",
     "gateway"
   ],
-  "ansible.python.interpreterPath": "/bin/python",
 }

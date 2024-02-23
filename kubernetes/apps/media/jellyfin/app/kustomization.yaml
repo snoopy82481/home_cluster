@@ -5,6 +5,8 @@ kind: Kustomization
 namespace: media
 resources:
   - ./helm-release.yaml
-commonLabels:
-  app.kubernetes.io/name: jellyfin
-  app.kubernetes.io/intance: jellyfin
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/intance: jellyfin
+      app.kubernetes.io/name: jellyfin

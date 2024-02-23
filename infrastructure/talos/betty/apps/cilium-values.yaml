@@ -1,0 +1,174 @@
+---
+autoDirectNodeRoutes: true
+
+bandwidthManager:
+  enabled: true
+  bbr: true
+
+bgpControlPlane:
+  enabled: true
+
+bgp:
+  enabled: false
+  announce:
+    loadbalancerIP: false
+
+bpf:
+  masquerade: true
+  tproxy: true
+  autoMount:
+    enabled: true
+
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+cni:
+  exclusive: false
+
+Cluster:
+  name: betty
+  id: 0
+
+clustermesh:
+  useAPIServer: false
+
+debug:
+  enabled: false
+
+disableEnvoyVersionCheck: false
+
+enableIPv4Masquerade: true
+
+enableIPv6Masquerade: true
+
+enableCnpStatusUpdates: true
+
+endpointStatus:
+  enabled: true
+  status: "policy"
+
+endpointRoutes:
+  enabled: false
+
+envoy:
+  enabled: false
+  prometheus:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+externalIPs:
+  enabled: true
+
+gatewayAPI:
+  enabled: false
+
+hostPort:
+  enabled: false
+
+hostServices:
+  enabled: true
+  protocols: tcp,udp
+
+hubble:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
+
+  relay:
+    enabled: true
+    rollOutPods: true
+
+  ui:
+    enabled: true
+    ingress:
+      enabled: false
+    rollOutPods: true
+
+ipam:
+  mode: "kubernetes"
+  operator:
+    clusterPoolIPv4PodCIDRList: ["10.42.0.0/16"]
+    clusterPoolIPv4MaskSize: 24
+    clusterPoolIPv6PodCIDRList: ["fd00::/104"]
+    clusterPoolIPv6MaskSize: 120
+
+ingressController:
+  enabled: false
+  loadbalancerMode: shared
+
+ipv4NativeRoutingCIDR: 10.42.0.0/16
+
+ipv6:
+  enabled: false
+
+kubeProxyReplacement: true
+
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
+k8sServiceHost: localhost
+
+k8sServicePort: 7445
+
+l7Proxy: true
+
+LoadBalancer:
+  algorithm: meglev
+  mode: dsr
+
+localRedirectPolicy: true
+
+masquerade: true
+
+nodePort:
+  enabled: true
+  range: "30000,32767"
+
+operator:
+  replicas: 1
+  rollOutPods: true
+  prometheus:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+prometheus:
+  enabled: false
+  serviceMonitor:
+    enabled: false
+    trustCRDsExist: true
+
+rollOutCiliumPods: true
+
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+
+tunnel: "disabled"

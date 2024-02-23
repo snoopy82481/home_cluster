@@ -26,5 +26,22 @@ kubeconfig
 # Talos clusterconfigs
 infrastructure/talos/**/clusterconfig
 infrastructure/talos/**/_out
-kubernetes/apps/networking/gateway/gateway.yaml
-kubernetes/apps/networking/nginx/ingress.yaml
+
+# Ansible
+.venv*
+
+# Private
+.private
+.bin
+
+# Taskfile
+.task
+
+# intellij
+.idea
+
+# wiki
+wiki
+
+# Bootstrap
+/config.yaml
