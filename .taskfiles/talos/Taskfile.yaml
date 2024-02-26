@@ -6,6 +6,8 @@ vars:
   TALOS_DIR: "{{.KUBERNETES_DIR}}/bootstrap/talos"
   TALHELPER_SECRET_FILE: "{{.TALOS_DIR}}/talhelper.sops.yaml"
   TALHELPER_CONFIG_FILE: "{{.TALOS_DIR}}/talconfig.yaml"
+  SCHEMATIC_ID:
+    sh: "curl -sX POST --data-binary @infrastructure/talos/betty/schematic.yaml https://factory.talos.dev/schematics | yq .id"
 
 env:
   TALOSCONFIG: "{{.TALOS_DIR}}/clusterconfig/talosconfig"
@@ -105,11 +107,29 @@ tasks:
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper gencommand reset --extra-flags "--reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false" | bash
 
+  soft-nuke-one:
+    desc: Resets nodes back to maintenance mode so you can re-deploy again straight after
+    prompt: This will destroy your cluster and reset the nodes back to maintenance mode... continue?
+    dir: "{{.TALOS_DIR}}"
+    cmd: talhelper gencommand reset -node {{.node}} --extra-flags "--reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false" | bash
+    requires:
+      vars: ["node"]
+
   hard-nuke:
     desc: Resets nodes back completely and reboots them
     prompt: This will destroy your cluster and reset the nodes... continue?
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash
+
+  reboot:
+    desc: Reboots all Talos nodes
+    cmds:
+      - talosctl reboot -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
+
+  shutdown:
+    desc: Shuts down all Talos nodes
+    cmds:
+      - talosctl shutdown -n 192.168.20.5,192.168.20.6,192.168.20.7,192.168.20.8,192.168.20.9,192.168.20.10
 
   .reset:
     internal: true

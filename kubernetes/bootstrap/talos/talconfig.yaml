@@ -2,9 +2,9 @@
 clusterName: ${CLUSTER_NAME}
 
 # renovate: image depName=ghcr.io/siderolabs/installer
-talosVersion: v1.6.2
+talosVersion: v1.6.5
 # renovate: image depName=registry.k8s.io/kube-apiserver
-kubernetesVersion: v1.29.1
+kubernetesVersion: v1.29.2
 endpoint: "https://192.168.20.1:6443"
 
 allowSchedulingOnMasters: true
@@ -35,7 +35,7 @@ nodes:
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: enp2s0
+      - interface: eth0
         dhcp: true
         routes:
           - network: 0.0.0.0/0
@@ -57,7 +57,7 @@ nodes:
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eno1
+      - interface: eno2
         dhcp: true
         routes:
           - network: 0.0.0.0/0
@@ -79,7 +79,7 @@ nodes:
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eno1
+      - interface: eth0
         dhcp: true
         routes:
           - network: 0.0.0.0/0
@@ -90,7 +90,7 @@ nodes:
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eno1
+      - interface: eth0
         dhcp: true
         routes:
           - network: 0.0.0.0/0
