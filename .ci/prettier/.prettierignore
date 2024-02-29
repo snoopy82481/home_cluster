@@ -1,2 +1,5 @@
+.direnv
+.private
+.vscode
 *.sops.*
 gotk-components.yaml
