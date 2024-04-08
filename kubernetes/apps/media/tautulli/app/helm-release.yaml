@@ -51,7 +51,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/tautulli
-              tag: 2.13.4@sha256:ef720238bed6c1ddafeb74e2b686a2b15d948b2af6883adfbbdc7157f76aa402
+              tag: 2.13.4@sha256:2e9a2c9926fb0357000cba88a88393edfd9d1b2e4513d21688fdc249dd69aa70
 
             env:
               TZ: ${TIMEZONE}
