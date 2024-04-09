@@ -44,7 +44,7 @@ spec:
           main:
             image:
               repository: ghcr.io/flaresolverr/flaresolverr
-              tag: v3.3.15@sha256:f7b83961eaf7de4fc1d6c6350dc79f8626fa3019169bc25e4323305f12fb227f
+              tag: v3.3.17@sha256:5f5661db1e69a6f80ac24d47d9fa5580f6f741ee5ec967818396ae0dacecd7ea
 
             env:
               TZ: ${TIMEZONE}
