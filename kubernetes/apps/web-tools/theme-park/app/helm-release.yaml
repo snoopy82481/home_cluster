@@ -49,7 +49,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/theme-park
-              tag: 1.15.1@sha256:a22b171c05c63ec4d52b8c042bafb8f58fc4cd426069d221d792a1fc9864535d
+              tag: 1.16.2@sha256:6c780d6a9048a2f1361bff20490315b340e78f0b064b943a57fccfd2fcbaf274
 
             resources:
               requests:
