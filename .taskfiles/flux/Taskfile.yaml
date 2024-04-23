@@ -4,7 +4,7 @@ version: "3"
 
 vars:
   # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-  PROMETHEUS_OPERATOR_VERSION: v0.71.2
+  PROMETHEUS_OPERATOR_VERSION: v0.73.0
   # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
   GATEWAY_API_VERSION: v1.0.0
   CLUSTER_SECRET_SOPS_FILE: "{{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml"
