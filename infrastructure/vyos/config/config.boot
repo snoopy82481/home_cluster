@@ -34,16 +34,12 @@ container {
         environment TZ {
             value "${TIMEZONE}"
         }
-        environment PGID {
-            value 1000
-        }
-        environment PUID {
-            value 1000
-        }
+        gid 1000
         image docker.io/favonia/cloudflare-ddns:1.9.4
         memory 0
         restart on-failure
         shared-memory 0
+        uid 1000
     }
     name haproxy-k8s-api {
         image docker.io/library/haproxy:2.8.0
