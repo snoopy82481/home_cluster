@@ -10,12 +10,12 @@ set container name cloudflare-ddns environment CF_API_TOKEN value "${SECRET_CLOU
 set container name cloudflare-ddns environment DOMAINS value "ipv4.${SECRET_DOMAIN}"
 set container name cloudflare-ddns environment IP6_PROVIDER value "none"
 set container name cloudflare-ddns environment TZ value "${TIMEZONE}"
-set container name cloudflare-ddns environment PGID value "1000"
-set container name cloudflare-ddns environment PUID value "1000"
+set container name cloudflare-ddns gid '1000'
 set container name cloudflare-ddns image 'docker.io/favonia/cloudflare-ddns:1.9.4'
 set container name cloudflare-ddns memory '0'
 set container name cloudflare-ddns restart 'on-failure'
 set container name cloudflare-ddns shared-memory '0'
+set container name cloudflare-ddns uid '1000'
 
 # bind
 set container name bind cap-add 'net-bind-service'
