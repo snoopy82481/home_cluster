@@ -61,7 +61,7 @@ spec:
           main:
             image:
               repository: recyclarr/recyclarr
-              tag: edge@sha256:6aa8efa4048a96b67ab25a01e1c1346f944693af87d7bc082fb2bc0748ce5e1d
+              tag: edge@sha256:4d49b75324aed3855aef36449a85bcbe52ff2453085ce90f9e9b898590b7bd31
 
             envFrom:
               - secretRef:
