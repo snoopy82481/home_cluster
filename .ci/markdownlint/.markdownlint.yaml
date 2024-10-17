@@ -1,4 +1,5 @@
 ---
+# https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml
 default: true
 
 # MD013/line-length - Line length
@@ -15,9 +16,15 @@ MD013:
   tables: true
   # Include headings
   headings: true
-  # Include headings
-  headers: true
   # Strict length checking
   strict: false
   # Stern length checking
   stern: false
+
+# MD024/no-duplicate-heading/no-duplicate-header - Multiple headings with the same content
+MD024:
+  # Only check sibling headings
+  siblings_only: true
+
+# MD033/no-inline-html - Inline HTML
+MD033: false
