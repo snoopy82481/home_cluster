@@ -61,7 +61,7 @@ resource "proxmox_vm_qemu" "talos_worker" {
   sockets  = 2
   cpu      = "IvyBridge"
   balloon  = 0
-  memory   = 20480
+  memory   = 32768
   scsihw   = "virtio-scsi-pci"
   boot     = "cdn"
   bootdisk = "scsi0"

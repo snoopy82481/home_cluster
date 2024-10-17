@@ -2,12 +2,17 @@
 clusterName: ${CLUSTER_NAME}
 
 # renovate: image depName=ghcr.io/siderolabs/installer
-talosVersion: v1.8.1
+talosVersion: v1.6.5
 # renovate: image depName=registry.k8s.io/kube-apiserver
-kubernetesVersion: v1.31.1
+kubernetesVersion: v1.29.2
 endpoint: "https://192.168.20.1:6443"
 
 allowSchedulingOnMasters: true
+
+imageFactory:
+  registryURL: factory.talos.dev
+  schematicEndpoint: /schematics
+  protocol: https
 
 clusterPodNets:
   - ${CLUSTER_PODNET}
@@ -29,38 +34,77 @@ nodes:
     ipAddress: &kmaster1 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kmaster2.${DOMAINNAME}
     ipAddress: &kmaster2 192.168.20.6
     controlPlane: true
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: enp2s0
+        dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kmaster3.${DOMAINNAME}
     ipAddress: &kmaster3 192.168.20.7
     controlPlane: true
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eno2
+        dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kworker1.${DOMAINNAME}
     ipAddress: &kworker1 192.168.20.8
     controlPlane: false
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kworker2.${DOMAINNAME}
     ipAddress: &kworker2 192.168.20.9
     controlPlane: false
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
   - hostname: kworker3.${DOMAINNAME}
     ipAddress: &kworker3 192.168.20.10
     controlPlane: false
     installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
 
 controlPlane:
   schematic:
     customization:
+      extraKernelArgs:
+        - net.ifnames=0
       systemExtensions:
         officialExtensions:
-          - siderolabs/qemu-guest-agent
+          - siderolabs/i915-ucode
+          - siderolabs/intel-ucode
 
   patches:
     - |-
@@ -91,6 +135,8 @@ controlPlane:
       machine:
         kubelet:
           extraArgs:
+            image-gc-high-threshold: 55
+            image-gc-low-threshold: 50
             rotate-server-certificates: "true"
           extraConfig:
             maxPods: 150
@@ -99,6 +145,7 @@ controlPlane:
               - 192.168.20.0/24
         install:
           extraKernelArgs:
+            - "pcie_aspm=off"
             - "talos.logging.kernel=udp://192.168.20.52:6050/"
         logging:
           destinations:
@@ -139,12 +186,6 @@ controlPlane:
           nameservers:
             - 192.168.20.1
           disableSearchDomain: true
-          interfaces:
-            - interface: eth0
-              routes:
-                - network: 0.0.0.0/0
-                  gateway: 192.168.20.1
-              dhcp: true
           extraHostEntries:
             - ip: ${CLUSTERENDPOINTIP}
               aliases:
@@ -168,9 +209,12 @@ controlPlane:
 worker:
   schematic:
     customization:
+      extraKernelArgs:
+        - net.ifnames=0
       systemExtensions:
         officialExtensions:
-          - siderolabs/qemu-guest-agent
+          - siderolabs/i915-ucode
+          - siderolabs/intel-ucode
 
   patches:
     - |-
@@ -183,6 +227,8 @@ worker:
       machine:
         kubelet:
           extraArgs:
+            image-gc-high-threshold: 55
+            image-gc-low-threshold: 50
             rotate-server-certificates: "true"
           extraConfig:
             maxPods: 150
@@ -191,6 +237,8 @@ worker:
               - 192.168.20.0/24
         install:
           extraKernelArgs:
+            - "pcie_aspm=off"
+            - "nvme_core.default_ps_max_latency_us=0"
             - "talos.logging.kernel=udp://192.168.20.52:6050/"
         logging:
           destinations:
@@ -231,12 +279,6 @@ worker:
           nameservers:
             - 192.168.20.1
           disableSearchDomain: true
-          interfaces:
-            - interface: eth0
-              routes:
-                - network: 0.0.0.0/0
-                  gateway: 192.168.20.1
-              dhcp: true
         features:
           kubePrism:
             enabled: true
