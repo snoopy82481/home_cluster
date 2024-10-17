@@ -2,7 +2,6 @@
 version: "3"
 
 tasks:
-
   cloudflare-init:
     desc: Initialize cloudflare terraform dependencies
     dir: infrastructure/terraform/cloudflare
@@ -40,7 +39,7 @@ tasks:
       - terraform apply --auto-approve {{.CLI_ARGS}}
 
   proxmox-destroy:
-    desc: Apply the changes to proxmox
+    desc: Destroy VM's listed in plan on proxmox
     dir: infrastructure/terraform/vm
     cmds:
       - terraform apply --destroy --auto-approve {{.CLI_ARGS}}

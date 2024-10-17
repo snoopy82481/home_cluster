@@ -41,6 +41,7 @@ includes:
   talos: .taskfiles/talos/Taskfile.yaml
   sops: .taskfiles/sops/Taskfile.yaml
   workstation: .taskfiles/workstation/Taskfile.yaml
+  terraform: .taskfiles/terraform/Taskfile.yaml
 
 tasks:
   default: task -l

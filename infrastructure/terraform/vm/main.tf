@@ -15,7 +15,6 @@ resource "proxmox_vm_qemu" "talos_master" {
 
   target_node = var.proxmox_host
   vmid        = var.master_vmid + count.index
-  iso         = "local:iso/metal-amd64.iso"
 
   agent    = 1
   os_type  = "linux"
@@ -25,25 +24,35 @@ resource "proxmox_vm_qemu" "talos_master" {
   balloon  = 0
   memory   = 16384
   scsihw   = "virtio-scsi-pci"
-  boot     = "cdn"
-  bootdisk = "scsi0"
-  oncreate = false
+  boot     = "order=sata0;sata1"
+  vm_state = "stopped"
+  onboot   = true
+  startup  = "order=15,up=30"
 
-  disk {
-    slot     = 0
-    size     = "40G"
-    type     = "scsi"
-    storage  = "local-lvm"
-    iothread = 1
-    discard  = "on"
+  disks {
+    sata {
+      sata0 {
+        disk {
+          size    = "40G"
+          storage = "local-lvm"
+          discard = true
+        }
+      }
+      sata1 {
+        cdrom {
+          iso = "local:iso/metal-amd64.iso"
+        }
+      }
+    }
   }
 
+
   network {
-    model    = "virtio"
-    bridge   = "vmbr0"
-    firewall = false
-    tag      = 20
-    macaddr  = var.master_mac[count.index]
+    model   = "virtio"
+    bridge  = "vmbr0"
+    mtu     = 1
+    tag     = 20
+    macaddr = var.master_mac[count.index]
   }
 }
 
@@ -53,7 +62,6 @@ resource "proxmox_vm_qemu" "talos_worker" {
 
   target_node = var.proxmox_host
   vmid        = var.worker_vmid + count.index
-  iso         = "local:iso/metal-amd64.iso"
 
   agent    = 1
   os_type  = "linux"
@@ -63,33 +71,40 @@ resource "proxmox_vm_qemu" "talos_worker" {
   balloon  = 0
   memory   = 32768
   scsihw   = "virtio-scsi-pci"
-  boot     = "cdn"
-  bootdisk = "scsi0"
-  oncreate = false
+  boot     = "order=sata0;sata2"
+  vm_state = "stopped"
+  onboot   = true
+  startup  = "order=15,up=30"
 
-  disk {
-    slot     = 0
-    size     = "40G"
-    type     = "scsi"
-    storage  = "local-lvm"
-    iothread = 1
-    discard  = "on"
-  }
-
-  disk {
-    slot     = 1
-    size     = "100G"
-    type     = "scsi"
-    storage  = "local-lvm"
-    iothread = 1
-    discard  = "on"
+  disks {
+    sata {
+      sata0 {
+        disk {
+          size    = "40G"
+          storage = "local-lvm"
+          discard = true
+        }
+      }
+      sata1 {
+        disk {
+          size    = "100G"
+          storage = "local-lvm"
+          discard = true
+        }
+      }
+      sata2 {
+        cdrom {
+          iso = "local:iso/metal-amd64.iso"
+        }
+      }
+    }
   }
 
   network {
-    model    = "virtio"
-    bridge   = "vmbr0"
-    firewall = false
-    tag      = 20
-    macaddr  = var.worker_mac[count.index]
+    model   = "virtio"
+    bridge  = "vmbr0"
+    mtu     = 1
+    tag     = 20
+    macaddr = var.worker_mac[count.index]
   }
 }
