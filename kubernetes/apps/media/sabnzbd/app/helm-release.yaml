@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app sabnzbd
@@ -55,7 +55,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/sabnzbd
-              tag: 4.2.3@sha256:8943148a1ac5d6cc91d2cc2aa0cae4f0ab3af49fb00ca2d599fbf0344798bc37
+              tag: 4.3.3@sha256:6614d759bbaa6884926c6aa75018339bd35cd1add0ff92c907087327dd470477
             env:
               TZ: ${TIMEZONE}
               SABNZBD__PORT: &port 8080

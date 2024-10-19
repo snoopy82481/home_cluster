@@ -69,7 +69,7 @@ resource "proxmox_vm_qemu" "talos_worker" {
   sockets  = 2
   cpu      = "IvyBridge"
   balloon  = 0
-  memory   = 32768
+  memory   = 20480
   scsihw   = "virtio-scsi-pci"
   boot     = "order=sata0;sata2"
   vm_state = "stopped"
