@@ -1,0 +1,184 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app qbtools
+  namespace: downloads
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 30m
+  maxHistory: 2
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: qbittorrent
+      namespace: downloads
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        seccompProfile:
+          type: RuntimeDefault
+
+    controllers:
+      tagging:
+        type: cronjob
+        cronjob: &cronJobSpec
+          schedule: "@hourly"
+          timeZone: &timeZone ${TIMEZONE}
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+
+        initContainers:
+          tag: &container
+            image:
+              repository: ghcr.io/buroa/qbtools
+              tag: v0.19.3@sha256:ac16aa76a78d3ece395f3e037defaf48328f73f4f83afc9c772bf814b9ded56e
+
+            env:
+              QBITTORRENT_HOST: qbittorrent.downloads.svc.cluster.local
+              QBITTORRENT_PORT: 8080
+              SABNZBD_HOST: sabnzbd.media.svc.cluster.local
+              SABNZBD_PORT: 8080
+              SABNZBD_API_KEY: ${SABNZBD_API_KEY}
+              TZ: *timeZone
+
+            envFrom:
+              - secretRef:
+                  name: qbtools-secret
+
+            args:
+              - tagging
+              - --added-on
+              - --expired
+              - --last-activity
+              - --sites
+              - --unregistered
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
+
+            resources:
+              requests:
+                cpu: 25m
+              limits:
+                memory: 256M
+
+        containers:
+          unregistered:
+            <<: *container
+            args:
+              - prune
+              - --exclude-category
+              - manual
+              - --exclude-category
+              - music
+              - --exclude-tag
+              - added:1d
+              - --include-tag
+              - unregistered
+
+          expired:
+            <<: *container
+            args:
+              - prune
+              - --exclude-category
+              - manual
+              - --exclude-category
+              - music
+              - --exclude-tag
+              - added:1d
+              - --include-tag
+              - expired
+        pod:
+          restartPolicy: OnFailure
+
+      orphaned:
+        type: cronjob
+        cronjob:
+          <<: *cronJobSpec
+          schedule: "@weekly"
+
+        containers:
+          app:
+            <<: *container
+            args:
+              - orphaned
+              - --exclude-pattern
+              - "*_unpackerred*"
+              - --exclude-pattern
+              - "*/manual/*"
+
+        pod:
+          restartPolicy: OnFailure
+
+      reannounce:
+        containers:
+          app:
+            <<: *container
+            args:
+              - reannounce
+              - --process-seeding
+
+      limiter:
+        containers:
+          app:
+            <<: *container
+            args:
+              - limiter
+              - --max-line-speed-mbps
+              - 100
+              - --max-percent
+              - 0.8
+              - --limit-percent
+              - 0.4
+              - --interval
+              - 5
+
+    persistence:
+      secret-file:
+        type: secret
+        name: qbtools-config-secret
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
+
+      media:
+        type: nfs
+        server: ${NAS_NAME}
+        path: ${NFS_DATA}
+        advancedMounts:
+          main:
+            main:
+              - path: /media

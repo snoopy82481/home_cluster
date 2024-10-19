@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.5.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -35,49 +35,76 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      sonarranime:
         annotations:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 65539
-
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.4.1515@sha256:77a9c8cd3911f3bddbf89b47fe8ad939fac2a1cf587833b5a43eca1b8f58e249
+              tag: 4.0.9.2513@sha256:31c0f7881c18d496a45616bad4b02ab6588b95836615122042c8709d5edb0241
 
             env:
               TZ: "${TIMEZONE}"
-              SONARR__INSTANCE_NAME: "Sonarr Anime"
-              SONARR__API_KEY: ${SONARR_ANIME_APIKEY}
-              SONARR__PORT: &port 8989
-              SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              SONARR__LOG_LEVEL: info
+              SONARR__APP__INSTANCENAME: "Sonarr Anime"
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__AUTH__APIKEY: ${SONARR_ANIME_APIKEY}
+              SONARR__UPDATE__BRANCH: develop
+              SONARR__SERVER__PORT: &port 8989
+              SONARR__LOG__LEVEL: info
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
 
             resources:
               requests:
-                cpu: 20m
-                memory: 1000M
+                cpu: 100m
               limits:
-                memory: 1000M
+                memory: 4Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 10000
+        seccompProfile:
+          type: RuntimeDefault
 
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -91,8 +118,8 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
-                  port: http
+                  name: app
+                  port: *port
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:

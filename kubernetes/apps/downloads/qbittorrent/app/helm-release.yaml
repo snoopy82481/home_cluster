@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.5.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -33,7 +33,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controllers:
+    qbittorrent:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
@@ -49,8 +49,8 @@ spec:
               - 10000
 
         containers:
-          main:
-            nameOverride: qbittorrent
+          app:
+            nameOverride: *app
 
             image:
               repository: ghcr.io/onedr0p/qbittorrent
@@ -59,12 +59,25 @@ spec:
             env:
               TZ: ${TIMEZONE}
               UMASK: "022"
-              QBITTORRENT__PORT: &port 8080
-              QBITTORRENT__BT_PORT: &btport 51820
+              QBT_WEBUI_PORT: &port 8080
 
-            securityContext:
-              runAsUser: 568
-              runAsGroup: 568
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
 
             resources:
               requests:
@@ -79,40 +92,44 @@ spec:
               tag: v3.38.0@sha256:5522794f5cce6d84bc7f06b1e3a3b836ede9100c64aec94543cb503bb2ecb72f
 
             env:
-              - name: VPN_TYPE
-                value: wireguard
-              - name: VPN_INTERFACE
-                value: wg0
-              - name: VPN_ENDPOINT_PORT
-                value: "51820"
-              - name: DOT
-                value: "off"
-              - name: UPDATER_PERIOD
-                value: "24h"
-              - name: FIREWALL_OUTBOUND_SUBNETS
-                # Allow access to k8s subnets
-                value: "10.43.0.0/16,10.42.0.0/16"
-              - name: FIREWALL_INPUT_PORTS
-                value: "8080"
-              - name: UPDATER_VPN_SERVICE_PROVIDERS
+              DOT: "off"
+              VPN_INTERFACE: wg0
+              FIREWALL_OUTBOUND_SUBNETS: 10.43.0.0/16,10.42.0.0/16 # Allow access to k8s subnets
+              VPN_TYPE: wireguard
+              FIREWALL_INPUT_PORTS: *port
+              UPDATER_PERIOD: "24h"
+              UPDATER_VPN_SERVICE_PROVIDERS:
                 valueFrom:
                   secretKeyRef:
                     name: vpnconfig
                     key: VPN_SERVICE_PROVIDER
-              - name: TZ
-                value: ${TIMEZONE}
+              TZ: ${TIMEZONE}
 
             envFrom:
               - secretRef:
                   name: vpnconfig
 
             securityContext:
+              allowPrivilegeEscalation: false
               capabilities:
                 add:
                   - NET_ADMIN
 
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 10000
+        seccompProfile:
+          type: RuntimeDefault
+
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
@@ -142,8 +159,8 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
-                  port: http
+                  name: app
+                  port: *port
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:

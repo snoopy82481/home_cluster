@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.5.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -35,19 +35,33 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      flaresolverr:
         annotations:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/flaresolverr/flaresolverr
               tag: v3.3.17@sha256:5f5661db1e69a6f80ac24d47d9fa5580f6f741ee5ec967818396ae0dacecd7ea
 
             env:
               TZ: ${TIMEZONE}
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &port 8191
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
 
             resources:
               requests:
@@ -56,11 +70,24 @@ spec:
               limits:
                 memory: 500Mi
 
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 10000
+        seccompProfile:
+          type: RuntimeDefault
+
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
-            port: &port 8191
+            port: *port
 
     persistence:
       config:

@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-qbittorrent
   namespace: flux-system
 spec:
+  targetNamespace: downloads
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: qbittorrent
   interval: 5m
   path: ./kubernetes/apps/downloads/qbittorrent/app
   prune: true
@@ -25,12 +29,16 @@ metadata:
   name: cluster-apps-qbittorrent-tools
   namespace: flux-system
 spec:
+  targetNamespace: downloads
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: qbittorrent-tools
   interval: 10m
   path: ./kubernetes/apps/downloads/qbittorrent/tools
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: true # no flux ks dependents
+  wait: false
   dependsOn:
     - name: cluster-apps-qbittorrent

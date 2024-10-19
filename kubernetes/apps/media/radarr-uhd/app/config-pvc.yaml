@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: radarr4k-config-v1
+  name: radarruhd-config-v1
   namespace: media
   labels:
-    app.kubernetes.io/name: &name radarr4k
+    app.kubernetes.io/name: &name radarruhd
     app.kubernetes.io/instance: *name
 spec:
   accessModes:
