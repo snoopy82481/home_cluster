@@ -2,8 +2,8 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "Ignore updating archive folder",
   "ignorePaths": [
-    "archive/**",
-    "infrastructure/talos/betty/integrations/cni/cilium.yaml",
-    "infrastructure/talos/betty/integrations/kublet-csr-approver/kublet-csr-approver.yaml"
+    "**/*.sops.*",
+    "**/.archive/**",
+    "infrastructure/talos/betty/integrations/**"
   ]
 }
