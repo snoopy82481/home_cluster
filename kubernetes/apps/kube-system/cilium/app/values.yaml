@@ -43,8 +43,6 @@ enableIPv4Masquerade: true
 
 enableIPv6Masquerade: true
 
-enableCnpStatusUpdates: true
-
 endpointStatus:
   enabled: true
   status: "policy"
@@ -152,7 +150,7 @@ prometheus:
 
 rollOutCiliumPods: true
 
-routingMode: native
+routingMode: ""
 
 securityContext:
   capabilities:
@@ -172,3 +170,5 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
+
+tunnelProtocol: ""
