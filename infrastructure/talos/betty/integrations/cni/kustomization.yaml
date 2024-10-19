@@ -10,7 +10,7 @@ helmCharts:
     releaseName: cilium
     repo: https://helm.cilium.io/
     valuesFile: cilium-values.yaml
-    version: 1.15.1
+    version: 1.15.10
 
 commonAnnotations:
   meta.helm.sh/release-name: cilium
