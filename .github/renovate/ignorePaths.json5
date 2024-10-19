@@ -3,7 +3,7 @@
   "description": "Ignore updating archive folder",
   "ignorePaths": [
     "**/*.sops.*",
-    "**/.archive/**",
+    "**/archive/**",
     "infrastructure/talos/betty/integrations/**"
   ]
 }
