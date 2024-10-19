@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -35,49 +35,76 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      radarranime:
         annotations:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 65539
-
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/radarr-develop
               tag: 5.5.0.8730@sha256:9ca40af1db9d5ed91cd69f7f2ab602ae937c15ee8c792c5226244019fec4862c
 
             env:
               TZ: ${TIMEZONE}
-              RADARR__INSTANCE_NAME: "Radarr Anime"
-              RADARR__API_KEY: ${RADARR_ANIME_APIKEY}
-              RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              RADARR__PORT: &port 7878
-              RADARR__LOG_LEVEL: info
+              RADARR__APP__INSTANCENAME: "Radarr Anime"
+              RADARR__APP__THEME: dark
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__AUTH__APIKEY: ${RADARR_ANIME_APIKEY}
+              RADARR__SERVER__PORT: &port 7878
+              RADARR__LOG__LEVEL: info
+              RADARR__UPDATE__BRANCH: develop
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
 
             resources:
               requests:
-                cpu: 14m
-                memory: 431M
+                cpu: 100m
               limits:
-                memory: 431M
+                memory: 4Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 10000
+        seccompProfile:
+          type: RuntimeDefault
 
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -91,8 +118,8 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
-                  port: http
+                  name: app
+                  port: *port
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:

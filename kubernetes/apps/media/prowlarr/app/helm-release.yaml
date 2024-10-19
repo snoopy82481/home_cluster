@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -42,35 +42,26 @@ spec:
       namespace: rook-ceph
   values:
     controllers:
-      main:
+      prowlarr:
         annotations:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 10000
-
         containers:
-          main:
+          app:
             image:
-              repository: ghcr.io/onedr0p/prowlarr-nightly
-              tag: 1.17.0.4448@sha256:b5c83d391e0c362ec06007705bdb67366ea7c1f8ee61001eeea8bce32a686df4
+              repository: ghcr.io/onedr0p/prowlarr-develop
+              tag: 1.25.2.4794@sha256:4ff88b9911a9d8232bc1a0065b9423ea631c591c5fe0959effb3b1c093ef4930
 
             env:
-              PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 9696
-              PROWLARR__LOG_LEVEL: info
-              PROWLARR__ANALYTICS_ENABLED: "False"
-              PROWLARR__API_KEY: ${PROWLARR_APIKEY}
-              PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__THEME: dark
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__AUTH__APIKEY: ${PROWLARR_APIKEY}
+              PROWLARR__SERVER__PORT: &port 9696
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__UPDATE__BRANCH: develop
               TZ: ${TIMEZONE}
 
             probes:
@@ -96,14 +87,27 @@ spec:
               limits:
                 memory: 256Mi
 
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 10000
+        seccompProfile:
+          type: RuntimeDefault
+
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -116,8 +120,8 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
-                  port: http
+                  name: app
+                  port: *port
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
@@ -134,3 +138,6 @@ spec:
         path: ${NFS_BACKUP}
         globalMounts:
           - path: /backup
+
+      tmp:
+        type: emptyDir

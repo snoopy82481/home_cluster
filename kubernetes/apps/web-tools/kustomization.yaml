@@ -5,4 +5,3 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - ./hajimari/ks.yaml
-  - ./theme-park/ks.yaml

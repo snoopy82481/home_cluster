@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -35,7 +35,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      sabnzbd:
         type: statefulset
 
         statefulset:
@@ -51,17 +51,8 @@ spec:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 65539
-
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/sabnzbd
               tag: 4.2.3@sha256:8943148a1ac5d6cc91d2cc2aa0cae4f0ab3af49fb00ca2d599fbf0344798bc37
@@ -78,15 +69,48 @@ spec:
               SABNZBD__API_KEY: ${SABNZBD_API_KEY}
               SABNZBD__NZB_KEY: ${SABNZBD_NZB_KEY}
 
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api?mode=version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
+
             resources:
               requests:
-                cpu: 5m
-                memory: "1024M"
+                cpu: 100m
               limits:
-                memory: "4096M"
+                memory: 8Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 10000
+        seccompProfile:
+          type: RuntimeDefault
 
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
@@ -105,8 +129,8 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
-                  port: http
+                  name: app
+                  port: *port
         tls:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:

@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -27,7 +28,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      cloudflared:
         replicas: 1
         strategy: RollingUpdate
 
@@ -44,7 +45,7 @@ spec:
                   app.kubernetes.io/name: cloudflared
 
         containers:
-          main:
+          app:
             image:
               repository: docker.io/cloudflare/cloudflared
               tag: 2024.4.1
@@ -57,9 +58,10 @@ spec:
               - "$(TUNNEL_ID)"
 
             env:
-              NO_AUTOUPDATE: "true"
+              NO_AUTOUPDATE: true
               TUNNEL_CRED_FILE: /etc/cloudflared/creds/credentials.json
               TUNNEL_METRICS: 0.0.0.0:8080
+              TUNNEL_ORIGIN_ENABLE_HTTP2: true
               TUNNEL_TRANSPORT_PROTOCOL: quic
               TUNNEL_POST_QUANTUM: true
               TUNNEL_ID:
@@ -75,39 +77,51 @@ spec:
                 spec:
                   httpGet:
                     path: /ready
-                    port: 8080
+                    port: &port 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-
               readiness: *probes
 
-              startup:
-                enabled: false
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
 
             resources:
               requests:
-                cpu: 6m
-                memory: 105Mi
+                cpu: 10m
               limits:
-                memory: 105Mi
+                memory: 256Mi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
 
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
-            port: 8080
+            port: *port
 
     serviceMonitor:
-      main:
+      app:
+        serviceName: *app
         enabled: true
         endpoints:
           - port: http
             scheme: http
             path: /metrics
             interval: 1m
-            scrapeTimeout: 30s
+            scrapeTimeout: 10s
 
     persistence:
       config:
