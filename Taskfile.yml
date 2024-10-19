@@ -31,57 +31,60 @@ env:
   VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
 
 includes:
-  kubernetes:
-    aliases: ["k8s"]
-    taskfile: .taskfiles/kubernetes/Taskfile.yaml
-  flux: .taskfiles/flux/Taskfile.yaml
-  repository:
-    aliases: ["repo"]
-    taskfile: .taskfiles/repository/Taskfile.yaml
-  talos: .taskfiles/talos/Taskfile.yaml
-  sops: .taskfiles/sops/Taskfile.yaml
-  workstation: .taskfiles/workstation/Taskfile.yaml
-  terraform: .taskfiles/terraform/Taskfile.yaml
+  bootstrap: .taskfiles/bootstrap
+  kubernetes: .taskfiles/kubernetes
+  talos: .taskfiles/talos
+  flux: .taskfiles/flux
+  workstation: .taskfiles/workstation/
+  terraform: .taskfiles/terraform
+  user:
+    taskfile: .taskfiles/user
+    optional: true
 
 tasks:
-  default: task -l
+  default: task --list
 
   init:
     desc: Initialize configuration files
     cmds:
-      - mkdir -p {{.PRIVATE_DIR}}
       - cp -n {{.BOOTSTRAP_CONFIG_FILE | replace ".yaml" ".sample.yaml"}} {{.BOOTSTRAP_CONFIG_FILE}}
-      - cmd: echo === Configuration file copied ===
-        silent: true
-      - cmd: echo Proceed with updating the configuration files...
-        silent: true
-      - cmd: echo {{.BOOTSTRAP_CONFIG_FILE}}
-        silent: true
+      - echo "=== Configuration file copied ==="
+      - echo "Proceed with updating the configuration files..."
+      - echo "{{.BOOTSTRAP_CONFIG_FILE}}"
     status:
-      - test -f "{{.BOOTSTRAP_CONFIG_FILE}}"
+      - test -f {{.BOOTSTRAP_CONFIG_FILE}}
+    silent: true
 
   configure:
     desc: Configure repository from bootstrap vars
-    prompt: Any conflicting config in the root kubernetes and ansible directories will be overwritten... continue?
-    deps: ["workstation:direnv", "workstation:venv", "sops:age-keygen", "init"]
+    prompt: Any conflicting config in the kubernetes directory will be overwritten... continue?
+    deps:
+      ["workstation:direnv", "workstation:venv", "bootstrap:age-keygen", "init"]
     cmds:
-      - task: .template
-      - task: sops:encrypt
-      - task: .validate
+      - task: template
+      - task: bootstrap:encrypt
+      - task: validate
 
-  .template:
+  template:
     internal: true
     cmd: "{{.VIRTUAL_ENV}}/bin/makejinja"
     preconditions:
-      - {msg: "Missing virtual environment", sh: "test -d {{.VIRTUAL_ENV}}"}
-      - msg: "Missing Makejinja config file"
-        sh: "test -f {{.MAKEJINJA_CONFIG_FILE}}"
-      - msg: "Missing Makejinja plugin file"
-        sh: "test -f {{.BOOTSTRAP_DIR}}/scripts/plugin.py"
-      - msg: "Missing bootstrap config file"
-        sh: "test -f {{.BOOTSTRAP_CONFIG_FILE}}"
+      - msg: Missing virtual environment
+        sh: test -d {{.VIRTUAL_ENV}}
+      - msg: Missing Makejinja config file
+        sh: test -f {{.MAKEJINJA_CONFIG_FILE}}
+      - msg: Missing Makejinja plugin file
+        sh: test -f {{.BOOTSTRAP_DIR}}/scripts/plugin.py
+      - msg: Missing bootstrap config file
+        sh: test -f {{.BOOTSTRAP_CONFIG_FILE}}
 
-  .validate:
+  validate:
     internal: true
     cmds:
       - task: kubernetes:kubeconform
+      - echo "=== Done rendering and validating YAML ==="
+      - '{{if eq .HOME_SOPS_AGE_KEY_FILE_EXISTS "true"}}echo "WARNING: SOPS Age key found in home directory, this may cause conflicts."{{end}}'
+    vars:
+      HOME_SOPS_AGE_KEY_FILE_EXISTS:
+        sh: test -f ~/.config/sops/age/keys.txt && echo true || echo false
+    silent: true

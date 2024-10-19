@@ -14,7 +14,7 @@ bgp:
     loadbalancerIP: false
 
 bpf:
-  masquerade: true
+  masquerade: false
   tproxy: true
   autoMount:
     enabled: true
@@ -42,10 +42,6 @@ disableEnvoyVersionCheck: false
 enableIPv4Masquerade: true
 
 enableIPv6Masquerade: true
-
-endpointStatus:
-  enabled: true
-  status: "policy"
 
 endpointRoutes:
   enabled: false
@@ -150,7 +146,7 @@ prometheus:
 
 rollOutCiliumPods: true
 
-routingMode: ""
+routingMode: native
 
 securityContext:
   capabilities:
@@ -170,5 +166,3 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
-
-tunnelProtocol: ""

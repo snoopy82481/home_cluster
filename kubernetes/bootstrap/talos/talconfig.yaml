@@ -7,8 +7,6 @@ talosVersion: v1.8.1
 kubernetesVersion: v1.31.1
 endpoint: "https://192.168.20.1:6443"
 
-allowSchedulingOnMasters: true
-
 clusterPodNets:
   - ${CLUSTER_PODNET}
 clusterSvcNets:
@@ -55,6 +53,34 @@ nodes:
     controlPlane: false
     installDisk: /dev/sda
 
+patches:
+  - |-
+    machine:
+      install:
+        extraKernelArgs:
+          - "talos.logging.kernel=udp://192.168.20.52:6050/"
+      logging:
+        destinations:
+          - endpoint: "udp://192.168.20.52:6051/"
+            format: json_lines
+      time:
+        disabled: false
+        servers:
+          - 192.168.20.1
+      features:
+        kubePrism:
+          enabled: true
+          port: 7445
+
+  - "@./patches/global/cluster-discovery.yaml"
+  - "@./patches/global/containerd.yaml"
+  - "@./patches/global/disable-search-domain.yaml"
+  - "@./patches/global/hostdns.yaml"
+  - "@./patches/global/kubelet.yaml"
+  - "@./patches/global/network.yaml"
+  - "@./patches/global/openebs-local.yaml"
+  - "@./patches/global/sysctl.yaml"
+
 controlPlane:
   schematic:
     customization:
@@ -63,107 +89,10 @@ controlPlane:
           - siderolabs/qemu-guest-agent
 
   patches:
-    - |-
-      cluster:
-        apiServer:
-          disablePodSecurityPolicy: true
-          admissionControl: []
-        etcd:
-          extraArgs:
-            listen-metrics-urls: http://0.0.0.0:2381
-          advertisedSubnets:
-            - 192.168.20.0/24
-        controllerManager:
-          extraArgs:
-            bind-address: 0.0.0.0
-        discovery:
-          registries:
-            kubernetes:
-              disabled: false
-            service:
-              disabled: false
-        proxy:
-          disabled: true
-        scheduler:
-          extraArgs:
-            bind-address: 0.0.0.0
-
-      machine:
-        kubelet:
-          extraArgs:
-            rotate-server-certificates: "true"
-          extraConfig:
-            maxPods: 150
-          nodeIP:
-            validSubnets:
-              - 192.168.20.0/24
-        install:
-          extraKernelArgs:
-            - "talos.logging.kernel=udp://192.168.20.52:6050/"
-        logging:
-          destinations:
-            - endpoint: "udp://192.168.20.52:6051/"
-              format: json_lines
-        sysctls:
-          fs.inotify.max_queued_events: 65536
-          fs.inotify.max_user_watches: 524288
-          fs.inotify.max_user_instances: 8192
-        time:
-          disabled: false
-          servers:
-            - 192.168.20.1
-        files:
-          - op: create
-            path: /etc/cri/conf.d/20-customization.part
-            content: |-
-              [plugins."io.containerd.grpc.v1.cri"]
-                enable_unprivileged_ports = true
-                enable_unprivileged_icmp = true
-              [plugins."io.containerd.grpc.v1.cri".containerd]
-                discard_unpacked_layers = false
-              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-                discard_unpacked_layers = false
-          - op: overwrite
-            path: /etc/nfsmount.conf
-            permissions: 0o644
-            content: |
-              [ NFSMount_Global_Options ]
-              nfsvers=4.2
-              hard=True
-              noatime=True
-              nodiratime=True
-              rsize=131072
-              wsize=131072
-              nconnect=8
-        network:
-          nameservers:
-            - 192.168.20.1
-          disableSearchDomain: true
-          interfaces:
-            - interface: eth0
-              routes:
-                - network: 0.0.0.0/0
-                  gateway: 192.168.20.1
-              dhcp: true
-          extraHostEntries:
-            - ip: ${CLUSTERENDPOINTIP}
-              aliases:
-                - ${CLUSTER_NAME}.${DOMAINNAME}
-        features:
-          kubePrism:
-            enabled: true
-            port: 7445
-          kubernetesTalosAPIAccess:
-            enabled: true
-            allowedRoles:
-              - os:admin
-            allowedKubernetesNamespaces:
-              - system-upgrade
-
-    # Disable default API server admission plugins.
-    - |-
-      - op: remove
-        path: /cluster/apiServer/admissionControl
+    - "@./patches/controller/api-access.yaml"
+    - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/disable-admission-controller.yaml"
+    - "@./patches/controller/etcd.yaml"
 
 worker:
   schematic:
@@ -171,73 +100,3 @@ worker:
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
-
-  patches:
-    - |-
-      cluster:
-        discovery:
-          registries:
-            service:
-              disabled: true
-
-      machine:
-        kubelet:
-          extraArgs:
-            rotate-server-certificates: "true"
-          extraConfig:
-            maxPods: 150
-          nodeIP:
-            validSubnets:
-              - 192.168.20.0/24
-        install:
-          extraKernelArgs:
-            - "talos.logging.kernel=udp://192.168.20.52:6050/"
-        logging:
-          destinations:
-            - endpoint: "udp://192.168.20.52:6051/"
-              format: json_lines
-        sysctls:
-          fs.inotify.max_queued_events: 65536
-          fs.inotify.max_user_watches: 524288
-          fs.inotify.max_user_instances: 8192
-        time:
-          disabled: false
-          servers:
-            - 192.168.20.1
-        files:
-          - op: create
-            path: /etc/cri/conf.d/20-customization.part
-            content: |-
-              [plugins."io.containerd.grpc.v1.cri"]
-                enable_unprivileged_ports = true
-                enable_unprivileged_icmp = true
-              [plugins."io.containerd.grpc.v1.cri".containerd]
-                discard_unpacked_layers = false
-              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-                discard_unpacked_layers = false
-          - op: overwrite
-            path: /etc/nfsmount.conf
-            permissions: 0o644
-            content: |
-              [ NFSMount_Global_Options ]
-              nfsvers=4.2
-              hard=True
-              noatime=True
-              nodiratime=True
-              rsize=131072
-              wsize=131072
-              nconnect=8
-        network:
-          nameservers:
-            - 192.168.20.1
-          disableSearchDomain: true
-          interfaces:
-            - interface: eth0
-              routes:
-                - network: 0.0.0.0/0
-                  gateway: 192.168.20.1
-              dhcp: true
-        features:
-          kubePrism:
-            enabled: true
-            port: 7445

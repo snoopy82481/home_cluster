@@ -1,0 +1,15 @@
+machine:
+  network:
+    nameservers:
+      - 192.168.20.1
+    disableSearchDomain: true
+    interfaces:
+      - interface: eth0
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.20.1
+        dhcp: true
+    extraHostEntries:
+      - ip: ${CLUSTERENDPOINTIP}
+        aliases:
+          - ${CLUSTER_NAME}.${DOMAINNAME}

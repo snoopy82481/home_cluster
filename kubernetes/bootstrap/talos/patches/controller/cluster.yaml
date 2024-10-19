@@ -1,0 +1,15 @@
+cluster:
+  allowSchedulingOnControlPlanes: true
+  apiServer:
+    disablePodSecurityPolicy: true
+    admissionControl: []
+  controllerManager:
+    extraArgs:
+      bind-address: 0.0.0.0
+  coreDNS:
+    disabled: true
+  proxy:
+    disabled: true
+  scheduler:
+    extraArgs:
+      bind-address: 0.0.0.0

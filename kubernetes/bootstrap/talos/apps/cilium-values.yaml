@@ -14,7 +14,7 @@ bgp:
     loadbalancerIP: false
 
 bpf:
-  masquerade: true
+  masquerade: false
   tproxy: true
   autoMount:
     enabled: true

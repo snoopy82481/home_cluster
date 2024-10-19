@@ -2,52 +2,46 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-vars:
-  ARCHFILE: "{{.ROOT_DIR}}/.taskfiles/workstation/Archfile"
-  BREWFILE: "{{.ROOT_DIR}}/.taskfiles/workstation/Brewfile"
-  GENERIC_BIN_DIR: "{{.ROOT_DIR}}/.bin"
-
 tasks:
+  arch:
+    desc: Set up Arch Linux tools
+    cmd: "{{.PKGMGR}} -Syu --needed --noconfirm --noprogressbar $(cat {{.ROOT_DIR}}/.taskfiles/workstation/Archfile | xargs)"
+    vars:
+      PKGMGR:
+        sh: command -v yay || command -v paru
+    preconditions:
+      - msg: Missing yay or paru
+        sh: command -v brew &>/dev/null || command -v paru &>/dev/null
+      - msg: Missing Archfile
+        sh: test -f {{.ROOT_DIR}}/.taskfiles/workstation/Archfile
+
+  brew:
+    desc: Set up Homebrew tools
+    cmds:
+      - brew bundle --file {{.ROOT_DIR}}/.taskfiles/workstation/Brewfile
+    sources:
+      - "{{.ROOT_DIR}}/.taskfiles/workstation/Brewfile"
+    generates:
+      - "{{.ROOT_DIR}}/.taskfiles/workstation/Brewfile.lock.json"
+    preconditions:
+      - msg: Missing brew
+        sh: command -v brew &>/dev/null
+      - msg: Missing Brewfile
+        sh: test -f {{.ROOT_DIR}}/.taskfiles/workstation/Brewfile
+
   direnv:
     desc: Run direnv hooks
     cmd: direnv allow .
     status:
-      - "[[ $(direnv status --json | jq '.state.foundRC.allowed') == 0 ]]"
-      - "[[ $(direnv status --json | jq '.state.loadedRC.allowed') == 0 ]]"
-
-  venv:
-    desc: Set up virtual environment
-    cmds:
-      - "{{.PYTHON_BIN}} -m venv {{.VIRTUAL_ENV}}"
-      - "{{.VIRTUAL_ENV}}/bin/python3 -m pip install --upgrade pip setuptools wheel"
-      - '{{.VIRTUAL_ENV}}/bin/python3 -m pip install --upgrade --requirement "{{.PIP_REQUIREMENTS_FILE}}"'
-    sources:
-      - "{{.PIP_REQUIREMENTS_FILE}}"
-    generates:
-      - "{{.VIRTUAL_ENV}}/pyvenv.cfg"
+      - '[[ $(direnv status --json | jq ".state.foundRC.allowed") == 0 ]]'
+      - '[[ $(direnv status --json | jq ".state.loadedRC.allowed") == 0 ]]'
     preconditions:
-      - msg: "Missing Pip requirements file"
-        sh: "test -f {{.PIP_REQUIREMENTS_FILE}}"
-
-  brew:
-    desc: Install workstation dependencies with Brew
-    cmd: brew bundle --file {{.BREWFILE}}
-    preconditions:
-      - {msg: "Missing Homebrew", sh: "command -v brew"}
-      - {msg: "Missing Brewfile", sh: "test -f {{.BREWFILE}}"}
-
-  arch:
-    desc: Install Arch workstation dependencies with Paru Or Yay
-    cmd: "{{.helper}} -Syu --needed --noconfirm --noprogressbar $(cat {{.ARCHFILE}} | xargs)"
-    vars:
-      helper:
-        sh: "command -v yay || command -v paru"
-    preconditions:
-      - {msg: "Missing Archfile", sh: "test -f {{.ARCHFILE}}"}
+      - msg: Missing direnv
+        sh: command -v direnv &>/dev/null
 
   generic-linux:
-    desc: Install CLI tools into the projects .bin directory using curl
-    dir: "{{.GENERIC_BIN_DIR}}"
+    desc: Setup CLI tools into the projects .bin directory
+    dir: "{{.ROOT_DIR}}/.bin"
     platforms: ["linux/amd64", "linux/arm64"]
     cmds:
       - for:
@@ -69,3 +63,19 @@ tasks:
         platforms: ["linux/arm64"]
       - cmd: chmod +x kubectl
       - cmd: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | USE_SUDO="false" HELM_INSTALL_DIR="." bash
+
+  venv:
+    desc: Set up virtual environment
+    cmds:
+      - python3 -m venv {{.VIRTUAL_ENV}}
+      - "{{.VIRTUAL_ENV}}/bin/python3 -m pip install --upgrade pip setuptools wheel"
+      - '{{.VIRTUAL_ENV}}/bin/python3 -m pip install --upgrade --requirement "{{.ROOT_DIR}}/requirements.txt"'
+    sources:
+      - "{{.ROOT_DIR}}/requirements.txt"
+    generates:
+      - "{{.VIRTUAL_ENV}}/pyvenv.cfg"
+    preconditions:
+      - msg: Missing python3
+        sh: command -v python3 &>/dev/null
+      - msg: Missing Pip requirements file
+        sh: test -f {{.ROOT_DIR}}/requirements.txt
