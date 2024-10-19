@@ -30,5 +30,5 @@ sonarr:
           - 5964f2a8b3be407d083498e4459d05d0 # DTS
           - a50b8a0c62274a7c38b09a9619ba9d86 # AAC
           - dbe00161b08a25ac6154c55f95e6318d # DD
-        quality_profiles:
+        assign_scores_to:
           - name: WEB-2160p
