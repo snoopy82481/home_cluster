@@ -27,5 +27,6 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: main-pool
 spec:
-  cidrs:
+  allowFirstLastIPs: "Yes"
+  blocks:
     - cidr: ${NETWORK_BGP_SVC_CIDR}
