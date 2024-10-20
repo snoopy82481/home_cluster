@@ -21,6 +21,7 @@ vars:
   KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
   MAKEJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/makejinja.toml"
   PIP_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.txt"
+  SOPS_CONFIG_FILE: "{{.ROOT_DIR}}/.sops.yaml"
   # Binary paths
   PYTHON_BIN: "python3"
 
