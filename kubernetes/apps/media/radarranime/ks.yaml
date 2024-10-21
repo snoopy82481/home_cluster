@@ -19,7 +19,7 @@ spec:
   interval: 30m
   timeout: 5m
   dependsOn:
-    - name: ingress-nginx-external
+    - name: ingress-nginx-internal
   postBuild:
     substitute:
       APP: *app
