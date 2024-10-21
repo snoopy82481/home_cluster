@@ -140,6 +140,8 @@ spec:
               - *host
 
     persistence:
+      tmp:
+        type: emptyDir
       media:
         type: nfs
         server: ${NAS_NAME}
