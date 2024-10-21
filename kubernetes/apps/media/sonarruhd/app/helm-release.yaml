@@ -130,8 +130,9 @@ spec:
 
     persistence:
       config:
-        enabled: true
         existingClaim: sonarruhd-config-v1
+      tmp:
+        type: emptyDir
       media:
         type: nfs
         server: ${NAS_NAME}

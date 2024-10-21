@@ -132,6 +132,8 @@ spec:
       config:
         enabled: true
         existingClaim: radarruhd-config-v1
+      tmp:
+        type: emptyDir
       media:
         type: nfs
         server: ${NAS_NAME}
