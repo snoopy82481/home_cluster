@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app sonarranime
+  name: &app sonarruhd
   namespace: media
 spec:
   interval: 30m
@@ -33,9 +33,12 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   values:
     controllers:
-      sonarranime:
+      sonarruhd:
         annotations:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
@@ -48,11 +51,11 @@ spec:
 
             env:
               TZ: "${TIMEZONE}"
-              SONARR__APP__INSTANCENAME: "Sonarr Anime"
+              SONARR__APP__INSTANCENAME: "Sonarr UHD"
               SONARR__APP__THEME: dark
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              SONARR__AUTH__APIKEY: ${SONARR_ANIME_APIKEY}
+              SONARR__AUTH__APIKEY: ${SONARR_UHD_APIKEY}
               SONARR__UPDATE__BRANCH: develop
               SONARR__SERVER__PORT: &port 8989
               SONARR__LOG__LEVEL: info
@@ -112,7 +115,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/group: "Media"
           hajimari.io/icon: "filmstrip"
-          hajimari.io/appName: "Sonarr Anime"
+          hajimari.io/appName: "Sonarr UHD"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -128,7 +131,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarranime-config-v1
+        existingClaim: sonarruhd-config-v1
       media:
         type: nfs
         server: ${NAS_NAME}

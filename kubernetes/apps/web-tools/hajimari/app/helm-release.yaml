@@ -33,11 +33,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
-    - name: nginx-internal
-      namespace: networking
   values:
     image:
       repository: ghcr.io/toboshii/hajimari

@@ -33,6 +33,9 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   values:
     controllers:
       bazarr:

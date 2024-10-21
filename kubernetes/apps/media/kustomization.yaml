@@ -11,11 +11,11 @@ resources:
   - ./overseerr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
-  - ./radarr-uhd/ks.yaml
+  - ./radarruhd/ks.yaml
   - ./radarranime/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
-  - ./sonarr-anime/ks.yaml
-  - ./sonarr-uhd/ks.yaml
+  - ./sonarranime/ks.yaml
+  - ./sonarruhd/ks.yaml
   - ./tautulli/ks.yaml

@@ -2,11 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-gateway-external
+  name: &app gateway-external
   namespace: flux-system
 spec:
+  targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-cert-manager-issuers
+    - name: cert-manager-issuers
     - name: cilium
   path: ./kubernetes/apps/networking/gateway/external
   prune: true
@@ -15,17 +19,20 @@ spec:
     name: home-kubernetes
   wait: false
   interval: 30m
-  retryInterval: 1m
   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-gateway-internal
+  name: &app gateway-internal
   namespace: flux-system
 spec:
+  targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-cert-manager-issuers
+    - name: cert-manager-issuers
     - name: cilium
   path: ./kubernetes/apps/networking/gateway/internal
   prune: true
@@ -34,5 +41,4 @@ spec:
     name: home-kubernetes
   wait: false
   interval: 30m
-  retryInterval: 1m
   timeout: 5m

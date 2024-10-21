@@ -5,12 +5,12 @@ metadata:
   name: &app ingress-nginx-certificates
   namespace: flux-system
 spec:
-  targetNamespace: network
+  targetNamespace: networking
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-cert-manager-issuers
+    - name: cert-manager-issuers
   path: ./kubernetes/apps/networking/nginx/certificates
   prune: true
   sourceRef:
@@ -18,7 +18,6 @@ spec:
     name: home-kubernetes
   wait: true
   interval: 30m
-  retryInterval: 1m
   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -27,13 +26,13 @@ metadata:
   name: &app ingress-nginx-external
   namespace: flux-system
 spec:
-  targetNamespace: network
+  targetNamespace: networking
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: ingress-nginx-certificates
-    # - name: cluster-apps-gateway-internal
+    # - name: gateway-internal
     - name: cilium
   path: ./kubernetes/apps/networking/nginx/external
   prune: true
@@ -42,7 +41,6 @@ spec:
     name: home-kubernetes
   wait: false
   interval: 30m
-  retryInterval: 1m
   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -51,13 +49,13 @@ metadata:
   name: &app ingress-nginx-internal
   namespace: flux-system
 spec:
-  targetNamespace: network
+  targetNamespace: networking
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: ingress-nginx-certificates
-    # - name: cluster-apps-gateway-internal
+    # - name: gateway-internal
     - name: cilium
   path: ./kubernetes/apps/networking/nginx/internal
   prune: true
@@ -66,5 +64,4 @@ spec:
     name: home-kubernetes
   wait: false
   interval: 30m
-  retryInterval: 1m
   timeout: 5m
