@@ -42,4 +42,8 @@ spec:
       port: 53
       annotations:
         io.cilium/lb-ipam-ips: "${SVC_K8S_GATEWAY_ADDRESS}"
-      externalTrafficPolicy: Cluster
+      externalTrafficPolicy: local
+
+    watchedResources:
+      - Ingress
+      - Service
