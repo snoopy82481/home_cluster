@@ -41,7 +41,7 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: config
-              accessMode: ReadWriteOnce
+              accessMode: ReadWriteMany
               size: 1Gi
               storageClass: ceph-block
               globalMounts:

@@ -9,8 +9,8 @@ metadata:
     app.kubernetes.io/instance: *name
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ceph-block
+  storageClassName: ceph-filesystem
