@@ -120,7 +120,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: app
+                  identifier: app
                   port: *port
         tls:
           - secretName: "{{ .Release.Name }}-tls"
@@ -129,7 +129,6 @@ spec:
 
     persistence:
       config:
-        enabled: true
         existingClaim: sonarr-config-v1
       tmp:
         type: emptyDir
