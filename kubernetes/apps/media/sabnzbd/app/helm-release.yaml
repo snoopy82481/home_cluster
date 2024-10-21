@@ -46,7 +46,7 @@ spec:
             - name: config
               accessMode: ReadWriteMany
               size: 1Gi
-              storageClass: ceph-block
+              storageClass: ceph-filesystem
               globalMounts:
                 - path: /config
 
