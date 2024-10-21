@@ -37,7 +37,7 @@ spec:
       namespace: rook-ceph
   values:
     controllers:
-      qbittorent:
+      qbittorrent:
         annotations:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
