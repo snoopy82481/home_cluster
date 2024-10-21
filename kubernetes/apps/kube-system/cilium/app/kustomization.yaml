@@ -7,7 +7,7 @@ resources:
   - ./helm-release.yaml
   - ./bgp-peering-policy.yaml
 configMapGenerator:
-  - name: cilium-values
+  - name: cilium-helm-values
     files:
       - values.yaml=./helm-values.yaml
 
