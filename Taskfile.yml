@@ -28,7 +28,7 @@ vars:
 env:
   KUBECONFIG: "{{.KUBECONFIG_FILE}}"
   PYTHONDONOTWRITEBYTECODE: "1"
-  SOPS_AGE_KEY_FILE: "{{.AGE_FILE}}"
+  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
   VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
 
 includes:
