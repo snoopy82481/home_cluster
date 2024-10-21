@@ -8,4 +8,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./nginx/ks.yaml
   - ./k8s-gateway/ks.yaml
-  - ./gateway/ks.yaml
+  # - ./gateway/ks.yaml

@@ -115,7 +115,7 @@ spec:
 
     ingress:
       app:
-        enabled: false
+        enabled: true
         className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
@@ -136,7 +136,7 @@ spec:
 
     route:
       app:
-        enabled: true
+        enabled: false
         parentRefs:
           - name: cilium-internal
             namespace: networking
