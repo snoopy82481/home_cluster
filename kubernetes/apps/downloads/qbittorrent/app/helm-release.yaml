@@ -36,8 +36,8 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   values:
-    qbittorrent:
-      main:
+    controllers:
+      qbittorent:
         annotations:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
@@ -138,7 +138,7 @@ spec:
             port: *port
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -171,25 +171,18 @@ spec:
 
     persistence:
       config:
+        enabled: true
         existingClaim: qbittorrent-config-v1
         advancedMounts:
-          main:
-            main:
+          qbittorrent:
+            app:
               - path: /config
-                readOnly: false
 
       media:
         type: nfs
         server: ${NAS_NAME}
         path: ${NFS_DATA}
         advancedMounts:
-          main:
-            main:
+          qbittorrent:
+            app:
               - path: /media
-
-      gluetun-data:
-        type: emptyDir
-        advancedMounts:
-          main:
-            gluetun:
-              - path: /tmp/gluetun
