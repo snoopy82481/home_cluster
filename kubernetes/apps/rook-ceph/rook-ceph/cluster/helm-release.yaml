@@ -34,6 +34,9 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: rook-ceph-operator
+      namespace: rook-ceph
   values:
     toolbox:
       enabled: false
