@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 
 sonarr:
-  web-2160p-v4:
+  sonarr_uhd:
     base_url: http://sonarruhd.media.svc.cluster.local:8989
     api_key: !env_var SONARR_UHD_APIKEY
 

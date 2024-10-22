@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 
 radarr:
-  anime-radarr:
+  anime_radarr:
     base_url: http://radarranime.media.svc.cluster.local:7878
     api_key: !env_var RADARR_ANIME_APIKEY
 

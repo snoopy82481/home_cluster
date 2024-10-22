@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 
 radarr:
-  sqp-1-1080p:
+  radarr:
     base_url: http://radarr.media.svc.cluster.local:7878
     api_key: !env_var RADARR_APIKEY
 
