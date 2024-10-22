@@ -4,9 +4,8 @@ Thumbs.db
 
 # k8s
 kubeconfig
-
-# vscode-sops
-.decrypted~*
+talosconfig
+.decrypted~*.yaml
 .config.env
 *.agekey
 *.pub
@@ -39,6 +38,9 @@ infrastructure/talos/**/_out
 
 # intellij
 .idea
+
+# Brew
+Brewfile.lock.json
 
 # wiki
 wiki
