@@ -39,17 +39,17 @@ spec:
   values:
     controllers:
       recyclarr:
-        type: cronjob
+        type: statefulset
 
-        cronjob:
-          backoffLimit: 6
-          concurrencyPolicy: Forbid
-          failedJobsHistory: 1
-          schedule: "@daily"
-          timeZone: ${TIMEZONE}
-          startingDeadlineSeconds: 30
-          successfulJobsHistory: 1
-          suspend: false
+        statefulset:
+          volumeClaimTemplates:
+            - enabled: true
+              name: config
+              accessMode: ReadWriteMany
+              size: 1Gi
+              storageClass: ceph-filesystem
+              globalMounts:
+                - path: /config
 
         annotations:
           reloader.stakater.com/auto: "true"
@@ -66,9 +66,6 @@ spec:
             envFrom:
               - secretRef:
                   name: recyclarr
-
-            args:
-              - sync
 
             securityContext:
               allowPrivilegeEscalation: false
@@ -100,10 +97,6 @@ spec:
         enabled: false
 
     persistence:
-      config:
-        enabled: true
-        existingClaim: recyclarr-config-v1
-
       recyclarr-configs:
         type: configMap
         name: recyclarr-configs
