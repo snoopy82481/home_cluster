@@ -119,6 +119,9 @@ spec:
           - path: /config/configs/radarr-uhd-config.yaml
             subPath: radarr-uhd-config.yaml
 
+      tmp:
+        type: emptyDir
+
       config-logs:
         type: emptyDir
         globalMounts:
