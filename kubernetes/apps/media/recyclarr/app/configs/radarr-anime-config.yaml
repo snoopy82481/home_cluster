@@ -7,6 +7,7 @@ radarr:
     api_key: !env_var RADARR_ANIME_APIKEY
 
     include:
+      - template: radarr-quality-definition-movie
       - template: radarr-quality-profile-anime
       - template: radarr-custom-formats-anime
 

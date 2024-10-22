@@ -7,7 +7,9 @@ sonarr:
     api_key: !env_var SONARR_APIKEY
 
     include:
-      - template: web-1080p-v4
+      - template: sonarr-quality-definition-series
+      - template: sonarr-v4-quality-profile-web-1080p
+      - template: sonarr-v4-custom-formats-web-1080p
 
     delete_old_custom_formats: true
     replace_existing_custom_formats: true

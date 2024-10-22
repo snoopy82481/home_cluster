@@ -7,7 +7,9 @@ sonarr:
     api_key: !env_var SONARR_UHD_APIKEY
 
     include:
-      - template: web-2160p-v4
+      - template: sonarr-quality-definition-series
+      - template: sonarr-v4-quality-profile-web-2160p
+      - template: sonarr-v4-custom-formats-web-2160p
 
     delete_old_custom_formats: true
     replace_existing_custom_formats: true

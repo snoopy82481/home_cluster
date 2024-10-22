@@ -7,6 +7,7 @@ radarr:
     api_key: !env_var RADARR_UHD_APIKEY
 
     include:
+      - template: radarr-quality-definition-sqp-uhd
       - template: radarr-quality-profile-sqp-2
       - template: radarr-custom-formats-sqp-2
 
