@@ -179,6 +179,6 @@ spec:
         server: ${NAS_NAME}
         path: ${NFS_DATA}
         advancedMounts:
-          main:
-            main:
+          orphaned:
+            app:
               - path: /media
