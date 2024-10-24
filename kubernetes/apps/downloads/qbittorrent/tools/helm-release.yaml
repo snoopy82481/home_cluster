@@ -80,6 +80,8 @@ spec:
               - --last-activity
               - --sites
               - --unregistered
+              - --config
+              - /config/config.yaml
 
             securityContext:
               allowPrivilegeEscalation: false
@@ -101,8 +103,6 @@ spec:
               - prune
               - --exclude-category
               - manual
-              - --exclude-category
-              - music
               - --exclude-tag
               - added:1d
               - --include-tag
@@ -157,13 +157,13 @@ spec:
             args:
               - limiter
               - --max-line-speed-mbps
-              - 100
+              - "100"
               - --max-percent
-              - 0.8
+              - "0.8"
               - --limit-percent
-              - 0.4
+              - "0.4"
               - --interval
-              - 5
+              - "5"
 
     persistence:
       secret-file:
