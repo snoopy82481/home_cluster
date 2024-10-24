@@ -59,7 +59,7 @@ spec:
           tag: &container
             image:
               repository: ghcr.io/buroa/qbtools
-              tag: v0.19.4@sha256:b12891cdb26f35ce023e7cde1f40741f9242d46a89cbc2e9eb00d4b1b7f4c9b8
+              tag: v0.19.5@sha256:e9482d3d40c1ab58f50664ad3a24f2d5627d210f1ea140c7f44f516d0bf5f204
 
             env:
               QBITTORRENT_HOST: qbittorrent.downloads.svc.cluster.local
@@ -80,6 +80,8 @@ spec:
               - --last-activity
               - --sites
               - --unregistered
+              - --config
+              - /config/config.yaml
 
             securityContext:
               allowPrivilegeEscalation: false
@@ -101,8 +103,6 @@ spec:
               - prune
               - --exclude-category
               - manual
-              - --exclude-category
-              - music
               - --exclude-tag
               - added:1d
               - --include-tag
@@ -150,21 +150,6 @@ spec:
               - reannounce
               - --process-seeding
 
-      limiter:
-        containers:
-          app:
-            <<: *container
-            args:
-              - limiter
-              - --max-line-speed-mbps
-              - 100
-              - --max-percent
-              - 0.8
-              - --limit-percent
-              - 0.4
-              - --interval
-              - 5
-
     persistence:
       secret-file:
         type: secret
@@ -179,6 +164,6 @@ spec:
         server: ${NAS_NAME}
         path: ${NFS_DATA}
         advancedMounts:
-          main:
-            main:
+          orphaned:
+            app:
               - path: /media
