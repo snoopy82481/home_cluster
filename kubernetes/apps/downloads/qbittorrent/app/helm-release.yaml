@@ -111,7 +111,6 @@ spec:
                   name: vpnconfig
 
             securityContext:
-              allowPrivilegeEscalation: false
               capabilities:
                 add:
                   - NET_ADMIN
