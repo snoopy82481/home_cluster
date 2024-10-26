@@ -5,10 +5,13 @@ metadata:
     name: vpnconfig
     namespace: downloads
 stringData:
-    VPN_SERVICE_PROVIDER: ENC[AES256_GCM,data:G5S+n5JQjQ==,iv:DTDfhmcIBOQiVzP6GjIU38h17YsU+Z+GXLHmEz0aZsc=,tag:w1fvDgdagr7REWcWHRIuZw==,type:str]
-    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:hdP3vb1vxQpRbSOASL3D+L0LeWzSP7jVap2/uubEyTAy3frntxHJHjRLFTo=,iv:+8VqkRyyECZbpkZn+cUEkmTQg+xWsF7uGfsaYstVk3M=,tag:4Wwbsklq8ku7xJfzUKXp7Q==,type:str]
-    WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:J9dkjEeSikEGpFA1Axtv6GUfXRpghZ8rumEObR4U0Sg5obhXPtTSXkgd8AvD3RIJ,iv:um98ait4AuIoMd0D6eEhg+67rRMFm3U6KA3fD09d3hE=,tag:H13p4Bt8LKj2TwN8l0Oueg==,type:str]
-    SERVER_CITIES: ENC[AES256_GCM,data:blJ4PjmERHyAqA==,iv:l/9p+qb/vepKiv5F72aI3D9aX2mKJx6CG6T6y5vZvK8=,tag:PZpCjUPe3qhs26tt5q/fGQ==,type:str]
+    VPN_PORT_FORWARDING_PROVIDER: ENC[AES256_GCM,data:abfanB5XGu7h,iv:vK6zqq9dwFt1eOYMbFKJP1J9wuOOh26NXGs6syLSFHQ=,tag:3hv9paLx9mcIxHRUNDA+pQ==,type:str]
+    DNS_ADDRESS: ENC[AES256_GCM,data:+dygIZgxAoM=,iv:t8ly++DQg96fCA8p3BRtBCVU09IJWboqZnTwv1f8xyw=,tag:UEqOQ760T7OMc0TpGz+sqw==,type:str]
+    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:H18R3C/tWd/uqDu0Fsmi8xdIMnemYoeJbQqA3ti2j9Ne3KLxJIvD9VYilEI=,iv:I/JmjLsZNLd+GYLVP+sgKTJ7VNgeatcV2kTZnDoNKXQ=,tag:VADPG+6vf1BJj1NE0KIiIA==,type:str]
+    WIREGUARD_PUBLIC_KEY: ENC[AES256_GCM,data:nfzi4pjqFdz+b1YmUZ2uSdc6r6skVomoQCl9nu5MtkwFsNAX0txabnWdDaI=,iv:qgxuhIpchuzKhnDCWd+wtZVBlmeDNY+gLezhhk8rVu0=,tag:XZJhA6guvTDLHiLM83BGHQ==,type:str]
+    WIREGUARD_ENDPIONT_IP: ENC[AES256_GCM,data:KaphACHpLui1DNLyJg==,iv:bBTEJa7lZzbrT2kv0CRNjcqzmhObn3K2YmpYXrH5U3s=,tag:c1bxSXTPQ8qBEbgpZncvdg==,type:str]
+    WIREGUARD_ENDPOINT_PORT: ENC[AES256_GCM,data:3unt1Mk=,iv:Lqo/r80VcENv8iWRCg+n6kA5arT5awhbrWb5qLLQ4Z8=,tag:UbmXd/CbBnOIia5pbgksgA==,type:str]
+    WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:hwIyIwAxI0SD3sg=,iv:KPkQCTkxI3rfjfAok0ww84Ku9Pa4IVNIOSPaXq+VNyA=,tag:cKnvCXyw5+VqafAPsgVcdg==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -24,8 +27,8 @@ sops:
             ZjVVU1JJUkpuRkhoN3N1bU9KNEtMVE0K4tG0BXQNmNR5Ja4wLQQavBIqfOo7673Q
             35DoBloMhz0nCafTzQAFtUDk3cE+YMv687RczFPJMNG5ojStZERpVg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-10-02T21:30:12Z"
-    mac: ENC[AES256_GCM,data:OZvgH8VKEImPgz3uqGc5Vl8RFg/vfs2aRyb4LHC12AsP8xystEA5us+ifUEXr0uTJBfAGmFfPXysTMlInuTERdVou0SwsmwsBDs03eNpUNNFgfHK+CPxTbsOoDe4VI67Seeo5C1LLzAUYMI6IYHkgQMiYjevlHx82GP0oD6nFNc=,iv:jGQnLXPdko7kZulmbs8s6+eecWCaie4YAdHIEzAcNVA=,tag:s7aVumHgezS+c1UagnhNZw==,type:str]
+    lastmodified: "2024-10-26T18:43:55Z"
+    mac: ENC[AES256_GCM,data:Nhu6aHA66OWEQdBXbUgrWnvzkVRoGtICBSnDfRa2Ijpz9LriQ/mzN9FdtRZBQKWMBfIWftiO7sS3hR8gwL3c/77uzXPucjd8DK3S/fQd57PnmEr+JUp2IJlKDavyNsuC8WK4EoCpiqQ0oT5nhJwCeF1/faMAp/twToyqdOjuR8Y=,iv:wuYxhedXf2M/a0AHTCgk+vE+9pc+XKQm6mbWbRZqSa8=,tag:ixhBtERgYA2EP3LdQjtIXg==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
-    version: 3.7.3
+    version: 3.8.1

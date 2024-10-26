@@ -1,0 +1,102 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		}
+	],
+	"settings": {
+		"ansible.validation.enabled": true,
+		"files.associations": {
+			"*.json5": "jsonc",
+			"**/ansible/**/*.yml": "ansible",
+			"**/ansible/**/*.sops.yml": "yaml",
+			"**/ansible/**/inventory/**/*.yml": "yaml",
+			"**/terraform/**/*.tf": "terraform",
+			"**/cluster/**/*.sops.toml": "plaintext",
+			"*.env": "dotenv"
+		},
+		"explorer.autoReveal": false,
+		"yaml.schemas": {
+			"Kubernetes": "cluster/*.yaml",
+			"https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "recyclarr.yaml",
+			"https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "settings.yaml",
+			"https://raw.githubusercontent.com/louygan/kubernetes-json-schema_yannh/master/v1.26.0/all.json": "k8s/**/*.yaml",
+			"recyclarr": "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json",
+			"https://taskfile.dev/schema.json": [
+				"**/Taskfile.yaml",
+				".taskfiles/*.yml"
+			],
+			"https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json": "file:///home/stephen/Documents/Development/home_cluster/infrastructure/talos/betty/talconfig.yaml"
+		},
+		"material-icon-theme.folders.associations": {
+			".taskfiles": "utils",
+			"bootstrap": "import",
+			"charts": "kubernetes",
+			"kube-system": "kubernetes",
+			"networking": "connection",
+			"monitoring": "event",
+			"crds": "ci",
+			"flux": "generator",
+			"flux-system": "generator",
+			"radarr": "video",
+			"radarr4k": "video",
+			"radarranime": "video",
+			"sonarr": "video",
+			"sonarr-anime": "video",
+			"sonarr-uhd": "video",
+			"tautulli": "event"
+		},
+		"conventionalCommits.scopes": [
+			"ci",
+			"actions",
+			"tasks",
+			"vscode",
+			"talos",
+			"flux",
+			"monitoring",
+			"postgres",
+			"cilium",
+			"kured",
+			"metrics-server",
+			"reloader",
+			"sealed-secrets",
+			"alertmanager",
+			"grafana",
+			"kps",
+			"kyverno",
+			"loki",
+			"thanos",
+			"vector",
+			"cert-manager",
+			"external-dns",
+			"ingress-nginx",
+			"k8s-gateway",
+			"omada-controller",
+			"rook-ceph",
+			"qbittorrent",
+			"bazarr",
+			"bazarr-anime",
+			"bazarr-uhd",
+			"overseer",
+			"prowlarr",
+			"radarr",
+			"radarr-uhd",
+			"radarranime",
+			"recyclarr",
+			"sabnzbd",
+			"node-problem",
+			"sonarr",
+			"sonarranime",
+			"sonarruhd",
+			"tautulli",
+			"nzbget",
+			"vpn-gateway",
+			"hajimari",
+			"theme-park",
+			"cloudflared",
+			"infra-vyos",
+			"jellyfin",
+			"gateway"
+		]
+	}
+}
