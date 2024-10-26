@@ -42,6 +42,14 @@ spec:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
+        pod:
+          securityContext:
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 10000
+          terminationGracePeriodSeconds: 120
+
         containers:
           app:
             nameOverride: *app
@@ -56,6 +64,9 @@ spec:
               QBT_WEBUI_PORT: &port 8080
 
             securityContext: &securityContext
+              runAsNonRoot: true
+              runAsUser: 568
+              runAsGroup: 568
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
@@ -125,18 +136,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 10000
-        seccompProfile:
-          type: RuntimeDefault
 
     service:
       app:
