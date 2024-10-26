@@ -6,7 +6,6 @@ metadata:
     namespace: downloads
 stringData:
     VPN_PORT_FORWARDING_PROVIDER: ENC[AES256_GCM,data:abfanB5XGu7h,iv:vK6zqq9dwFt1eOYMbFKJP1J9wuOOh26NXGs6syLSFHQ=,tag:3hv9paLx9mcIxHRUNDA+pQ==,type:str]
-    DNS_ADDRESS: ENC[AES256_GCM,data:+dygIZgxAoM=,iv:t8ly++DQg96fCA8p3BRtBCVU09IJWboqZnTwv1f8xyw=,tag:UEqOQ760T7OMc0TpGz+sqw==,type:str]
     WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:H18R3C/tWd/uqDu0Fsmi8xdIMnemYoeJbQqA3ti2j9Ne3KLxJIvD9VYilEI=,iv:I/JmjLsZNLd+GYLVP+sgKTJ7VNgeatcV2kTZnDoNKXQ=,tag:VADPG+6vf1BJj1NE0KIiIA==,type:str]
     WIREGUARD_PUBLIC_KEY: ENC[AES256_GCM,data:nfzi4pjqFdz+b1YmUZ2uSdc6r6skVomoQCl9nu5MtkwFsNAX0txabnWdDaI=,iv:qgxuhIpchuzKhnDCWd+wtZVBlmeDNY+gLezhhk8rVu0=,tag:XZJhA6guvTDLHiLM83BGHQ==,type:str]
     WIREGUARD_ENDPOINT_IP: ENC[AES256_GCM,data:apAKy2/177TlyEtBDA==,iv:WFCc1tokIXtC+KF3PPIiqWYQTflf/zOAfD+mXCWnIzY=,tag:yHDfL4AQNFzUMZgSVLH1wg==,type:str]
@@ -27,8 +26,8 @@ sops:
             ZjVVU1JJUkpuRkhoN3N1bU9KNEtMVE0K4tG0BXQNmNR5Ja4wLQQavBIqfOo7673Q
             35DoBloMhz0nCafTzQAFtUDk3cE+YMv687RczFPJMNG5ojStZERpVg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-10-26T19:54:42Z"
-    mac: ENC[AES256_GCM,data:6XsZj3sbCM0+qewSVdp6M9vsCrkxUNWy5i0a4pV9SwSgIE/Ds8M9taQwxePL/WbFleCFSXn03WC6g5eMtxrXNAdNZz3tyJ7jB5eNjYKhaewuz/C+J83dsCvKx9Mx2kU2ZlD0aWytLMoopPgn122rG3Ata5/hNxxQ8PB5KfYcrDA=,iv:EUE0TupPgYxsiIHHQNNn6KH5Mxifgt/l+fmA+G8363E=,tag:o8Uzi5LH6Ic8glR1QVavMg==,type:str]
+    lastmodified: "2024-10-26T20:03:28Z"
+    mac: ENC[AES256_GCM,data:ICH5mKpibQNlJzZcI+bEyey92nXtl4rFGBCbWi1GIWIS8lWkqAdV8XHRqwNXojQgecZLv1WjSoAkweIfpJe6Lnku3eFKdDkJYZCvUQ4cdB6dBCqXnNTZKzn2ZFNIjdZtMzAHwHJt82mKkOXWJ6hdjM0aevhiCdtJiKINkwC/ydM=,iv:9nRhbOl4A0Of/CawqQKrRUxnBM7pZQhA2dzdClKoOuU=,tag:I/dD8NzB7o9KPdBhSlDVRA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.8.1
