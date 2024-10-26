@@ -9,7 +9,7 @@ stringData:
     DNS_ADDRESS: ENC[AES256_GCM,data:+dygIZgxAoM=,iv:t8ly++DQg96fCA8p3BRtBCVU09IJWboqZnTwv1f8xyw=,tag:UEqOQ760T7OMc0TpGz+sqw==,type:str]
     WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:H18R3C/tWd/uqDu0Fsmi8xdIMnemYoeJbQqA3ti2j9Ne3KLxJIvD9VYilEI=,iv:I/JmjLsZNLd+GYLVP+sgKTJ7VNgeatcV2kTZnDoNKXQ=,tag:VADPG+6vf1BJj1NE0KIiIA==,type:str]
     WIREGUARD_PUBLIC_KEY: ENC[AES256_GCM,data:nfzi4pjqFdz+b1YmUZ2uSdc6r6skVomoQCl9nu5MtkwFsNAX0txabnWdDaI=,iv:qgxuhIpchuzKhnDCWd+wtZVBlmeDNY+gLezhhk8rVu0=,tag:XZJhA6guvTDLHiLM83BGHQ==,type:str]
-    WIREGUARD_ENDPIONT_IP: ENC[AES256_GCM,data:KaphACHpLui1DNLyJg==,iv:bBTEJa7lZzbrT2kv0CRNjcqzmhObn3K2YmpYXrH5U3s=,tag:c1bxSXTPQ8qBEbgpZncvdg==,type:str]
+    WIREGUARD_ENDPOINT_IP: ENC[AES256_GCM,data:apAKy2/177TlyEtBDA==,iv:WFCc1tokIXtC+KF3PPIiqWYQTflf/zOAfD+mXCWnIzY=,tag:yHDfL4AQNFzUMZgSVLH1wg==,type:str]
     WIREGUARD_ENDPOINT_PORT: ENC[AES256_GCM,data:3unt1Mk=,iv:Lqo/r80VcENv8iWRCg+n6kA5arT5awhbrWb5qLLQ4Z8=,tag:UbmXd/CbBnOIia5pbgksgA==,type:str]
     WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:hwIyIwAxI0SD3sg=,iv:KPkQCTkxI3rfjfAok0ww84Ku9Pa4IVNIOSPaXq+VNyA=,tag:cKnvCXyw5+VqafAPsgVcdg==,type:str]
 sops:
@@ -27,8 +27,8 @@ sops:
             ZjVVU1JJUkpuRkhoN3N1bU9KNEtMVE0K4tG0BXQNmNR5Ja4wLQQavBIqfOo7673Q
             35DoBloMhz0nCafTzQAFtUDk3cE+YMv687RczFPJMNG5ojStZERpVg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-10-26T18:43:55Z"
-    mac: ENC[AES256_GCM,data:Nhu6aHA66OWEQdBXbUgrWnvzkVRoGtICBSnDfRa2Ijpz9LriQ/mzN9FdtRZBQKWMBfIWftiO7sS3hR8gwL3c/77uzXPucjd8DK3S/fQd57PnmEr+JUp2IJlKDavyNsuC8WK4EoCpiqQ0oT5nhJwCeF1/faMAp/twToyqdOjuR8Y=,iv:wuYxhedXf2M/a0AHTCgk+vE+9pc+XKQm6mbWbRZqSa8=,tag:ixhBtERgYA2EP3LdQjtIXg==,type:str]
+    lastmodified: "2024-10-26T19:54:42Z"
+    mac: ENC[AES256_GCM,data:6XsZj3sbCM0+qewSVdp6M9vsCrkxUNWy5i0a4pV9SwSgIE/Ds8M9taQwxePL/WbFleCFSXn03WC6g5eMtxrXNAdNZz3tyJ7jB5eNjYKhaewuz/C+J83dsCvKx9Mx2kU2ZlD0aWytLMoopPgn122rG3Ata5/hNxxQ8PB5KfYcrDA=,iv:EUE0TupPgYxsiIHHQNNn6KH5Mxifgt/l+fmA+G8363E=,tag:o8Uzi5LH6Ic8glR1QVavMg==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.8.1
