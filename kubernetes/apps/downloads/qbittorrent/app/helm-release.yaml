@@ -110,6 +110,10 @@ spec:
               - secretRef:
                   name: vpnconfig
 
+            resources:
+              limits:
+                squat.ai/tun: "1"
+
             securityContext:
               capabilities:
                 add:
