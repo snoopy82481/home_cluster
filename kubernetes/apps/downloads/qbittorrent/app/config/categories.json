@@ -1,20 +1,20 @@
 {
-    "tv": {
-        "save_path": "/media/torrents/tv"
-    },
-    "tv-uhd": {
-        "save_path": "/media/torrents/tv_uhd"
-    },
-    "tv-anime": {
-        "save_path": "/media/torrents/tv-anime"
-    },
-    "movies": {
-        "save_path": "/media/torrents/movies"
-    },
-    "movies_uhd": {
-        "save_path": "/media/torrents/movies_uhd"
-    },
-    "movies-anime": {
-        "save_path": "/media/torrents/movies-anime"
-    }
+  "tv": {
+    "save_path": "/media/torrents/tv"
+  },
+  "tv-uhd": {
+    "save_path": "/media/torrents/tv_uhd"
+  },
+  "tv-anime": {
+    "save_path": "/media/torrents/tv_anime"
+  },
+  "movies": {
+    "save_path": "/media/torrents/movies"
+  },
+  "movies_uhd": {
+    "save_path": "/media/torrents/movies_uhd"
+  },
+  "movies-anime": {
+    "save_path": "/media/torrents/movies_anime"
+  }
 }

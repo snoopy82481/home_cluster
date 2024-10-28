@@ -71,7 +71,7 @@ spec:
 
             envFrom:
               - secretRef:
-                  name: qbtools-secret
+                  name: qbtools-config-secret
 
             args:
               - tagging
