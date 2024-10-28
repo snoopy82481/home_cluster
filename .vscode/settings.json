@@ -107,6 +107,7 @@
     "cloudflared",
     "infra-vyos",
     "jellyfin",
-    "gateway"
+    "gateway",
+    "qbtools"
   ],
 }

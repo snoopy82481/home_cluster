@@ -69,10 +69,6 @@ spec:
               SABNZBD_API_KEY: ${SABNZBD_API_KEY}
               TZ: *timeZone
 
-            envFrom:
-              - secretRef:
-                  name: qbtools-config-secret
-
             args:
               - tagging
               - --added-on
