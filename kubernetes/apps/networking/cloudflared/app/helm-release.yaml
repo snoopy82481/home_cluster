@@ -35,15 +35,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        pod:
-          topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: cloudflared
-
         containers:
           app:
             image:
