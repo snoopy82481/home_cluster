@@ -5,8 +5,7 @@
       "customType": "regex",
       "description": "Process custom dependencies",
       "fileMatch": [
-        "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$",
-        "(^|/)infrastructure/.+\\.ya?ml(\\.j2)?$"
+        "(^|/)kubernetes/.+\\.ya?ml$"
       ],
       "matchStrings": [
         // Example: `k3s_release_version: "v1.27.3+k3s1"`
@@ -24,7 +23,7 @@
     },
     {
       "description": "Process Talos versioning",
-      "fileMatch": ["infrastructure/talos/betty/.+\\.ya?ml$"],
+      "fileMatch": ["kubernetes/bootstrap/talos/.+\\.ya?ml$"],
       "matchStrings": [
         "# renovate: image( versioning=(?<versioning>.+=?))?\n.*[:|=] \"?(?<depName>.+?):(?<currentValue>[^\"\n]+=?)\"?",
         "# renovate: image depName=(?<depName>.+=?)( versioning=(?<versioning>.+=?))?\n.*[:|=] \"?(?<currentValue>[^\"\n]+=?)\"?"
@@ -36,7 +35,7 @@
       "customType": "regex",
       "description": "Process Grafana dashboards",
       "fileMatch": [
-        "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+        "(^|/)kubernetes/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "depName=\"(?<depName>.*)\"\\n\\s+gnetId:\\s+(?<packageName>.*?)\\n\\s+revision:\\s+(?<currentValue>.*)"
