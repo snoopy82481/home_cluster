@@ -108,6 +108,7 @@
     "infra-vyos",
     "jellyfin",
     "gateway",
-    "qbtools"
+    "qbtools",
+    "kube-prometheus-stack"
   ],
 }
