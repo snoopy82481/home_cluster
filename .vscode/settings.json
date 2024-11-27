@@ -13,7 +13,7 @@
     "**/ansible/**/*.sops.yml": "yaml",
     "**/ansible/**/inventory/**/*.yml": "yaml",
     "**/terraform/**/*.tf": "terraform",
-    "**/cluster/**/*.sops.toml": "plaintext",
+    "./kubernetes/**/*.sops.toml": "plaintext",
     "*.env": "dotenv"
   },
   "prettier.configPath": ".ci/prettier/.prettierrc.yaml",
@@ -28,21 +28,20 @@
   "files.trimTrailingWhitespace": true,
   "cSpell.enabled": false,
   "yaml.schemas": {
-    "Kubernetes": "cluster/*.yaml",
+    "Kubernetes": "./kubernetes/*.yaml",
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "recyclarr.yaml",
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "settings.yaml",
-    "https://raw.githubusercontent.com/louygan/kubernetes-json-schema_yannh/master/v1.26.0/all.json": "k8s/**/*.yaml",
-    "recyclarr": "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json",
     "https://taskfile.dev/schema.json": [
       "**/Taskfile.yaml",
       ".taskfiles/*.yml"
     ],
-    "https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json": "file:///home/stephen/Documents/Development/home_cluster/infrastructure/talos/betty/talconfig.yaml"
+    "https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json": "./kubernetes/bootstrap/talos/talconfig.yaml"
   },
   "material-icon-theme.folders.associations": {
     ".taskfiles": "utils",
     "bootstrap": "import",
     "charts": "kubernetes",
+    "cloudflared": "cloudflare",
     "kube-system": "kubernetes",
     "networking": "connection",
     "monitoring": "event",
@@ -50,11 +49,11 @@
     "flux": "generator",
     "flux-system": "generator",
     "radarr": "video",
-    "radarr4k": "video",
+    "radarruhd": "video",
     "radarranime": "video",
     "sonarr": "video",
-    "sonarr-anime": "video",
-    "sonarr-uhd": "video",
+    "sonarranime": "video",
+    "sonarruhd": "video",
     "tautulli": "event"
   },
   "conventionalCommits.scopes": [
@@ -111,4 +110,9 @@
     "qbtools",
     "kube-prometheus-stack"
   ],
+  "vs-kubernetes": {
+    "vs-kubernetes.kubeconfig": "./kubeconfig",
+    "vs-kubernetes.knownKubeconfigs": ["./kubeconfig"],
+  },
+  "sops.defaults.ageKeyFile": "age.key"
 }
