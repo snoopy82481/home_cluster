@@ -78,19 +78,19 @@ The cluster is managed by [Renovate](https://www.mend.io/renovate/) and [flux](h
 
 <div id="built_with">
   <a href="https://kubernetes.io">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" width="40" height="40" />
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes logo" width="40" height="40" />
   </a>&nbsp;
   <a href="https://fluxcd.io">
-    <img src="docs/src/images/flux-horizontal-color.svg" alt="flux" width="80" height="40" />
+    <img src="docs/src/images/flux-horizontal-color.svg" alt="Flux logo" width="80" height="40" />
   </a>&nbsp;
   <a href="https://code.visualstudio.com">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="40" height="40" />
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS-Code logo" width="40" height="40" />
   </a>&nbsp;
   <a href="https://talos.dev">
-    <img src="https://www.talos.dev/images/logo.svg" alt="talos" width="40" height="40" />
+    <img src="https://www.talos.dev/images/logo.svg" alt="Talos Logo" width="40" height="40" />
   </a>&nbsp;
   <a href="https://cilium.io">
-    <img src="docs/src/images/cilium-logo-darkbg-horizontal-color.svg" alt="cilium" width="80" height="40" />
+    <img src="docs/src/images/cilium-logo-darkbg-horizontal-color.svg" alt="Cilium Logo" width="80" height="40" />
   </a>&nbsp;
 </div>
 
@@ -155,11 +155,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
   - [x] [Grafana](https://grafana.com)
   - [x] [Prometheus](https://grafana.com/oss/prometheus/)
-  - [ ] [Loki](https://grafana.com/oss/loki/)
-  - [ ] [Thanos](https://thanos.io)
-  - [ ] [Vector](https://vector.dev)
-- [ ] Harden Kubernetes
-  - [ ] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
+- [x] Harden Kubernetes
+  - [x] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
 - [ ] Documentation
   - [x] Create README.md
   - [ ] Document workflow (Github Pages/Cloudflare pages)
