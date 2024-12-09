@@ -2,40 +2,32 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+set: [pipefail]
+shopt: [globstar]
+
 vars:
-  # Directory paths
-  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
-  TERRAFORM_DIR: "{{.ROOT_DIR}}/infrastructure/terraform"
-  TALOS_DIR: "{{.ROOT_DIR}}/infrastructure/talos/betty"
-  BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
-  PRIVATE_DIR: "{{.ROOT_DIR}}/.private"
-  SCRIPTS_DIR: "{{.ROOT_DIR}}/scripts"
+  BOOTSTRAP_DIR: '{{.ROOT_DIR}}/bootstrap'
+  KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
+  SCRIPTS_DIR: '{{.ROOT_DIR}}/scripts'
+  BOOTSTRAP_CONFIG_FILE: '{{.ROOT_DIR}}/config.yaml'
+  MAKEJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/makejinja.toml'
+  SOPS_CONFIG_FILE: '{{.ROOT_DIR}}/.sops.yaml'
   # GitHub settings
   CLUSTER: betty
   GITHUB_USER: snoopy82481
   GITHUB_REPO: home_cluster
   GITHUB_BRANCH: main
-  # File paths
-  AGE_FILE: "{{.ROOT_DIR}}/age.key"
-  BOOTSTRAP_CONFIG_FILE: "{{.ROOT_DIR}}/config.yaml"
-  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
-  MAKEJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/makejinja.toml"
-  PIP_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.txt"
-  SOPS_CONFIG_FILE: "{{.ROOT_DIR}}/.sops.yaml"
-  # Binary paths
-  PYTHON_BIN: "python3"
 
 env:
-  KUBECONFIG: "{{.KUBECONFIG_FILE}}"
-  PYTHONDONOTWRITEBYTECODE: "1"
-  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
-  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
+  KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
+  PYTHONDONTWRITEBYTECODE: '1'
+  SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
+  VIRTUAL_ENV: '{{.ROOT_DIR}}/.venv'
 
 includes:
   bootstrap: .taskfiles/bootstrap
   kubernetes: .taskfiles/kubernetes
   talos: .taskfiles/talos
-  flux: .taskfiles/flux
   workstation: .taskfiles/workstation/
   terraform: .taskfiles/terraform
   user:

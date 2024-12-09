@@ -2,24 +2,6 @@
 version: "3"
 
 tasks:
-  cloudflare-init:
-    desc: Initialize cloudflare terraform dependencies
-    dir: infrastructure/terraform/cloudflare
-    cmds:
-      - terraform init {{.CLI_ARGS}}
-
-  cloudflare-plan:
-    desc: Show the changes cloudflare terraform will make
-    dir: infrastructure/terraform/cloudflare
-    cmds:
-      - terraform plan {{.CLI_ARGS}}
-
-  cloudflare-apply:
-    desc: Apply the changes to Cloudflare
-    dir: infrastructure/terraform/cloudflare
-    cmds:
-      - terraform apply {{.CLI_ARGS}}
-
   proxmox-init:
     desc: Initialize proxmox terraform dependencies
     dir: infrastructure/terraform/vm
