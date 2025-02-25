@@ -4,7 +4,7 @@ clusterName: ${CLUSTER_NAME}
 # renovate: image depName=ghcr.io/siderolabs/installer
 talosVersion: v1.9.3
 # renovate: image depName=registry.k8s.io/kube-apiserver
-kubernetesVersion: v1.32.0
+kubernetesVersion: v1.32.2
 endpoint: "https://192.168.20.1:6443"
 
 clusterPodNets:
