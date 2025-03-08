@@ -59,7 +59,7 @@ spec:
           tag: &container
             image:
               repository: ghcr.io/buroa/qbtools
-              tag: v0.19.12@sha256:4495217b2db28ed0209491419a17959cd463f521dd77b8dc9fa517fcefc40992
+              tag: v0.19.15@sha256:4145020bab12b2ed892f548c2812c4979793def80dce5f907e49640329e54933
 
             env:
               QBITTORRENT_HOST: qbittorrent.downloads.svc.cluster.local
