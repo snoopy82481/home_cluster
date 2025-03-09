@@ -37,18 +37,15 @@ tasks:
 
   upgrade-k8s:
     desc: Upgrade Kubernetes
-    cmd: talosctl --nodes {{.KUBERNETES_CONTROLLER}} upgrade-k8s --to {{.KUBERNETES_VERSION}}
+    dir: '{{.TALOS_DIR}}'
+    cmd: talhelper gencommand upgrade-k8s --extra-flags "--to '{{.KUBERNETES_VERSION}}'" | bash
     vars:
-      KUBERNETES_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
       KUBERNETES_VERSION:
-        sh: yq '.kubernetesVersion' {{.TALHELPER_CONFIG_FILE}}
+        sh: yq '.kubernetesVersion' {{.TALOS_DIR}}/talconfig.yaml
     preconditions:
-      - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/kubelet/releases/tag/{{.KUBERNETES_VERSION}}
-      - talosctl --nodes {{.KUBERNETES_CONTROLLER}} get machineconfig &>/dev/null
-      - talosctl config info &>/dev/null
+      - talosctl config info
       - test -f {{.TALOSCONFIG}}
-      - which talosctl yq
+      - which talhelper talosctl yq
 
   fetch-kubeconfig:
     desc: Generate talos kubeconfig
