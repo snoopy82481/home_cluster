@@ -16,7 +16,7 @@ spec:
   retryInterval: 2m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
     namespace: flux-system
   # Flux repositories under this need flux-system hardcoded as namespace for Renovate lookups
   targetNamespace: *namespace
@@ -42,7 +42,7 @@ spec:
   retryInterval: 2m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
     namespace: flux-system
   patches:
     - # Add Sops decryption and postBuild substitutions to child Kustomizations
