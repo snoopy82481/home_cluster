@@ -17,7 +17,7 @@ bpf:
   datapathMode: netkit
   masquerade: true
   preallocateMaps: true
-  # hostLegacyRouting: true
+  hostLegacyRouting: true
   # tproxy: true
 
 cgroup:
@@ -43,7 +43,7 @@ debug:
 
 disableEnvoyVersionCheck: false
 
-enableIPv4BIGTCP: true
+enableIPv4BIGTCP: false
 
 endpointRoutes:
   enabled: true
