@@ -16,7 +16,8 @@ bgp:
 bpf:
   datapathMode: netkit
   masquerade: true
-  hostLegacyRouting: true
+  preallocateMaps: true
+  # hostLegacyRouting: true
   # tproxy: true
 
 cgroup:
