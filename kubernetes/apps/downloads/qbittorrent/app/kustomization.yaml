@@ -6,22 +6,6 @@ namespace: downloads
 resources:
   - ./config-pvc.yaml
   - ./vpnConfig.sops.yaml
+  - ./qbittorrent-gluetun.sops.yaml
   - ./network-policy.yaml
   - ./helm-release.yaml
-configMapGenerator:
-  - files:
-      - config/categories.json
-      - config/qBittorrent.conf
-      - config/watched_folders.json
-    name: qbittorrent-configmap
-  - files:
-      - ./config/dnsdist.conf
-    name: qbittorrent-dnsdist
-generatorOptions:
-  disableNameSuffixHash: true
-labels:
-  - includeSelectors: true
-    pairs:
-      app.kubernetes.io/component: app
-      app.kubernetes.io/instance: qbittorrent
-      app.kubernetes.io/name: qbittorrent

@@ -5,3 +5,4 @@ kind: Kustomization
 namespace: rook-ceph
 resources:
   - ./helm-release.yaml
+  - ./httproute.yaml

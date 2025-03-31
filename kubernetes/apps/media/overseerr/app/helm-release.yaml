@@ -6,16 +6,10 @@ metadata:
   name: &app overseerr
   namespace: media
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   maxHistory: 2
   test:
     enable: false
@@ -25,7 +19,7 @@ spec:
   upgrade:
     remediation:
       retries: 5
-      remediateLastFailure: true
+      strategy: rollback
     cleanupOnFail: true
   rollback:
     timeout: 10m
@@ -33,9 +27,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     controllers:
       overseerr:
@@ -62,7 +53,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/v1/status
+                    path: /ping
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -86,14 +77,10 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 10000
-        seccompProfile:
-          type: RuntimeDefault
 
     service:
       app:
@@ -123,6 +110,20 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
+
+    route:
+      app:
+        enabled: false
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: *app
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
 
     persistence:
       config:

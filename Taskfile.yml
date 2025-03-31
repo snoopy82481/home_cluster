@@ -10,6 +10,7 @@ vars:
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
   SCRIPTS_DIR: '{{.ROOT_DIR}}/scripts'
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
+  PRIVATE_DIR: '{{.ROOT_DIR}}/.private'
   BOOTSTRAP_CONFIG_FILE: '{{.ROOT_DIR}}/config.yaml'
   MAKEJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/makejinja.toml'
   SOPS_CONFIG_FILE: '{{.ROOT_DIR}}/.sops.yaml'
@@ -32,9 +33,6 @@ includes:
   talos: .taskfiles/talos
   workstation: .taskfiles/workstation/
   terraform: .taskfiles/terraform
-  user:
-    taskfile: .taskfiles/user
-    optional: true
 
 tasks:
   default: task --list
@@ -83,3 +81,8 @@ tasks:
       HOME_SOPS_AGE_KEY_FILE_EXISTS:
         sh: test -f ~/.config/sops/age/keys.txt && echo true || echo false
     silent: true
+
+  helmfile:
+    desc: Run helmfile
+    cmds:
+      - helmfile --file kubernetes/bootstrap/helmfile.yaml apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets

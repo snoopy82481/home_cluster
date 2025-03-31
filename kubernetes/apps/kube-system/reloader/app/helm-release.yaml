@@ -1,43 +1,39 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: reloader
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 2.0.0
+  url: oci://ghcr.io/stakater/charts/reloader
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: reloader
-  namespace: &namespace kube-system
 spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: reloader
-      version: 1.3.0
-      sourceRef:
-        kind: HelmRepository
-        name: stakater
-        namespace: flux-system
-      interval: 15m
-  maxHistory: 2
-  test:
-    enable: false
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: reloader
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
-      remediateLastFailure: true # remediate the last failure, when no retries remain
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+      retries: 3
   values:
     fullnameOverride: reloader
     reloader:
-      reloadStrategy: annotations
+      readOnlyRootFileSystem: true
       podMonitor:
         enabled: true
-        namespace: *namespace
+        namespace: "{{ .Release.Namespace }}"

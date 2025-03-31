@@ -6,16 +6,10 @@ metadata:
   name: &app prowlarr
   namespace: media
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   maxHistory: 2
   test:
     enable: false
@@ -25,7 +19,7 @@ spec:
   upgrade:
     remediation:
       retries: 5
-      remediateLastFailure: true
+      strategy: rollback
     cleanupOnFail: true
   rollback:
     timeout: 10m
@@ -33,9 +27,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     controllers:
       prowlarr:
@@ -46,8 +37,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/prowlarr-develop
-              tag: 1.30.2.4939@sha256:cf9e51aaabc9c6b745b34af7c5b5280ac62eb07f62b397b6b1834ba4c9862616
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 1.33.1.4997@sha256:3bb878cf5d447934f4f3848315f3cf393bdc269eee9f823df34e06768a55ddb3
 
             env:
               PROWLARR__APP__INSTANCENAME: Prowlarr
@@ -86,14 +77,10 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 10000
-        seccompProfile:
-          type: RuntimeDefault
 
     service:
       app:

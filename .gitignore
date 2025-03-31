@@ -2,6 +2,9 @@
 .DS_Store
 Thumbs.db
 
+# Secrets
+/cloudflare-tunnel.json
+
 # k8s
 kubeconfig
 talosconfig

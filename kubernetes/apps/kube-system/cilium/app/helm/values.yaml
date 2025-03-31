@@ -1,0 +1,140 @@
+---
+autoDirectNodeRoutes: true
+
+bandwidthManager:
+  enabled: true
+  bbr: true
+
+bgpControlPlane:
+  enabled: true
+
+bgp:
+  enabled: false
+  announce:
+    loadbalancerIP: false
+
+bpf:
+  datapathMode: netkit
+  masquerade: true
+  hostLegacyRouting: true
+  # tproxy: true
+
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+cni:
+  exclusive: false
+
+Cluster:
+  name: betty
+  id: 0
+
+clustermesh:
+  useAPIServer: false
+
+dashboards:
+  enabled: true
+
+debug:
+  enabled: false
+
+disableEnvoyVersionCheck: false
+
+enableIPv4BIGTCP: true
+
+endpointRoutes:
+  enabled: true
+
+envoy:
+  rollOutPods: true
+
+externalIPs:
+  enabled: true
+
+gatewayAPI:
+  enabled: true
+  enableAlpn: true
+  xffNumTrustedHops: 1
+  enableAppProtocol: true
+
+hostPort:
+  enabled: false
+
+hostServices:
+  enabled: true
+  protocols: tcp,udp
+
+hubble:
+  enabled: false
+
+ipam:
+  mode: kubernetes
+  operator:
+    clusterPoolIPv4PodCIDRList: ["10.42.0.0/16"]
+    clusterPoolIPv6PodCIDRList: ["fd00::/104"]
+
+ipv4NativeRoutingCIDR: 10.42.0.0/16
+
+kubeProxyReplacement: true
+
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
+k8sServiceHost: 127.0.0.1
+
+k8sServicePort: 7445
+
+l2announcements:
+  enabled: true
+
+LoadBalancer:
+  algorithm: meglev
+  mode: dsr
+
+localRedirectPolicy: true
+
+nodePort:
+  enabled: true
+  range: "30000,32767"
+
+operator:
+  replicas: 2
+  dashboards:
+    enabled: true
+  rollOutPods: true
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    trustCRDsExist: true
+
+rollOutCiliumPods: true
+
+routingMode: native
+
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - PERFMON
+      - BPF
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE

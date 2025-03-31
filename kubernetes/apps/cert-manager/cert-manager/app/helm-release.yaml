@@ -1,4 +1,20 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: cert-manager
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: v1.17.1
+  url: oci://ghcr.io/home-operations/charts-mirror/cert-manager
+  verify:
+    provider: cosign
+---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -24,7 +40,7 @@ spec:
   upgrade:
     remediation:
       retries: 5
-      remediateLastFailure: true
+      strategy: rollback
     cleanupOnFail: true
   rollback:
     timeout: 10m
@@ -32,19 +48,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  values:
-    installCRDs: true
-    extraArgs:
-      - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
-      - --dns01-recursive-nameservers-only
-      - --feature-gates=ExperimentalGatewayAPISupport=true
-    podDnsPolicy: None
-    podDnsConfig:
-      nameservers:
-        - "1.1.1.1"
-        - "9.9.9.9"
-    prometheus:
-      enabled: true
-      servicemonitor:
-        enabled: true
-        prometheusInstance: monitoring
+  valuesFrom:
+    - kind: ConfigMap
+      name: cert-manager-values

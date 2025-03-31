@@ -1,0 +1,32 @@
+# yamllint disable
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: qbittorrent-gluetun-secret
+    namespace: downloads
+data:
+    auth.toml: ENC[AES256_GCM,data:vrCzl50DdARUUgQQeFi25ObvLwJQtgfK8wpQQE0Ow7SpiskGNi1EKcEVI6YTc6eY4eWhFk7r5gfSnBpiFPNu62JFXz5uaYDVgdXL4NvYRnUd4dlphiMj7D864VbwY3PkwzH+rGbSo4okmbqIxnOzmfyJ0c2HeHjg7sCVmIS271IGxcnuq0C+Dj1Y2SUPlYBK7EExPZVSV5pIW/OvheahpMHu,iv:nqKuWL/NOahDhfLmXwPFkkm/0QhgI8jnEMAv7zGBEHM=,tag:2UTv34c7U1GSLwoGO19dpg==,type:str]
+stringdata:
+    GLUETUN_CONTROL_SERVER_API_KEY: HkLu1WMnVJSdmZV3uFZLc5
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBqTElSV0FrOE5SOUdWZEVY
+            am56ekhUU3ZIWW9aTGZCWUZLYkR4eUh0d0h3CkJJUGVYUWVqM0xXR08rRWhHcCt4
+            ckV5TlFaSElHdk5YaUsyWWgrS0V0TUEKLS0tIGo2TnZZSVRic0h0L2EzTzJGYXIx
+            Mk96am5GaUpuL3A1bWZRN24rOTd3RDAK4rAOypoX6bv31GlzR22XOivOe5pCvJvE
+            RHeEPn/uvlUbQVKaNWTVgcFnj9liXmtBZ9H7hhfsENOGv3N3bBZS6g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-03-31T18:45:50Z"
+    mac: ENC[AES256_GCM,data:jNrJnBJEmXtLk8w1s0MU+Pld7kHWq/1gs0/+n+Hs9mJhfNZAxPhf7Ph4GhppdF+qHisOgfWLcLH7wIlnAhmSkWxONLVSnKZTssivophA5bg5+eRtg3wOqgeBUFM8RbU6FlXiY0StS3sSJPHCVcSK9omxN+Ksmg02RHncuWirO0c=,iv:qUlcqPITT3JBUZYv0l7KV6dYfpMr6izsFFZXg84ZNro=,tag:IqUWOly/Yx0UDxpjByL4cQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    mac_only_encrypted: true
+    version: 3.9.4

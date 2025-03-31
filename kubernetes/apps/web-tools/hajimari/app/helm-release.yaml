@@ -6,7 +6,7 @@ metadata:
   name: &app hajimari
   namespace: web-tools
 spec:
-  interval: 15m
+  interval: 1h
   chart:
     spec:
       chart: hajimari
@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: hajimari
         namespace: flux-system
-      interval: 15m
+      interval: 1h
   maxHistory: 2
   test:
     enable: false
@@ -25,7 +25,7 @@ spec:
   upgrade:
     remediation:
       retries: 5
-      remediateLastFailure: true
+      strategy: rollback
     cleanupOnFail: true
   rollback:
     timeout: 10m

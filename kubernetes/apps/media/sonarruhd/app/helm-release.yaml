@@ -6,16 +6,10 @@ metadata:
   name: &app sonarruhd
   namespace: media
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   maxHistory: 2
   test:
     enable: false
@@ -25,7 +19,7 @@ spec:
   upgrade:
     remediation:
       retries: 5
-      remediateLastFailure: true
+      strategy: rollback
     cleanupOnFail: true
   rollback:
     timeout: 10m
@@ -33,9 +27,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     controllers:
       sonarruhd:
@@ -46,12 +37,12 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.13.2933@sha256:12427949df13731d802514d5f417e2d302f2d7c026be1903ae287921b4a60ac7
+              repository: ghcr.io/home-operations/sonarr
+              tag: 4.0.14.2938@sha256:acd5416ab9c36d017687820a32f09d09a4e25a5754aa5ebeae2e7c63d7609c13
 
             env:
               TZ: "${TIMEZONE}"
-              SONARR__APP__INSTANCENAME: "Sonarr UHD"
+              SONARR__APP__INSTANCENAME: &instancename "Sonarr UHD"
               SONARR__APP__THEME: dark
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
@@ -90,14 +81,10 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 10000
-        seccompProfile:
-          type: RuntimeDefault
 
     service:
       app:
@@ -115,7 +102,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/group: "Media"
           hajimari.io/icon: "filmstrip"
-          hajimari.io/appName: "Sonarr UHD"
+          hajimari.io/appName: *instancename
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -127,6 +114,20 @@ spec:
           - secretName: "{{ .Release.Name }}-tls"
             hosts:
               - *host
+
+    route:
+      app:
+        enabled: false
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: *app
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
 
     persistence:
       config:

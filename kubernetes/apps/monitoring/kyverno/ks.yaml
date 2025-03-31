@@ -4,45 +4,44 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app kyverno
-  namespace: flux-system
+  namespace: &namespace monitoring
 spec:
-  targetNamespace: monitoring
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  interval: 1h
   path: ./kubernetes/apps/monitoring/kyverno/app
   prune: true
-  wait: false
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  interval: 30m
+    namespace: flux-system
+  targetNamespace: *namespace
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app
+  wait: false
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app cluster-policies
-  namespace: flux-system
+  namespace: &namespace monitoring
 spec:
-  targetNamespace: monitoring
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kyverno
+      namespace: *namespace
+  interval: 1h
   path: ./kubernetes/apps/monitoring/kyverno/policies
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
-  interval: 30m
+    namespace: flux-system
+  targetNamespace: *namespace
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app
+  wait: false

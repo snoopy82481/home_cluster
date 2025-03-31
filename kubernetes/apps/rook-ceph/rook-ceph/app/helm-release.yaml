@@ -1,4 +1,20 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: rook-ceph
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: v1.16.5
+  url: oci://ghcr.io/home-operations/charts-mirror/rook-ceph
+  verify:
+    provider: cosign
+---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -6,27 +22,21 @@ metadata:
   name: rook-ceph-operator
   namespace: rook-ceph
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 15m
-  chart:
-    spec:
-      chart: rook-ceph
-      version: v1.16.5
-      sourceRef:
-        kind: HelmRepository
-        name: rook-ceph
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: rook-ceph
   maxHistory: 2
   test:
     enable: false
   install:
-    createNamespace: true
     remediation:
       retries: 5
   upgrade:
     remediation:
       retries: 5
-      remediateLastFailure: true
+      strategy: rollback
     cleanupOnFail: true
   rollback:
     timeout: 10m
@@ -35,121 +45,25 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    crds:
-      enabled: true
-
     csi:
-      kubeletDirPath: /var/lib/kubelet
-      enableCSIHostNetwork: true
-      pluginTolerations:
-        - effect: "NoExecute"
-          operator: "Exists"
-        - effect: "NoSchedule"
-          operator: "Exists"
+      cephFSKernelMountOptions: ms_mode=prefer-crc
+      enableCephfsDriver: false
+      enableCephfsSnapshotter: false
+      enableLiveness: true
+      serviceMonitor:
+        enabled: true
 
-      csiRBDProvisionerResource: |
-        - name : csi-provisioner
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
-        - name : csi-resizer
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
-        - name : csi-attacher
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
-        - name : csi-snapshotter
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
-        - name : csi-rbdplugin
-          resource:
-            requests:
-              memory: 512Mi
-              cpu: 50m
-            limits:
-              memory: 1Gi
-        - name : csi-omap-generator
-          resource:
-            requests:
-              memory: 512Mi
-              cpu: 50m
-            limits:
-              memory: 1Gi
-        - name : liveness-prometheus
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
+    enableDiscoveryDaemon: true
 
-      csiCephFSProvisionerResource: |
-        - name : csi-provisioner
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
-        - name : csi-resizer
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
-        - name : csi-attacher
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
-        - name : csi-snapshotter
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
-        - name : csi-cephfsplugin
-          resource:
-            requests:
-              memory: 512Mi
-              cpu: 50m
-            limits:
-              memory: 1Gi
-        - name : liveness-prometheus
-          resource:
-            requests:
-              memory: 128Mi
-              cpu: 25m
-            limits:
-              memory: 256Mi
+    image:
+      repository: ghcr.io/rook/ceph
 
     monitoring:
       enabled: true
 
-    pspEnable: false
-
     resources:
       requests:
-        cpu: 109m
-        memory: 204M
+        cpu: 100m
+        memory: 128Mi
       limits:
         memory: 453M

@@ -1,37 +1,40 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: cilium
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.17.2
+  url: oci://ghcr.io/home-operations/charts-mirror/cilium
+  verify:
+    provider: cosign
+---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: cilium
-  namespace: kube-system
-  annotations:
-    meta.helm.sh/release-name: cilium
-    meta.helm.sh/release-namespace: kube-system
-  labels:
-    app.kubernetes.io/managed-by: Helm
 spec:
-  interval: 5m
-  chart:
-    spec:
-      chart: cilium
-      version: 1.16.6
-      sourceRef:
-        kind: HelmRepository
-        name: cilium
-        namespace: flux-system
-      interval: 5m
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: cilium
   maxHistory: 2
   test:
     enable: false
   install:
-    createNamespace: true
     remediation:
       retries: 5
   upgrade:
     remediation:
       retries: 5
-      remediateLastFailure: true
+      strategy: rollback
     cleanupOnFail: true
   rollback:
     timeout: 10m
@@ -45,26 +48,25 @@ spec:
 
   valuesFrom:
     - kind: ConfigMap
-      name: cilium-helm-values
+      name: cilium-values
 
   values:
-    dashboards:
-      enabled: true
-      annotations:
-        grafana_folder: Cilium
-
-    envoy:
-      enabled: true
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-
-    gatewayAPI:
-      enabled: true
-
     hubble:
+      enabled: true
+
+      metrics:
+        enabled:
+          - dns:query
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
+
       relay:
+        enabled: true
+        rollOutPods: true
         prometheus:
           serviceMonitor:
             enabled: true
@@ -74,13 +76,10 @@ spec:
 
       dashboards:
         enabled: true
-        label: grafana_dashboard
-        namespace: monitoring
-        labelValue: "1"
-        annotations:
-          grafana_folder: Cilium
 
       ui:
+        enabled: true
+        rollOutPods: true
         ingress:
           enabled: true
           className: internal
@@ -97,17 +96,4 @@ spec:
                 - *host
 
     operator:
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-        dashboards:
-          enabled: true
-          annotations:
-            grafana_folder: Cilium
-
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        trustCRDsExist: true
+      tolerations: []

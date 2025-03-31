@@ -5,11 +5,11 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helm-release.yaml
-  - ./bgp-peering-policy.yaml
+  - ./networks.yaml
 configMapGenerator:
-  - name: cilium-helm-values
+  - name: cilium-values
     files:
-      - values.yaml=./helm-values.yaml
+      - values.yaml=./helm/values.yaml
 
 configurations:
-  - kustomizeconfig.yaml
+  - ./helm/kustomizeconfig.yaml

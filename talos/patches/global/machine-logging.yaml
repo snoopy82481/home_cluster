@@ -1,0 +1,8 @@
+machine:
+  install:
+    extraKernelArgs:
+      - "talos.logging.kernel=udp://192.168.20.52:6050/"
+  logging:
+    destinations:
+      - endpoint: "udp://192.168.20.52:6051/"
+        format: json_lines

@@ -1,0 +1,27 @@
+machine:
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      permissions: 0o644
+      content: |-
+        [plugins."io.containerd.grpc.v1.cri"]
+          enable_unprivileged_ports = true
+          enable_unprivileged_icmp = true
+        [plugins."io.containerd.grpc.v1.cri".containerd]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0o644
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.2
+        hard=True
+        noatime=True
+        nodiratime=True
+        rsize=131072
+        wsize=131072
+        nconnect=8

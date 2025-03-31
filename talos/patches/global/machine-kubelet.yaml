@@ -1,0 +1,10 @@
+machine:
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: "true"
+    extraConfig:
+      maxPods: 150
+      serializeImagePulls: false
+    nodeIP:
+      validSubnets:
+        - 192.168.20.0/24

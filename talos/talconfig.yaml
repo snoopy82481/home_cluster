@@ -1,10 +1,9 @@
 ---
 clusterName: ${CLUSTER_NAME}
 
-# renovate: image depName=ghcr.io/siderolabs/installer
-talosVersion: v1.9.3
-# renovate: image depName=registry.k8s.io/kube-apiserver
-kubernetesVersion: v1.32.2
+talosVersion: "${talosVersion}"
+kubernetesVersion: "${kubernetesVersion}"
+
 endpoint: "https://192.168.20.1:6443"
 
 clusterPodNets:
@@ -27,6 +26,9 @@ nodes:
     ipAddress: &kmaster1 192.168.20.5
     controlPlane: true
     installDisk: /dev/sda
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
 
   - hostname: kmaster2.${DOMAINNAME}
     ipAddress: &kmaster2 192.168.20.6
@@ -37,49 +39,41 @@ nodes:
     ipAddress: &kmaster3 192.168.20.7
     controlPlane: true
     installDisk: /dev/sda
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
 
   - hostname: kworker1.${DOMAINNAME}
     ipAddress: &kworker1 192.168.20.8
     controlPlane: false
     installDisk: /dev/sda
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
 
   - hostname: kworker2.${DOMAINNAME}
     ipAddress: &kworker2 192.168.20.9
     controlPlane: false
     installDisk: /dev/sda
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
 
   - hostname: kworker3.${DOMAINNAME}
     ipAddress: &kworker3 192.168.20.10
     controlPlane: false
     installDisk: /dev/sda
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
 
 patches:
-  - |-
-    machine:
-      install:
-        extraKernelArgs:
-          - "talos.logging.kernel=udp://192.168.20.52:6050/"
-      logging:
-        destinations:
-          - endpoint: "udp://192.168.20.52:6051/"
-            format: json_lines
-      time:
-        disabled: false
-        servers:
-          - 192.168.20.1
-      features:
-        kubePrism:
-          enabled: true
-          port: 7445
-
-  - "@./patches/global/cluster-discovery.yaml"
-  - "@./patches/global/containerd.yaml"
-  - "@./patches/global/disable-search-domain.yaml"
-  - "@./patches/global/hostdns.yaml"
-  - "@./patches/global/kubelet.yaml"
-  - "@./patches/global/network.yaml"
-  - "@./patches/global/openebs-local.yaml"
-  - "@./patches/global/sysctl.yaml"
+  - "@./patches/global/machine-files.yaml"
+  - "@./patches/global/machine-hostdns.yaml"
+  - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-network.yaml"
+  - "@./patches/global/machine-sysctl.yaml"
+  - "@./patches/global/machine-time.yaml"
 
 controlPlane:
   schematic:
@@ -91,8 +85,7 @@ controlPlane:
   patches:
     - "@./patches/controller/api-access.yaml"
     - "@./patches/controller/cluster.yaml"
-    - "@./patches/controller/disable-admission-controller.yaml"
-    - "@./patches/controller/etcd.yaml"
+    - "@./patches/controller/admission-controller-patch.yaml"
 
 worker:
   schematic:
