@@ -8,11 +8,6 @@ bandwidthManager:
 bgpControlPlane:
   enabled: true
 
-bgp:
-  enabled: false
-  announce:
-    loadbalancerIP: false
-
 bpf:
   # datapathMode: netkit
   masquerade: true
@@ -82,7 +77,7 @@ kubeProxyReplacement: true
 
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 
-k8sServiceHost: 127.0.0.1
+k8sServiceHost: localhost
 
 k8sServicePort: 7445
 
@@ -129,8 +124,6 @@ securityContext:
       - IPC_LOCK
       - SYS_ADMIN
       - SYS_RESOURCE
-      - PERFMON
-      - BPF
       - DAC_OVERRIDE
       - FOWNER
       - SETGID
