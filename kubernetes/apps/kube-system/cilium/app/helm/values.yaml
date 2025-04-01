@@ -9,11 +9,11 @@ bgpControlPlane:
   enabled: true
 
 bpf:
-  # datapathMode: netkit
+  datapathMode: netkit
   masquerade: true
-  # preallocateMaps: true
   hostLegacyRouting: true
-  # tproxy: true
+
+bpfClockProbe: true
 
 cgroup:
   autoMount:
@@ -27,18 +27,13 @@ Cluster:
   name: betty
   id: 0
 
-clustermesh:
-  useAPIServer: false
-
 dashboards:
   enabled: true
 
 debug:
   enabled: false
 
-disableEnvoyVersionCheck: false
-
-enableIPv4BIGTCP: false
+enableIPv4BIGTCP: true
 
 endpointRoutes:
   enabled: true
@@ -55,21 +50,11 @@ gatewayAPI:
   xffNumTrustedHops: 1
   enableAppProtocol: true
 
-hostPort:
-  enabled: false
-
-hostServices:
-  enabled: true
-  protocols: tcp,udp
-
 hubble:
   enabled: false
 
 ipam:
   mode: kubernetes
-  operator:
-    clusterPoolIPv4PodCIDRList: ["10.42.0.0/16"]
-    clusterPoolIPv6PodCIDRList: ["fd00::/104"]
 
 ipv4NativeRoutingCIDR: 10.42.0.0/16
 
@@ -77,7 +62,7 @@ kubeProxyReplacement: true
 
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 
-k8sServiceHost: localhost
+k8sServiceHost: 127.0.0.1
 
 k8sServicePort: 7445
 
@@ -89,10 +74,6 @@ LoadBalancer:
   mode: dsr
 
 localRedirectPolicy: true
-
-nodePort:
-  enabled: true
-  range: "30000,32767"
 
 operator:
   replicas: 2
@@ -124,6 +105,8 @@ securityContext:
       - IPC_LOCK
       - SYS_ADMIN
       - SYS_RESOURCE
+      - PERFMON
+      - BPF
       - DAC_OVERRIDE
       - FOWNER
       - SETGID
