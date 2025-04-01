@@ -12,6 +12,6 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-    url: "https://github.com/ghetto_fab.git"
+    url: "https://github.com/snoopy82481/home_cluster.git"
     ref: "refs/heads/main"
     path: kubernetes/flux/cluster
