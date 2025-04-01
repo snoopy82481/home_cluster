@@ -33,8 +33,6 @@ dashboards:
 debug:
   enabled: false
 
-enableIPv4BIGTCP: true
-
 endpointRoutes:
   enabled: true
 
