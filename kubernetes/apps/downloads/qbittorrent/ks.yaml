@@ -10,7 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: ingress-nginx-internal
+    - name: internal-ingress-nginx
+      namespace: networking
   path: ./kubernetes/apps/downloads/qbittorrent/app
   postBuild:
     substitute:
