@@ -42,9 +42,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
 
   valuesFrom:
     - kind: ConfigMap
