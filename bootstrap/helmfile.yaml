@@ -22,6 +22,9 @@ repositories:
   - name: jetstack
     url: https://charts.jetstack.io
 
+  - name: spegel
+    url: ghcr.io/spegel-org/helm-charts
+    oci: true
 
 releases:
   - name: cilium
