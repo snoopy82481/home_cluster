@@ -14,9 +14,9 @@ bgp:
     loadbalancerIP: false
 
 bpf:
-  datapathMode: netkit
+  # datapathMode: netkit
   masquerade: true
-  preallocateMaps: true
+  # preallocateMaps: true
   hostLegacyRouting: true
   # tproxy: true
 

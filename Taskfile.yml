@@ -33,6 +33,7 @@ includes:
   talos: .taskfiles/talos
   workstation: .taskfiles/workstation/
   terraform: .taskfiles/terraform
+  # template: .taskfiles/template
 
 tasks:
   default: task --list
