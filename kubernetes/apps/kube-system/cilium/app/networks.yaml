@@ -1,10 +1,11 @@
 ---
+# yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/cilium.io/ciliumloadbalancerippool_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: main-pool
 spec:
-  allowFirstLastIPs: "Yes"
+  allowFirstLastIPs: "No"
   blocks:
     - cidr: ${NETWORK_BGP_SVC_CIDR}
 ---
@@ -45,21 +46,3 @@ spec:
       neighbors:
         - peerAddress: "192.168.0.1/32"
           peerASN: 64501
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: kube-api
-  annotations:
-    lbipam.cilium.io/ips: 192.168.42.120
-spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Cluster
-  selector:
-    k8s-app: kube-apiserver
-    tier: control-plane
-  ports:
-    - name: https
-      port: 6443
-      protocol: TCP
-      targetPort: 6443
