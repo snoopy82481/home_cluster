@@ -24,12 +24,12 @@ tasks:
       - test -f {{.KUBERNETES_DIR}}/apps/{{.PATH}}/ks.yaml
       - which flux kubectl yq
 
-  reconcile:
-    desc: Force update Flux to pull in changes from your Git repository
-    cmd: flux --namespace flux-system reconcile kustomization cluster --with-source
-    preconditions:
-      - test -f {{.KUBECONFIG}}
-      - which flux
+  # reconcile:
+  #   desc: Force update Flux to pull in changes from your Git repository
+  #   cmd: flux --namespace flux-system reconcile kustomization cluster --with-source
+  #   preconditions:
+  #     - test -f {{.KUBECONFIG}}
+  #     - which flux
 
   kubeconform:
     desc: Validate Kubernetes manifests with kubeconform

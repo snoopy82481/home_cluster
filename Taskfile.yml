@@ -87,3 +87,10 @@ tasks:
     desc: Run helmfile
     cmds:
       - helmfile --file kubernetes/bootstrap/helmfile.yaml apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
+
+  reconcile:
+    desc: Force Flux to pull in changes from your Git repository
+    cmd: flux --namespace flux-system reconcile kustomization flux-system --with-source
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - which flux
