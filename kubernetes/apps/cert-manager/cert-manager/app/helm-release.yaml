@@ -23,14 +23,9 @@ metadata:
   namespace: cert-manager
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: cert-manager
-      version: v1.16.4
-      sourceRef:
-        kind: HelmRepository
-        name: jetstack
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: flux-instance
   maxHistory: 2
   test:
     enable: false
