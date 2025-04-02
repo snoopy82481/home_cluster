@@ -25,7 +25,7 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: flux-instance
+    name: cert-manager
   maxHistory: 2
   test:
     enable: false
