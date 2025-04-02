@@ -2,4 +2,5 @@ machine:
   time:
     disabled: false
     servers:
-      - 192.168.20.1
+      - 162.159.200.1
+      - 162.159.200.123
