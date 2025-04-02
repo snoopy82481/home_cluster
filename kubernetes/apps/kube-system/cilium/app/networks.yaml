@@ -3,11 +3,11 @@
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: pool
+  name: "main-pool"
 spec:
   allowFirstLastIPs: "No"
   blocks:
-    - cidr: ${NETWORK_BGP_SVC_CIDR}
+    - cidr: "${NETWORK_BGP_SVC_CIDR}"
 ---
 # yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
