@@ -25,7 +25,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cluster-policies
+  name: &app kyverno-cluster-policies
   namespace: &namespace monitoring
 spec:
   commonMetadata:

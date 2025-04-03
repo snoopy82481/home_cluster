@@ -12,10 +12,9 @@ spec:
   dependsOn:
     - name: internal-ingress-nginx
       namespace: networking
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   path: ./kubernetes/apps/downloads/qbittorrent/app
-  postBuild:
-    substitute:
-      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

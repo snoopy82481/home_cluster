@@ -13,9 +13,6 @@ spec:
       namespace: networking
   interval: 1h
   path: ./kubernetes/apps/monitoring/grafana/app
-  postBuild:
-    substitute:
-      APP: *app
   prune: true
   retryInterval: 2m
   sourceRef:

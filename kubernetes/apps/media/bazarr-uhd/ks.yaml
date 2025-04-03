@@ -14,9 +14,6 @@ spec:
       namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/media/bazarr-uhd/app
-  postBuild:
-    substitute:
-      APP: *app
   prune: true
   retryInterval: 2m
   sourceRef:

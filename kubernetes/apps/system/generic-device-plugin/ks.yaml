@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 1h
-  path: "./kubernetes/apps/system/generic-device-plugin/app"
+  path: ./kubernetes/apps/system/generic-device-plugin/app
   prune: true
   retryInterval: 2m
   sourceRef:
