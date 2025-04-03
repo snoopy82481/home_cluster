@@ -73,7 +73,7 @@ releases:
     namespace: flux-system
     atomic: true
     chart: controlplaneio/flux-operator
-    version: 0.17.0
+    version: 0.18.0
     values: ['{{ requiredEnv "ROOT_DIR" }}/kubernetes/apps/flux-system/flux-operator/app/helm/values.yaml']
     needs: ['cert-manager/cert-manager']
 
