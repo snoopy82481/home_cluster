@@ -1,59 +1,68 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "packageRules": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
     {
-      "description": "Cert-Manager image (for CRDs) and chart",
-      "groupName": "Cert-Manager",
-      "matchPackagePatterns": ["cert-manager"],
-      "matchDatasources": ["docker", "helm"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "separateMinorPatch": true
+      description: "Actions Runner Controller Group",
+      groupName: "Actions Runner Controller",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/gha-runner-scale-set-controller/", "/gha-runner-scale-set/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
     },
     {
-      "description": "Rook-Ceph image and chart",
-      "groupName": "Rook-Ceph",
-      "matchPackagePatterns": ["rook.ceph"],
-      "matchDatasources": ["docker", "helm"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "separateMinorPatch": true
+      description: "Cert-Manager Group",
+      groupName: "Cert-Manager",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/cert-manager/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
     },
     {
-      "description": "Cilium image and chart",
-      "groupName": "Cilium",
-      "separateMinorPatch": true,
-      "matchDatasources": ["docker", "helm"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "matchPackageNames": [
-        "quay.io/cilium/cilium",
-        "quay.io/cilium/operator-generic",
-        "cilium"
-      ]
+      description: "Cilium Group",
+      groupName: "Cilium",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/cilium/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
     },
     {
-      "description": "Thanos image and chart - versions do not match",
-      "groupName": "Thanos",
-      "matchDatasources": ["docker", "github-releases", "helm"],
-      "matchPackagePatterns": ["quay.io/thanos/thanos", "thanos"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "separateMinorPatch": false
+      description: "CoreDNS Group",
+      groupName: "CoreDNS",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/coredns/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
     },
     {
-      "description": "Vector image and chart - versions do not match",
-      "groupName": "Vector",
-      "matchDatasources": ["docker", "github-releases", "helm"],
-      "matchPackagePatterns": ["vector"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "separateMinorPatch": false
+      description: "Flux Operator Group",
+      groupName: "Flux Operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
     },
     {
-      "description": "Node Feature Discovery kustomization (for CRDs) and chart",
-      "groupName": "Node Feature Discovery",
-      "matchPackagePatterns": ["node-feature-discovery"],
-      "matchDatasources": ["helm", "github-tags"],
-      "group": { "commitMessageTopic": "{{{groupName}}} group" },
-      "separateMinorPatch": true
-    }
-  ]
+      description: "Rook-Ceph Group",
+      groupName: "Rook-Ceph",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Spegel Group",
+      groupName: "Spegel",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/spegel/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+  ],
 }
