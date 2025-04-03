@@ -7,8 +7,6 @@ metadata:
     namespace: downloads
 data:
     auth.toml: ENC[AES256_GCM,data:vrCzl50DdARUUgQQeFi25ObvLwJQtgfK8wpQQE0Ow7SpiskGNi1EKcEVI6YTc6eY4eWhFk7r5gfSnBpiFPNu62JFXz5uaYDVgdXL4NvYRnUd4dlphiMj7D864VbwY3PkwzH+rGbSo4okmbqIxnOzmfyJ0c2HeHjg7sCVmIS271IGxcnuq0C+Dj1Y2SUPlYBK7EExPZVSV5pIW/OvheahpMHu,iv:nqKuWL/NOahDhfLmXwPFkkm/0QhgI8jnEMAv7zGBEHM=,tag:2UTv34c7U1GSLwoGO19dpg==,type:str]
-stringData:
-    GLUETUN_CONTROL_SERVER_API_KEY: ENC[AES256_GCM,data:hW6gq6A9sQEjK4LnAz3xZ3P7CcZwpg==,iv:oHRtP2ihvjT33+21YyBriN59Z+hKCktQ5e3WRABRO2Q=,tag:L5SbC8q6K2JvVq+6c9rlag==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -24,8 +22,8 @@ sops:
             Mk96am5GaUpuL3A1bWZRN24rOTd3RDAK4rAOypoX6bv31GlzR22XOivOe5pCvJvE
             RHeEPn/uvlUbQVKaNWTVgcFnj9liXmtBZ9H7hhfsENOGv3N3bBZS6g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-04-02T22:50:07Z"
-    mac: ENC[AES256_GCM,data:+diYeFmuQh3SQlsk9KClm+KdaqGuQ9LgVvs/G4AruuYpqaq66rYZwtWtTRw41BbZN8sO6fkF14GGrc/F4KPoc03DuWY0e3rBmte6BO8S3QoOSWPz4OgD01rWLIEyIvEuTfteNd9DSYZ5lfIfI+8WOY/gRZB4lfGrFDJXpH+DFV8=,iv:FQbObaWj+ITmL+j/T7zvfYW0AA8QFE4UwMFlR9jPKUE=,tag:dmnRTAYFF6lbbGkYdWEGqQ==,type:str]
+    lastmodified: "2025-04-03T14:19:42Z"
+    mac: ENC[AES256_GCM,data:Dma2lEnyO9yh1mUXKGZ2afb+B5R4vXL4+/J902mwCQq1ESKNukUjIcFWX8/Hi9PJ9bqVcONYtrnJ/4H9+uzzCamMoP+If8LXd/46Zdzz35wNry/uPAVMZJlOfFAj6sXn94Yy+q82Y+b3GoWStOuBpwA1dXk2BzrrnQ352NfLXpE=,iv:gGMeoUJNQF7Zj9gV01V5RHF7QLA2GLGqRmjPBzF+88A=,tag:bYO8nwvNheMUkXDjlQKUOA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     mac_only_encrypted: true

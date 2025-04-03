@@ -12,6 +12,7 @@ stringData:
     WIREGUARD_ENDPOINT_IP: ENC[AES256_GCM,data:apAKy2/177TlyEtBDA==,iv:WFCc1tokIXtC+KF3PPIiqWYQTflf/zOAfD+mXCWnIzY=,tag:yHDfL4AQNFzUMZgSVLH1wg==,type:str]
     WIREGUARD_ENDPOINT_PORT: ENC[AES256_GCM,data:3unt1Mk=,iv:Lqo/r80VcENv8iWRCg+n6kA5arT5awhbrWb5qLLQ4Z8=,tag:UbmXd/CbBnOIia5pbgksgA==,type:str]
     WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:hwIyIwAxI0SD3sg=,iv:KPkQCTkxI3rfjfAok0ww84Ku9Pa4IVNIOSPaXq+VNyA=,tag:cKnvCXyw5+VqafAPsgVcdg==,type:str]
+    GLUETUN_CONTROL_SERVER_API_KEY: ENC[AES256_GCM,data:NwJVmyl8UEMz/76cx0cMcLykB9Ki6w==,iv:3oZvgJyN2R0Xnw/9CrCD8ZAmRQRcw5CNRCQ2PFOICuY=,tag:ZI08VKg5Qdxfw3vKUS+R2g==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -27,8 +28,8 @@ sops:
             ZjVVU1JJUkpuRkhoN3N1bU9KNEtMVE0K4tG0BXQNmNR5Ja4wLQQavBIqfOo7673Q
             35DoBloMhz0nCafTzQAFtUDk3cE+YMv687RczFPJMNG5ojStZERpVg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-03-31T17:14:07Z"
-    mac: ENC[AES256_GCM,data:MXosdZHzlj9jEwSDJIehLyH+018MmDzJHFSEthWDcri3E1RgFg2DqEPnUTk1DZCPBACpnBWqmtESSR/AwBzPMTX3+0ODSWHzArtZN3O0/aGCiBwpuzrCE18LbQR4e4sZKTeF4CfwLQfDggUJdkia2rTmcA7Xr2RdzDfXH/qj93o=,iv:QN1Ksn1q8loc4kippU5unYuTQXiFim/yuwdGbK9l8K8=,tag:uiikKtXp2TY62r1a/qDmOg==,type:str]
+    lastmodified: "2025-04-03T14:19:37Z"
+    mac: ENC[AES256_GCM,data:ZyhPk+8sFNs2ptxK6R2AaxPc2vPn8P2w2DMSc9+KpMsBAq9BDKih80iM+scWfJVBFko0B9cD6XJ7ED2ajcklDmG4a0aJGNZ80ZLFqme5ro2hYhwai2l9riQkhnFx+MSoy6tunv0s9hyqWrueuvqk2DUEScU43DqF4KVfdWHOneQ=,iv:l913XiHGvuuCg4LSvXtu3rrljS0RxrUrDhcfFsdce6E=,tag:/1hpNnzsacCdXYyR3FWAJA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.9.4
