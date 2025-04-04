@@ -9,7 +9,8 @@ bgpControlPlane:
   enabled: true
 
 bpf:
-  masquerade: true
+  datapathMode: netkit
+  masquerade: false
   hostLegacyRouting: true
 
 bpfClockProbe: true
