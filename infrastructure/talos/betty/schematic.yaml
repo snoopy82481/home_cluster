@@ -1,7 +1,0 @@
-customization:
-  extraKernelArgs:
-    - net.ifnames=0
-  systemExtensions:
-    officialExtensions:
-      - siderolabs/i915-ucode
-      - siderolabs/intel-ucode
