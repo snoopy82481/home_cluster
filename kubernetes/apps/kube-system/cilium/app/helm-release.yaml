@@ -48,6 +48,10 @@ spec:
       name: cilium-values
 
   values:
+    dashboards:
+      annotations:
+        grafana_folder: Cilium
+
     hubble:
       enabled: true
 
@@ -73,6 +77,8 @@ spec:
 
       dashboards:
         enabled: true
+        annotations:
+          grafana_folder: Cilium
 
       ui:
         enabled: true
@@ -93,4 +99,27 @@ spec:
                 - *host
 
     operator:
-      tolerations: []
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          metricRelabelings:
+            - action: drop
+              regex: workqueue_(work|queue)_duration_seconds_bucket
+              sourceLabels: ["__name__"]
+            - action: drop
+              regex: controller_runtime_reconcile_time_seconds_bucket
+              sourceLabels: ["__name__"]
+            - action: drop
+              regex: cilium_k8s_client_(rate_limiter_duration|api_latency_time)_seconds_bucket
+              sourceLabels: ["__name__"]
+      dashboards:
+        enabled: true
+        annotations:
+          grafana_folder: Cilium
+
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
