@@ -50,7 +50,8 @@ spec:
   values:
     fullnameOverride: *app
 
-    provider: cloudflare
+    provider:
+      name: cloudflare
 
     env:
       - name: CF_API_TOKEN
