@@ -22,7 +22,7 @@ spec:
       sectionName: http-2
   rules:
     - filters:
-        - requestRedirect:
-            scheme: https
-            statusCode: 301
-          type: RequestRedirect
+      - requestRedirect:
+          scheme: https
+          statusCode: 301
+        type: RequestRedirect
