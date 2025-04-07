@@ -13,7 +13,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/media/bazarr-uhd/app
+  path: ./kubernetes/apps/media/bazarr/app
   prune: true
   retryInterval: 2m
   sourceRef:
