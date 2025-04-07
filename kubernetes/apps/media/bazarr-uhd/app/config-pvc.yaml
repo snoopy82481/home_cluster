@@ -5,7 +5,7 @@ metadata:
   name: bazarr-uhd-config-v1
   namespace: media
   labels:
-    app.kubernetes.io/name: &name bazarr
+    app.kubernetes.io/name: &name bazarr-uhd
     app.kubernetes.io/instance: *name
 spec:
   accessModes:
