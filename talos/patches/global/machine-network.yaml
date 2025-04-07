@@ -1,7 +1,9 @@
 machine:
   network:
     nameservers:
-      - 192.168.20.1
+      - 1.1.1.1
+      - 1.0.0.1
+      # - 192.168.20.1
     disableSearchDomain: true
     interfaces:
       - interface: eth0
