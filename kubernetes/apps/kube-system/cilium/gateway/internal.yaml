@@ -81,6 +81,7 @@ spec:
         certificateRefs:
           - kind: Secret
             name: bazarr-anime-tls
+            namespace: media
     - name: bazarr-uhd
       protocol: HTTPS
       port: 443
