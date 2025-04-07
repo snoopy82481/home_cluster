@@ -19,12 +19,12 @@ spec:
       name: dnsendpoints.externaldns.k8s.io
   interval: 1h
   path: ./kubernetes/apps/networking/external/external-dns
-  # postBuild:
-  #   substituteFrom:
-  #     - name: cluster-secrets
-  #       kind: Secret
-  #     - name: cluster-settings
-  #       kind: ConfigMap
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -47,12 +47,12 @@ spec:
       app.kubernetes.io/name: *app
   interval: 1h
   path: ./kubernetes/apps/networking/external/cloudflared
-  # postBuild:
-  #   substituteFrom:
-  #     - name: cluster-secrets
-  #       kind: Secret
-  #     - name: cluster-settings
-  #       kind: ConfigMap
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -78,12 +78,12 @@ spec:
       namespace: cert-manager
   interval: 1h
   path: ./kubernetes/apps/networking/external/ingress-nginx
-  # postBuild:
-  #   substituteFrom:
-  #     - name: cluster-secrets
-  #       kind: Secret
-  #     - name: cluster-settings
-  #       kind: ConfigMap
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   retryInterval: 2m
   sourceRef:
