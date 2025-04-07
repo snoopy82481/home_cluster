@@ -35,9 +35,9 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: config
-              accessMode: ReadWriteMany
+              accessMode: ReadWriteOnce
               size: 1Gi
-              storageClass: ceph-filesystem
+              storageClass: ceph-block
               globalMounts:
                 - path: /config
 
