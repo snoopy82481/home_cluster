@@ -55,8 +55,6 @@ spec:
               operator: In
               values: ["internal"]
 
-      allowSnippetAnnotations: true
-
       config:
         allow-snippet-annotations: true
         annotations-risk-level: Critical
