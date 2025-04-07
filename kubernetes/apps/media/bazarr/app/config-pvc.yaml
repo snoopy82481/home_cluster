@@ -13,4 +13,4 @@ spec:
   resources:
     requests:
       storage: 512Mi
-  storageClassName: ceph-filesystem
+  storageClassName: ceph-block
