@@ -33,10 +33,11 @@ spec:
   test:
     enable: false
   install:
-    createNamespace: true
+    disableSchemaValidation: true
     remediation:
       retries: 5
   upgrade:
+    disableSchemaValidation: true
     remediation:
       retries: 5
       remediateLastFailure: true
