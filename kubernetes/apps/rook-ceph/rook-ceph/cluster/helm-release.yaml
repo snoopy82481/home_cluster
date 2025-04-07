@@ -185,7 +185,7 @@ spec:
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
-          volumeBindingMode: Imemediate
+          volumeBindingMode: Immediate
           mountOptions: ["discard"]
           parameters:
             imageFormat: "2"
