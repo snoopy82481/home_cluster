@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: cert-manager
+    - name: cert-manager-tls
       namespace: cert-manager
   interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/app
@@ -40,6 +40,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: cilium
+      namespace: kube-system
   interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/gateway
   postBuild:
@@ -69,6 +72,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
       app.kubernetes.io/component: gateways
+  dependsOn:
+    - name: cilium
+      namespace: kube-system
   interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/netpols
   postBuild:
