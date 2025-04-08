@@ -61,10 +61,7 @@ spec:
       hostname: "overseerr.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -76,10 +73,7 @@ spec:
       hostname: "tautulli.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
+          from: All
       tls:
         mode: Terminate
         certificateRefs:

@@ -55,6 +55,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "bazarr.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -64,6 +67,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "bazarr-anime.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -73,6 +79,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "bazarr-uhd.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -82,6 +91,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "radarr.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -91,6 +103,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "radarranime.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -100,6 +115,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "radarruhd.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -127,6 +145,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "sonarruhd.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -145,6 +166,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "prowlarr.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -154,6 +178,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "prometheus.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -163,6 +190,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "rook.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
