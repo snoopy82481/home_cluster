@@ -117,7 +117,7 @@ spec:
 
       backup:
         type: nfs
-        server: ${NAS_NAME}
+        server: ${NAS_IP}
         path: ${NFS_BACKUP}
         globalMounts:
           - path: /backup
