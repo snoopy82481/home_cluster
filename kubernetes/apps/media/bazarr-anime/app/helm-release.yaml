@@ -116,7 +116,7 @@ spec:
         enabled: true
         parentRefs:
           - name: internal
-            namespace: networking
+            namespace: kube-system
             sectionName: *app
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
