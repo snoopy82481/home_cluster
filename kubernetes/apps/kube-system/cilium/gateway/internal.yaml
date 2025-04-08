@@ -198,3 +198,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: rook-tls
+    - name: grafana
+      protocol: HTTPS
+      port: 443
+      hostname: "grafana.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: grafana-tls
