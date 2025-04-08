@@ -55,12 +55,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "bazarr.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -70,28 +64,15 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "bazarr-anime.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
           - kind: Secret
             name: bazarr-anime-tls
-            namespace: media
     - name: bazarr-uhd
       protocol: HTTPS
       port: 443
       hostname: "bazarr-uhd.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -101,12 +82,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "radarr.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -116,12 +91,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "radarranime.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -131,12 +100,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "radarruhd.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -146,12 +109,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "sonarr.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -161,12 +118,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "sonarranime.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -176,12 +127,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "sonarruhd.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -191,12 +136,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "sabnzbd.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -206,12 +145,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "prowlarr.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -221,12 +154,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "prometheus.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
@@ -236,12 +163,6 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "rook.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              shared-gateway-access: "true"
       tls:
         mode: Terminate
         certificateRefs:
