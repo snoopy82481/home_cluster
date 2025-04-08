@@ -202,7 +202,7 @@ spec:
     serviceMonitor:
       enabled: true
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: internal
       annotations:
         cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
@@ -215,6 +215,19 @@ spec:
         - secretName: "grafana-tls"
           hosts:
             - *host
+    route:
+      main:
+        enabled: true
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: grafana
+        hostnames:
+          - grafana.${SECRET_DOMAIN}
+        rules:
+          - backendRefs:
+              - name: grafana
+                port: 80
     persistence:
       enabled: false
     testFramework:
