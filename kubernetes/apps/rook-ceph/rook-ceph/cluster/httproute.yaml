@@ -10,7 +10,7 @@ spec:
   parentRefs:
     - name: internal
       namespace: kube-system
-      sectionName: https
+      sectionName: rook-ceph-dashboard
   rules:
     - backendRefs:
         - name: rook-ceph-mgr-dashboard
