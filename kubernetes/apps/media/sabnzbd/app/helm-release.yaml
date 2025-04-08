@@ -107,7 +107,7 @@ spec:
 
     ingress:
       main:
-        enabled: true
+        enabled: false
         className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
@@ -128,7 +128,7 @@ spec:
 
     route:
       app:
-        enabled: false
+        enabled: true
         parentRefs:
           - name: internal
             namespace: kube-system

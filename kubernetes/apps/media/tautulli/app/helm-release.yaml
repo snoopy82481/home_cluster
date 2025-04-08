@@ -88,7 +88,7 @@ spec:
 
     ingress:
       app:
-        enabled: true
+        enabled: false
         className: external
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
@@ -117,7 +117,7 @@ spec:
 
     route:
       app:
-        enabled: false
+        enabled: true
         parentRefs:
           - name: external
             namespace: kube-system
