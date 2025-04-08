@@ -130,7 +130,7 @@ spec:
         type: emptyDir
       backup:
         type: nfs
-        server: ${NAS_NAME}
+        server: ${NAS_IP}
         path: ${NFS_BACKUP}
         globalMounts:
           - path: /backup
@@ -147,7 +147,7 @@ spec:
           - path: /config/log
       media:
         type: nfs
-        server: ${NAS_NAME}
+        server: ${NAS_IP}
         path: ${NFS_DATA}
         globalMounts:
           - path: /media
