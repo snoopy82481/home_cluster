@@ -15,6 +15,12 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   path: ./kubernetes/apps/downloads/qbittorrent/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   sourceRef:
     kind: GitRepository
@@ -36,8 +42,17 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: qbittorrent
+      namespace: downloads
   interval: 1h
   path: ./kubernetes/apps/downloads/qbittorrent/tools
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   retryInterval: 2m
   sourceRef:
