@@ -31,9 +31,6 @@ spec:
 
             env:
               TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: homepage-secret
 
             probes:
               liveness:
