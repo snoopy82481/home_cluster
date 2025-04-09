@@ -9,3 +9,12 @@ resources:
   - ./qbittorrent-gluetun.sops.yaml
   - ./network-policy.yaml
   - ./helm-release.yaml
+configMapGenerator:
+  - name: qbittorrent-coredns
+    files:
+      - ./config/Corefile
+generatorOptions:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+configurations:
+  - kustomizeconfig.yaml

@@ -106,7 +106,18 @@ spec:
                   - ALL
 
         initContainers:
+          coredns:
+            image:
+              repository: mirror.gcr.io/coredns/coredns
+              tag: 1.12.1
+            args:
+              - -conf
+              - /etc/coredns/Corefile
+            restartPolicy: Always
+
           gluetun:
+            dependsOn:
+              - coredns
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.40.0@sha256:2b42bfa046757145a5155acece417b65b4443c8033fb88661a8e9dcf7fda5a00
@@ -114,6 +125,7 @@ spec:
             env:
               DOT: off
               DOT_CACHING: off
+              DNS_ADDRESS: "127.0.0.2"
               HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
               VPN_INTERFACE: wg0
               VPN_TYPE: wireguard
@@ -167,7 +179,7 @@ spec:
 
     ingress:
       app:
-        enabled: true
+        enabled: false
         className: internal
         annotations:
           cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
@@ -199,7 +211,7 @@ spec:
 
     route:
       app:
-        enabled: false
+        enabled: true
         parentRefs:
           - name: internal
             namespace: kube-system
@@ -244,3 +256,13 @@ spec:
             gluetun:
               - path: *gluetunAuthPath
                 subPath: auth.toml
+
+      coredns:
+        type: configMap
+        name: qbittorrent-coredns
+        advancedMounts:
+          qbittorrent:
+            coredns:
+              - path: /etc/coredns/Corefile
+                subPath: Corefile
+                readOnly: true

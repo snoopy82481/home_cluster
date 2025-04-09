@@ -39,4 +39,6 @@ data:
 
   NFS_DATA: /mnt/storage1/data
   NFS_MEDIA: /mnt/storage1/data/media
+  NFS_DOWNLOADS_TORRENTS: /mnt/storage1/data/torrents
+  NFS_DOWNLOADS_USENET: /mnt/storage1/data/usenet
   NFS_BACKUP: /mnt/storage0/backup
