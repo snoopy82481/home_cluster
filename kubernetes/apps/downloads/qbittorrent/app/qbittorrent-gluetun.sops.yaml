@@ -4,8 +4,9 @@ kind: Secret
 metadata:
     name: qbittorrent-gluetun-secret
     namespace: downloads
-data:
-    auth.toml: ENC[AES256_GCM,data:vrCzl50DdARUUgQQeFi25ObvLwJQtgfK8wpQQE0Ow7SpiskGNi1EKcEVI6YTc6eY4eWhFk7r5gfSnBpiFPNu62JFXz5uaYDVgdXL4NvYRnUd4dlphiMj7D864VbwY3PkwzH+rGbSo4okmbqIxnOzmfyJ0c2HeHjg7sCVmIS271IGxcnuq0C+Dj1Y2SUPlYBK7EExPZVSV5pIW/OvheahpMHu,iv:nqKuWL/NOahDhfLmXwPFkkm/0QhgI8jnEMAv7zGBEHM=,tag:2UTv34c7U1GSLwoGO19dpg==,type:str]
+type: Opaque
+stringData:
+    auth.toml: ENC[AES256_GCM,data:8E4UjLT/BlpG8GCbD6RmeWu0maTRtmBm3EvlNuJ7XM5clNm6KnNMLUeDpekJ1x8hYeV6hC0oiYQR64HqWOOFftx9BximEj5w//vv6PFWcQF2GTVET7/g68L1HpyvV8dU60hB68bJaNcg+wJrt7Vvn8yQyx6ReiunZ3hgvjmmDxSbYY0DRgio8R8VGg3nSpVKuOct/0VABir4lEs3q6oMjMz5,iv:j1BbFYxMVeQRU79gYLWIzhFRst2iq9ZPxuUR9T2ck9I=,tag:4YI1Y7X/Nxjnd8ncSdS1jA==,type:str]
 sops:
     age:
         - recipient: age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
@@ -17,8 +18,8 @@ sops:
             Mk96am5GaUpuL3A1bWZRN24rOTd3RDAK4rAOypoX6bv31GlzR22XOivOe5pCvJvE
             RHeEPn/uvlUbQVKaNWTVgcFnj9liXmtBZ9H7hhfsENOGv3N3bBZS6g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-04-09T15:45:20Z"
-    mac: ENC[AES256_GCM,data:CNa+lb/bmJbAdX3apMiyM0cBBxQhel0sFXYeNhuz4OGMOvDpkLzZ7QjjGsT3yGyqyXRuFHEY+k2em4jBVDnPS5V65ieIZ+IMfip7orAkX3PBLlKhS96BJ8Zz9fbqNpJVF2q23T61ZsdUARrKdtVFVUeiZueIdBGBJOjKLFfzYFw=,iv:K51GT9lZkXX4vv0U5R+G3MXnBSfF0x5cVELWRY7gcM0=,tag:DUhcoN4N44R+W7BServrlg==,type:str]
+    lastmodified: "2025-04-09T15:51:00Z"
+    mac: ENC[AES256_GCM,data:8jnuOSQatJXQTVAS7ffhIl/4PW1zldcbkH1mVd8hVQKFh0xHe3elk1OTIoeqCPONgOiaM48z4TtXPYi1vePIihplOuEygkxl6/47WXE3S6d2oyoJGiKEKTou5X4zKw5KUb8FwzIRQCEwIcRIGi2GrpIIFpjEAWjbJdPFYS4ViFA=,iv:0gc0X0fx/0ASrw+kKGDfL7oPD7QU1I8Wz5dSz/l26dk=,tag:CC/mpL63OIg3nwGrD6HjEg==,type:str]
     encrypted_regex: ^(data|stringData)$
     mac_only_encrypted: true
     version: 3.10.1
