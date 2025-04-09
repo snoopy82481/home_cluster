@@ -1,0 +1,18 @@
+---
+- Monitoring:
+    - Hubble:
+      - icon: cilium.png
+        href: https://hubble.${SECRET_DOMAIN}
+        description: Cilium Hubble Network Observability
+
+- Storage:
+    - Rook:
+      - icon: rook.png
+        href: https://rook.${SECRET_DOMAIN}
+        description: Rook Storage Dashboard
+
+- Networking:
+    - pfSense:
+      - icon: pfsense.png
+        href: https://pfsense.${SECRET_DOMAIN}:10443
+        description: pfSense Firewall Dashboard
