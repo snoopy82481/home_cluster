@@ -1,0 +1,31 @@
+---
+- search:
+    provider: google
+    showSearchSuggestions: true
+    target: _blank
+- greeting:
+    text_size: x1
+    text: Greetings, Citizen.
+- kubernetes:
+    cluster:
+      cpu: true
+      label: cluster
+      memory: true
+      show: true
+      showLabel: true
+    nodes:
+      cpu: true
+      memory: true
+      show: false
+      showLabel: true
+- openmeteo:
+    label: Home
+    timezone: ${TIMEZONE}
+    units: imperial
+    cache: 5
+- datetime:
+    text_size: l
+    format:
+      dateStyle: long
+      timeStyle: short
+      hourCycle: h23
