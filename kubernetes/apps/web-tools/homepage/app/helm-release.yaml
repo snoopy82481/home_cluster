@@ -41,6 +41,7 @@ spec:
 
             env:
               TZ: ${TIMEZONE}
+              HOMEPAGE_ALLOWED_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
 
             probes:
               liveness:
