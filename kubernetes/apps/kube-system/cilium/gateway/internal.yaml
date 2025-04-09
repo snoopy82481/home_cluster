@@ -231,3 +231,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: homepage-tls
+    - name: qbittorrent
+      protocol: HTTPS
+      port: 443
+      hostname: "qbittorrent.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: qbittorrent-tls
