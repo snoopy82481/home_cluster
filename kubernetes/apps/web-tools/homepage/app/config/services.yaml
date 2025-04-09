@@ -6,7 +6,7 @@
       description: TV Shows
       widget:
         type: sonarr
-        url: https://sonarr.media.svc.cluster.local.:8080
+        url: http://sonarr.media.svc.cluster.local.:8080
         key: ${SONARR_APIKEY}
   - Sonarr-Anime:
       href: https://sonarranime.${SECRET_DOMAIN}
@@ -14,7 +14,7 @@
       description: Anime
       widget:
         type: sonarr
-        url: https://sonarranime.media.svc.cluster.local.:8080
+        url: http://sonarranime.media.svc.cluster.local.:8080
         key: ${SONARR_ANIME_APIKEY}
   - Sonarr-Uhd:
       href: https://sonarruhd.${SECRET_DOMAIN}
@@ -22,7 +22,7 @@
       description: UHD TV Shows
       widget:
         type: sonarr
-        url: https://sonarr-uhd.media.svc.cluster.local.:8080
+        url: http://sonarruhd.media.svc.cluster.local.:8080
         key: ${SONARR_UHD_APIKEY}
   - Radarr:
       href: https://radarr.${SECRET_DOMAIN}
@@ -30,7 +30,7 @@
       description: Movies
       widget:
         type: radarr
-        url: https://radarr.media.svc.cluster.local.:7878
+        url: http://radarr.media.svc.cluster.local.:7878
         key: ${RADARR_APIKEY}
   - Radarr-Anime:
       href: https://radarranime.${SECRET_DOMAIN}
@@ -38,7 +38,7 @@
       description: Anime Movies
       widget:
         type: radarr
-        url: https://radarr-anime.media.svc.cluster.local.:7878
+        url: http://radarranime.media.svc.cluster.local.:7878
         key: ${RADARR_ANIME_APIKEY}
   - Radarr-Uhd:
       href: https://radarruhd.${SECRET_DOMAIN}
@@ -46,7 +46,7 @@
       description: UHD Movies
       widget:
         type: radarr
-        url: https://radarr-uhd.media.svc.cluster.local.:7878
+        url: http://radarruhd.media.svc.cluster.local.:7878
         key: ${RADARR_UHD_APIKEY}
   - Bazarr:
       href: https://bazarr.${SECRET_DOMAIN}
@@ -54,7 +54,7 @@
       description: Subtitle Manager
       widget:
         type: bazarr
-        url: https://bazarr.media.svc.cluster.local.:6767
+        url: http://bazarr.media.svc.cluster.local.:6767
         key: ${BAZARR_APIKEY}
   - Bazarr-Anime:
       href: https://bazarranime.${SECRET_DOMAIN}
@@ -62,7 +62,7 @@
       description: Anime Subtitle Manager
       widget:
         type: bazarr
-        url: https://bazarr-anime.media.svc.cluster.local.:6767
+        url: http://bazarranime.media.svc.cluster.local.:6767
         key: ${BAZARR_ANIME_APIKEY}
   - Bazarr-Uhd:
       href: https://bazarruhd.${SECRET_DOMAIN}
@@ -70,7 +70,7 @@
       description: UHD Subtitle Manager
       widget:
         type: bazarr
-        url: https://bazarr-uhd.media.svc.cluster.local.:6767
+        url: http://bazarruhd.media.svc.cluster.local.:6767
         key: ${BAZARR_UHD_APIKEY}
   - Prowlarr:
       href: https://prowlarr.${SECRET_DOMAIN}
@@ -78,7 +78,7 @@
       description: Indexer Manager
       widget:
         type: prowlarr
-        url: https://prowlarr.media.svc.cluster.local.:9696
+        url: http://prowlarr.media.svc.cluster.local.:9696
         key: ${PROWLARR_APIKEY}
   - Overseerr:
       href: https://overseerr.${SECRET_DOMAIN}
@@ -86,7 +86,7 @@
       description: Request Manager
       widget:
         type: overseerr
-        url: https://overseerr.media.svc.cluster.local.:5055
+        url: http://overseerr.media.svc.cluster.local.:5055
         key: ${OVERSEERR_API_KEY}
 - Downloads:
   - Sabnzbd:
@@ -95,7 +95,7 @@
       description: Usenet Downloader
       widget:
         type: sabnzbd
-        url: https://sabnzbd.media.svc.cluster.local.:8080
+        url: http://sabnzbd.media.svc.cluster.local.:8080
         key: ${SABNZBD_API_KEY}
 - Monitoring:
   - Grafana:
@@ -104,7 +104,7 @@
       description: Monitoring Dashboard
       widget:
         type: grafana
-        url: https://grafana.monitoring.svc.cluster.local.:3000
+        url: http://grafana.monitoring.svc.cluster.local.:3000
         username: ${GRAFANA_ADMIN_USER}
         password: ${GRAFANA_ADMIN_PASSWORD}
   - Prometheus:
@@ -113,7 +113,7 @@
       description: Monitoring Metrics
       widget:
         type: prometheus
-        url: https://prometheus.monitoring.svc.cluster.local.:9090
+        url: http://prometheus.monitoring.svc.cluster.local.:9090
 - Networking:
   - Omada:
       href: https://${SVC_OMADA_ADDRESS}:8043
