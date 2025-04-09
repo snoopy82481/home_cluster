@@ -127,6 +127,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "sonarr.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -136,6 +139,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "sonarranime.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -157,6 +163,9 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: "sabnzbd.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
