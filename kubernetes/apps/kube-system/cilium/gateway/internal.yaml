@@ -219,3 +219,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: grafana-tls
+    - name: homepage
+      protocol: HTTPS
+      port: 443
+      hostname: "homepage.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: homepage-tls
