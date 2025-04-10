@@ -7,7 +7,7 @@
         description: TV Shows
         widget:
           type: sonarr
-          url: http://sonarr.media.svc.cluster.local.:8080
+          url: http://sonarr.media.svc.cluster.local.:8989
           key: ${SONARR_APIKEY}
     - Sonarr Anime:
         href: https://sonarranime.${SECRET_DOMAIN}
@@ -15,7 +15,7 @@
         description: Anime
         widget:
           type: sonarr
-          url: http://sonarranime.media.svc.cluster.local.:8080
+          url: http://sonarranime.media.svc.cluster.local.:8989
           key: ${SONARR_ANIME_APIKEY}
     - Sonarr UHD:
         href: https://sonarruhd.${SECRET_DOMAIN}
@@ -23,7 +23,7 @@
         description: UHD TV Shows
         widget:
           type: sonarr
-          url: http://sonarruhd.media.svc.cluster.local.:8080
+          url: http://sonarruhd.media.svc.cluster.local.:8989
           key: ${SONARR_UHD_APIKEY}
   - Radarr:
     - Radarr:
