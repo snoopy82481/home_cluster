@@ -83,7 +83,7 @@ spec:
           port-forward:
             image:
               repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
-              tag: 0.0.2
+              tag: 0.0.4
 
             env:
               GLUETUN_CONTROL_SERVER_HOST: localhost
