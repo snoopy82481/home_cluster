@@ -79,3 +79,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: tautulli-tls
+    - name: flux-webhook
+      protocol: HTTPS
+      port: 443
+      hostname: "flux-webhook.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: flux-webhook-tls
