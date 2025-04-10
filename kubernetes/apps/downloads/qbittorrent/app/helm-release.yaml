@@ -139,7 +139,6 @@ spec:
             env:
               DOT: off
               DOT_CACHING: off
-              DNS_ADDRESS: "127.0.0.2"
               HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
               VPN_INTERFACE: wg0
               VPN_TYPE: wireguard
