@@ -33,6 +33,13 @@ spec:
   values:
     defaultPodOptions:
       priorityClassName: system-node-critical
+      tolerations:
+        - operator: "Exists"
+          effect: "NoExecute"
+        - operator: "Exists"
+          effect: "NoSchedule"
+        - operator: "Exists"
+          effect: "PreferNoSchedule"
 
     controllers:
       generic-device-plugin:
@@ -54,8 +61,10 @@ spec:
                 cpu: 10m
               limits:
                 memory: 64Mi
+            ports:
+              - containerPort: 8080
+                name: http
             securityContext:
-              # privileged: true
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
