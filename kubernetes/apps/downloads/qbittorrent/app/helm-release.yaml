@@ -46,8 +46,8 @@ spec:
             nameOverride: *app
 
             image:
-              repository: ghcr.io/home-operations/qbittorrent
-              tag: 5.0.4@sha256:995c561247b069c10b1fa098186f35b3155c2df63912041f70637a9232755756
+              repository: docker pull ghcr.io/onedr0p/qbittorrent
+              tag: 5.0.3@sha256:c21d5b79447dea077ff835a8fb3a9b3f06f5e32500d0b7bd3b57010e388c5566
 
             env:
               TZ: ${TIMEZONE}
