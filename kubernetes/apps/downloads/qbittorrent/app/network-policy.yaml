@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
@@ -8,39 +9,47 @@ metadata:
     app.kubernetes.io/instance: qbittorrent
     app.kubernetes.io/name: qbittorrent
 spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: qbittorrent
-      app.kubernetes.io/name: qbittorrent
-  egress:
-    - toCIDRSet:
-        - cidr: 0.0.0.0/0
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: qbittorrent
       toPorts:
         - ports:
             - port: "51820"
               protocol: UDP
-    - toEntities:
-        - cluster
----
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: downloads-qbittorrent-gluetun-vpn
-  namespace: vpn
-  labels:
-    app.kubernetes.io/instance: qbittorrent
-    app.kubernetes.io/name: qbittorrent
-spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: qbittorrent
-      app.kubernetes.io/name: qbittorrent
-  egress:
-    - toCIDRSet:
-        - cidr: 0.0.0.0/0
-      toPorts:
-        - ports:
             - port: "1194"
               protocol: UDP
-    - toCIDRSet:
-        - cidr: 10.0.0.0/8
+  egress:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "51820"
+              protocol: UDP
+            - port: "1194"
+              protocol: UDP
+# ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+# apiVersion: cilium.io/v2
+# kind: CiliumNetworkPolicy
+# metadata:
+#   name: downloads-qbittorrent-gluetun-vpn
+#   namespace: downloads
+#   labels:
+#     app.kubernetes.io/instance: qbittorrent
+#     app.kubernetes.io/name: qbittorrent
+# spec:
+#   endpointSelector:
+#     matchLabels:
+#       app.kubernetes.io/instance: qbittorrent
+#       app.kubernetes.io/name: qbittorrent
+#   egress:
+#     - toCIDRSet:
+#         - cidr: 0.0.0.0/0
+#       toPorts:
+#         - ports:
+#             - port: "1194"
+#               protocol: UDP
+#     - toCIDRSet:
+#         - cidr: 10.0.0.0/8
