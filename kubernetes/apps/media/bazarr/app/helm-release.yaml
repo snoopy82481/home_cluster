@@ -85,28 +85,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: *port
-
-    ingress:
-      app:
-        enabled: false
-        className: internal
-        annotations:
-          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          hajimari.io/enable: "true"
-          hajimari.io/group: "Media"
-          hajimari.io/icon: "translate"
-        hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: *port
-        tls:
-          - secretName: "{{ .Release.Name }}-tls"
-            hosts:
-              - *host
+            port: &port 6767
 
     route:
       app:
@@ -128,7 +107,7 @@ spec:
       backup:
         type: nfs
         server: ${NAS_IP}
-        path: ${NFS_BACKUP}
+        path: ${NFS_BACKUP}/bazarr_standard
         globalMounts:
           - path: /backup
       cache:
