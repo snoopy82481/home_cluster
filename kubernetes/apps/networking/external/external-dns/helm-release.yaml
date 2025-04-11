@@ -68,10 +68,11 @@ spec:
       - --gateway-name=external
       - --zone-id-filter=$(CF_ZONE_ID)
 
+    triggerLoopOnEvent: true
+
     policy: sync
 
     sources:
-      - ingress
       - crd
       - gateway-httproute
 
