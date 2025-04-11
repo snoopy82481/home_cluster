@@ -155,7 +155,7 @@ spec:
                 memory: 8192Mi
 
           vuetorrent:
-            dependsOn: app
+            dependsOn: *app
 
             image:
               repository: registry.k8s.io/git-sync/git-sync
@@ -166,8 +166,6 @@ spec:
               - --ref=latest-release
               - --period=86400s
               - --root=/add-ons
-              - --sync-timeout=3600s
-              - -v=6
 
             resources:
               requests:
