@@ -63,7 +63,6 @@ spec:
       - name: CF_ZONE_ID
         value: ${CLOUDFLARE_ZONE_ID}
 
-
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
       - --cloudflare-proxied
