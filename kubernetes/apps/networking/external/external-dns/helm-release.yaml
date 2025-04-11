@@ -82,6 +82,8 @@ spec:
     domainFilters:
       - "${SECRET_DOMAIN}"
 
+    logLevel: debug
+
     serviceMonitor:
       enabled: true
 
