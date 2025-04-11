@@ -24,4 +24,5 @@ cluster.local:53 {
         class error
     }
     forward . 10.43.0.10
+    fallthrough
 }
