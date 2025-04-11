@@ -90,7 +90,6 @@ spec:
                   periodSeconds: 30
                   failureThreshold: 5
               readiness: *probes
-              startup: *probes
 
             lifecycle:
               postStart:
