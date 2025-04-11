@@ -53,6 +53,11 @@ spec:
               TZ: ${TIMEZONE}
               UMASK: "022"
               QBT_WEBUI_PORT: &port 8080
+              QBT_TORRENTING_PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: vpnconfig
+                    key: WIREGUARD_ENDPOINT_PORT
 
             securityContext:
               runAsUser: 2000
