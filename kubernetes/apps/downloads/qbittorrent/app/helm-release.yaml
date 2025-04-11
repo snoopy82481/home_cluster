@@ -28,8 +28,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    *app :
-      qbittorrent:
+    controllers:
+      *app :
         type: statefulset
 
         pod:
