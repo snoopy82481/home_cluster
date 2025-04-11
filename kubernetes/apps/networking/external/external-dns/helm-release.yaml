@@ -66,6 +66,7 @@ spec:
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --gateway-name=external
+      - --txt-new-format-only
       - --zone-id-filter=$(CF_ZONE_ID)
 
     triggerLoopOnEvent: true
@@ -82,8 +83,6 @@ spec:
 
     domainFilters:
       - "${SECRET_DOMAIN}"
-
-    logLevel: debug
 
     serviceMonitor:
       enabled: true
