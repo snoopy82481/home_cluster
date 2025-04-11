@@ -28,7 +28,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controllers:
+    *app :
       qbittorrent:
         type: statefulset
 
@@ -100,7 +100,7 @@ spec:
                   - SYS_MODULE
 
         containers:
-          app:
+          *app :
             nameOverride: *app
 
             image:
@@ -186,14 +186,14 @@ spec:
           type: RuntimeDefault
 
     service:
-      app:
+      *app :
         controller: *app
         ports:
           http:
             port: *port
 
     route:
-      app:
+      *app :
         enabled: true
         parentRefs:
           - name: internal
@@ -211,14 +211,14 @@ spec:
         enabled: true
         existingClaim: qbittorrent-config-v1
         advancedMounts:
-          qbittorrent:
-            app:
+          *app :
+            *app :
               - path: /config
 
       empty-config:
         type: emptyDir
         advancedMounts:
-          qbittorrent:
+          *app :
             port-forward:
               - path: /config
 
@@ -227,15 +227,15 @@ spec:
         server: ${NAS_IP}
         path: ${NFS_DATA}/torrents
         advancedMounts:
-          qbittorrent:
-            app:
+          *app :
+            *app :
               - path: /torrents
 
       coredns:
         type: configMap
         name: qbittorrent-coredns
         advancedMounts:
-          qbittorrent:
+          *app :
             coredns:
               - path: /etc/coredns/Corefile
                 subPath: Corefile
