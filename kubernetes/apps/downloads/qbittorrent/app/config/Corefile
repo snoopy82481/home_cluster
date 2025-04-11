@@ -23,5 +23,5 @@ cluster.local:53 {
     log {
         class error
     }
-    forward . 10.96.0.10
+    forward . 10.43.0.10
 }
