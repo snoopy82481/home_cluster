@@ -128,7 +128,7 @@ spec:
       backup:
         type: nfs
         server: ${NAS_IP}
-        path: ${NFS_BACKUP}
+        path: ${NFS_BACKUP}/bazarr_anime
         globalMounts:
           - path: /backup
       cache:
