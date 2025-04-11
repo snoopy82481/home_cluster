@@ -51,7 +51,6 @@ spec:
 
             env:
               DOT: off
-              DNS_ADDRESS: "127.0.0.2"
               VPN_INTERFACE: wg0
               VPN_TYPE: wireguard
               VPN_PORT_FORWARDING: on
