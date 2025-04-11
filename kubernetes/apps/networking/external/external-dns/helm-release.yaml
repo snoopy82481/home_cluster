@@ -56,10 +56,7 @@ spec:
 
     env:
       - name: CF_API_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: &secret external-dns-secret
-            key: api-token
+        value: ${SECRET_CLOUDFLARE_API_KEY}
       - name: CF_ZONE_ID
         value: ${CLOUDFLARE_ZONE_ID}
 
