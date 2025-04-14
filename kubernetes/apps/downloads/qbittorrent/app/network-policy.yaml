@@ -26,6 +26,8 @@ spec:
         - ports:
             - port: "8080"
               protocol: TCP
+    - fromEntities:
+        - cluster
   egress:
     - toEntities:
         - world
@@ -41,3 +43,5 @@ spec:
         - ports:
             - port: "8080"
               protocol: TCP
+    - toEntities:
+        - cluster
