@@ -112,14 +112,14 @@ spec:
               UMASK: "022"
               QBT_WEBUI_PORT: &port 8080
               QBT_TORRENTING_PORT: 51820
-              QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-              QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
+              QBT__Preferences__WebUI__AuthSubnetWhitelistEnabled: true
+              QBT__Preferences__WebUI__AuthSubnetWhitelist: |-
                 192.168.0.0/24, 192.168.20.0/24, 10.43.0.0/16, 10.42.0.0/16
-              QBT_BitTorrent__Session__Interface: wg0
-              QBT_BitTorrent__Session__InterfaceAddress: "0.0.0.0"
-              QBT_BitTorrent__Session__InterfaceName: wg0
-              QBT_Preferences__WebUI__AlternativeUIEnabled: true
-              QBT_Preferences__WebUI__RootFolder: /add-ons/VueTorrent
+              QBT__BitTorrent__Session__Interface: wg0
+              QBT__BitTorrent__Session__InterfaceAddress: "0.0.0.0"
+              QBT__BitTorrent__Session__InterfaceName: wg0
+              QBT__Preferences__WebUI__AlternativeUIEnabled: true
+              QBT__Preferences__WebUI__RootFolder: /add-ons/VueTorrent
 
             securityContext: &securityContext
               allowPrivilegeEscalation: false
