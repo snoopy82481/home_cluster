@@ -100,6 +100,13 @@
         type: sabnzbd
         url: http://sabnzbd.media.svc.cluster.local.:8080
         key: ${SABNZBD_API_KEY}
+  - qBittorrent:
+      href: https://qbittorrent.${SECRET_DOMAIN}
+      icon: qbittorrent.png
+      description: Torrent Downloader
+      widget:
+        type: qbittorrent
+        url: http://qbittorrent.media.svc.cluster.local.:8080
 - Monitoring:
   - Grafana:
       href: https://grafana.${SECRET_DOMAIN}
@@ -127,3 +134,17 @@
         url: https://${SVC_OMADA_ADDRESS}:8043
         username: ${OMADA_ADMIN_USER}
         password: ${OMADA_ADMIN_PASSWORD}
+  - pfSense:
+      href: https://pfsense.${SECRET_DOMAIN}:10443
+      description: pfSense Firewall
+      widget:
+        type: pfsense
+        url: https://${SVC_PFSENSE_ADDRESS}
+        headers:
+          X-API-Key: ${PFSENSE_API_KEY}
+        wan: ix0
+        version: 2
+        fields:
+          - load
+          - memory
+          - wanStatus
