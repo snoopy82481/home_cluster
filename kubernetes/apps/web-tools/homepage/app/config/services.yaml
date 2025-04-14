@@ -106,7 +106,7 @@
       description: Torrent Downloader
       widget:
         type: qbittorrent
-        url: http://qbittorrent.media.svc.cluster.local.:8080
+        url: http://qbittorrent.downloads.svc.cluster.local.:8080
 - Monitoring:
   - Grafana:
       href: https://grafana.${SECRET_DOMAIN}

@@ -22,6 +22,8 @@
     label: Home
     timezone: ${TIMEZONE}
     units: imperial
+    latitude: ${HOME_LATITUDE}
+    longitude: ${HOME_LONGITUDE}
     cache: 5
 - datetime:
     text_size: l
