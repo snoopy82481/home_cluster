@@ -27,7 +27,7 @@ repositories:
     oci: true
 
   - name: kubelet-csr-approver
-    url: ghcr.io/postfinance/charts/kubelet-csr-approver
+    url: ghcr.io/postfinance/charts
     oci: true
 
 releases:
