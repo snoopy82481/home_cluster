@@ -27,7 +27,8 @@ repositories:
     oci: true
 
   - name: kubelet-csr-approver
-    url: https://postfinance.github.io/kubelet-csr-approver
+    url: ghcr.io/postfinance/charts/kubelet-csr-approver
+    oci: true
 
 releases:
   - name: cilium
