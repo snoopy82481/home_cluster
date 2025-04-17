@@ -226,11 +226,11 @@ spec:
       media:
         type: nfs
         server: ${NAS_IP}
-        path: ${NFS_DATA}/torrents
+        path: ${NFS_DATA}
         advancedMounts:
           *app :
             *app :
-              - path: /torrents
+              - path: /media
 
       coredns:
         type: configMap
