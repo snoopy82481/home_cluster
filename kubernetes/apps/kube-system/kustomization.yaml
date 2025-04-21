@@ -11,6 +11,5 @@ resources:
   - ./descheduler/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./metrics-server/ks.yaml
-  # - ./reflector/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml

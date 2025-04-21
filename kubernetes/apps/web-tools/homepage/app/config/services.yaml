@@ -139,7 +139,7 @@
       description: pfSense Firewall
       widget:
         type: pfsense
-        url: https://${SVC_PFSENSE_ADDRESS}
+        url: https://pfsense.${SECRET_DOMAIN}:10443
         headers:
           X-API-Key: ${PFSENSE_API_KEY}
         wan: ix0
