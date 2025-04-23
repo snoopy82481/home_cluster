@@ -55,7 +55,6 @@ spec:
 
     image:
       repository: ghcr.io/rook/ceph
-      tag: v1.17.0
 
     monitoring:
       enabled: true

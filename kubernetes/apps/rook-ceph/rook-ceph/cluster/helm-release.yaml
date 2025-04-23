@@ -42,9 +42,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-operator
-      namespace: rook-ceph
   values:
     toolbox:
       enabled: true
@@ -145,25 +142,6 @@ spec:
           - name: "kworker3"
             devices:
               - name: "/dev/sdb"
-
-    ingress:
-      dashboard:
-        ingressClassName: internal
-        annotations:
-          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Rook"
-          hajimari.io/group: "monitoring"
-          hajimari.io/icon: mdi:chess-rook
-        host:
-          name: &host "rook.${SECRET_DOMAIN}"
-          path: "/"
-        tls:
-          - secretName: rook-tls
-            hosts:
-              - *host
 
     cephBlockPoolsVolumeSnapshotClass:
       enabled: false
