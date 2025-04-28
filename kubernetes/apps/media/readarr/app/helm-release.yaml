@@ -1,0 +1,122 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app readarr
+  namespace: media
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 2
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+      strategy: rollback
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      *app :
+        containers:
+          *app :
+            image:
+              repository: ghcr.io/home-operations/readarr
+              tag: 0.4.15.2787@sha256:20926da7903c48ae01faf0632f222c6ed7708c28b4385f6904942fc833495efd
+
+            env:
+              TZ: "${TIMEZONE}"
+              READARR__APP__INSTANCENAME: Readarr
+              READARR__APP__THEME: dark
+              READARR__AUTH__METHOD: External
+              READARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              READARR__AUTH__APIKEY: ${READARR_APIKEY}
+              READARR__LOG__LEVEL: info
+              READARR__SERVER__PORT: &port 8787
+              READARR__UPDATE__BRANCH: develop
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
+
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 1Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      *app :
+        controller: *app
+        ports:
+          http:
+            port: *port
+
+    route:
+      *app :
+        enabled: true
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: *app
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+
+    persistence:
+      config:
+        existingClaim: readarr-config-v1
+
+      media:
+        type: nfs
+        server: ${NAS_IP}
+        path: ${NFS_DATA}
+        globalMounts:
+          - path: /media
+
+      backup:
+        type: nfs
+        server: ${NAS_IP}
+        path: ${NFS_BACKUP}/readarr
+        globalMounts:
+          - path: /backup
