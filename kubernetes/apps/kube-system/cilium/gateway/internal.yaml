@@ -243,3 +243,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: qbittorrent-tls
+    - name: huntarr
+      protocol: HTTPS
+      port: 443
+      hostname: "huntarr.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: huntarr-tls
