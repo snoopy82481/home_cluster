@@ -30,10 +30,8 @@ spec:
   values:
     controllers:
       *app :
-
         containers:
           *app :
-
             image:
               repository: ghcr.io/plexguide/huntarr
               tag: 6.0.6@sha256:cba31a06c643d04c3dbf4ca641e3308836029f1c04062b01e77776031e70159b
