@@ -120,3 +120,6 @@ spec:
         path: ${NFS_BACKUP}/readarr
         globalMounts:
           - path: /backup
+
+      tmp:
+        type: emptyDir
