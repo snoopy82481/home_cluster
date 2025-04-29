@@ -195,7 +195,7 @@ spec:
         certificateRefs:
           - kind: Secret
             name: prometheus-tls
-    - name: rook-ceph-mgr-dashboard
+    - name: rook-ceph-dashboard
       protocol: HTTPS
       port: 443
       hostname: "rook.${SECRET_DOMAIN}"
