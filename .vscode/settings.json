@@ -104,11 +104,12 @@
     "cloudflared",
     "gateway",
     "qbtools",
-    "kube-prometheus-stack"
+    "kube-prometheus-stack",
+    "Readarr"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",
-    "vs-kubernetes.knownKubeconfigs": ["./kubeconfig"],
+    "vs-kubernetes.knownKubeconfigs": ["./kubeconfig"]
   },
   "sops.defaults.ageKeyFile": "age.key",
   "better-comments.tags": [

@@ -255,3 +255,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: huntarr-tls
+    - name: readarr
+      protocol: HTTPS
+      port: 443
+      hostname: "readarr.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: readarr-tls
