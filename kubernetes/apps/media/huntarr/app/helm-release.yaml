@@ -34,7 +34,7 @@ spec:
           *app :
             image:
               repository: docker.io/huntarr/huntarr
-              tag: 6.1.2@sha256:3ab0856d95e28b5f94a045c6a3b85ffbe2210f6a24ce65095289f15c042ff8ba
+              tag: 6.1.3@sha256:5ebbee5d10c338c650b5ecf067cff28cbdd3d5d5c37aefa3d5f1b49d3a0c41fd
 
             env:
               TZ: "${TIMEZONE}"
