@@ -1,150 +1,151 @@
 ---
 - Media:
-  - Sonarr:
-    - Sonarr TV:
-        href: https://sonarr.${SECRET_DOMAIN}
-        icon: sonarr.png
-        description: TV Shows
-        widget:
-          type: sonarr
-          url: http://sonarr.media.svc.cluster.local.:8989
-          key: ${SONARR_APIKEY}
-    - Sonarr Anime:
-        href: https://sonarranime.${SECRET_DOMAIN}
-        icon: sonarr.png
-        description: Anime
-        widget:
-          type: sonarr
-          url: http://sonarranime.media.svc.cluster.local.:8989
-          key: ${SONARR_ANIME_APIKEY}
-    - Sonarr UHD:
-        href: https://sonarruhd.${SECRET_DOMAIN}
-        icon: sonarr.png
-        description: UHD TV Shows
-        widget:
-          type: sonarr
-          url: http://sonarruhd.media.svc.cluster.local.:8989
-          key: ${SONARR_UHD_APIKEY}
-  - Radarr:
+    - Sonarr:
+        - Sonarr TV:
+            href: https://sonarr.${SECRET_DOMAIN}
+            icon: sonarr.png
+            description: TV Shows
+            widget:
+              type: sonarr
+              url: http://sonarr.media.svc.cluster.local.:8989
+              key: ${SONARR_APIKEY}
+        - Sonarr Anime:
+            href: https://sonarranime.${SECRET_DOMAIN}
+            icon: sonarr.png
+            description: Anime
+            widget:
+              type: sonarr
+              url: http://sonarranime.media.svc.cluster.local.:8989
+              key: ${SONARR_ANIME_APIKEY}
+        - Sonarr UHD:
+            href: https://sonarruhd.${SECRET_DOMAIN}
+            icon: sonarr.png
+            description: UHD TV Shows
+            widget:
+              type: sonarr
+              url: http://sonarruhd.media.svc.cluster.local.:8989
+              key: ${SONARR_UHD_APIKEY}
     - Radarr:
-        href: https://radarr.${SECRET_DOMAIN}
-        icon: radarr.png
-        description: Movies
-        widget:
-          type: radarr
-          url: http://radarr.media.svc.cluster.local.:7878
-          key: ${RADARR_APIKEY}
-    - Radarr Anime:
-        href: https://radarranime.${SECRET_DOMAIN}
-        icon: radarr.png
-        description: Anime Movies
-        widget:
-          type: radarr
-          url: http://radarranime.media.svc.cluster.local.:7878
-          key: ${RADARR_ANIME_APIKEY}
-    - Radarr UHD:
-        href: https://radarruhd.${SECRET_DOMAIN}
-        icon: radarr.png
-        description: UHD Movies
-        widget:
-          type: radarr
-          url: http://radarruhd.media.svc.cluster.local.:7878
-          key: ${RADARR_UHD_APIKEY}
-  - Bazarr:
+        - Radarr:
+            href: https://radarr.${SECRET_DOMAIN}
+            icon: radarr.png
+            description: Movies
+            widget:
+              type: radarr
+              url: http://radarr.media.svc.cluster.local.:7878
+              key: ${RADARR_APIKEY}
+        - Radarr Anime:
+            href: https://radarranime.${SECRET_DOMAIN}
+            icon: radarr.png
+            description: Anime Movies
+            widget:
+              type: radarr
+              url: http://radarranime.media.svc.cluster.local.:7878
+              key: ${RADARR_ANIME_APIKEY}
+        - Radarr UHD:
+            href: https://radarruhd.${SECRET_DOMAIN}
+            icon: radarr.png
+            description: UHD Movies
+            widget:
+              type: radarr
+              url: http://radarruhd.media.svc.cluster.local.:7878
+              key: ${RADARR_UHD_APIKEY}
     - Bazarr:
-        href: https://bazarr.${SECRET_DOMAIN}
-        icon: bazarr.png
-        description: Subtitle Manager
+        - Bazarr:
+            href: https://bazarr.${SECRET_DOMAIN}
+            icon: bazarr.png
+            description: Subtitle Manager
+            widget:
+              type: bazarr
+              url: http://bazarr.media.svc.cluster.local.:6767
+              key: ${BAZARR_APIKEY}
+        - Bazarr Anime:
+            href: https://bazarr-anime.${SECRET_DOMAIN}
+            icon: bazarr.png
+            description: Anime Subtitle Manager
+            widget:
+              type: bazarr
+              url: http://bazarr-anime.media.svc.cluster.local.:6767
+              key: ${BAZARR_ANIME_APIKEY}
+        - Bazarr UHD:
+            href: https://bazarr-uhd.${SECRET_DOMAIN}
+            icon: bazarr.png
+            description: UHD Subtitle Manager
+            widget:
+              type: bazarr
+              url: http://bazarr-uhd.media.svc.cluster.local.:6767
+              key: ${BAZARR_UHD_APIKEY}
+    - Prowlarr:
+        href: https://prowlarr.${SECRET_DOMAIN}
+        icon: prowlarr.png
+        description: Indexer Manager
         widget:
-          type: bazarr
-          url: http://bazarr.media.svc.cluster.local.:6767
-          key: ${BAZARR_APIKEY}
-    - Bazarr Anime:
-        href: https://bazarr-anime.${SECRET_DOMAIN}
-        icon: bazarr.png
-        description: Anime Subtitle Manager
+          type: prowlarr
+          url: http://prowlarr.media.svc.cluster.local.:9696
+          key: ${PROWLARR_APIKEY}
+    - Overseerr:
+        href: https://overseerr.${SECRET_DOMAIN}
+        icon: overseerr.png
+        description: Request Manager
         widget:
-          type: bazarr
-          url: http://bazarr-anime.media.svc.cluster.local.:6767
-          key: ${BAZARR_ANIME_APIKEY}
-    - Bazarr UHD:
-        href: https://bazarr-uhd.${SECRET_DOMAIN}
-        icon: bazarr.png
-        description: UHD Subtitle Manager
-        widget:
-          type: bazarr
-          url: http://bazarr-uhd.media.svc.cluster.local.:6767
-          key: ${BAZARR_UHD_APIKEY}
-  - Prowlarr:
-      href: https://prowlarr.${SECRET_DOMAIN}
-      icon: prowlarr.png
-      description: Indexer Manager
-      widget:
-        type: prowlarr
-        url: http://prowlarr.media.svc.cluster.local.:9696
-        key: ${PROWLARR_APIKEY}
-  - Overseerr:
-      href: https://overseerr.${SECRET_DOMAIN}
-      icon: overseerr.png
-      description: Request Manager
-      widget:
-        type: overseerr
-        url: http://overseerr.media.svc.cluster.local.:5055
-        key: ${OVERSEERR_API_KEY}
+          type: overseerr
+          url: http://overseerr.media.svc.cluster.local.:5055
+          key: ${OVERSEERR_API_KEY}
 - Downloads:
-  - Sabnzbd:
-      href: https://sabnzbd.${SECRET_DOMAIN}
-      icon: sabnzbd.png
-      description: Usenet Downloader
-      widget:
-        type: sabnzbd
-        url: http://sabnzbd.media.svc.cluster.local.:8080
-        key: ${SABNZBD_API_KEY}
-  - qBittorrent:
-      href: https://qbittorrent.${SECRET_DOMAIN}
-      icon: qbittorrent.png
-      description: Torrent Downloader
-      widget:
-        type: qbittorrent
-        url: http://qbittorrent.downloads.svc.cluster.local.:8080
+    - Sabnzbd:
+        href: https://sabnzbd.${SECRET_DOMAIN}
+        icon: sabnzbd.png
+        description: Usenet Downloader
+        widget:
+          type: sabnzbd
+          url: http://sabnzbd.media.svc.cluster.local.:8080
+          key: ${SABNZBD_API_KEY}
+    - qBittorrent:
+        href: https://qbittorrent.${SECRET_DOMAIN}
+        icon: qbittorrent.png
+        description: Torrent Downloader
+        widget:
+          type: qbittorrent
+          url: http://qbittorrent.downloads.svc.cluster.local.:8080
 - Monitoring:
-  - Grafana:
-      href: https://grafana.${SECRET_DOMAIN}
-      icon: grafana.png
-      description: Monitoring Dashboard
-      widget:
-        type: grafana
-        url: http://grafana.monitoring.svc.cluster.local.:3000
-        username: ${GRAFANA_ADMIN_USER}
-        password: ${GRAFANA_ADMIN_PASSWORD}
-  - Prometheus:
-      href: https://prometheus.${SECRET_DOMAIN}
-      icon: prometheus.png
-      description: Monitoring Metrics
-      widget:
-        type: prometheus
-        url: http://prometheus.monitoring.svc.cluster.local.:9090
+    - Grafana:
+        href: https://grafana.${SECRET_DOMAIN}
+        icon: grafana.png
+        description: Monitoring Dashboard
+        widget:
+          type: grafana
+          url: http://grafana.monitoring.svc.cluster.local.:3000
+          username: ${GRAFANA_ADMIN_USER}
+          password: ${GRAFANA_ADMIN_PASSWORD}
+    - Prometheus:
+        href: https://prometheus.${SECRET_DOMAIN}
+        icon: prometheus.png
+        description: Monitoring Metrics
+        widget:
+          type: prometheus
+          url: http://prometheus.monitoring.svc.cluster.local.:9090
 - Networking:
-  - Omada:
-      href: https://${SVC_OMADA_ADDRESS}:8043
-      icon: omada.png
-      description: Omada Controller
-      widget:
-        type: omada
-        url: https://${SVC_OMADA_ADDRESS}:8043
-        username: ${OMADA_ADMIN_USER}
-        password: ${OMADA_ADMIN_PASSWORD}
-  - pfSense:
-      href: https://pfsense.${SECRET_DOMAIN}:10443
-      description: pfSense Firewall
-      widget:
-        type: pfsense
-        url: https://pfsense.${SECRET_DOMAIN}:10443
-        headers:
-          X-API-Key: ${PFSENSE_API_KEY}
-        wan: ix0
-        version: 2
-        fields:
-          - load
-          - memory
-          - wanStatus
+    - Omada:
+        href: https://${SVC_OMADA_ADDRESS}:8043
+        icon: omada.png
+        description: Omada Controller
+        widget:
+          type: omada
+          url: https://${SVC_OMADA_ADDRESS}:8043
+          username: ${OMADA_ADMIN_USER}
+          password: ${OMADA_ADMIN_PASSWORD}
+          site: home
+    - pfSense:
+        href: https://pfsense.${SECRET_DOMAIN}:10443
+        description: pfSense Firewall
+        widget:
+          type: pfsense
+          url: https://pfsense.${SECRET_DOMAIN}:10443
+          headers:
+            X-API-Key: ${PFSENSE_API_KEY}
+          wan: ix0
+          version: 2
+          fields:
+            - load
+            - memory
+            - wanStatus
