@@ -6,3 +6,4 @@ namespace: downloads
 resources:
   - ./qbtools-config.secret.sops.yaml
   - ./helm-release.yaml
+  - ./network-policy.yaml
