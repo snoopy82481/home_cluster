@@ -2,5 +2,4 @@ machine:
   time:
     disabled: false
     servers:
-      - 162.159.200.1
-      - 162.159.200.123
+      - /dev/ptp0

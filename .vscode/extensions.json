@@ -9,11 +9,11 @@
       "mitchdenny.ecdc",
       "ms-kubernetes-tools.vscode-kubernetes-tools",
       "oderwat.indent-rainbow",
-      "redhat.ansible",
+      "redhat.vscode-yaml",
       "signageos.signageos-vscode-sops",
       "usernamehw.errorlens",
-      "mikestead.dotenv",
-      "PKief.material-icon-theme",
-      "fcrespo82.markdown-table-formatter"
+      "fcrespo82.markdown-table-formatter",
+      "irongeek.vscode-env",
+      "BlueGlassBlock.better-json5",
   ]
 }
