@@ -40,7 +40,7 @@ spec:
 
       service:
         annotations:
-          io.cilium/lb-ipam-ips: ${SVC_INTERNAL_NGINX_ADDRESS}
+          lbipam.cilium.io/ips: ${SVC_INTERNAL_NGINX_ADDRESS}
         externalTrafficPolicy: Local
 
       ingressClassResource:
