@@ -17,22 +17,17 @@ resource "proxmox_vm_qemu" "talos_master" {
   vmid        = var.master_vmid + count.index
 
   agent    = 1
+  os_type  = "linux"
+  cores    = 3
+  sockets  = 2
+  cpu_type = "IvyBridge"
   balloon  = 0
-  os_type = "linux"
-  qemu_os = "l26"
   memory   = 16384
   scsihw   = "virtio-scsi-pci"
   boot     = "order=sata0;sata1"
   vm_state = "stopped"
   onboot   = true
   startup  = "order=15,up=30"
-  tags    = ["k8s", "talos", "master"]
-
-  cpu {
-    type = "host"
-    sockets = 2
-    cores   = 3
-  }
 
   disks {
     sata {
@@ -50,6 +45,7 @@ resource "proxmox_vm_qemu" "talos_master" {
       }
     }
   }
+
 
   network {
     id      = 0
@@ -70,7 +66,9 @@ resource "proxmox_vm_qemu" "talos_worker" {
 
   agent    = 1
   os_type  = "linux"
-  qemu_os = "l26"
+  cores    = 2
+  sockets  = 2
+  cpu_type = "IvyBridge"
   balloon  = 0
   memory   = 20480
   scsihw   = "virtio-scsi-pci"
@@ -78,13 +76,6 @@ resource "proxmox_vm_qemu" "talos_worker" {
   vm_state = "stopped"
   onboot   = true
   startup  = "order=15,up=30"
-  tags    = ["k8s", "talos", "worker"]
-
-  cpu {
-    type = "host"
-    sockets = 2
-    cores   = 3
-  }
 
   disks {
     sata {
