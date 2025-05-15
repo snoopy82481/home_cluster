@@ -1,0 +1,27 @@
+---
+version: "3"
+
+tasks:
+  proxmox-init:
+    desc: Initialize proxmox opentofu dependencies
+    dir: infrastructure/opentofu/vm
+    cmds:
+      - tofu init {{.CLI_ARGS}}
+
+  proxmox-plan:
+    desc: Show the changes proxmox opentofu will make
+    dir: infrastructure/opentofu/vm
+    cmds:
+      - tofu plan {{.CLI_ARGS}}
+
+  proxmox-apply:
+    desc: Apply the changes to proxmox
+    dir: infrastructure/opentofu/vm
+    cmds:
+      - tofu apply -auto-approve {{.CLI_ARGS}}
+
+  proxmox-destroy:
+    desc: Destroy VM's listed in plan on proxmox
+    dir: infrastructure/opentofu/vm
+    cmds:
+      - tofu apply -destroy --auto-approve {{.CLI_ARGS}}
