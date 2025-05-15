@@ -16,18 +16,20 @@ resource "proxmox_vm_qemu" "talos_master" {
   target_node = var.proxmox_host
   vmid        = var.master_vmid + count.index
 
-  agent    = 1
-  os_type  = "linux"
-  cores    = 3
-  sockets  = 2
-  cpu_type = "IvyBridge"
-  balloon  = 0
-  memory   = 16384
-  scsihw   = "virtio-scsi-pci"
-  boot     = "order=sata0;sata1"
-  vm_state = "stopped"
-  onboot   = true
-  startup  = "order=15,up=30"
+  agent     = 1
+  os_type   = "linux"
+  qemu_os   = "l26"
+  cores     = 3
+  sockets   = 2
+  cpu_type  = "IvyBridge"
+  balloon   = 0
+  memory    = 16384
+  scsihw    = "virtio-scsi-pci"
+  boot      = "order=sata0;sata1"
+  vm_state  = "running"
+  onboot    = true
+  startup   = "order=15,up=30"
+  skip_ipv6 = true
 
   disks {
     sata {
@@ -64,18 +66,20 @@ resource "proxmox_vm_qemu" "talos_worker" {
   target_node = var.proxmox_host
   vmid        = var.worker_vmid + count.index
 
-  agent    = 1
-  os_type  = "linux"
-  cores    = 2
-  sockets  = 2
-  cpu_type = "IvyBridge"
-  balloon  = 0
-  memory   = 20480
-  scsihw   = "virtio-scsi-pci"
-  boot     = "order=sata0;sata2"
-  vm_state = "stopped"
-  onboot   = true
-  startup  = "order=15,up=30"
+  agent     = 1
+  os_type   = "linux"
+  qemu_os   = "l26"
+  cores     = 2
+  sockets   = 2
+  cpu_type  = "IvyBridge"
+  balloon   = 0
+  memory    = 20480
+  scsihw    = "virtio-scsi-pci"
+  boot      = "order=sata0;sata2"
+  vm_state  = "running"
+  onboot    = true
+  startup   = "order=15,up=30"
+  skip_ipv6 = true
 
   disks {
     sata {
