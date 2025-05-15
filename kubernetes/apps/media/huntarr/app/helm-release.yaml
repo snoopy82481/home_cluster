@@ -33,8 +33,8 @@ spec:
         containers:
           *app :
             image:
-              repository: docker.io/huntarr/huntarr
-              tag: 6.5.6@sha256:e735947cad1514b8ae5d5ab4f3f770b4339096ca0dc8e6e317ae0dccea2ae16d
+              repository: ghcr.io/plexguide/huntarr
+              tag: 6.5.15@sha256:9b0fbfcbeb79abf45aca27be6e25f4065922d663dd4a2eccdf69e6633e954645
 
             env:
               TZ: "${TIMEZONE}"
