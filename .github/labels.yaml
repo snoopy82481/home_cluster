@@ -23,7 +23,7 @@
   color: "027fa0"
 - name: renovate/helm
   color: "027fa0"
-- name: renovate/terraform
+- name: renovate/opentofu
   color: "027fa0"
 # Semantic Type
 - name: type/digest
