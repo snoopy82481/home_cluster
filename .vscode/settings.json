@@ -1,19 +1,7 @@
 {
-  "ansible.ansibleLint.arguments": "-c .github/linters/.ansible-lint",
-  "ansible.ansible.path": ".venv/bin/ansible",
-  "ansible.python.activationScript": ".venv/bin/activate",
-  "ansible.python.interpreterPath": ".venv/bin/python3",
-  "ansible.validation.enabled": true,
-  "ansible.validation.lint.arguments": "-c ansible/.ansible-lint",
-  "ansible.validation.lint.enabled": true,
-  "ansible.validation.lint.path": ".venv/bin/ansible-lint",
   "files.associations": {
     "**/*.json5": "json5",
-    "**/ansible/**/*.yml": "ansible",
-    "**/ansible/**/*.sops.yml": "yaml",
-    "**/ansible/**/inventory/**/*.yml": "yaml",
     "**/terraform/**/*.tf": "terraform",
-    "./kubernetes/**/*.sops.toml": "plaintext",
     "*.env": "dotenv"
   },
   "prettier.configPath": ".ci/prettier/.prettierrc.yaml",
@@ -36,9 +24,16 @@
       "**/Taskfile.yaml",
       ".taskfiles/*.yml"
     ],
-    "https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json": "./kubernetes/bootstrap/talos/talconfig.yaml"
+    "https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json": "./talos/talconfig.yaml"
+  },
+  "material-icon-theme.files.associations": {
+    "*.sops.yaml": "lock",
+    "helmfile.yaml": "helm",
+    "kubeconfig": "kubernetes",
+    "talosconfig": "kubernetes",
   },
   "material-icon-theme.folders.associations": {
+    // top level
     ".taskfiles": "utils",
     "bootstrap": "seeders",
     "flux": "pipe",
@@ -74,14 +69,11 @@
     "alertmanager",
     "grafana",
     "kyverno",
-    "loki",
-    "thanos",
     "vector",
     "cert-manager",
     "external-dns",
     "ingress-nginx",
     "k8s-gateway",
-    "omada-controller",
     "rook-ceph",
     "qbittorrent",
     "bazarr",
@@ -106,7 +98,6 @@
     "gateway",
     "qbtools",
     "kube-prometheus-stack",
-    "Readarr"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",
