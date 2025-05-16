@@ -1,20 +1,34 @@
 ---
+area/bootstrap:
+  - changed-files:
+    - any-glob-to-any-file: bootstrap/**/*
+area/docs:
+  - changed-files:
+    - any-glob-to-any-file:
+      - "docs/**/*"
+      - "README.md"
 area/talos:
   - changed-files:
-  - any-glob-to-any-file: infrastructure/talos/**/*
+    - any-glob-to-any-file: talos/**/*
 area/github:
   - changed-files:
       - any-glob-to-any-file: .github/**/*
 area/kubernetes:
   - changed-files:
-      - any-glob-to-any-file: kubernetes/**/*
+    - any-glob-to-any-file: kubernetes/**/*
 area/taskfile:
   - changed-files:
-      - any-glob-to-any-file: .taskfiles/**/*
-      - any-glob-to-any-file: Taskfile*
-area/terraform-cloudflare:
+    - any-glob-to-any-file:
+      - ".taskfiles/**/*"
+      - "Taskfile.yaml"
+area/opentofu:
   - changed-files:
-      - any-glob-to-any-file: infrastructure/terraform/cloudflare/*
-area/terraform-vm:
+      - any-glob-to-any-file: infrastructure/opentofu/**/*
+area/renovate:
   - changed-files:
-      - any-glob-to-any-file: infrastructure/terraform/vm/*
+    - any-glob-to-any-file:
+      - ".renovate/**/*"
+      - ".renovaterc.json5"
+area/scripts:
+  - changed-files:
+    - any-glob-to-any-file: scripts/**/*

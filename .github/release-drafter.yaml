@@ -8,21 +8,28 @@ categories:
     labels: ["community"]
   - title: "Kubernetes"
     labels: ["area/kubernetes"]
+  - title: "Talos"
+    labels: ["area/talos"]
+  - title: "Bootstrap"
+    labels: ["area/bootstrap"]
+  - title: "Scripts"
+    labels: ["area/scripts"]
+  - title: "Taskfile"
+    labels: ["area/taskfile"]
+  - title: "Renovate"
+    labels: ["area/renovate"]
   - title: "Github"
     labels: ["area/github"]
-  - title: "Ansible"
-    labels: ["area/ansible"]
-  - title: "Terraform-cloudflare"
-    labels: ["area/terraform-cloudflare"]
-  - title: "Terraform-vm"
-    labels: ["area/terraform-vm"]
-  - title: "Maintenance"
-    labels: ["docs"]
+  - title: "OpenTofu"
+    labels: ["area/opentofu"]
+  - title: "Documentation"
+    labels: ["area/docs"]
+sort-by: "title"
 version-resolver:
   major:
-    labels: ["type/break"]
+    labels: ["type/major"]
   minor:
-    labels: ["type/major", "type/minor"]
+    labels: ["type/minor"]
   patch:
     labels: ["type/patch"]
   default: patch
