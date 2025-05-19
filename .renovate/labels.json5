@@ -18,10 +18,6 @@
       labels: ["type/digest"],
     },
     {
-      matchDatasources: ["docker", "dockerfile", "docker-compose"],
-      addLabels: ["renovate/docker"],
-    },
-    {
       matchDatasources: ["docker"],
       addLabels: ["renovate/container"],
     },
@@ -30,15 +26,7 @@
       addLabels: ["renovate/helm"],
     },
     {
-      matchDatasources: ["galaxy", "galaxy-collection"],
-      addLabels: ["renovate/ansible"],
-    },
-    {
-      matchDatasources: ["docker"],
-      addLabels: ["renovate/opentofu"],
-    },
-    {
-      matchDatasources: ["github-releases", "github-tags"],
+      matchDatasources: ["github-releases"],
       addLabels: ["renovate/github-release"],
     },
     {
