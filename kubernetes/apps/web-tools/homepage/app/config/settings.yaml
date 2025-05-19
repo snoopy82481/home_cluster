@@ -9,10 +9,10 @@ layout:
     style: column
     icon: mdi-play-circle
     Sonarr:
-      style: column
+      style: row
       columns: 3
     Radarr:
-      style: column
+      style: row
       columns: 3
   Storage:
     style: row
