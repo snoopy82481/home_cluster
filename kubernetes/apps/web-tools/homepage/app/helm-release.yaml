@@ -4,7 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app homepage
-  namespace: &ns web-tools
+  namespace: web-tools
 spec:
   interval: 1h
   chartRef:
@@ -29,12 +29,16 @@ spec:
     keepHistory: false
   values:
     controllers:
-      homepage:
+      *app :
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
+
+        serviceAccount:
+          identifier: *app
+
         containers:
-          app:
+          *app :
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v1.2.0@sha256:5e6bcbb595c4e857540577135e0f8b3ffc2e97c23d6e0ddc7df183de5bfdd442
@@ -56,18 +60,17 @@ spec:
                 memory: 2G
 
     service:
-      app:
+      *app :
         controller: *app
         ports:
           http:
             port: &port 3000
 
     serviceAccount:
-      create: true
-      name: *app
+      *app : {}
 
     route:
-      app:
+      *app :
         enabled: true
         parentRefs:
           - name: internal
