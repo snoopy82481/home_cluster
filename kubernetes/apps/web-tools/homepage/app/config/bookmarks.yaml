@@ -11,8 +11,8 @@
         href: https://rook.${SECRET_DOMAIN}
         description: Rook Storage Dashboard
 
-- Networking:
-    - pfSense:
-      - icon: pfsense.png
-        href: https://pfsense.${SECRET_DOMAIN}:10443
-        description: pfSense Firewall Dashboard
+- Media:
+    - Huntarr:
+      - href: https://huntarr.${SECRET_DOMAIN}
+        icon: https://github.com/plexguide/Huntarr.io/blob/main/frontend/static/logo/64.png
+        description: Huntarr

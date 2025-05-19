@@ -8,12 +8,19 @@ layout:
   Media:
     style: column
     icon: mdi-play-circle
+    Sonarr:
+      style: column
+      columns: 3
+    Radarr:
+      style: column
+      columns: 3
   Storage:
     style: row
     columns: 2
     icon: mdi-desktop-tower
   Monitoring:
-    style: column
+    style: row
+    columns: 2
     icon: mdi-chart-line
   Downloads:
     style: row

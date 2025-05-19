@@ -50,31 +50,31 @@
               type: radarr
               url: http://radarruhd.media.svc.cluster.local.:7878
               key: ${RADARR_UHD_APIKEY}
-    - Bazarr:
-        - Bazarr:
-            href: https://bazarr.${SECRET_DOMAIN}
-            icon: bazarr.png
-            description: Subtitle Manager
-            widget:
-              type: bazarr
-              url: http://bazarr.media.svc.cluster.local.:6767
-              key: ${BAZARR_APIKEY}
-        - Bazarr Anime:
-            href: https://bazarr-anime.${SECRET_DOMAIN}
-            icon: bazarr.png
-            description: Anime Subtitle Manager
-            widget:
-              type: bazarr
-              url: http://bazarr-anime.media.svc.cluster.local.:6767
-              key: ${BAZARR_ANIME_APIKEY}
-        - Bazarr UHD:
-            href: https://bazarr-uhd.${SECRET_DOMAIN}
-            icon: bazarr.png
-            description: UHD Subtitle Manager
-            widget:
-              type: bazarr
-              url: http://bazarr-uhd.media.svc.cluster.local.:6767
-              key: ${BAZARR_UHD_APIKEY}
+    # - Bazarr:
+    #     - Bazarr:
+    #         href: https://bazarr.${SECRET_DOMAIN}
+    #         icon: bazarr.png
+    #         description: Subtitle Manager
+    #         widget:
+    #           type: bazarr
+    #           url: http://bazarr.media.svc.cluster.local.:6767
+    #           key: ${BAZARR_APIKEY}
+    #     - Bazarr Anime:
+    #         href: https://bazarr-anime.${SECRET_DOMAIN}
+    #         icon: bazarr.png
+    #         description: Anime Subtitle Manager
+    #         widget:
+    #           type: bazarr
+    #           url: http://bazarr-anime.media.svc.cluster.local.:6767
+    #           key: ${BAZARR_ANIME_APIKEY}
+    #     - Bazarr UHD:
+    #         href: https://bazarr-uhd.${SECRET_DOMAIN}
+    #         icon: bazarr.png
+    #         description: UHD Subtitle Manager
+    #         widget:
+    #           type: bazarr
+    #           url: http://bazarr-uhd.media.svc.cluster.local.:6767
+    #           key: ${BAZARR_UHD_APIKEY}
     - Prowlarr:
         href: https://prowlarr.${SECRET_DOMAIN}
         icon: prowlarr.png
@@ -91,6 +91,14 @@
           type: overseerr
           url: http://overseerr.media.svc.cluster.local.:5055
           key: ${OVERSEERR_API_KEY}
+    - Tautulli:
+        href: https://tautulli.${SECRET_DOMAIN}
+        icon: tautulli.png
+        description: Plex Monitoring
+        widget:
+          type: tautulli
+          url: http://tautulli.media.svc.cluster.local.:8181
+          key: ${TAUTULLI_API_KEY}
 - Downloads:
     - Sabnzbd:
         href: https://sabnzbd.${SECRET_DOMAIN}
