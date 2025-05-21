@@ -61,7 +61,7 @@ discovery.kubernetes "endpointslices" {
 }
 
 discovery.relabel "pod_logs" {
-  targets = discovery.kubernetes.pod.targets
+  targets = discovery.kubernetes.pods.targets
 
   rule {
     source_labels = ["__meta_kubernetes_namespace"]
