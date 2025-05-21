@@ -267,3 +267,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: readarr-tls
+    - name: alertmanager
+      protocol: HTTPS
+      port: 443
+      hostname: "alertmanager.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: alertmanager-tls

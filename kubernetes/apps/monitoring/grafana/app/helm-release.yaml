@@ -27,22 +27,16 @@ spec:
   test:
     enable: false
   install:
+    crds: Skip
     remediation:
-      retries: 5
+      retries: -1
   upgrade:
+    cleanupOnFail: true
+    crds: Skip
     remediation:
-      retries: 5
-      strategy: rollback
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
+      retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
   values:
     admin:
       existingSecret: grafana-admin-secret
@@ -98,6 +92,8 @@ spec:
       datasources.yaml:
         apiVersion: 1
         deleteDatasources:
+          - { name: Alertmanager, orgId: 1 }
+          - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
         datasources:
           - name: Prometheus
@@ -106,6 +102,21 @@ spec:
             access: proxy
             url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
             isDefault: true
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://loki-headless.monitoring.svc.cluster.local:3100
+            jsonData:
+              maxLines: 250
+          - name: Alertmanager
+            type: alertmanager
+            uid: alertmanager
+            access: proxy
+            url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+            jsonData:
+              implementation: prometheus
+
     dashboards:
       default:
         cert-manager:

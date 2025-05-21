@@ -28,7 +28,7 @@ nodes:
     installDisk: /dev/sda
     machineSpec:
       secureboot: false
-    talosImageURL: &talosImage factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
 
   - hostname: kmaster2.${DOMAINNAME}
     ipAddress: &kmaster2 192.168.20.6
@@ -72,6 +72,7 @@ patches:
   - "@./patches/global/machine-files.yaml"
   # - "@./patches/global/machine-hostdns.yaml"
   - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-logging.yaml"
   - "@./patches/global/machine-network.yaml"
   - "@./patches/global/machine-sysctl.yaml"
   - "@./patches/global/machine-time.yaml"
