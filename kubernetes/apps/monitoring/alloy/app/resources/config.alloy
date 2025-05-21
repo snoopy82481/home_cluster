@@ -132,7 +132,7 @@ loki.process "pod_logs" {
       }
   }
 
-  forward_to = [loki.write.default.receiver"]
+  forward_to = [loki.write.default.receiver]
 }
 
 loki.process "cluster_events" {
