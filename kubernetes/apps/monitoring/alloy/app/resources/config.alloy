@@ -1,7 +1,7 @@
 logging {
   level  = "warn"
   format = "json"
-  write_to = "loki.write.default.receiver"
+  write_to = [loki.write.default.receiver]
 }
 
 prometheus.exporter.self "default" {
@@ -20,7 +20,7 @@ prometheus.remote_write "default" {
 
 loki.write "default" {
   endpoint {
-    url = "http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
+    url = "http://loki-headless.monitoring.svc.cluster.local:3100/loki/api/v1/push"
   }
 }
 
