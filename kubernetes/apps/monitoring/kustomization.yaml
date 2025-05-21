@@ -9,3 +9,4 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./kyverno/ks.yaml
   - ./loki/ks.yaml
+  - ./alloy/ks.yaml
