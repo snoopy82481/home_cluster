@@ -34,7 +34,7 @@ spec:
           *app :
             image:
               repository: ghcr.io/plexguide/huntarr
-              tag: 7.1.0@sha256:d8f11033bbe761313d9e203a13d9fdb6339a47620ee765aefcb81c4238939379
+              tag: 7.1.2@sha256:0f75b3533877b7d32f71fe6cbd022bd64f2364b0aeaf34fc6324aea20c057972
 
             env:
               TZ: "${TIMEZONE}"
