@@ -98,6 +98,7 @@
     "gateway",
     "qbtools",
     "kube-prometheus-stack",
+    "huntarr"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",

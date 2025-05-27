@@ -132,5 +132,15 @@ spec:
         globalMounts:
           - path: /app/config
 
+      cache:
+        existingClaim: overseerr-cache-v1
+        globalMounts:
+          - path: /app/config/cache
+
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /app/config/logs
+
       tmp:
         type: emptyDir
