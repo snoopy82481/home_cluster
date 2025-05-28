@@ -231,4 +231,9 @@ spec:
           *app :
             *app :
               - path: /add-ons
+                subPath: add-ons
               - path: /tmp
+                subPath: tmp
+            vuetorrent:
+              - path: /add-ons
+                subPath: add-ons
