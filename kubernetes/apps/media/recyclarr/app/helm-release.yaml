@@ -29,7 +29,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      recyclarr:
+      *app :
         type: statefulset
 
         statefulset:
@@ -46,7 +46,7 @@ spec:
           reloader.stakater.com/auto: "true"
 
         containers:
-          app:
+          *app :
             image:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 7.4.1@sha256:759540877f95453eca8a26c1a93593e783a7a824c324fbd57523deffb67f48e1
@@ -81,7 +81,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
 
     service:
-      app:
+      *app :
         controller: *app
         enabled: false
 
@@ -108,10 +108,14 @@ spec:
           - path: /config/configs/radarr-uhd-config.yaml
             subPath: radarr-uhd-config.yaml
 
-      tmp:
+      tmpfs:
         type: emptyDir
-
-      config-logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
+        advancedMounts:
+          *app :
+            *app :
+              - path: /config/logs
+                subPath: logs
+              - path: /config/repositories
+                subPath: repositories
+              - path: /tmp
+                subPath: tmp

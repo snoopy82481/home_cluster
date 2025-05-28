@@ -74,10 +74,7 @@ spec:
 
     persistence:
       config:
-        enabled: true
         existingClaim: huntarr-config-v1
-        globalMounts:
-          - path: /config
 
       tmp:
         type: emptyDir

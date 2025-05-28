@@ -29,13 +29,13 @@ spec:
     keepHistory: false
   values:
     controllers:
-      tautulli:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
           configmap.reloader.stakater.com/reload: cluster-settings
 
         containers:
-          app:
+          *app :
             image:
               repository: ghcr.io/home-operations/tautulli
               tag: 2.15.2@sha256:cb8e3a4c2873edf7baa433e126f022f19eb43f256b65b2de3e8525dc2e4dc18e
@@ -80,43 +80,14 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
 
     service:
-      app:
+      *app :
         controller: *app
         ports:
           http:
             port: *port
 
-    ingress:
-      app:
-        enabled: false
-        className: external
-        annotations:
-          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          hajimari.io/enable: "true"
-          hajimari.io/group: "Media"
-          hajimari.io/icon: "briefcasearrowupdown"
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            proxy_set_header Accept-Encoding "";
-            sub_filter
-            '</head>'
-            '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/tautulli/nord.css">
-            </head>';
-            sub_filter_once on;
-        hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: *port
-        tls:
-          - secretName: "{{ .Release.Name }}-tls"
-            hosts:
-              - *host
-
     route:
-      app:
+      *app :
         enabled: true
         parentRefs:
           - name: external
@@ -131,7 +102,6 @@ spec:
 
     persistence:
       config:
-        enabled: true
         existingClaim: tautulli-config-v1
       tmp:
         type: emptyDir

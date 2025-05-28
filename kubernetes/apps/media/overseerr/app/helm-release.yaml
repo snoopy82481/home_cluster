@@ -32,7 +32,6 @@ spec:
       *app :
         annotations:
           reloader.stakater.com/auto: "true"
-          configmap.reloader.stakater.com/reload: cluster-settings
 
         containers:
           *app :

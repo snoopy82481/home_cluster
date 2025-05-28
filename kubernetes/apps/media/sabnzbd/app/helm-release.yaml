@@ -29,7 +29,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      sabnzbd:
+      *app :
         type: statefulset
 
         statefulset:
@@ -46,7 +46,7 @@ spec:
           configmap.reloader.stakater.com/reload: cluster-settings
 
         containers:
-          app:
+          *app :
             image:
               repository: ghcr.io/home-operations/sabnzbd
               tag: 4.5.1@sha256:fb8b35e47db0c5e03bdc3068476504dbc0ca47298a746718a139f52fab000993
@@ -99,35 +99,14 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
 
     service:
-      app:
+      *app :
         controller: *app
         ports:
           http:
             port: *port
 
-    ingress:
-      main:
-        enabled: false
-        className: internal
-        annotations:
-          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          hajimari.io/enable: "true"
-          hajimari.io/group: "Downloads"
-          hajimari.io/icon: "cloud-download"
-        hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: *port
-        tls:
-          - secretName: "{{ .Release.Name }}-tls"
-            hosts:
-              - *host
-
     route:
-      app:
+      *app :
         enabled: true
         parentRefs:
           - name: internal
