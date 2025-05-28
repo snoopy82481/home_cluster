@@ -237,3 +237,5 @@ spec:
             vuetorrent:
               - path: /add-ons
                 subPath: add-ons
+              - path: /tmp
+                subPath: tmp
