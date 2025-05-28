@@ -85,7 +85,7 @@ spec:
           type: RuntimeDefault
 
     service:
-      app:
+      *app :
         controller: *app
         ports:
           http:
