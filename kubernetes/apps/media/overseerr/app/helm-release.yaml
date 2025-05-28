@@ -53,7 +53,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
+                    path: /api/v1/status
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -89,28 +89,6 @@ spec:
           http:
             port: *port
 
-    ingress:
-      main:
-        enabled: false
-        className: external
-        annotations:
-          cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
-          hajimari.io/enable: "true"
-          hajimari.io/group: "Media"
-          hajimari.io/icon: "eye"
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: *port
-        tls:
-          - secretName: "{{ .Release.Name }}-tls"
-            hosts:
-              - *host
-
     route:
       app:
         enabled: true
@@ -137,10 +115,12 @@ spec:
         globalMounts:
           - path: /app/config/cache
 
-      logs:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /app/config/logs
-
-      tmp:
-        type: emptyDir
+        advancedMounts:
+          overseerr:
+            app:
+              - path: /app/config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
