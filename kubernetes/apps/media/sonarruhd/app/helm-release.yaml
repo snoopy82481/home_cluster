@@ -126,7 +126,7 @@ spec:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         rules:
           - backendRefs:
-              - name: *app
+              - identifier: *app
                 port: *port
 
     persistence:

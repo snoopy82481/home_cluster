@@ -129,24 +129,24 @@ spec:
                 drop:
                   - ALL
 
-            # probes:
-            #   liveness: &probes
-            #     enabled: true
-            #     custom: true
-            #     spec:
-            #       httpGet:
-            #         path: /api/v2/app/version
-            #         port: *port
-            #       initialDelaySeconds: 0
-            #       timeoutSeconds: 10
-            #       periodSeconds: 5
-            #       failureThreshold: 5
-            #   readiness: *probes
-            #   startup:
-            #     enabled: true
-            #     spec:
-            #       failureThreshold: 30
-            #       periodSeconds: 10
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 0
+                  timeoutSeconds: 10
+                  periodSeconds: 5
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
 
             resources:
               requests:
@@ -204,7 +204,7 @@ spec:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         rules:
           - backendRefs:
-              - name: *app
+              - identifier: *app
                 port: *port
 
     persistence:
@@ -216,13 +216,6 @@ spec:
             *app :
               - path: /config
 
-      empty-config:
-        type: emptyDir
-        advancedMounts:
-          *app :
-            port-forward:
-              - path: /config
-
       media:
         type: nfs
         server: ${NAS_IP}
@@ -232,20 +225,12 @@ spec:
             *app :
               - path: /media
 
-      coredns:
-        type: configMap
-        name: qbittorrent-coredns
+      tmpfs:
+        type: emptyDir
         advancedMounts:
           *app :
-            coredns:
-              - path: /etc/coredns/Corefile
-                subPath: Corefile
-                readOnly: true
-
-      add-ons:
-        type: emptyDir
-        globalMounts:
-          - path: /add-ons
-
-      tmp:
-        type: emptyDir
+            *app :
+              - path: /add-ons
+                subPath: add-ons
+              - path: /tmp
+                subPath: tmp

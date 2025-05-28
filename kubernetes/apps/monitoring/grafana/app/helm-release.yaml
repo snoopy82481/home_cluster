@@ -242,7 +242,7 @@ spec:
           - grafana.${SECRET_DOMAIN}
         rules:
           - backendRefs:
-              - name: grafana
+              - identifier: grafana
                 port: 80
     persistence:
       enabled: false
