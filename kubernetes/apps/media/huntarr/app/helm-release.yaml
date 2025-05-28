@@ -83,10 +83,8 @@ spec:
       config:
         enabled: true
         existingClaim: huntarr-config-v1
-        advancedMounts:
-          *app :
-            *app :
-              - path: /config
+        globalMounts:
+          - path: /config
 
       tmp:
         type: emptyDir
