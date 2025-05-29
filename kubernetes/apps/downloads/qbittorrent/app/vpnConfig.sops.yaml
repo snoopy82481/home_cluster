@@ -3,7 +3,6 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: vpnconfig
-    namespace: downloads
 stringData:
     VPN_SERVICE_PROVIDER: ENC[AES256_GCM,data:Gf5dUjML,iv:YIe0ymVJy6uFYwRmBm8MKRz3E6gMJF4s4Wp93iKxh08=,tag:+VQQEbJkvG9Y2pqqsE0R6w==,type:str]
     VPN_PORT_FORWARDING_PROVIDER: ENC[AES256_GCM,data:abfanB5XGu7h,iv:vK6zqq9dwFt1eOYMbFKJP1J9wuOOh26NXGs6syLSFHQ=,tag:3hv9paLx9mcIxHRUNDA+pQ==,type:str]
@@ -24,7 +23,7 @@ sops:
             ZjVVU1JJUkpuRkhoN3N1bU9KNEtMVE0K4tG0BXQNmNR5Ja4wLQQavBIqfOo7673Q
             35DoBloMhz0nCafTzQAFtUDk3cE+YMv687RczFPJMNG5ojStZERpVg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-04-10T19:53:12Z"
-    mac: ENC[AES256_GCM,data:5dbHaVvhoC4J6416SILJoBnPmyqsHowlulq9ZJchUJf55ZlgB1Sh0M7JSMOZ98Tq6lCJnGr4enlcqp7XvVewQBZhSD2GtDkyvo8R58MLkoz4sJBNa1a8DIcl3TIvpQp+4h6LpqwHx83QE63rbn64uWO38gytumkAo3jVeluhxR0=,iv:WYQB/DhbC7667xSf2K5TphXq1xo77+ze4J2xyMa/op8=,tag:MFitXjllP2xBKPG28cmCWQ==,type:str]
+    lastmodified: "2025-05-29T21:53:38Z"
+    mac: ENC[AES256_GCM,data:G+q67N/xxaY7PDfkem+C0zype0SBgPyJCxPwcBeS+OrLT713zbcu7449EKvFrE3qK8rIKX3ChR0rMj8hebSQ02ROzIFUp9sMLtxWUALIeaFlQHoGBMhmUn7qmEh2gdfRkIH/i85GyAvjKYgX7o7HVn2V6jDEZaQ5csAKUv0c2Ig=,iv:Sye0i4CnOR3sqa+vdYQTY3N8pmK6uU86mF0ylm6Rk74=,tag:zbtBQQ1dHIk6FGTNOCwFEQ==,type:str]
     encrypted_regex: ^(data|stringData)$
-    version: 3.10.1
+    version: 3.10.2

@@ -3,7 +3,6 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: qbittorrent-gluetun-secret
-    namespace: downloads
 type: Opaque
 stringData:
     auth.toml: ENC[AES256_GCM,data:8E4UjLT/BlpG8GCbD6RmeWu0maTRtmBm3EvlNuJ7XM5clNm6KnNMLUeDpekJ1x8hYeV6hC0oiYQR64HqWOOFftx9BximEj5w//vv6PFWcQF2GTVET7/g68L1HpyvV8dU60hB68bJaNcg+wJrt7Vvn8yQyx6ReiunZ3hgvjmmDxSbYY0DRgio8R8VGg3nSpVKuOct/0VABir4lEs3q6oMjMz5,iv:j1BbFYxMVeQRU79gYLWIzhFRst2iq9ZPxuUR9T2ck9I=,tag:4YI1Y7X/Nxjnd8ncSdS1jA==,type:str]
@@ -18,8 +17,8 @@ sops:
             Mk96am5GaUpuL3A1bWZRN24rOTd3RDAK4rAOypoX6bv31GlzR22XOivOe5pCvJvE
             RHeEPn/uvlUbQVKaNWTVgcFnj9liXmtBZ9H7hhfsENOGv3N3bBZS6g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-04-09T15:51:00Z"
-    mac: ENC[AES256_GCM,data:8jnuOSQatJXQTVAS7ffhIl/4PW1zldcbkH1mVd8hVQKFh0xHe3elk1OTIoeqCPONgOiaM48z4TtXPYi1vePIihplOuEygkxl6/47WXE3S6d2oyoJGiKEKTou5X4zKw5KUb8FwzIRQCEwIcRIGi2GrpIIFpjEAWjbJdPFYS4ViFA=,iv:0gc0X0fx/0ASrw+kKGDfL7oPD7QU1I8Wz5dSz/l26dk=,tag:CC/mpL63OIg3nwGrD6HjEg==,type:str]
+    lastmodified: "2025-05-29T21:53:48Z"
+    mac: ENC[AES256_GCM,data:8gtLT13MyYQYBL+sjvgsKbK5XuVxFhkENJuTHt6K4VvXUTVfCK5FBUoaiuy3EWtKKLpjw6P5NXwhjMCs8qWpoiGaW4Zu4TQ1JU6uxZJjKV3+p2tCIOYm2/ia+MqzjDqFUMWt+OjBebma4hIUqVgaSJ76q8Zl6tCGB59WmnEau7M=,iv:kDAzs5fBNVHpncKWNsw0N2G5L5D6A/MH9JHdHwdijnY=,tag:R/mscfQBRT4nCDSIX7yYXQ==,type:str]
     encrypted_regex: ^(data|stringData)$
     mac_only_encrypted: true
-    version: 3.10.1
+    version: 3.10.2
