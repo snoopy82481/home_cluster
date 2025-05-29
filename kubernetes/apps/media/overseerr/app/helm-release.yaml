@@ -59,6 +59,11 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  periodSeconds: 5
+                  failureThreshold: 30
 
             securityContext:
               allowPrivilegeEscalation: false
@@ -119,8 +124,8 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          overseerr:
-            app:
+          *app :
+            *app :
               - path: /app/config/logs
                 subPath: logs
               - path: /tmp
