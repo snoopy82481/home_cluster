@@ -279,3 +279,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: alertmanager-tls
+    - name: hubble
+      protocol: HTTPS
+      port: 443
+      hostname: "hubble.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: hubble-tls

@@ -37,6 +37,9 @@ endpointRoutes:
 
 envoy:
   rollOutPods: true
+  prometheus:
+    serviceMonitor:
+      enabled: true
 
 externalIPs:
   enabled: true
