@@ -44,18 +44,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  patches:
-    - # Add Sops decryption and postBuild substitutions to child Kustomizations
-      patch: |-
-        apiVersion: kustomize.toolkit.fluxcd.io/v1
-        kind: Kustomization
-        metadata:
-          name: not-used
-        spec:
-          decryption:
-            provider: sops
-            secretRef:
-              name: sops-age
-      target:
-        group: kustomize.toolkit.fluxcd.io
-        kind: Kustomization
+  timeout: 5m
+  wait: false

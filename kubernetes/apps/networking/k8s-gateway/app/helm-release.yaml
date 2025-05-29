@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: k8s-gateway
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 3.2.0
+  url: oci://ghcr.io/k8s-gateway/charts/k8s-gateway
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app k8s-gateway
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: k8s-gateway
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  values:
+    fullnameOverride: *app
+
+    domain: "${SECRET_DOMAIN}"
+
+    ttl: 1
+
+    service:
+      type: LoadBalancer
+      port: 53
+      annotations:
+        lbipam.cilium.io/ips: "${SVC_K8S_GATEWAY_ADDRESS}"
+      externalTrafficPolicy: Cluster
+
+    watchedResources:
+      - Service
+      - HTTPRoute

@@ -20,7 +20,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kyverno
-  namespace: monitoring
 spec:
   interval: 30m
   chartRef:

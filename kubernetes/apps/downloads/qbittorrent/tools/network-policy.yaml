@@ -4,7 +4,6 @@ apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: downloads-qbtools
-  namespace: downloads
   labels:
     app.kubernetes.io/instance: qbtools
     app.kubernetes.io/name: qbtools

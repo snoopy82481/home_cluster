@@ -3,20 +3,28 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app generic-device-plugin
-  namespace: &namespace system
+  name: &app cloudflare-dns
+  namespace: &namespace networking
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
-  path: ./kubernetes/apps/system/generic-device-plugin/app
+  path: ./kubernetes/apps/networking/cloudflare-dns
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: *namespace
   timeout: 5m
   wait: true
