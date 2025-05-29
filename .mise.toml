@@ -29,3 +29,5 @@ TALOS_DIR = "{{config_root}}/talos"
 "aqua:mikefarah/yq" = "4.45.4"
 "aqua:siderolabs/talos" = "1.10.3"
 "aqua:yannh/kubeconform" = "0.7.0"
+"aqua:sigstore/cosign" = "2.5.0" # 2.5.0
+"aqua:slsa-framework/slsa-verifier" = "2.7.0" # 2.7.0
