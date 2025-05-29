@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: internal-ingress-nginx
-      namespace: networking
   interval: 1h
   path: ./kubernetes/apps/media/radarruhd/app
   postBuild:
