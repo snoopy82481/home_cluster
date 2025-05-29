@@ -6,7 +6,7 @@ CLUSTER_SUBNET: 10.43.0.0/16
 CLUSTER_PODNET: 10.42.0.0/16
 VXLAN_PORT: 8472
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.10.2
+talosVersion: v1.10.3
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.33.1
 # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
