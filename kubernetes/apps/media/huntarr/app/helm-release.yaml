@@ -39,6 +39,20 @@ spec:
             env:
               TZ: "${TIMEZONE}"
 
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: &port 9705
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
             resources:
               requests:
                 cpu: 100m
@@ -50,7 +64,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 9705
+            port: *port
 
     route:
       *app :
