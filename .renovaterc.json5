@@ -15,7 +15,7 @@
     'helpers:pinGitHubActionDigests',
     ':timezone(America/Boise)',
     'github>snoopy82481/home_cluster//.renovate/autoMerge.json5',
-    'github>snoopy82481/home_cluster//.renovate/graphanaDashboards.json5',
+    'github>snoopy82481/home_cluster//.renovate/grafanaDashboards.json5',
     'github>snoopy82481/home_cluster//.renovate/customManagers.json5',
     'github>snoopy82481/home_cluster//.renovate/groups.json5',
     'github>snoopy82481/home_cluster//.renovate/labels.json5',
