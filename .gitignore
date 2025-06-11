@@ -13,6 +13,7 @@ talosconfig
 *.agekey
 *.pub
 *.key
+*.crt
 
 # Terraform
 ## Local .terraform directories
@@ -26,8 +27,8 @@ talosconfig
 *tfplan*
 
 # Talos clusterconfigs
-infrastructure/talos/**/clusterconfig
-infrastructure/talos/**/_out
+talos/**/clusterconfig
+talos/**/_out
 
 # Ansible
 .venv*
