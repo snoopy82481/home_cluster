@@ -40,10 +40,7 @@
   kustomize: {
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
-  packageRules: [
-    {
-      matchDatasources: ["terraform-provider", "terraform-module"],
-      registryUrls: ["https://registry.opentofu.org"]
-    }
-  ]
+  terraform: {
+    "managerFilePatterns": ["/(^|/)infrastructure/opentofu/.+\\.tf$/"],
+  }
 }

@@ -43,5 +43,11 @@
       semanticCommitScope: "github-release",
       commitMessageTopic: "release {{depName}}",
     },
+    {
+      matchDatasources: ["terraform-provider", "terraform-module"],
+      registryUrls: ["https://registry.opentofu.org"],
+      semanticCommitScope: "opentofu",
+      commitMessageTopic: "opentofu {{depName}}",
+    }
   ],
 }
