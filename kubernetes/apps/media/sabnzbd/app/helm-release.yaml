@@ -137,11 +137,14 @@ spec:
       scripts:
         type: configMap
         name: sabnzbd-scripts
+        defaultMode: 0755
         globalMounts:
           - path: /scripts/clean.py
             subPath: clean.py
+            readOnly: true
           - path: /scripts/replace_for.py
             subPath: replace_for.py
+            readOnly: true
 
       tmpfs:
         type: emptyDir
