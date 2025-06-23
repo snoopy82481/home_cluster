@@ -91,6 +91,14 @@
           type: overseerr
           url: http://overseerr.media.svc.cluster.local.:5055
           key: ${OVERSEERR_API_KEY}
+    - Readarr:
+        href: https://readarr.${SECRET_DOMAIN}
+        icon: readarr.png
+        description: Book Manager
+        widget:
+          type: readarr
+          url: http://readarr.media.svc.cluster.local.:8787
+          key: ${READARR_APIKEY}
     - Tautulli:
         href: https://tautulli.${SECRET_DOMAIN}
         icon: tautulli.png
