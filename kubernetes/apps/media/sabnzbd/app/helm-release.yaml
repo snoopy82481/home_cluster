@@ -120,17 +120,35 @@ spec:
                 port: *port
 
     persistence:
-      tmp:
-        type: emptyDir
       media:
         type: nfs
         server: ${NAS_IP}
         path: ${NFS_DATA}
         globalMounts:
           - path: /media
+
       backup:
         type: nfs
         server: ${NAS_IP}
         path: ${NFS_BACKUP}
         globalMounts:
           - path: /backup
+
+      scripts:
+        type: configMap
+        name: sabnzbd-scripts
+        globalMounts:
+          - path: /scripts/clean.py
+            subPath: clean.py
+          - path: /scripts/replace_for.py
+            subPath: replace_for.py
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            *app :
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
