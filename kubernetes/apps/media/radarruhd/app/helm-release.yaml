@@ -111,14 +111,24 @@ spec:
       config:
         enabled: true
         existingClaim: radarruhd-config-v1
-      tmp:
+
+      tmpfs:
         type: emptyDir
+        advancedMounts:
+          *app :
+            *app :
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
+
       media:
         type: nfs
         server: ${NAS_IP}
         path: ${NFS_DATA}
         globalMounts:
           - path: /media
+
       backup:
         type: nfs
         server: ${NAS_IP}

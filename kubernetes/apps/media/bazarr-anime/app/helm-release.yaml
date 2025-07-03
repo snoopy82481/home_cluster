@@ -124,8 +124,6 @@ spec:
         advancedMounts:
           *app :
             *app :
-              - path: /add-ons
-                subPath: add-ons
               - path: /tmp
                 subPath: tmp
               - path: /config/cache
