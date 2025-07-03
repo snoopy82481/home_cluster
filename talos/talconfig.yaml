@@ -28,13 +28,13 @@ nodes:
     installDisk: /dev/sda
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL:  ${talosImageURL}
 
   - hostname: kmaster2.${DOMAINNAME}
     ipAddress: &kmaster2 192.168.20.6
     controlPlane: true
     installDisk: /dev/sda
-    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL:  ${talosImageURL}
 
   - hostname: kmaster3.${DOMAINNAME}
     ipAddress: &kmaster3 192.168.20.7
@@ -42,7 +42,7 @@ nodes:
     installDisk: /dev/sda
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL:  ${talosImageURL}
 
   - hostname: kworker1.${DOMAINNAME}
     ipAddress: &kworker1 192.168.20.8
@@ -50,7 +50,7 @@ nodes:
     installDisk: /dev/sda
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL:  ${talosImageURL}
 
   - hostname: kworker2.${DOMAINNAME}
     ipAddress: &kworker2 192.168.20.9
@@ -58,7 +58,7 @@ nodes:
     installDisk: /dev/sda
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL:  ${talosImageURL}
 
   - hostname: kworker3.${DOMAINNAME}
     ipAddress: &kworker3 192.168.20.10
@@ -66,7 +66,7 @@ nodes:
     installDisk: /dev/sda
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL:  ${talosImageURL}
 
 patches:
   - "@./patches/global/machine-files.yaml"

@@ -48,7 +48,7 @@ tasks:
   upgrade-k8s:
     desc: Upgrade Kubernetes
     dir: '{{.TALOS_DIR}}'
-    cmd: talhelper gencommand upgrade-k8s --extra-flags "--to '{{.KUBERNETES_VERSION}}'" | bash
+    cmd: talhelper gencommand upgrade-k8s | bash
     vars:
       KUBERNETES_VERSION:
         sh: yq '.kubernetesVersion' {{.TALOS_DIR}}/talenv.yaml
@@ -56,6 +56,15 @@ tasks:
       - talosctl config info
       - test -f {{.TALOSCONFIG}}
       - which talhelper talosctl yq
+
+  upgrade-nodes:
+    desc: Upgrade Talos on all nodes
+    dir: '{{.TALOS_DIR}}'
+    cmd: talhelper gencommand upgrade --extra-flags "--timeout=10m" | bash
+    preconditions:
+      - talosctl config info
+      - test -f {{.TALOSCONFIG}}
+      - which kubectl talhelper talosctl yq
 
   fetch-kubeconfig:
     desc: Generate talos kubeconfig

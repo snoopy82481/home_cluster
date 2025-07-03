@@ -165,3 +165,21 @@
             - load
             - memory
             - wanStatus
+- Infrastructure:
+    - Proxmox:
+        href: https://proxmox.${SECRET_DOMAIN}:8006
+        icon: proxmox.png
+        description: Proxmox VE
+        widget:
+          type: proxmox
+          url: https://proxmox.${SECRET_DOMAIN}:8006
+          username: ${PROXMOX_TOKEN_ID}
+          password: ${PROXMOX_TOKEN_SECRET}
+    - TrueNAS:
+        href: https://truenas.${SECRET_DOMAIN}
+        icon: truenas.png
+        description: TrueNAS Storage
+        widget:
+          type: truenas
+          url: https://truenas.${SECRET_DOMAIN}
+          key: ${TRUENAS_AUDIT_API_KEY}
