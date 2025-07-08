@@ -83,6 +83,8 @@ spec:
         advancedMounts:
           *app :
             *app :
+              - path: /app
+                subPath: app
               - path: /app/screenshot
                 subPath: screenshots
               - path: /tmp
