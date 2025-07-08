@@ -47,7 +47,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/health
+                    path: /health
                     port: &port 8191
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -76,3 +76,14 @@ spec:
         ports:
           http:
             port: *port
+
+    persistence:
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            *app :
+              - path: /app/screenshot
+                subPath: screenshots
+              - path: /tmp
+                subPath: tmp
