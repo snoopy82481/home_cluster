@@ -140,6 +140,15 @@
         widget:
           type: prometheus
           url: http://prometheus.monitoring.svc.cluster.local.:9090
+- Storage:
+    - TrueNAS:
+        href: https://truenas.${SECRET_DOMAIN}
+        icon: truenas.png
+        description: TrueNAS Storage
+        widget:
+          type: truenas
+          url: https://truenas.${SECRET_DOMAIN}
+          key: ${TRUENAS_AUDIT_API_KEY}
 - Networking:
     - Omada:
         href: https://${SVC_OMADA_ADDRESS}:8043
@@ -153,6 +162,7 @@
           site: home
     - pfSense:
         href: https://pfsense.${SECRET_DOMAIN}:10443
+        icon: pfsense.png
         description: pfSense Firewall
         widget:
           type: pfsense
@@ -175,11 +185,3 @@
           url: https://proxmox.${SECRET_DOMAIN}:8006
           username: ${PROXMOX_TOKEN_ID}
           password: ${PROXMOX_TOKEN_SECRET}
-    - TrueNAS:
-        href: https://truenas.${SECRET_DOMAIN}
-        icon: truenas.png
-        description: TrueNAS Storage
-        widget:
-          type: truenas
-          url: https://truenas.${SECRET_DOMAIN}
-          key: ${TRUENAS_AUDIT_API_KEY}

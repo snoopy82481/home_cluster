@@ -99,3 +99,13 @@ spec:
             path: /app/config/settings.yaml
           - subPath: widgets.yaml
             path: /app/config/widgets.yaml
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            *app :
+              - path: /app/config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp

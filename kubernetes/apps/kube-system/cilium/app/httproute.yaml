@@ -9,6 +9,7 @@ metadata:
     gethomepage.dev/name: Hubble
     gethomepage.dev/group: Monitoring
     gethomepage.dev/description: "Network Observability with Hubble"
+    gethomepage.dev/icon: sh-cilium-hubble
 
 spec:
   hostnames:

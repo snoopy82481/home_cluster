@@ -1,10 +1,4 @@
 ---
-- Monitoring:
-    - Hubble:
-      - icon: cilium.png
-        href: https://hubble.${SECRET_DOMAIN}
-        description: Cilium Hubble Network Observability
-
 - Storage:
     - Rook:
       - icon: rook.png
@@ -14,5 +8,11 @@
 - Media:
     - Huntarr:
       - href: https://huntarr.${SECRET_DOMAIN}
-        icon: https://github.com/plexguide/Huntarr.io/blob/main/frontend/static/logo/64.png
+        icon: sh-huntarr
         description: Huntarr
+
+- Networking:
+    - Cisco CBS350:
+      - href: https://cisco-cbs350.${SECRET_DOMAIN}
+        icon: mdi-network-outline
+        description: Cisco CBS350 Switch Management
