@@ -68,7 +68,7 @@ spec:
                 cpu: 10m
                 memory: 100Mi
               limits:
-                memory: 500Mi
+                memory: 2Gi
 
     defaultPodOptions:
       securityContext:
@@ -91,9 +91,16 @@ spec:
         advancedMounts:
           *app :
             *app :
-              - path: /app
-                subPath: app
               - path: /app/screenshot
                 subPath: screenshots
               - path: /tmp
                 subPath: tmp
+
+      dshm:
+        type: emptyDir
+        medium: Memory
+        advancedMounts:
+          *app :
+            *app :
+              - path: /dev/shm
+                subPath: shm
