@@ -73,7 +73,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: *app
           gethomepage.dev/group: Media
-          gethomepage.dev/icon: mdi-bow-arrow
+          gethomepage.dev/icon: sh-huntarr
           gethomepage.dev/description: "Huntarr is a media management tool that helps you organize and manage your media libraries."
         parentRefs:
           - name: internal

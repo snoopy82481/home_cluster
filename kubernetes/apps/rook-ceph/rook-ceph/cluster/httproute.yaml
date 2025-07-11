@@ -4,6 +4,12 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: rook-ceph-dashboard
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Rook Ceph Dashboard
+    gethomepage.dev/group: Storage
+    gethomepage.dev/description: "Rook Ceph Storage Dashboard"
+    gethomepage.dev/icon: rook.png
 spec:
   hostnames:
     - "rook.${SECRET_DOMAIN}"
