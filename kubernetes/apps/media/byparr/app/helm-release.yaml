@@ -35,8 +35,8 @@ spec:
         containers:
           *app :
             image:
-              repository: ghcr.io/thephaseless/byparr
-              tag: 1.2.1@sha256:67fb462dfc215cf05c3b8091b9f86df85561d22784460d74169411303ca06e4a
+              repository: ghcr.io/home-operations/byparr
+              tag: 1.2.1@sha256:9a66bbe7d5690c6a82cc69f2ddf8cd33ad6b8874491b5bffd8db92627c67eaf4
 
             env:
               TZ: ${TIMEZONE}
