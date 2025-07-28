@@ -22,6 +22,7 @@ on:
         type: choice
         default: debug
         options:
+          - trace
           - debug
           - info
         required: true
