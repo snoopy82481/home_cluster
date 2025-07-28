@@ -9,7 +9,6 @@ resources:
   # - ./bazarr/ks.yaml
   # - ./bazarr-anime/ks.yaml
   # - ./bazarr-uhd/ks.yaml
-  - ./byparr/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./huntarr/ks.yaml
   - ./overseerr/ks.yaml
