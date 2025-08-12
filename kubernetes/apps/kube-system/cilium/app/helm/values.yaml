@@ -73,7 +73,8 @@ LoadBalancer:
   algorithm: meglev
   mode: dsr
 
-localRedirectPolicy: true
+localRedirectPolicies:
+  enabled: true
 
 operator:
   replicas: 2
