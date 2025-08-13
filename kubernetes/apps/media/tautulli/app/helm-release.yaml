@@ -42,7 +42,8 @@ spec:
 
             env:
               TZ: ${TIMEZONE}
-              TAUTULLI__PORT: &port 8181
+              TAUTULLI_HTTP_BASE_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              TAUTULLI_HTTP_PORT: &port 8181
 
             probes:
               liveness: &probes
