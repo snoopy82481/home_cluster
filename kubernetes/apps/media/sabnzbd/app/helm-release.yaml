@@ -132,7 +132,7 @@ spec:
         server: ${NAS_IP}
         path: ${NFS_DOWNLOADS_USENET}
         globalMounts:
-          - path: /torrents
+          - path: /usenet
 
       backup:
         type: nfs
