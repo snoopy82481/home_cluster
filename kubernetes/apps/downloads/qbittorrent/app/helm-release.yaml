@@ -215,19 +215,10 @@ spec:
             *app :
               - path: /config
 
-      media:
-        type: nfs
-        server: ${NAS_IP}
-        path: ${NFS_DATA}
-        advancedMounts:
-          *app :
-            *app :
-              - path: /media
-
       downloads:
         type: nfs
         server: ${NAS_IP}
-        path: ${NFS_DATA}
+        path: ${NFS_DOWNLOADS_TORRENTS}
         advancedMounts:
           *app :
             *app :

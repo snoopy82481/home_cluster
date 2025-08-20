@@ -127,6 +127,13 @@ spec:
         globalMounts:
           - path: /media
 
+      downloads:
+        type: nfs
+        server: ${NAS_IP}
+        path: ${NFS_DOWNLOADS_USENET}
+        globalMounts:
+          - path: /torrents
+
       backup:
         type: nfs
         server: ${NAS_IP}
