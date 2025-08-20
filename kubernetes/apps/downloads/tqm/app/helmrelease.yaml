@@ -55,7 +55,7 @@ spec:
               tag: 1.16.0@sha256:4b9fb56c43e1e5d82dec0be3b471af415e1d4092daff87354ad6d1008f756bba
             args:
               - retag
-              - qb
+              - qbt
             resources:
               requests:
                 cpu: 10m
@@ -74,7 +74,7 @@ spec:
             <<: *container
             args:
               - clean
-              - qb
+              - qbt
 
       orphaned:
         type: cronjob
@@ -88,7 +88,7 @@ spec:
             <<: *container
             args:
               - orphan
-              - qb
+              - qbt
 
     persistence:
       config:
