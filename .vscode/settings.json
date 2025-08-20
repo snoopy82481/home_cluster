@@ -1,7 +1,7 @@
 {
   "files.associations": {
     "**/*.json5": "json5",
-    "**/terraform/**/*.tf": "terraform",
+    "**/opentofu/**/*.tf": "terraform",
     "*.env": "dotenv"
   },
   "prettier.configPath": ".ci/prettier/.prettierrc.yaml",
@@ -18,8 +18,8 @@
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
     "Kubernetes": "./kubernetes/*.yaml",
-    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "recyclarr.yaml",
-    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "settings.yaml",
+    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "./kubernetes/apps/media/recyclarr/app/configs/*.yaml",
+    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "./kubernetes/apps/media/recyclarr/settings.yaml",
     "https://taskfile.dev/schema.json": [
       "**/Taskfile.yaml",
       ".taskfiles/*.yml"
@@ -69,10 +69,8 @@
     "alertmanager",
     "grafana",
     "kyverno",
-    "vector",
     "cert-manager",
     "external-dns",
-    "ingress-nginx",
     "k8s-gateway",
     "rook-ceph",
     "qbittorrent",
@@ -92,14 +90,12 @@
     "sonarranime",
     "sonarruhd",
     "tautulli",
-    "vpn-gateway",
-    "hajimari",
     "cloudflared",
-    "gateway",
     "qbtools",
     "kube-prometheus-stack",
     "huntarr",
-    "homepage"
+    "homepage",
+    "tqm"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",
