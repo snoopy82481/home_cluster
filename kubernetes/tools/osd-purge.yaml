@@ -1,3 +1,4 @@
+---
 #################################################################################################################
 # We need many operations to remove OSDs as written in Documentation/Storage-Configuration/Advanced/ceph-osd-mgmt.md.
 # This job can automate some of that operations: mark OSDs as `out`, purge these OSDs,

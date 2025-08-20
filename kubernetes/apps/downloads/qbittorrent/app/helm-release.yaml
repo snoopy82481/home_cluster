@@ -224,6 +224,15 @@ spec:
             *app :
               - path: /media
 
+      downloads:
+        type: nfs
+        server: ${NAS_IP}
+        path: ${NFS_DATA}
+        advancedMounts:
+          *app :
+            *app :
+              - path: /torrents
+
       tmpfs:
         type: emptyDir
         advancedMounts:
