@@ -16,8 +16,8 @@ sops:
             bjdLNm1yeTNaSklyYnUycGtqUGFQOU0K9eH/ecvZsfy/07maNGk+lDP+5tTpeRYd
             KIkmJRGXLtMRgAzayGFXajdiL7R+M7fjaK/gpeA1U4SQy1e0HxOnZg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-08-04T18:55:19Z"
-    mac: ENC[AES256_GCM,data:gFEiT0kI6q5kttevgjWkYI1PA1qilsDEu1ZME9HSdWhPIR7NHyH8Y3xXliP5GUn9fMK1mXmd6Zp0ornqmHbCSnfQSpZC7OVT12ho4wfX9jx6ur5gqMJNVcyOiMOLevceLgXNl+Ubugc+5dhNGoXztepVO4YPko88DFuWDoNxQPc=,iv:OS9oD/BJvajcg/KC9JD/B0WD52Pyxbnqy3zzt6EB0ps=,tag:OVPqdivbtXBiriC9w2BU6Q==,type:str]
+    lastmodified: "2025-08-20T18:05:42Z"
+    mac: ENC[AES256_GCM,data:n9dPShscUfGOujQc1tralNYusVd19Ykwp7G0BWYqQ5xJSHt965NNbs6vf3juc6ZBxUIaiIwIXCJT6R7bTUIXSrmCv0+JYx90eGX149NJkkwOvz790XgMG3Ne4bgT65OKgSgbvbCSnj3KvoXqDr7itjTS6A6DTOFnw5beYYdQ8uo=,iv:WwMQXbs3zcaBqQWc1jTM71EnBVPQSO1uNIPskIa/AFE=,tag:C+NNSEE0PjwEldnHyeBhSA==,type:str]
     encrypted_regex: ^(data|stringData)$
     mac_only_encrypted: true
     version: 3.10.2
