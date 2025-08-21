@@ -11,4 +11,4 @@ talosVersion: v1.10.6
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.33.4
 # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-prometheusOperatorVersion: v0.84.1
+prometheusOperatorVersion: v0.85.0
