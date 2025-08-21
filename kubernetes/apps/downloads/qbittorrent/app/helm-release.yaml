@@ -215,6 +215,13 @@ spec:
             *app :
               - path: /config
 
+      media:
+        type: nfs
+        server: ${NAS_IP}
+        path: ${NFS_DATA}
+        globalMounts:
+          - path: /media
+
       downloads:
         type: nfs
         server: ${NAS_IP}

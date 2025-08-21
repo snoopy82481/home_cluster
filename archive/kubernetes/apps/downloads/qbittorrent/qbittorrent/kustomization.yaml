@@ -5,16 +5,15 @@ kind: Kustomization
 resources:
   - ./config-pvc.yaml
   - ./vpnConfig.sops.yaml
+  - ./qbittorrent-gluetun.sops.yaml
   - ./network-policy.yaml
   - ./helm-release.yaml
 configMapGenerator:
-  - name: qbittorrent-loki-rules
+  - name: qbittorrent-coredns
     files:
-      - qbittorrent.yaml=./lokirule.yaml
-    options:
-      labels:
-        loki_rule: "true"
+      - ./config/Corefile
 generatorOptions:
-  disableNameSuffixHash: true
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
+configurations:
+  - kustomizeconfig.yaml
