@@ -104,9 +104,12 @@ spec:
       datasources.yaml:
         apiVersion: 1
         deleteDatasources:
-          - { name: Alertmanager, orgId: 1 }
-          - { name: Loki, orgId: 1 }
-          - { name: Prometheus, orgId: 1 }
+          - name: Alertmanager
+            orgId: 1
+          - name: Loki
+            orgId: 1
+          - name: Prometheus
+            orgId: 1
         datasources:
           - name: Prometheus
             type: prometheus
@@ -142,7 +145,8 @@ spec:
           gnetId: 17457
           revision: 6
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - name: DS_PROMETHEUS
+              value: Prometheus
 
         external-dns:
           # renovate: depName="External-DNS"
@@ -155,7 +159,8 @@ spec:
           gnetId: 1860
           revision: 41
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - name: DS_PROMETHEUS
+              value: Prometheus
 
         prometheus:
           # renovate: depName="Prometheus"
