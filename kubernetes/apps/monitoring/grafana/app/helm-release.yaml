@@ -39,30 +39,58 @@ spec:
   values:
     admin:
       existingSecret: grafana-admin-secret
+
+    annotations:
+      configmap.reloader.stakater.com/reload: grafana
+      secret.reloader.stakater.com/reload: grafana-admin-secret
+
+    replicas: 1
+
     env:
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: false
+      GF_ANALYTICS_CHECK_FOR_UPDATES: false
+      GF_ANALYTICS_REPORTING_ENABLED: false
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
-      GF_SERVER_ROOT_URL: "https://grafana.${SECRET_DOMAIN}"
+      GF_FEATURE_TOGGLES_ENABLE: publicDashboards
+      GF_LOG_MODE: console
+      GF_NEWS_NEWS_FEED_ENABLED: false
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
-      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-    grafana.ini:
-      analytics:
-        check_for_updates: false
-        check_for_plugin_updates: false
-      news:
-        news_feed_enabled: false
+      GF_SECURITY_COOKIE_SAMESITE: grafana
+      GF_SERVER_ROOT_URL: "https://grafana.${SECRET_DOMAIN}"
+
+    imageRenderer:
+      enabled: true
+
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
           - name: default
-            orgId: 1
+            disableDeletion: false
+            editable: true
             folder: ""
+            options:
+              path: /var/lib/grafana/dashboards/default
+            orgId: 1
+            type: file
+          - name: ceph
+            orgId: 1
+            folder: Ceph
             type: file
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/default
+              path: /var/lib/grafana/dashboards/ceph
+          - name: flux
+            orgId: 1
+            folder: Flux
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/flux
           - name: kubernetes
             orgId: 1
             folder: Kubernetes
@@ -71,22 +99,7 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/kubernetes
-          - name: nginx
-            orgId: 1
-            folder: Nginx
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/nginx
-          - name: rook-ceph
-            orgId: 1
-            folder: rook-ceph
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/rook-ceph
+
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -99,7 +112,7 @@ spec:
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+            url: http://prometheus-operated.svc.cluster.local:9090
             isDefault: true
           - name: Loki
             type: loki
@@ -123,29 +136,42 @@ spec:
           gnetId: 20842
           revision: 3
           datasource: Prometheus
+
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
           revision: 6
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+
         external-dns:
-          # renovate: depName="External-dns"
+          # renovate: depName="External-DNS"
           gnetId: 15038
           revision: 3
           datasource: Prometheus
+
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 41
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105
           revision: 7
           datasource: Prometheus
-      rook-ceph:
+
+        spegel:
+          # renovate: dashboardName="Spegel"
+          gnetId: 18089
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+
+      ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
           gnetId: 2842
@@ -161,6 +187,19 @@ spec:
           gnetId: 5342
           revision: 9
           datasource: Prometheus
+
+
+      flux:
+        flux-cluster:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
+          datasource: Prometheus
+        flux-control-plane:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+          datasource: Prometheus
+        flux-logs:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
+          datasource: Prometheus
+
       kubernetes:
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
@@ -197,13 +236,7 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
-      nginx:
-        nginx:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        nginx-request-handling-performance:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-          datasource: Prometheus
+
     sidecar:
       image:
         registry: ghcr.io
@@ -221,6 +254,7 @@ spec:
         enabled: true
         searchNamespace: ALL
         labelValue: ""
+
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
@@ -228,8 +262,14 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
+
+    serviceAccount:
+      create: true
+      autoMount: true
+
     serviceMonitor:
       enabled: true
+
     route:
       main:
         enabled: true
@@ -243,10 +283,13 @@ spec:
           - backendRefs:
               - identifier: grafana
                 port: 80
+
     persistence:
       enabled: false
+
     testFramework:
       enabled: false
+
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
