@@ -7,9 +7,4 @@ resources:
   - ./helm-release.yaml
   - ./secret.sops.yaml
   - ./prometheusrule.yaml
-configMapGenerator:
-  - name: cert-manager-values
-    files:
-      - values.yaml=./helm/values.yaml
-configurations:
-  - ./helm/kustomizeconfig.yaml
+  - ./ocirepository.yaml
