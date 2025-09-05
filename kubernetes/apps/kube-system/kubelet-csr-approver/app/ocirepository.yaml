@@ -11,4 +11,4 @@ spec:
     operation: copy
   url: oci://ghcr.io/postfinance/charts/kubelet-csr-approver
   ref:
-    tag: 1.2.10
+    tag: 1.2.11
