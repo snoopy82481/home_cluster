@@ -9,7 +9,7 @@ spec:
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
-  url: oci://ghcr.io/postfinance/charts/kubelet-csr-approver
+  url: oci://ghcr.io/postfinance/kubelet-csr-approver
   ref:
     tag: 1.2.10
   verify:
