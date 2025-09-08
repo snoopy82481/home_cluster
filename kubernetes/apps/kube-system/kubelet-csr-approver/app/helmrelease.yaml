@@ -27,6 +27,5 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    - providerRegex: |
-        ^(kmaster1|kmaster2|kmaster3|kworker1|kworker2|kworker3)$
-    - bypassDnsResolution: true
+    providerRegex: ^(k(?:master|worker)\d+)$
+    bypassDnsResolution: true
