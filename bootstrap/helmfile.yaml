@@ -67,7 +67,7 @@ releases:
     namespace: kube-system
     atomic: true
     chart: spegel/spegel
-    version: 0.3.0
+    version: 0.4.0
     values:
       [
         '{{ requiredEnv "ROOT_DIR" }}/kubernetes/apps/kube-system/spegel/app/helm/values.yaml',
