@@ -6,7 +6,8 @@ resources:
   - ./config-pvc.yaml
   - ./vpnConfig.sops.yaml
   - ./network-policy.yaml
-  - ./helm-release.yaml
+  - ./helmrelease.yaml
+
 configMapGenerator:
   - name: qbittorrent-loki-rules
     files:
@@ -14,6 +15,7 @@ configMapGenerator:
     options:
       labels:
         loki_rule: "true"
+
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
