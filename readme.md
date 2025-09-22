@@ -4,34 +4,44 @@
 <a name="readme-top"></a>
 
 <!-- PROJECT LOGO -->
-<br/>
+<br />
 <div align="center">
-<a href="https://github.com/snoopy82481/home_cluster">
-<img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" alt="home_cluster" width="144" height="144">
-</a>
+<img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" align="center" alt="home_cluster" width="144" height="144" />
 
-<h3 align="center">My home Kubernetes cluster</h3>
+### My home Kubernetes cluster
 
-<p align="center">
-... managed with Flux, Renovate and GitHub Actions 🤖
-<br/>
-<a href="https://github.com/snoopy82481/home_cluster"><strong>Explore the docs »</strong></a>
-<br/>
+_... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="🤖" width="16" height="16" />
+
+</div>
+
 <!-- PROJECT SHIELDS-->
-<div id="project_shields">
+<div align="center">
+
 [![GitHub License][license-shield]][license-url]&nbsp;&nbsp;
 [![Talos][talos_shield]][talos_url]&nbsp;&nbsp;
 [![kubernetes][kubernetes_shield]][kubernetes_url]&nbsp;&nbsp;
 [![Flux][flux_shield]][flux_url]&nbsp;&nbsp;
 ![GitHub last commit](https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge)&nbsp;&nbsp;
 [![Renovate][workflow_shield]][workflow_url]
+
 </div>
-<br/>
-[Report Bug](https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml) [Request Feature](https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml)
-<!--<a href="https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml">Report Bug</a>
-·
-<a href="https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml">Request Feature</a>-->
-</p>
+
+<div align="center">
+
+[![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_age_days&style=flat-square&label=Age)][kromgo_url]&nbsp;&nbsp;
+[![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_uptime_days&style=flat-square&label=Uptime)][kromgo_url]&nbsp;&nbsp;
+[![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_node_count&style=flat-square&label=Nodes)][kromgo_url]&nbsp;&nbsp;
+[![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_pod_count&style=flat-square&label=Pods)][kromgo_url]&nbsp;&nbsp;
+[![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_cpu_usage&style=flat-square&label=CPU)][kromgo_url]&nbsp;&nbsp;
+[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_memory_usage&style=flat-square&label=Memory)][kromgo_url]&nbsp;&nbsp;
+[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_alert_count&style=flat-square&label=Alerts)][kromgo_url]
+
+</div>
+
+<div align="center">
+
+[Report Bug](https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml) · [Request Feature](https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml)
+
 </div>
 
 <!-- TABLE OF CONTENTS -->
@@ -68,7 +78,7 @@ This repo is in major disarray at the moment. I am currently refactoring my exis
 
 This is a complete rework of my existing cluster, that I tend to learn [Talos Linux][talos_url] with.
 
-The cluster is managed by [Renovate][renovatebot_url] and [flux][flux_url] for automation of most of the process. Except the actual deployment configurations.
+The cluster is managed by [Renovate][renovate_url] and [flux][flux_url] for automation of most of the process. Except the actual deployment configurations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -229,3 +239,4 @@ There is a lot of code jacking from:
 [flux_url]: https://fluxcd.io
 [talos_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
 [talos_url]: https://www.talos.dev
+[kromgo_url]: https://github.com/kashalls/kromgo
