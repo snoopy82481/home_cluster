@@ -68,9 +68,9 @@
 
 This repo is in major disarray at the moment. I am currently refactoring my existing repo [new_template_k3s][old_repo_url].
 
-This is a complete rework of my existing cluster, that I tend to learn [Talos Linux](https://www.talos.dev) with.
+This is a complete rework of my existing cluster, that I tend to learn [Talos Linux][talos_url] with.
 
-The cluster is managed by [Renovate](https://www.mend.io/renovate/) and [flux](https://toolkit.fluxcd.io/) for automation of most of the process. Except the actual deployment configurations.
+The cluster is managed by [Renovate][renovatebot_url] and [flux][flux_url] for automation of most of the process. Except the actual deployment configurations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -87,7 +87,7 @@ The cluster is managed by [Renovate](https://www.mend.io/renovate/) and [flux](h
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS-Code logo" width="40" height="40" />
   </a>&nbsp;
   <a href="https://talos.dev">
-    <img src="https://www.talos.dev/images/logo.svg" alt="Talos Logo" width="40" height="40" />
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/talos/talos-original.svg" alt="Talos Logo" width="40" height="40" />
   </a>&nbsp;
   <a href="https://cilium.io">
     <img src="docs/src/images/cilium-logo-darkbg-horizontal-color.svg" alt="Cilium Logo" width="80" height="40" />
@@ -227,7 +227,7 @@ There is a lot of code jacking from:
 [kubernetes_shield]: https://img.shields.io/badge/kubernetes-4A4A55?style=for-the-badge&logo=kubernetes&logoColor=white
 [kubernetes_url]: https://kubernetes.io
 [renovatebot_shield]: https://img.shields.io/badge/Renovatebot-4A4A55?style=for-the-badge&logo=renovatebot&logoColor=white
-[renovatebot_url]: https://www.whitesourcesoftware.com/free-developer-tools/renovate/
+[renovatebot_url]: https://www.mend.io/renovate/
 [flux_shield]: https://img.shields.io/badge/Flux-4A4A55?style=for-the-badge&logo=flux&logoColor=white
 [flux_url]: https://fluxcd.io
 [talos_shield]: https://img.shields.io/badge/Talos-4A4A55?style=for-the-badge
