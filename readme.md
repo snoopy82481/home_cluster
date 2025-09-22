@@ -19,20 +19,18 @@
     <br/>
     <!-- PROJECT SHIELDS-->
     <div id="project_shields">
-      <img src="https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge" alt="License" />
-      <a href="https://github.com/snoopy82481/home_cluster/actions/workflows/renovate.yaml"><img src="https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue" alt="GitHub Workflow Status" /></a>
-      <a href="https://github.com/pre-commit/pre-commit">
-        <img src="https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge" alt="Pre-commit" />
-      </a>
-      <img src="https://img.shields.io/github/last-commit/snoopy82481/home_cluster/main?style=for-the-badge" alt="Last Commit" />
-      <a href="https://www.talos.dev">
-        <img src="https://img.shields.io/badge/OS-Talos-informational?style=for-the-badge" alt="Talos Linux" />
-      </a>
+        [![GitHub License][license-shield]][license-url]&nbsp;&nbsp;
+        [![Talos][talos_shield]][talos_url]&nbsp;&nbsp;
+        [![kubernetes][kubernetes_shield]][kubernetes_url]&nbsp;&nbsp;
+        [![Flux][flux_shield]][flux_url]&nbsp;&nbsp;
+        ![GitHub last commit](https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge)&nbsp;&nbsp;
+        [![Renovate][workflow_shield]][workflow_url]
     </div>
     <br/>
-    <a href="https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml">Report Bug</a>
+    [Report Bug](https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml) [Request Feature](https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml)
+    <!--<a href="https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml">Report Bug</a>
     ·
-    <a href="https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml">Request Feature</a>
+    <a href="https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml">Request Feature</a>-->
   </p>
 </div>
 
@@ -217,18 +215,17 @@ There is a lot of code jacking from:
 
 [license-shield]: https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge
 [license-url]: https://github.com/snoopy82481/home_cluster/blob/main/LICENSE
-[workflow-shield]: https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/schedule-renovate.yaml?color=informational&label=%20&logo=renovatebot&style=for-the-badge
+[workflow_shield]: https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&style=for-the-badge&label=%20&color=blue
+[workflow_url]: https://github.com/snoopy82481/home_cluster/actions/workflows/renovate.yaml
 [pre-commit-shield]: https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge
 [pre-comit-url]: https://github.com/pre-commit/pre-commit
 [last-commit-shield]: https://img.shields.io/github/last-commit/snoopy82481/home_cluster/master?style=for-the-badge
-[os-sheild]: https://img.shields.io/badge/OS-Talos-informational?style=for-the-badge
-[os-url]: https://talos.dev
 [old_repo_url]: https://github.com/snoopy82481/new_template_k3s
-[kubernetes_shield]: https://img.shields.io/badge/kubernetes-4A4A55?style=for-the-badge&logo=kubernetes&logoColor=white
+[kubernetes_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fkubernetes_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
 [kubernetes_url]: https://kubernetes.io
 [renovatebot_shield]: https://img.shields.io/badge/Renovatebot-4A4A55?style=for-the-badge&logo=renovatebot&logoColor=white
-[renovatebot_url]: https://www.mend.io/renovate/
-[flux_shield]: https://img.shields.io/badge/Flux-4A4A55?style=for-the-badge&logo=flux&logoColor=white
+[renovate_url]: https://www.mend.io/renovate/
+[flux_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fflux_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
 [flux_url]: https://fluxcd.io
-[talos_shield]: https://img.shields.io/badge/Talos-4A4A55?style=for-the-badge
+[talos_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
 [talos_url]: https://www.talos.dev
