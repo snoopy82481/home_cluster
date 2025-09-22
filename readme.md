@@ -6,32 +6,32 @@
 <!-- PROJECT LOGO -->
 <br/>
 <div align="center">
-  <a href="https://github.com/snoopy82481/home_cluster">
-    <img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" alt="home_cluster" width="144" height="144">
-  </a>
+<a href="https://github.com/snoopy82481/home_cluster">
+<img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" alt="home_cluster" width="144" height="144">
+</a>
 
-  <h3 align="center">My home Kubernetes cluster</h3>
+<h3 align="center">My home Kubernetes cluster</h3>
 
-  <p align="center">
-    ... managed with Flux, Renovate and GitHub Actions 🤖
-    <br/>
-    <a href="https://github.com/snoopy82481/home_cluster"><strong>Explore the docs »</strong></a>
-    <br/>
-    <!-- PROJECT SHIELDS-->
-    <div id="project_shields">
-        [![GitHub License][license-shield]][license-url]&nbsp;&nbsp;
-        [![Talos][talos_shield]][talos_url]&nbsp;&nbsp;
-        [![kubernetes][kubernetes_shield]][kubernetes_url]&nbsp;&nbsp;
-        [![Flux][flux_shield]][flux_url]&nbsp;&nbsp;
-        ![GitHub last commit](https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge)&nbsp;&nbsp;
-        [![Renovate][workflow_shield]][workflow_url]
-    </div>
-    <br/>
-    [Report Bug](https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml) [Request Feature](https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml)
-    <!--<a href="https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml">Report Bug</a>
-    ·
-    <a href="https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml">Request Feature</a>-->
-  </p>
+<p align="center">
+... managed with Flux, Renovate and GitHub Actions 🤖
+<br/>
+<a href="https://github.com/snoopy82481/home_cluster"><strong>Explore the docs »</strong></a>
+<br/>
+<!-- PROJECT SHIELDS-->
+<div id="project_shields">
+[![GitHub License][license-shield]][license-url]&nbsp;&nbsp;
+[![Talos][talos_shield]][talos_url]&nbsp;&nbsp;
+[![kubernetes][kubernetes_shield]][kubernetes_url]&nbsp;&nbsp;
+[![Flux][flux_shield]][flux_url]&nbsp;&nbsp;
+![GitHub last commit](https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge)&nbsp;&nbsp;
+[![Renovate][workflow_shield]][workflow_url]
+</div>
+<br/>
+[Report Bug](https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml) [Request Feature](https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml)
+<!--<a href="https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml">Report Bug</a>
+·
+<a href="https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml">Request Feature</a>-->
+</p>
 </div>
 
 <!-- TABLE OF CONTENTS -->
