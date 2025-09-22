@@ -52,7 +52,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /readyz
                     port: *healthPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
