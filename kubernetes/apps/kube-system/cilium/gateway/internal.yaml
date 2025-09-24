@@ -16,21 +16,21 @@ spec:
     - name: http-1
       protocol: HTTP
       port: 80
-      hostname: "*.${SECRET_DOMAIN}"
+      hostname: "*.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
     - name: http-2
       protocol: HTTP
       port: 80
-      hostname: ${SECRET_DOMAIN}
+      hostname: idahobealefamily.com
       allowedRoutes:
         namespaces:
           from: All
     - name: https-1
       protocol: HTTPS
       port: 443
-      hostname: "*.${SECRET_DOMAIN}"
+      hostname: "*.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -38,11 +38,11 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            name: "${SECRET_DOMAIN/./-}-production-tls"
+            name: "idahobealefamily-com-production-tls"
     - name: https-2
       protocol: HTTPS
       port: 443
-      hostname: ${SECRET_DOMAIN}
+      hostname: idahobealefamily.com
       allowedRoutes:
         namespaces:
           from: All
@@ -50,11 +50,11 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            name: "${SECRET_DOMAIN/./-}-production-tls"
+            name: "idahobealefamily-com-production-tls"
     - name: bazarr
       protocol: HTTPS
       port: 443
-      hostname: "bazarr.${SECRET_DOMAIN}"
+      hostname: "bazarr.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -66,7 +66,7 @@ spec:
     - name: bazarr-anime
       protocol: HTTPS
       port: 443
-      hostname: "bazarr-anime.${SECRET_DOMAIN}"
+      hostname: "bazarr-anime.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -78,7 +78,7 @@ spec:
     - name: bazarr-uhd
       protocol: HTTPS
       port: 443
-      hostname: "bazarr-uhd.${SECRET_DOMAIN}"
+      hostname: "bazarr-uhd.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -90,7 +90,7 @@ spec:
     - name: radarr
       protocol: HTTPS
       port: 443
-      hostname: "radarr.${SECRET_DOMAIN}"
+      hostname: "radarr.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -102,7 +102,7 @@ spec:
     - name: radarranime
       protocol: HTTPS
       port: 443
-      hostname: "radarranime.${SECRET_DOMAIN}"
+      hostname: "radarranime.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -114,7 +114,7 @@ spec:
     - name: radarruhd
       protocol: HTTPS
       port: 443
-      hostname: "radarruhd.${SECRET_DOMAIN}"
+      hostname: "radarruhd.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -126,7 +126,7 @@ spec:
     - name: sonarr
       protocol: HTTPS
       port: 443
-      hostname: "sonarr.${SECRET_DOMAIN}"
+      hostname: "sonarr.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -138,7 +138,7 @@ spec:
     - name: sonarranime
       protocol: HTTPS
       port: 443
-      hostname: "sonarranime.${SECRET_DOMAIN}"
+      hostname: "sonarranime.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -150,7 +150,7 @@ spec:
     - name: sonarruhd
       protocol: HTTPS
       port: 443
-      hostname: "sonarruhd.${SECRET_DOMAIN}"
+      hostname: "sonarruhd.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -162,7 +162,7 @@ spec:
     - name: sabnzbd
       protocol: HTTPS
       port: 443
-      hostname: "sabnzbd.${SECRET_DOMAIN}"
+      hostname: "sabnzbd.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -174,7 +174,7 @@ spec:
     - name: prowlarr
       protocol: HTTPS
       port: 443
-      hostname: "prowlarr.${SECRET_DOMAIN}"
+      hostname: "prowlarr.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -186,7 +186,7 @@ spec:
     - name: kube-prometheus-stack
       protocol: HTTPS
       port: 443
-      hostname: "prometheus.${SECRET_DOMAIN}"
+      hostname: "prometheus.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -198,7 +198,7 @@ spec:
     - name: rook-ceph-dashboard
       protocol: HTTPS
       port: 443
-      hostname: "rook.${SECRET_DOMAIN}"
+      hostname: "rook.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -210,7 +210,7 @@ spec:
     - name: grafana
       protocol: HTTPS
       port: 443
-      hostname: "grafana.${SECRET_DOMAIN}"
+      hostname: "grafana.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -222,7 +222,7 @@ spec:
     - name: homepage
       protocol: HTTPS
       port: 443
-      hostname: "homepage.${SECRET_DOMAIN}"
+      hostname: "homepage.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -234,7 +234,7 @@ spec:
     - name: qbittorrent
       protocol: HTTPS
       port: 443
-      hostname: "qbittorrent.${SECRET_DOMAIN}"
+      hostname: "qbittorrent.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -246,7 +246,7 @@ spec:
     - name: huntarr
       protocol: HTTPS
       port: 443
-      hostname: "huntarr.${SECRET_DOMAIN}"
+      hostname: "huntarr.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -258,7 +258,7 @@ spec:
     - name: readarr
       protocol: HTTPS
       port: 443
-      hostname: "readarr.${SECRET_DOMAIN}"
+      hostname: "readarr.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -270,7 +270,7 @@ spec:
     - name: alertmanager
       protocol: HTTPS
       port: 443
-      hostname: "alertmanager.${SECRET_DOMAIN}"
+      hostname: "alertmanager.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -282,7 +282,7 @@ spec:
     - name: hubble
       protocol: HTTPS
       port: 443
-      hostname: "hubble.${SECRET_DOMAIN}"
+      hostname: "hubble.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
@@ -291,3 +291,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: hubble-tls
+    - name: atuin
+      protocol: HTTPS
+      port: 443
+      hostname: "atuin.idahobealefamily.com"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: atuin-tls
