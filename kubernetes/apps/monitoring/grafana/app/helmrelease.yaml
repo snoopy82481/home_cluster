@@ -102,7 +102,7 @@ spec:
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://prometheus-operated.svc.cluster.local:9090
+            url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             isDefault: true
           - name: Loki
             type: loki
