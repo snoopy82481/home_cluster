@@ -37,36 +37,19 @@ spec:
     cleanPrometheusOperatorObjectNames: true
 
     alertmanager:
-      config:
-        global:
-          resolve_timeout: 5m
-        inhibit_rules:
-          - equal:
-              - "alertname"
-              - "namespace"
-            source_matchers:
-              - "severtiy = critical"
-            target_matchers:
-              - "severity = warning"
-        route:
-          groupBy: ["alertname", "job"]
-          groupInterval: 10m
-          groupWait: 1m
-          receiver: discord
-          repeatInterval: 12h
-          routes:
-            - receiver: "null"
-              matchers:
-                - alertname = "InfoInhibitor"
-            - receiver: discord
-              matchers:
-                - severity = critical
-        receivers:
-          - name: "null"
-          - name: discord
-            discord_configs:
-              send_resolved: true
-              webhook_url: ${DISCORD_WEBHOOK_URL}
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
+        externalUrl: https://alertmanager.idahobealefamily.com
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 1Gi
 
       route:
         main:
@@ -76,7 +59,7 @@ spec:
               namespace: kube-system
               sectionName: alertmanager
           hostnames:
-            - "alertmanager.${SECRET_DOMAIN}"
+            - "alertmanager.idahobealefamily.com"
 
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
@@ -89,9 +72,10 @@ spec:
           enabled: true
           relabelings:
             - action: replace
-              regex: ^(.*)$
+              regex: (.*)
               replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
 
     kubelet:
@@ -144,12 +128,9 @@ spec:
             regex: "(apiserver_audit|apiserver_client|apiserver_delegated|apiserver_envelope|apiserver_storage|apiserver_webhooks|attachdetach_controller|authenticated_user|authentication|cronjob_controller|disabled_metric|endpoint_slice|ephemeral_volume|garbagecollector_controller|get_token|go|hidden_metric|job_controller|kubernetes_build|kubernetes_feature|leader_election|node_collector|node_ipam|process_cpu|process_max|process_open|process_resident|process_start|process_virtual|pv_collector|registered_metric|replicaset_controller|rest_client|retroactive_storageclass|root_ca|running_managed|scrape_duration|scrape_samples|scrape_series|service_controller|storage_count|storage_operation|ttl_after|volume_operation|workqueue)_(.+)"
 
     kubeEtcd:
-      enabled: true
-      endpoints: *cp
       service:
-        enabled: true
-        port: 2381
-        targetPort: 2381
+        selector:
+          component: kube-apiserver
 
     kubeProxy:
       enabled: false # Disabled because eBPF
@@ -185,26 +166,33 @@ spec:
               namespace: kube-system
               sectionName: *app
           hostnames:
-            - "prometheus.${SECRET_DOMAIN}"
+            - "prometheus.idahobealefamily.com"
 
       prometheusSpec:
         image:
           registry: docker.io
           repository: prompp/prompp
-          tag: 2.53.2-0.2.4
-          sha: "c0532f7db067d5bfa688e589db068081a5ec3bf77a76d35b4dd1fa3d67a495a1"
+          tag: 0.5.1
+          sha: "be217ebe5e16788cef61f1555be079ec3486c37b8b97c1af7e3371125ea805e4"
         securityContext:
           runAsNonRoot: true
           runAsUser: 64535
           runAsGroup: 64535
           fsGroup: 64535
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
+        retention: 7d
         retentionSize: 8GB
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            memory: 2000Mi
         storageSpec:
           volumeClaimTemplate:
             spec:

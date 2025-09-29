@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
   - ./ocirepository.yaml
+  - ./alertmanagerconfig.yaml
