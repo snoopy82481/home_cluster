@@ -26,11 +26,14 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: flux-operator
+      namespace: flux-system
   values:
     instance:
       distribution:
         # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
-        version: 2.6.4
+        version: 2.7.1
       cluster:
         networkPolicy: false
       components:

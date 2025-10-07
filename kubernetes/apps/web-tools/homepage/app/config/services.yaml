@@ -139,7 +139,7 @@
         description: Monitoring Metrics
         widget:
           type: prometheus
-          url: http://prometheus.monitoring.svc.cluster.local.:9090
+          url: http://prometheus-operated.monitoring.svc.cluster.local.:9090
 - Storage:
     - TrueNAS:
         href: https://truenas.${SECRET_DOMAIN}

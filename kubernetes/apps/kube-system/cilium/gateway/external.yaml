@@ -91,3 +91,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: flux-webhook-tls
+    - name: kromgo
+      protocol: HTTPS
+      port: 443
+      hostname: "kromgo.idahobealefamily.com"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: kromgo-webhook-tls

@@ -6,4 +6,5 @@ namespace: system
 components:
   - ../../components/common
 resources:
+  - ./atuin/ks.yaml
   - ./generic-device-plugin/ks.yaml

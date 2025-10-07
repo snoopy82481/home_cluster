@@ -1,0 +1,48 @@
+[
+  {
+    "label": "SOPS: Decrypt current .sops. file",
+    "env": {
+      "SOPS_AGE_KEY_FILE": "./age.key"
+    },
+    "command": "fish",
+    "args": [
+      "-c",
+      "if string match -q '*.sops.*' \"$ZED_FILE\"\\n  set dir (dirname \"$ZED_FILE\")\\n  set file (basename \"$ZED_FILE\")\\n  set out \"$dir/.decrypted~$file\"\\n  if sops -d \"$ZED_FILE\" > \"$out\"\\n    echo \"Decrypted -> $out\"\\n    zed --open \"$out\"\\n  end\\n  else\\n  echo \"Not a .sops. file: $ZED_FILE\"\\n  end"
+    ],
+    "hide": "on_success",
+    "use_new_terminal": false
+  },
+
+  {
+    "label": "SOPS: Encrypt current .decrypted~* file",
+    "command": "fish",
+    "args": [
+      "-c",
+      "if string match -q '.decrypted~*' (basename \"$ZED_FILE\"); set dir (dirname \"$ZED_FILE\"); set file (basename \"$ZED_FILE\"); set orig (string replace -r '^.decrypted~' '' \"$file\"); set out \"$dir/$orig\"; if sops -e \"$ZED_FILE\" > \"$out\"; echo \"Encrypted -> $out\"; zed --open \"$out\"; end; else; echo \"Not a .decrypted~ file: $ZED_FILE\"; end"
+    ],
+    "hide": "on_success",
+    "use_new_terminal": false
+  },
+
+  {
+    "label": "SOPS: Decrypt all *.sops.* under repo",
+    "command": "fish",
+    "args": [
+      "-c",
+      "if test -n \"$ZED_WORKTREE_ROOT\"; set root \"$ZED_WORKTREE_ROOT\"; else; set root \".\"; end; for f in (find \"$root\" -type f -name '*.sops.*'); set dir (dirname \"$f\"); set file (basename \"$f\"); set out \"$dir/.decrypted~$file\"; echo \"Decrypting $f -> $out\"; if sops -d \"$f\" > \"$out\"; zed --open \"$out\"; else; echo \"FAILED: $f\"; end; end"
+    ],
+    "hide": "never",
+    "use_new_terminal": true
+  },
+
+  {
+    "label": "SOPS: Encrypt all .decrypted~* back to original names",
+    "command": "fish",
+    "args": [
+      "-c",
+      "if test -n \"$ZED_WORKTREE_ROOT\"; set root \"$ZED_WORKTREE_ROOT\"; else; set root \".\"; end; for f in (find \"$root\" -type f -name '.decrypted~*'); set dir (dirname \"$f\"); set file (basename \"$f\"); set orig (string replace -r '^.decrypted~' '' \"$file\"); set out \"$dir/$orig\"; echo \"Encrypting $f -> $out\"; if sops -e \"$f\" > \"$out\"; zed --open \"$out\"; else; echo \"FAILED: $f\"; end; end"
+    ],
+    "hide": "never",
+    "use_new_terminal": true
+  }
+]

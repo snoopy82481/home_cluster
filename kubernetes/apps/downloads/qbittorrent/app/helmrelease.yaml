@@ -1,0 +1,238 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app qbittorrent
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 2
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+      strategy: rollback
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      *app :
+        type: statefulset
+
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+
+        initContainers:
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.40.0@sha256:2b42bfa046757145a5155acece417b65b4443c8033fb88661a8e9dcf7fda5a00
+
+            env:
+              DOT: off
+              VPN_INTERFACE: wg0
+              VPN_TYPE: wireguard
+              VPN_PORT_FORWARDING: on
+              FIREWALL_OUTBOUND_SUBNETS: 10.43.0.0/16,10.42.0.0/16 # Allow access to k8s subnets
+              FIREWALL_INPUT_PORTS: "8080,9999"
+              HEALTH_SERVER_ADDRESS: ":9999"
+              TZ: ${TIMEZONE}
+
+            envFrom:
+              - secretRef:
+                  name: vpnconfig
+
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  exec: &exec
+                    command: [/gluetun-entrypoint, healthcheck]
+                  periodSeconds: 60
+              startup:
+                <<: *probe
+                spec:
+                  exec: *exec
+                  periodSeconds: 3
+
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - /bin/sh
+                    - -c
+                    - (ip rule del table 51820; ip -6 rule del table 51820) || true
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+                squat.ai/tun: "1"
+              limits:
+                memory: 512Mi
+                squat.ai/tun: "1"
+
+            restartPolicy: Always
+
+            securityContext:
+              privileged: true
+              runAsUser: 0
+              runAsGroup: 0
+              capabilities:
+                add:
+                  - NET_RAW
+                  - NET_ADMIN
+                  - SYS_MODULE
+
+        containers:
+          *app :
+            nameOverride: *app
+
+            image:
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.1.2@sha256:31ac39705e31f7cdcc04dc46c1c0b0cdf8dc6f9865d4894efc097a33adc41524
+
+            env:
+              TZ: ${TIMEZONE}
+              UMASK: "022"
+              QBT_WEBUI_PORT: &port 8080
+              QBT_TORRENTING_PORT: 51820
+              QBT__Preferences__WebUI__AuthSubnetWhitelistEnabled: true
+              QBT__Preferences__WebUI__AuthSubnetWhitelist: |-
+                192.168.0.0/24, 192.168.20.0/24, 10.43.0.0/16, 10.42.0.0/16
+              QBT__BitTorrent__Session__Interface: wg0
+              QBT__BitTorrent__Session__InterfaceAddress: "0.0.0.0"
+              QBT__BitTorrent__Session__InterfaceName: wg0
+              QBT__Preferences__WebUI__AlternativeUIEnabled: true
+              QBT__Preferences__WebUI__RootFolder: /add-ons/VueTorrent
+
+            securityContext: &securityContext
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 0
+                  timeoutSeconds: 10
+                  periodSeconds: 5
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+
+            resources:
+              requests:
+                cpu: 49m
+                memory: 1024Mi
+              limits:
+                memory: 8192Mi
+
+          vuetorrent:
+            dependsOn: *app
+
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.5.0@sha256:0e64aedb0d0ae0a3bab880349a5109b2a31891d646dd61e433ca36ed220dff1f
+
+            args:
+              - --repo=https://github.com/WDaan/VueTorrent
+              - --ref=latest-release
+              - --period=86400s
+              - --root=/add-ons
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 25Mi
+              limits:
+                memory: 50Mi
+
+            securityContext: *securityContext
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+
+    service:
+      *app :
+        controller: *app
+        ports:
+          http:
+            port: *port
+
+    route:
+      *app :
+        enabled: true
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: *app
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        rules:
+          - backendRefs:
+              - identifier: *app
+                port: *port
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent-config-v1
+        advancedMounts:
+          *app :
+            *app :
+              - path: /config
+
+      media:
+        type: nfs
+        server: ${NAS_IP}
+        path: ${NFS_DATA}
+        globalMounts:
+          - path: /media
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            *app :
+              - path: /add-ons
+                subPath: add-ons
+              - path: /tmp
+                subPath: tmp
+            vuetorrent:
+              - path: /add-ons
+                subPath: add-ons
+              - path: /tmp
+                subPath: tmp

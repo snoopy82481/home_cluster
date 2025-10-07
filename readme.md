@@ -4,36 +4,44 @@
 <a name="readme-top"></a>
 
 <!-- PROJECT LOGO -->
-<br/>
+<br />
 <div align="center">
-  <a href="https://github.com/snoopy82481/home_cluster">
-    <img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" alt="home_cluster" width="144" height="144">
-  </a>
+<img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" align="center" alt="home_cluster" width="144" height="144" />
 
-  <h3 align="center">My home Kubernetes cluster</h3>
+### My home Kubernetes cluster
 
-  <p align="center">
-    ... managed with Flux, Renovate and GitHub Actions 🤖
-    <br/>
-    <a href="https://github.com/snoopy82481/home_cluster"><strong>Explore the docs »</strong></a>
-    <br/>
-    <!-- PROJECT SHIELDS-->
-    <div id="project_shields">
-      <img src="https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge" alt="License" />
-      <a href="https://github.com/snoopy82481/home_cluster/actions/workflows/renovate.yaml"><img src="https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue" alt="GitHub Workflow Status" /></a>
-      <a href="https://github.com/pre-commit/pre-commit">
-        <img src="https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge" alt="Pre-commit" />
-      </a>
-      <img src="https://img.shields.io/github/last-commit/snoopy82481/home_cluster/main?style=for-the-badge" alt="Last Commit" />
-      <a href="https://www.talos.dev">
-        <img src="https://img.shields.io/badge/OS-Talos-informational?style=for-the-badge" alt="Talos Linux" />
-      </a>
-    </div>
-    <br/>
-    <a href="https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml">Report Bug</a>
-    ·
-    <a href="https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml">Request Feature</a>
-  </p>
+_... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="🤖" width="16" height="16" />
+
+</div>
+
+<!-- PROJECT SHIELDS-->
+<div align="center">
+
+[![GitHub License][license-shield]][license-url]&nbsp;&nbsp;
+[![Talos][talos_shield]][talos_url]&nbsp;&nbsp;
+[![kubernetes][kubernetes_shield]][kubernetes_url]&nbsp;&nbsp;
+[![Flux][flux_shield]][flux_url]&nbsp;&nbsp;
+![GitHub last commit](https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge)&nbsp;&nbsp;
+[![Renovate][workflow_shield]][workflow_url]
+
+</div>
+
+<div align="center">
+
+[![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_age_days&style=flat-square&label=Age)][kromgo_url]&nbsp;&nbsp;
+[![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_uptime_days&style=flat-square&label=Uptime)][kromgo_url]&nbsp;&nbsp;
+[![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_node_count&style=flat-square&label=Nodes)][kromgo_url]&nbsp;&nbsp;
+[![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_pod_count&style=flat-square&label=Pods)][kromgo_url]&nbsp;&nbsp;
+[![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_cpu_usage&style=flat-square&label=CPU)][kromgo_url]&nbsp;&nbsp;
+[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_memory_usage&style=flat-square&label=Memory)][kromgo_url]&nbsp;&nbsp;
+[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_alert_count&style=flat-square&label=Alerts)][kromgo_url]
+
+</div>
+
+<div align="center">
+
+[Report Bug](https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml) · [Request Feature](https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml)
+
 </div>
 
 <!-- TABLE OF CONTENTS -->
@@ -68,9 +76,9 @@
 
 This repo is in major disarray at the moment. I am currently refactoring my existing repo [new_template_k3s][old_repo_url].
 
-This is a complete rework of my existing cluster, that I tend to learn [Talos Linux](https://www.talos.dev) with.
+This is a complete rework of my existing cluster, that I tend to learn [Talos Linux][talos_url] with.
 
-The cluster is managed by [Renovate](https://www.mend.io/renovate/) and [flux](https://toolkit.fluxcd.io/) for automation of most of the process. Except the actual deployment configurations.
+The cluster is managed by [Renovate][renovate_url] and [flux][flux_url] for automation of most of the process. Except the actual deployment configurations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -87,7 +95,7 @@ The cluster is managed by [Renovate](https://www.mend.io/renovate/) and [flux](h
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS-Code logo" width="40" height="40" />
   </a>&nbsp;
   <a href="https://talos.dev">
-    <img src="https://www.talos.dev/images/logo.svg" alt="Talos Logo" width="40" height="40" />
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/talos/talos-original.svg" alt="Talos Logo" width="40" height="40" />
   </a>&nbsp;
   <a href="https://cilium.io">
     <img src="docs/src/images/cilium-logo-darkbg-horizontal-color.svg" alt="Cilium Logo" width="80" height="40" />
@@ -217,18 +225,18 @@ There is a lot of code jacking from:
 
 [license-shield]: https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge
 [license-url]: https://github.com/snoopy82481/home_cluster/blob/main/LICENSE
-[workflow-shield]: https://img.shields.io/github/workflow/status/snoopy82481/home_cluster/schedule-renovate.yaml?color=informational&label=%20&logo=renovatebot&style=for-the-badge
+[workflow_shield]: https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&style=for-the-badge&label=%20&color=blue
+[workflow_url]: https://github.com/snoopy82481/home_cluster/actions/workflows/renovate.yaml
 [pre-commit-shield]: https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge
 [pre-comit-url]: https://github.com/pre-commit/pre-commit
 [last-commit-shield]: https://img.shields.io/github/last-commit/snoopy82481/home_cluster/master?style=for-the-badge
-[os-sheild]: https://img.shields.io/badge/OS-Talos-informational?style=for-the-badge
-[os-url]: https://talos.dev
 [old_repo_url]: https://github.com/snoopy82481/new_template_k3s
-[kubernetes_shield]: https://img.shields.io/badge/kubernetes-4A4A55?style=for-the-badge&logo=kubernetes&logoColor=white
+[kubernetes_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fkubernetes_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
 [kubernetes_url]: https://kubernetes.io
 [renovatebot_shield]: https://img.shields.io/badge/Renovatebot-4A4A55?style=for-the-badge&logo=renovatebot&logoColor=white
-[renovatebot_url]: https://www.whitesourcesoftware.com/free-developer-tools/renovate/
-[flux_shield]: https://img.shields.io/badge/Flux-4A4A55?style=for-the-badge&logo=flux&logoColor=white
+[renovate_url]: https://www.mend.io/renovate/
+[flux_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fflux_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
 [flux_url]: https://fluxcd.io
-[talos_shield]: https://img.shields.io/badge/Talos-4A4A55?style=for-the-badge
+[talos_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
 [talos_url]: https://www.talos.dev
+[kromgo_url]: https://github.com/kashalls/kromgo
