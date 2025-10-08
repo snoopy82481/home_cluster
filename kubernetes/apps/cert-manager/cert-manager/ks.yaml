@@ -5,6 +5,10 @@ kind: Kustomization
 metadata:
   name: cert-manager
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   healthChecks:
     - kind: HelmRelease
       name: cert-manager
@@ -31,6 +35,10 @@ kind: Kustomization
 metadata:
   name: cert-manager-tls
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   dependsOn:
     - name: cert-manager
       namespace: cert-manager

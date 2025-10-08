@@ -5,6 +5,10 @@ kind: Kustomization
 metadata:
   name: tqm
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/downloads/tqm/app
   postBuild:
