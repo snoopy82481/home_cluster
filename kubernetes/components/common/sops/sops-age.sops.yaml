@@ -2,16 +2,13 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: sops-age
+    namespace: flux-system
     annotations:
         reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
         reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
 stringData:
     age.agekey: ENC[AES256_GCM,data:o+ULCYV3LxTmp/4CzLapkxQ5jUDHSpcJyh5HFw0Btutqui/rcHU6Mbyxb+wF4f89B7/xgcOo/1x/7jawgNVB6ZfGcUu/beo4CIg=,iv:bsaPGSbMigFiQtZclt+3ULEgRPKPY3XVYj5ouRNyQ/M=,tag:6eHjZ8e+Q+VxqJe8ZnUvmQ==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age15avv4nw90ryfzuste9ww32ttpc4l8m9npqndgq662czy9csum3jskdpexm
           enc: |
@@ -22,8 +19,7 @@ sops:
             aUxZdks4SWpEM2lTM3NkWGRFbWMrTmcKF1Pw0+5Btkn5awg0T8KURmY0WwXHIt8t
             xfx+SfYgsI1K50LeAuDkp+06aBRUQ1IZfMU2rLrwHRQMSgjwWd03fA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-04-01T22:06:58Z"
-    mac: ENC[AES256_GCM,data:gzY1F7HS/YEHiqKXzcpGsbYdU7jfV5vGOQg3vNG4aEciYdfYlZZ+POwr3lyXGIT/A1z6ymV+IUZzJN8TutAEW/owepFXsVcnqpEoCQDDAIFd/1P6vk6Jx8capG2ZPDlW7iPMgDews5eMfq9EaGgFvtUFQpfMVQLj4vVf1mhe85w=,iv:RdIynGlzZf5T8dPanDxQYSTn9STv06ZwmhDazQc1tsI=,tag:I+qUOdv0o9aK2ykPJWcV6Q==,type:str]
-    pgp: []
+    lastmodified: "2025-10-08T20:55:12Z"
+    mac: ENC[AES256_GCM,data:bayMQJND+B7CG0klSarqqRxEEMVYLoR8lEqUb5YzgJJy/Xq5vCJRIKF4t9e7fNVvqMRLTZOEGrV8JgLimM3tLlQzku7MrsKaHyn+z+u//ZnOw5W3MnbkWH89BZdpi2bqlR42R9nM0blZ6NG1y6dy5pJ8XgbOe6dS49tpMpMQcQc=,iv:9eimYxeI9z5tJPp3KZWMA1bDKItgWnmNrGGaHqVqvi8=,tag:88Cx9lo96yIwiaJgRaTPiA==,type:str]
     encrypted_regex: ^(data|stringData)$
-    version: 3.9.4
+    version: 3.11.0
