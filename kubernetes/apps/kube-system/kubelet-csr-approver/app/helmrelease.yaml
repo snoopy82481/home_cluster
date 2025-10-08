@@ -1,31 +1,14 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kubelet-csr-approver
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: kubelet-csr-approver
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    createNamespace: true
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      remediateLastFailure: true
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     providerRegex: ^(k(?:master|worker)\d+)$
     bypassDnsResolution: true

@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/icon: rook.png
 spec:
   hostnames:
-    - "rook.${SECRET_DOMAIN}"
+    - "rook.idahobealefamily.com"
   parentRefs:
     - name: internal
       namespace: kube-system

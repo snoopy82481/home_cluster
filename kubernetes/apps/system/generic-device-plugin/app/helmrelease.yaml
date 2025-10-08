@@ -6,30 +6,10 @@ metadata:
   name: &app generic-device-plugin
   namespace: system
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: app-template
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      remediateLastFailure: true
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
-  driftDetection:
-    mode: enabled
-
+  interval: 1h
   values:
     defaultPodOptions:
       priorityClassName: system-node-critical
@@ -52,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/squat/generic-device-plugin
-              tag: 36bfc606bba2064de6ede0ff2764cbb52edff70d@sha256:ba6f0b4cf6c858d6ad29ba4d32e4da11638abbc7d96436bf04f582a97b2b8821
+              tag: 14e494e@sha256:a9ea761d67e9c86d8ce70c16a8c8c6144764e57291c5834c85b6ffb46eec734c
             args:
               - --log-level=info
               - --config=/config/config.yaml
@@ -71,10 +51,21 @@ spec:
                 drop:
                   - ALL
 
-    persistence:
+    configMaps:
       config:
+        data:
+          config.yaml: |-
+            devices:
+              - name: tun
+                groups:
+                  - count: 1000
+                    paths:
+                      - path: /dev/net/tun
+
+    persistence:
+      config-file:
         type: configMap
-        name: generic-device-plugin-configmap
+        identifier: config
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml

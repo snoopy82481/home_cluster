@@ -5,27 +5,10 @@ kind: HelmRelease
 metadata:
   name: descheduler
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: descheduler
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      remediateLastFailure: true
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     replicas: 2
     kind: Deployment

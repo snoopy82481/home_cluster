@@ -4,30 +4,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: rook-ceph-cluster
-  namespace: rook-ceph
 spec:
-  interval: 1h
-  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: rook-ceph-cluster
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      strategy: rollback
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     toolbox:
       enabled: true
@@ -60,7 +41,7 @@ spec:
             gethomepage.dev/description: "Rook Ceph Storage Dashboard"
             gethomepage.dev/icon: rook.png
           host:
-            name: "rook.${SECRET_DOMAIN}"
+            name: "rook.idahobealefamily.com"
           parentRefs:
             - name: internal
               namespace: kube-system

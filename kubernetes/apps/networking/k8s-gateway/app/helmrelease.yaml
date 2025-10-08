@@ -5,29 +5,14 @@ kind: HelmRelease
 metadata:
   name: &app k8s-gateway
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: k8s-gateway
-  maxHistory: 2
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     fullnameOverride: *app
 
-    domain: "${SECRET_DOMAIN}"
+    domain: "idahobealefamily.com"
 
     ttl: 1
 

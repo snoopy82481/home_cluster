@@ -6,28 +6,10 @@ metadata:
   name: rook-ceph-operator
   namespace: rook-ceph
 spec:
-  interval: 1h
-  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: rook-ceph
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      strategy: rollback
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
@@ -47,7 +29,6 @@ spec:
 
     resources:
       requests:
-        cpu: 100m
-        memory: 128Mi
-      limits:
-        memory: 453M
+        memory: 128Mi # unchangable
+        cpu: 100m # unchangable
+      limits: {}

@@ -5,27 +5,10 @@ kind: HelmRelease
 metadata:
   name: kyverno
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: kyverno
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      strategy: rollback
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     crds:
       install: true

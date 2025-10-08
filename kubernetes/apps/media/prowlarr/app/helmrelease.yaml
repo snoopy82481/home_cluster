@@ -3,46 +3,33 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app bazarr
-  namespace: &ns media
+  name: &app prowlarr
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: app-template
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      strategy: rollback
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     controllers:
       *app :
         annotations:
           reloader.stakater.com/auto: "true"
-          configmap.reloader.stakater.com/reload: cluster-settings
 
         containers:
           *app :
-            nameOverride: *app
-
             image:
-              repository: ghcr.io/home-operations/bazarr
-              tag: 1.5.3@sha256:2f1c32cb1420b2e56f60cfdf7823737eb501fdb2c13669429d23ab3a02e9ad90
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 2.1.3.5208@sha256:236a73dad45baeedd1eba40a457de63a644695728a2ce28f0d254b1fe9a05822
 
             env:
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__AUTH__APIKEY: ${PROWLARR_APIKEY}
+              PROWLARR__SERVER__PORT: &port 9696
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__UPDATE__BRANCH: develop
               TZ: ${TIMEZONE}
 
             probes:
@@ -51,24 +38,19 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
-                    port: &port 6767
+                    path: /ping
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-
-            securityContext: &securityContext
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - "ALL"
+              startup:
+                enabled: false
 
             resources:
               requests:
-                cpu: 10m
+                cpu: 100m
               limits:
                 memory: 1Gi
 
@@ -85,7 +67,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 6767
+            port: *port
 
     route:
       *app :
@@ -95,7 +77,7 @@ spec:
             namespace: kube-system
             sectionName: *app
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}.idahobealefamily.com"
         rules:
           - backendRefs:
               - identifier: *app
@@ -103,31 +85,21 @@ spec:
 
     persistence:
       config:
-        enabled: true
-        existingClaim: bazarr-config-v1
-
-      media:
-        type: nfs
-        server: ${NAS_IP}
-        path: ${NFS_DATA}
-        globalMounts:
-          - path: /media
-
-      backup:
-        type: nfs
-        server: ${NAS_IP}
-        path: ${NFS_BACKUP}/bazarr_standard
-        globalMounts:
-          - path: /backup
+        existingClaim: prowlarr-config-v1
 
       tmpfs:
         type: emptyDir
         advancedMounts:
           *app :
             *app :
+              - path: /config/logs
+                subPath: logs
               - path: /tmp
                 subPath: tmp
-              - path: /config/cache
-                subPath: cache
-              - path: /config/log
-                subPath: log
+
+      backup:
+        type: nfs
+        server: ${NAS_IP}
+        path: ${NFS_BACKUP}
+        globalMounts:
+          - path: /backup

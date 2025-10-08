@@ -5,24 +5,10 @@ kind: HelmRelease
 metadata:
   name: loki
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: loki
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    crds: Skip
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    crds: Skip
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     deploymentMode: SingleBinary
     loki:

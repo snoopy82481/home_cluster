@@ -14,7 +14,7 @@ prometheus.scrape "metamonitoring" {
 
 prometheus.remote_write "default" {
   endpoint {
-    url = "http://prometheus-operated.svc.cluster.local:9090/api/v1/push"
+    url = "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/push"
   }
 }
 

@@ -3,30 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app sonarruhd
-  namespace: media
+  name: &app bazarr-anime
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: app-template
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      strategy: rollback
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     controllers:
       *app :
@@ -36,20 +18,14 @@ spec:
 
         containers:
           *app :
+            nameOverride: *app
+
             image:
-              repository: ghcr.io/home-operations/sonarr
-              tag: 4.0.15.2940@sha256:ca6c735014bdfb04ce043bf1323a068ab1d1228eea5bab8305ca0722df7baf78
+              repository: ghcr.io/home-operations/bazarr
+              tag: 1.5.3@sha256:2f1c32cb1420b2e56f60cfdf7823737eb501fdb2c13669429d23ab3a02e9ad90
 
             env:
-              TZ: "${TIMEZONE}"
-              SONARR__APP__INSTANCENAME: &instancename "Sonarr UHD"
-              SONARR__APP__THEME: dark
-              SONARR__AUTH__METHOD: External
-              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              SONARR__AUTH__APIKEY: ${SONARR_UHD_APIKEY}
-              SONARR__UPDATE__BRANCH: develop
-              SONARR__SERVER__PORT: &port 8989
-              SONARR__LOG__LEVEL: info
+              TZ: ${TIMEZONE}
 
             probes:
               liveness: &probes
@@ -57,15 +33,15 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
-                    port: *port
+                    path: /health
+                    port: &port 6767
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
 
-            securityContext:
+            securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
@@ -74,9 +50,9 @@ spec:
 
             resources:
               requests:
-                cpu: 100m
+                cpu: 10m
               limits:
-                memory: 4Gi
+                memory: 1Gi
 
     defaultPodOptions:
       securityContext:
@@ -91,7 +67,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: *port
+            port: &port 6767
 
     route:
       *app :
@@ -101,7 +77,7 @@ spec:
             namespace: kube-system
             sectionName: *app
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}.idahobealefamily.com"
         rules:
           - backendRefs:
               - identifier: *app
@@ -109,17 +85,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: sonarruhd-config-v1
-
-      tmpfs:
-        type: emptyDir
-        advancedMounts:
-          *app :
-            *app :
-              - path: /config/logs
-                subPath: logs
-              - path: /tmp
-                subPath: tmp
+        existingClaim: bazarr-anime-config-v1
 
       media:
         type: nfs
@@ -131,6 +97,18 @@ spec:
       backup:
         type: nfs
         server: ${NAS_IP}
-        path: ${NFS_BACKUP}
+        path: ${NFS_BACKUP}/bazarr_standard
         globalMounts:
           - path: /backup
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            *app :
+              - path: /tmp
+                subPath: tmp
+              - path: /config/cache
+                subPath: cache
+              - path: /config/log
+                subPath: log

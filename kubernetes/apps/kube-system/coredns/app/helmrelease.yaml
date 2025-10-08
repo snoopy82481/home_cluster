@@ -5,27 +5,10 @@ kind: HelmRelease
 metadata:
   name: coredns
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: coredns
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     fullnameOverride: coredns
     image:

@@ -3,30 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app prowlarr
-  namespace: media
+  name: &app radarr
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: app-template
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      strategy: rollback
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     controllers:
       *app :
@@ -37,19 +19,19 @@ spec:
         containers:
           *app :
             image:
-              repository: ghcr.io/home-operations/prowlarr
-              tag: 2.1.3.5208@sha256:236a73dad45baeedd1eba40a457de63a644695728a2ce28f0d254b1fe9a05822
+              repository: ghcr.io/home-operations/radarr
+              tag: 6.0.2.10271@sha256:12b8348c57c556d837d28bbc73a8837fb7f402a29aba40385a0513dbd068881b
 
             env:
-              PROWLARR__APP__INSTANCENAME: Prowlarr
-              PROWLARR__APP__THEME: dark
-              PROWLARR__AUTH__METHOD: External
-              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              PROWLARR__AUTH__APIKEY: ${PROWLARR_APIKEY}
-              PROWLARR__SERVER__PORT: &port 9696
-              PROWLARR__LOG__LEVEL: info
-              PROWLARR__UPDATE__BRANCH: develop
               TZ: ${TIMEZONE}
+              RADARR__APP__INSTANCENAME: Radarr
+              RADARR__APP__THEME: dark
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__AUTH__APIKEY: ${RADARR_APIKEY}
+              RADARR__SERVER__PORT: &port 7878
+              RADARR__LOG__LEVEL: info
+              RADARR__UPDATE__BRANCH: develop
 
             probes:
               liveness: &probes
@@ -64,14 +46,19 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
 
             resources:
               requests:
                 cpu: 100m
               limits:
-                memory: 1Gi
+                memory: 4Gi
 
     defaultPodOptions:
       securityContext:
@@ -96,7 +83,7 @@ spec:
             namespace: kube-system
             sectionName: *app
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}.idahobealefamily.com"
         rules:
           - backendRefs:
               - identifier: *app
@@ -104,7 +91,8 @@ spec:
 
     persistence:
       config:
-        existingClaim: prowlarr-config-v1
+        enabled: true
+        existingClaim: radarr-config-v1
 
       tmpfs:
         type: emptyDir
@@ -115,6 +103,13 @@ spec:
                 subPath: logs
               - path: /tmp
                 subPath: tmp
+
+      media:
+        type: nfs
+        server: ${NAS_IP}
+        path: ${NFS_DATA}
+        globalMounts:
+          - path: /media
 
       backup:
         type: nfs

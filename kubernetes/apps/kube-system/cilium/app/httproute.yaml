@@ -13,7 +13,7 @@ metadata:
 
 spec:
   hostnames:
-    - "hubble.${SECRET_DOMAIN}"
+    - "hubble.idahobealefamily.com"
   parentRefs:
     - name: internal
       namespace: kube-system

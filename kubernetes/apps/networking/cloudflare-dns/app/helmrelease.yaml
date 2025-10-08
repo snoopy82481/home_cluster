@@ -5,29 +5,10 @@ kind: HelmRelease
 metadata:
   name: &app cloudflare-dns
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: cloudflare-dns
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    disableSchemaValidation: true
-    remediation:
-      retries: 5
-  upgrade:
-    disableSchemaValidation: true
-    remediation:
-      retries: 5
-      remediateLastFailure: true
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     fullnameOverride: *app
 
@@ -61,7 +42,7 @@ spec:
     txtOwnerId: default
 
     domainFilters:
-      - "${SECRET_DOMAIN}"
+      - idahobealefamily.com
 
     serviceMonitor:
       enabled: true

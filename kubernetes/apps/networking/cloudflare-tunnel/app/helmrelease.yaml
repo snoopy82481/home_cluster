@@ -5,21 +5,10 @@ kind: HelmRelease
 metadata:
   name: &app cloudflare-tunnel
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: app-template
-  maxHistory: 2
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     controllers:
       *app :
@@ -97,10 +86,25 @@ spec:
         endpoints:
           - port: http
 
+    configMaps:
+      config:
+        data:
+          config.yaml: |-
+            ingress:
+              - hostname: "idahobealefamily.com"
+                originRequest:
+                  originServerName: external.idahobealefamily.com
+                service: https://cilium-gateway-external.kube-system.svc.cluster.local
+              - hostname: "*.idahobealefamily.com"
+                originRequest:
+                  originServerName: external.idahobealefamily.com
+                service: https://cilium-gateway-external.kube-system.svc.cluster.local
+              - service: http_status:404
+
     persistence:
       config-file:
         type: configMap
-        name: cloudflare-tunnel-configmap
+        identifier: config
         globalMounts:
           - path: /etc/cloudflared/config.yaml
             subPath: config.yaml

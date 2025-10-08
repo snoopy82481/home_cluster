@@ -3,30 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app radarranime
-  namespace: media
+  name: &app bazarr-uhd
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: app-template
-  maxHistory: 2
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
-      strategy: rollback
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    recreate: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     controllers:
       *app :
@@ -36,20 +18,14 @@ spec:
 
         containers:
           *app :
+            nameOverride: *app
+
             image:
-              repository: ghcr.io/home-operations/radarr
-              tag: 6.0.2.10271@sha256:12b8348c57c556d837d28bbc73a8837fb7f402a29aba40385a0513dbd068881b
+              repository: ghcr.io/home-operations/bazarr
+              tag: 1.5.3@sha256:2f1c32cb1420b2e56f60cfdf7823737eb501fdb2c13669429d23ab3a02e9ad90
 
             env:
               TZ: ${TIMEZONE}
-              RADARR__APP__INSTANCENAME: "Radarr Anime"
-              RADARR__APP__THEME: dark
-              RADARR__AUTH__METHOD: External
-              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              RADARR__AUTH__APIKEY: ${RADARR_ANIME_APIKEY}
-              RADARR__SERVER__PORT: &port 7878
-              RADARR__LOG__LEVEL: info
-              RADARR__UPDATE__BRANCH: develop
 
             probes:
               liveness: &probes
@@ -57,15 +33,15 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
-                    port: *port
+                    path: /health
+                    port: &port 6767
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
 
-            securityContext:
+            securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
@@ -74,9 +50,9 @@ spec:
 
             resources:
               requests:
-                cpu: 100m
+                cpu: 10m
               limits:
-                memory: 4Gi
+                memory: 1Gi
 
     defaultPodOptions:
       securityContext:
@@ -91,7 +67,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: *port
+            port: &port 6767
 
     route:
       *app :
@@ -101,7 +77,7 @@ spec:
             namespace: kube-system
             sectionName: *app
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}.idahobealefamily.com"
         rules:
           - backendRefs:
               - identifier: *app
@@ -109,18 +85,7 @@ spec:
 
     persistence:
       config:
-        enabled: true
-        existingClaim: radarr-anime-config-v1
-
-      tmpfs:
-        type: emptyDir
-        advancedMounts:
-          *app :
-            *app :
-              - path: /config/logs
-                subPath: logs
-              - path: /tmp
-                subPath: tmp
+        existingClaim: bazarr-uhd-config-v1
 
       media:
         type: nfs
@@ -132,6 +97,18 @@ spec:
       backup:
         type: nfs
         server: ${NAS_IP}
-        path: ${NFS_BACKUP}
+        path: ${NFS_BACKUP}/bazarr_standard
         globalMounts:
           - path: /backup
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            *app :
+              - path: /tmp
+                subPath: tmp
+              - path: /config/cache
+                subPath: cache
+              - path: /config/log
+                subPath: log

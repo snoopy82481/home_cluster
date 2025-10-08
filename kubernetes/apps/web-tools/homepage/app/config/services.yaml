@@ -2,7 +2,7 @@
 - Media:
     - Sonarr:
         - Sonarr TV:
-            href: https://sonarr.${SECRET_DOMAIN}
+            href: https://sonarr.idahobealefamily-com
             icon: sonarr.png
             description: TV Shows
             widget:
@@ -10,7 +10,7 @@
               url: http://sonarr.media.svc.cluster.local.:8989
               key: ${SONARR_APIKEY}
         - Sonarr Anime:
-            href: https://sonarranime.${SECRET_DOMAIN}
+            href: https://sonarranime.idahobealefamily-com
             icon: sonarr.png
             description: Anime
             widget:
@@ -18,7 +18,7 @@
               url: http://sonarranime.media.svc.cluster.local.:8989
               key: ${SONARR_ANIME_APIKEY}
         - Sonarr UHD:
-            href: https://sonarruhd.${SECRET_DOMAIN}
+            href: https://sonarruhd.idahobealefamily-com
             icon: sonarr.png
             description: UHD TV Shows
             widget:
@@ -27,7 +27,7 @@
               key: ${SONARR_UHD_APIKEY}
     - Radarr:
         - Radarr:
-            href: https://radarr.${SECRET_DOMAIN}
+            href: https://radarr.idahobealefamily-com
             icon: radarr.png
             description: Movies
             widget:
@@ -35,7 +35,7 @@
               url: http://radarr.media.svc.cluster.local.:7878
               key: ${RADARR_APIKEY}
         - Radarr Anime:
-            href: https://radarranime.${SECRET_DOMAIN}
+            href: https://radarranime.idahobealefamily-com
             icon: radarr.png
             description: Anime Movies
             widget:
@@ -43,7 +43,7 @@
               url: http://radarranime.media.svc.cluster.local.:7878
               key: ${RADARR_ANIME_APIKEY}
         - Radarr UHD:
-            href: https://radarruhd.${SECRET_DOMAIN}
+            href: https://radarruhd.idahobealefamily-com
             icon: radarr.png
             description: UHD Movies
             widget:
@@ -52,7 +52,7 @@
               key: ${RADARR_UHD_APIKEY}
     # - Bazarr:
     #     - Bazarr:
-    #         href: https://bazarr.${SECRET_DOMAIN}
+    #         href: https://bazarr.idahobealefamily-com
     #         icon: bazarr.png
     #         description: Subtitle Manager
     #         widget:
@@ -60,7 +60,7 @@
     #           url: http://bazarr.media.svc.cluster.local.:6767
     #           key: ${BAZARR_APIKEY}
     #     - Bazarr Anime:
-    #         href: https://bazarr-anime.${SECRET_DOMAIN}
+    #         href: https://bazarr-anime.idahobealefamily-com
     #         icon: bazarr.png
     #         description: Anime Subtitle Manager
     #         widget:
@@ -68,7 +68,7 @@
     #           url: http://bazarr-anime.media.svc.cluster.local.:6767
     #           key: ${BAZARR_ANIME_APIKEY}
     #     - Bazarr UHD:
-    #         href: https://bazarr-uhd.${SECRET_DOMAIN}
+    #         href: https://bazarr-uhd.idahobealefamily-com
     #         icon: bazarr.png
     #         description: UHD Subtitle Manager
     #         widget:
@@ -76,7 +76,7 @@
     #           url: http://bazarr-uhd.media.svc.cluster.local.:6767
     #           key: ${BAZARR_UHD_APIKEY}
     - Prowlarr:
-        href: https://prowlarr.${SECRET_DOMAIN}
+        href: https://prowlarr.idahobealefamily-com
         icon: prowlarr.png
         description: Indexer Manager
         widget:
@@ -84,7 +84,7 @@
           url: http://prowlarr.media.svc.cluster.local.:9696
           key: ${PROWLARR_APIKEY}
     - Overseerr:
-        href: https://overseerr.${SECRET_DOMAIN}
+        href: https://overseerr.idahobealefamily-com
         icon: overseerr.png
         description: Request Manager
         widget:
@@ -92,7 +92,7 @@
           url: http://overseerr.media.svc.cluster.local.:5055
           key: ${OVERSEERR_API_KEY}
     - Readarr:
-        href: https://readarr.${SECRET_DOMAIN}
+        href: https://readarr.idahobealefamily-com
         icon: readarr.png
         description: Book Manager
         widget:
@@ -100,7 +100,7 @@
           url: http://readarr.media.svc.cluster.local.:8787
           key: ${READARR_APIKEY}
     - Tautulli:
-        href: https://tautulli.${SECRET_DOMAIN}
+        href: https://tautulli.idahobealefamily-com
         icon: tautulli.png
         description: Plex Monitoring
         widget:
@@ -109,7 +109,7 @@
           key: ${TAUTULLI_API_KEY}
 - Downloads:
     - Sabnzbd:
-        href: https://sabnzbd.${SECRET_DOMAIN}
+        href: https://sabnzbd.idahobealefamily-com
         icon: sabnzbd.png
         description: Usenet Downloader
         widget:
@@ -117,7 +117,7 @@
           url: http://sabnzbd.media.svc.cluster.local.:8080
           key: ${SABNZBD_API_KEY}
     - qBittorrent:
-        href: https://qbittorrent.${SECRET_DOMAIN}
+        href: https://qbittorrent.idahobealefamily-com
         icon: qbittorrent.png
         description: Torrent Downloader
         widget:
@@ -125,7 +125,7 @@
           url: http://qbittorrent.downloads.svc.cluster.local.:8080
 - Monitoring:
     - Grafana:
-        href: https://grafana.${SECRET_DOMAIN}
+        href: https://grafana.idahobealefamily-com
         icon: grafana.png
         description: Monitoring Dashboard
         widget:
@@ -134,7 +134,7 @@
           username: ${GRAFANA_ADMIN_USER}
           password: ${GRAFANA_ADMIN_PASSWORD}
     - Prometheus:
-        href: https://prometheus.${SECRET_DOMAIN}
+        href: https://prometheus.idahobealefamily-com
         icon: prometheus.png
         description: Monitoring Metrics
         widget:
@@ -142,12 +142,12 @@
           url: http://prometheus-operated.monitoring.svc.cluster.local.:9090
 - Storage:
     - TrueNAS:
-        href: https://truenas.${SECRET_DOMAIN}
+        href: https://truenas.idahobealefamily-com
         icon: truenas.png
         description: TrueNAS Storage
         widget:
           type: truenas
-          url: https://truenas.${SECRET_DOMAIN}
+          url: https://truenas.idahobealefamily-com
           key: ${TRUENAS_AUDIT_API_KEY}
 - Networking:
     - Omada:
@@ -161,12 +161,12 @@
           password: ${OMADA_ADMIN_PASSWORD}
           site: home
     - pfSense:
-        href: https://pfsense.${SECRET_DOMAIN}:10443
+        href: https://pfsense.idahobealefamily-com:10443
         icon: pfsense.png
         description: pfSense Firewall
         widget:
           type: pfsense
-          url: https://pfsense.${SECRET_DOMAIN}:10443
+          url: https://pfsense.idahobealefamily-com:10443
           headers:
             X-API-Key: ${PFSENSE_API_KEY}
           wan: ix0
@@ -177,11 +177,11 @@
             - wanStatus
 - Infrastructure:
     - Proxmox:
-        href: https://proxmox.${SECRET_DOMAIN}:8006
+        href: https://proxmox.idahobealefamily-com:8006
         icon: proxmox.png
         description: Proxmox VE
         widget:
           type: proxmox
-          url: https://proxmox.${SECRET_DOMAIN}:8006
+          url: https://proxmox.idahobealefamily-com:8006
           username: ${PROXMOX_TOKEN_ID}
           password: ${PROXMOX_TOKEN_SECRET}

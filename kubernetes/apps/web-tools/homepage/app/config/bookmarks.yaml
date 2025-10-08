@@ -1,6 +1,6 @@
 ---
 - Networking:
     - Cisco CBS350:
-      - href: https://cisco-cbs350.${SECRET_DOMAIN}
-        icon: mdi-network-outline
-        description: Cisco CBS350 Switch Management
+        - href: https://cisco-cbs350.idahobealefamily.com
+          icon: mdi-network-outline
+          description: Cisco CBS350 Switch Management
