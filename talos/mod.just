@@ -4,6 +4,9 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 scripts_dir := justfile_dir() + '/scripts'
 talos_dir := justfile_dir() + '/talos'
 controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
+talos_version := `yq .talosversion "talenv.yaml"`
+talos_url := `yq .talosImageURL "talenv.yaml"`
+kubernetes_version := `yq .kubernetesVersion "talenv.yaml"`
 
 [private]
 default:
@@ -39,7 +42,7 @@ render-config node:
 [doc('Reset a node')]
 reset-node node:
     gum confirm "Reset node {{ node }}?" --default="No" && \
-        talosctl -n "{{ node }}" reset --graceful=false || exit 0
+        talosctl -n "{{ node }}" reset --reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false || exit 0
 
 [doc('Shutdown a node')]
 shutdown-node node:
@@ -47,12 +50,16 @@ shutdown-node node:
         talosctl -n "{{ node }}" shutdown --force || exit 0
 
 [doc('Upgrade Kubernetes version on the cluster')]
-upgrade-k8s version:
-    talosctl -n "{{ controller }}" upgrade-k8s --to {{ version }}
+upgrade-k8s:
+    talhelper gencommand upgrade-k8s | bash
 
 [doc('Upgrade Talos version on a node')]
 upgrade-node node:
-    talosctl -n "{{ node }}" upgrade -i "$(just talos machine-image)" -m powercycle --timeout=10m
+    talhelper gencommand upgrade -n "{{ node }}" --extra-flags "--timeout=10m" | bash
+
+[doc('Upgrade all nodes in the cluster')]
+upgrade-all:
+    talhelper gencommand upgrade --extra-flags "--timeout=10m" | bash
 
 [private]
 machine-controller node:

@@ -19,9 +19,6 @@ resource "proxmox_vm_qemu" "talos_master" {
   agent     = 1
   os_type   = "linux"
   qemu_os   = "l26"
-  cores     = 3
-  sockets   = 2
-  cpu_type  = "IvyBridge"
   balloon   = 0
   memory    = 16384
   scsihw    = "virtio-scsi-pci"
@@ -30,6 +27,12 @@ resource "proxmox_vm_qemu" "talos_master" {
   onboot    = true
   startup   = "order=15,up=30"
   skip_ipv6 = true
+
+  cpu {
+    cores = 3
+    sockets = 2
+    type = "IvyBridge"
+  }
 
   disks {
     sata {
@@ -42,7 +45,7 @@ resource "proxmox_vm_qemu" "talos_master" {
       }
       sata1 {
         cdrom {
-          iso = "local:iso/metal-amd64.iso"
+          iso = "local:iso/${local.talos_iso_name}"
         }
       }
     }
@@ -69,9 +72,6 @@ resource "proxmox_vm_qemu" "talos_worker" {
   agent     = 1
   os_type   = "linux"
   qemu_os   = "l26"
-  cores     = 2
-  sockets   = 2
-  cpu_type  = "IvyBridge"
   balloon   = 0
   memory    = 20480
   scsihw    = "virtio-scsi-pci"
@@ -80,6 +80,12 @@ resource "proxmox_vm_qemu" "talos_worker" {
   onboot    = true
   startup   = "order=15,up=30"
   skip_ipv6 = true
+
+  cpu {
+    cores = 2
+    sockets = 2
+    type = "IvyBridge"
+  }
 
   disks {
     sata {
@@ -99,7 +105,7 @@ resource "proxmox_vm_qemu" "talos_worker" {
       }
       sata2 {
         cdrom {
-          iso = "local:iso/metal-amd64.iso"
+          iso = "local:iso/${local.talos_iso_name}"
         }
       }
     }

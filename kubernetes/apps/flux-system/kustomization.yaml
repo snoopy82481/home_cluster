@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: flux-system
 components:
   - ../../components/common
+  - ../../components/namespace
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
