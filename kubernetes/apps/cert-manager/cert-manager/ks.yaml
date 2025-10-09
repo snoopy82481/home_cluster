@@ -6,7 +6,8 @@ metadata:
   name: cert-manager
 spec:
   healthChecks:
-    - kind: HelmRelease
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
       name: cert-manager
       namespace: cert-manager
     - apiVersion: cert-manager.io/v1
