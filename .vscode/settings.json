@@ -2,7 +2,9 @@
   "files.associations": {
     "**/*.json5": "json5",
     "**/opentofu/**/*.tf": "terraform",
-    "*.env": "dotenv"
+    "*.env": "dotenv",
+    "*.just": "just",
+    "Justfile": "just",
   },
   "prettier.configPath": ".ci/prettier/.prettierrc.yaml",
   "prettier.ignorePath": ".github/linters/.prettierignore",
