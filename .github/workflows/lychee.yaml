@@ -38,14 +38,18 @@ jobs:
         with:
           fail: false
           token: "${{ steps.app-token.outputs.token }}"
-          format: markdown
           output: results.md
-          args: --verbose --no-progress --exclude-all-private --exclude-mail './**/*.md'
+          format: markdown
+          args: --verbose --no-progress --exclude-all-private './**/*.md'
+
+      - name: Print all outputs
+        run: echo "${{ steps.lychee.outputs }}"
 
       - name: Print Output
         run: cat results.md
 
       - name: Create or Update Issue
+        if: steps.lychee.outputs.exit_code != 0
         uses: peter-evans/create-issue-from-file@fca9117c27cdc29c6c4db3b86c48e4115a786710 # v6
         with:
           token: "${{ steps.app-token.outputs.token }}"
