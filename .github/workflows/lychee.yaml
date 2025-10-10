@@ -53,7 +53,7 @@ jobs:
           TITLE: "${{ env.WORKFLOW_ISSUE_TITLE }}"
         run: |
           ISSUE_NUMBER=$(gh issue list --search "$TITLE in:title" --repo "$GITHUB_REPOSITORY" --state open --json number | jq '.[0].number')
-          echo "issue-number=${issue_number}" >> $GITHUB_OUTPUT
+          echo "issue-number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT
 
       - name: Create or Update Issue
         if: steps.lychee.outputs.exit_code != 0
