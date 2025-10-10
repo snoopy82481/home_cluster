@@ -146,9 +146,11 @@ spec:
               namespace: kube-system
               sectionName: *app
           hostnames:
-            - "prometheus.idahobealefamily.com"
+            - prometheus.idahobealefamily.com
 
       prometheusSpec:
+        externalUrl: https://prometheus.idahobealefamily.com
+        version: v2.55.1 # override 'unsupported Prometheus version' error
         image:
           registry: docker.io
           repository: prompp/prompp
