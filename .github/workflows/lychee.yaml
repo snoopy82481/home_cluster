@@ -3,10 +3,10 @@
 name: "Lychee"
 
 on:
+  repository_dispatch:
   workflow_dispatch:
   push:
     branches: ["main"]
-    paths: [".github/workflows/lychee.yaml"]
   schedule:
     - cron: "0 0 * * *" # Every day at midnight
 
@@ -17,6 +17,8 @@ jobs:
   lychee:
     name: Lychee
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2
@@ -30,48 +32,22 @@ jobs:
         with:
           token: "${{ steps.app-token.outputs.token }}"
 
-      - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-
-      - name: Setup Workflow Tools
-        shell: bash
-        run: brew install lychee
-
-      - name: Scan For Broken Links
-        shell: bash
-        env:
-          GITHUB_TOKEN: "${{ steps.app-token.outputs.token }}"
-        run: |
-          lychee --verbose --no-progress \
-              --format markdown \
-              --output results.md \
-              --exclude-all-private \
-              --exclude-mail \
-              ./**/*.md || true
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v2.6.1
+        with:
+          fail: false
+          token: "${{ steps.app-token.outputs.token }}"
+          format: markdown
+          output: results.md
+          args: --verbose --no-progress --exclude-all-private --exclude-mail './**/*.md'
 
       - name: Print Output
         run: cat results.md
-
-      - name: Find Link Checker Issue
-        id: find-issue
-        shell: bash
-        env:
-          GH_TOKEN: "${{ steps.app-token.outputs.token }}"
-        run: |
-          issue_number=$( \
-              gh issue list \
-                  --search "in:title ${{ env.WORKFLOW_ISSUE_TITLE }}" \
-                  --state open \
-                  --json number \
-                  | jq --raw-output '.[0].number' \
-          )
-          echo "issue-number=${issue_number}" >> $GITHUB_OUTPUT
-          echo "${issue_number}"
 
       - name: Create or Update Issue
         uses: peter-evans/create-issue-from-file@fca9117c27cdc29c6c4db3b86c48e4115a786710 # v6
         with:
           token: "${{ steps.app-token.outputs.token }}"
           title: "${{ env.WORKFLOW_ISSUE_TITLE }}"
-          issue-number: "${{ steps.find-issue.outputs.issue-number || '' }}"
           content-filepath: results.md
