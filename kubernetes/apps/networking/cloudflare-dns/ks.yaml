@@ -6,7 +6,7 @@ metadata:
   name: cloudflare-dns
 spec:
   interval: 1h
-  path: ./kubernetes/apps/networking/cloudflare-dns
+  path: ./kubernetes/apps/networking/cloudflare-dns/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -6,7 +6,7 @@ metadata:
   name: cloudflare-tunnel
 spec:
   interval: 1h
-  path: ./kubernetes/apps/networking/cloudflare-tunnel
+  path: ./kubernetes/apps/networking/cloudflare-tunnel/app
   prune: true
   sourceRef:
     kind: GitRepository
