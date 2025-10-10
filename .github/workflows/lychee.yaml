@@ -42,11 +42,18 @@ jobs:
           format: markdown
           args: --verbose --no-progress --exclude-all-private './**/*.md'
 
-      - name: Print all outputs
-        run: echo "${{ steps.lychee.outputs }}"
-
       - name: Print Output
         run: cat results.md
+
+      - name: Find Link Checker Issue
+        id: find-issue
+        shell: bash
+        env:
+          GH_TOKEN: "${{ steps.app-token.outputs.token }}"
+          TITLE: "${{ env.WORKFLOW_ISSUE_TITLE }}"
+        run: |
+          ISSUE_NUMBER=$(gh issue list --search "$TITLE in:title" --repo "$GITHUB_REPOSITORY" --state open --json number | jq '.[0].number')
+          echo "issue-number=${issue_number}" >> $GITHUB_OUTPUT
 
       - name: Create or Update Issue
         if: steps.lychee.outputs.exit_code != 0
@@ -54,4 +61,5 @@ jobs:
         with:
           token: "${{ steps.app-token.outputs.token }}"
           title: "${{ env.WORKFLOW_ISSUE_TITLE }}"
+          issue-number: "${{ steps.find-issue.outputs.issue-number || '' }}"
           content-filepath: results.md
