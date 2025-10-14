@@ -31,7 +31,6 @@ spec:
             env:
               NO_AUTOUPDATE: true
               TUNNEL_METRICS: 0.0.0.0:8080
-              TUNNEL_ORIGIN_ENABLE_HTTP2: true
               TUNNEL_TRANSPORT_PROTOCOL: quic
               TUNNEL_POST_QUANTUM: true
             envFrom:
@@ -91,13 +90,10 @@ spec:
         data:
           config.yaml: |-
             ingress:
-              - hostname: "idahobealefamily.com"
-                originRequest:
-                  originServerName: external.idahobealefamily.com
-                service: https://cilium-gateway-external.kube-system.svc.cluster.local
               - hostname: "*.idahobealefamily.com"
                 originRequest:
                   originServerName: external.idahobealefamily.com
+                  http20Origin: true
                 service: https://cilium-gateway-external.kube-system.svc.cluster.local
               - service: http_status:404
 
