@@ -7,13 +7,11 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: *app
   interval: 1h
   values:
     controllers:
       *app :
-        type: statefulset
-
         pod:
           annotations:
             reloader.stakater.com/auto: "true"
@@ -32,7 +30,7 @@ spec:
               FIREWALL_OUTBOUND_SUBNETS: 10.43.0.0/16,10.42.0.0/16 # Allow access to k8s subnets
               FIREWALL_INPUT_PORTS: "8080,9999"
               HEALTH_SERVER_ADDRESS: ":9999"
-              TZ: ${TIMEZONE}
+              TZ: America/Boise
 
             envFrom:
               - secretRef:
@@ -90,7 +88,7 @@ spec:
               tag: 5.1.2@sha256:31ac39705e31f7cdcc04dc46c1c0b0cdf8dc6f9865d4894efc097a33adc41524
 
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/Boise
               UMASK: "022"
               QBT_WEBUI_PORT: &port 8080
               QBT_TORRENTING_PORT: 51820
@@ -112,18 +110,10 @@ spec:
                   - ALL
 
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v2/app/version
-                    port: *port
-                  initialDelaySeconds: 0
-                  timeoutSeconds: 10
-                  periodSeconds: 5
-                  failureThreshold: 5
-              readiness: *probes
+              readiness:
+                enabled: true
               startup:
                 enabled: true
                 spec:
@@ -181,18 +171,14 @@ spec:
         parentRefs:
           - name: internal
             namespace: kube-system
-            sectionName: *app
+            sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
-        rules:
-          - backendRefs:
-              - identifier: *app
-                port: *port
 
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent-config-v1
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           *app :
             *app :
@@ -200,10 +186,12 @@ spec:
 
       media:
         type: nfs
-        server: ${NAS_IP}
-        path: ${NFS_DATA}
-        globalMounts:
-          - path: /media
+        server: truenas.idahobealefamily.com
+        path: /mnt/storage1/data
+        advancedMounts:
+          *app :
+            *app :
+              - path: /media
 
       tmpfs:
         type: emptyDir

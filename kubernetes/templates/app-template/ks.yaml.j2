@@ -3,17 +3,26 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: qbittorrent
+  name: {{ app_name }}
 spec:
+  {% if storage %}
+  components:
+    - ../../../../components/storage
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+  {% endif %}
   interval: 1h
-  path: ./kubernetes/apps/downloads/qbittorrent/app
+  path: {{ ["./kubernetes/apps", namespace, app_name, "app"] | join("/") }}
   postBuild:
+    {% if storage %}
     substitute:
-      APP: qbittorrent
-      STORAGE_CAPACITY: 2Gi
+      APP: {{ app_name }}
+      STORAGE_CAPACITY: 1Gi
+    {% endif %}
+    substituteFrom:
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   sourceRef:
     kind: GitRepository

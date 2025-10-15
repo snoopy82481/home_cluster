@@ -29,6 +29,7 @@ talosconfig
 # Talos clusterconfigs
 talos/**/clusterconfig
 talos/**/_out
+talos/*.iso
 
 # Ansible
 .venv*

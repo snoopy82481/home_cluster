@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: flux-instance
   interval: 1h
-  dependsOn:
-    - name: flux-operator
-      namespace: flux-system
   values:
     instance:
       distribution:

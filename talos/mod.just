@@ -4,6 +4,7 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 scripts_dir := justfile_dir() + '/scripts'
 talos_dir := justfile_dir() + '/talos'
 controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
+nodes := `talosctl config info -o yaml | yq -r '[.nodes[] | tostring] | join(",")'`
 talos_version := `yq .talosversion "talenv.yaml"`
 talos_url := `yq .talosImageURL "talenv.yaml"`
 kubernetes_version := `yq .kubernetesVersion "talenv.yaml"`
@@ -23,6 +24,18 @@ download-image version schematic:
         -o "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}.iso" \
         "https://factory.talos.dev/image/{{ schematic }}/{{ version }}/metal-amd64.iso"
     just log info "Downloaded Talos" version "{{ version }}" schematic "{{ schematic }}"
+    scp "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}.iso" root@proxmox:/var/lib/vz/template/iso/
+    just log info "Uploaded Talos" version "{{ version }}" schematic "{{ schematic }}" "to Proxmox"
+
+[doc('Download Talos SecureBoot machine image')]
+download-image-secureboot version schematic:
+    gum spin --title "Downloading Talos {{ version }} ..." -- \
+    curl -sfL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors \
+        -o "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}-secureboot.iso" \
+        "https://factory.talos.dev/image/{{ schematic }}/{{ version }}/metal-amd64-secureboot.iso"
+    just log info "Downloaded Talos" version "{{ version }}" schematic "{{ schematic }}"
+    scp "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}-secureboot.iso" root@proxmox:/var/lib/vz/template/iso/
+    just log info "Uploaded Talos" version "{{ version }}" schematic "{{ schematic }}" "to Proxmox"
 
 [doc('Generate schematic ID from Talos schematic')]
 gen-schematic-id:
@@ -32,6 +45,12 @@ gen-schematic-id:
 reboot-node node:
     gum confirm "Reboot node {{ node }}?" --default="No" && \
         talosctl -n {{ node }} reboot -m powercycle || exit 0
+
+[doc('Reboot all nodes in the cluster')]
+reboot-all:
+    gum confirm "Reboot all nodes?" --default="No" && \
+        talosctl reboot -m powercycle -n {{ nodes }} || exit 0
+
 
 [doc('Render Talos config for a node')]
 render-config node:
@@ -48,6 +67,11 @@ reset-node node:
 shutdown-node node:
     gum confirm "Shutdown node {{ node }}?" --default="No" && \
         talosctl -n "{{ node }}" shutdown --force || exit 0
+
+[doc('Shutdown all nodes in the cluster')]
+shutdown-all:
+    gum confirm "Shutdown all nodes?" --default="No" && \
+        talosctl -n "{{ nodes }}" shutdown --force || exit 0
 
 [doc('Upgrade Kubernetes version on the cluster')]
 upgrade-k8s:

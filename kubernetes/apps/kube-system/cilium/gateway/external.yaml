@@ -7,51 +7,30 @@ metadata:
   namespace: kube-system
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname external.idahobealefamily.com
-    cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   gatewayClassName: cilium
   addresses:
     - type: IPAddress
-      value: ${SVC_EXTERNAL_CILIUM_GATEWAY_ADDRESSS}
+      value: 192.168.20.57
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      cert-manager.io/cluster-issuer: ${CLUSTER_CERT}
+      cert-manager.io/cluster-issuer: letsencrypt-production
   listeners:
-    - name: http-1
+    - name: http
       protocol: HTTP
       port: 80
-      hostname: "*.idahobealefamily.com"
       allowedRoutes:
         namespaces:
-          from: All
-    - name: http-2
-      protocol: HTTP
-      port: 80
-      hostname: idahobealefamily.com
-      allowedRoutes:
-        namespaces:
-          from: All
-    - name: https-1
+          from: Same
+    - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.idahobealefamily.com"
       allowedRoutes:
         namespaces:
           from: All
       tls:
-        certificateRefs:
-          - kind: Secret
-            name: "idahobealefamily-com-production-tls"
-    - name: https-2
-      protocol: HTTPS
-      port: 443
-      hostname: idahobealefamily.com
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Terminate
         certificateRefs:
           - kind: Secret
             name: "idahobealefamily-com-production-tls"

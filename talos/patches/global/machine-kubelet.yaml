@@ -3,6 +3,9 @@ machine:
     extraArgs:
       rotate-server-certificates: "true"
     extraConfig:
+      featureGates:
+        ImageVolume: true
+        ResourceHealthStatus: true
       maxPods: 150
       serializeImagePulls: false
     nodeIP:

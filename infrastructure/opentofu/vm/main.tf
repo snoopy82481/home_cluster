@@ -19,6 +19,7 @@ resource "proxmox_vm_qemu" "talos_master" {
   agent     = 1
   os_type   = "linux"
   qemu_os   = "l26"
+  bios      = "ovmf"
   balloon   = 0
   memory    = 16384
   scsihw    = "virtio-scsi-pci"
@@ -38,7 +39,7 @@ resource "proxmox_vm_qemu" "talos_master" {
     sata {
       sata0 {
         disk {
-          size    = "40G"
+          size    = "64G"
           storage = "local-lvm"
           discard = true
         }
@@ -72,6 +73,7 @@ resource "proxmox_vm_qemu" "talos_worker" {
   agent     = 1
   os_type   = "linux"
   qemu_os   = "l26"
+  bios      = "ovmf"
   balloon   = 0
   memory    = 20480
   scsihw    = "virtio-scsi-pci"

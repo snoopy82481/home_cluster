@@ -5,4 +5,4 @@ machine:
       allowedRoles:
         - os:admin
       allowedKubernetesNamespaces:
-        - system-upgrade
+        - system
