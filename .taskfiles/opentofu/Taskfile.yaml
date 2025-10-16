@@ -12,7 +12,7 @@ tasks:
     desc: Show the changes proxmox opentofu will make
     dir: infrastructure/opentofu/vm
     cmds:
-      - tofu plan {{.CLI_ARGS}}
+      - tofu plan {{.CLI_ARGS}} -out=talos_plan.tfplan
 
   proxmox-apply:
     desc: Apply the changes to proxmox

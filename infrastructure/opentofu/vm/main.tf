@@ -23,11 +23,12 @@ resource "proxmox_vm_qemu" "talos_master" {
   balloon   = 0
   memory    = 16384
   scsihw    = "virtio-scsi-pci"
-  boot      = "order=sata0;sata1"
+  boot      = "order=sata0;sata2"
   vm_state  = "running"
   onboot    = true
   startup   = "order=15,up=30"
   skip_ipv6 = true
+  tags      = "k8s,talos"
 
   cpu {
     cores = 3
@@ -45,6 +46,13 @@ resource "proxmox_vm_qemu" "talos_master" {
         }
       }
       sata1 {
+        disk {
+          size    = "10G"
+          storage = "local-lvm"
+          discard = true
+        }
+      }
+      sata2 {
         cdrom {
           iso = "local:iso/${local.talos_iso_name}"
         }
@@ -52,6 +60,16 @@ resource "proxmox_vm_qemu" "talos_master" {
     }
   }
 
+  efidisk {
+    efitype           = "4m"
+    storage           = "local-lvm"
+    pre_enrolled_keys = false
+  }
+
+  tpm_state {
+    storage = "local-lvm"
+    version = "v2.0"
+  }
 
   network {
     id      = 0
@@ -77,11 +95,12 @@ resource "proxmox_vm_qemu" "talos_worker" {
   balloon   = 0
   memory    = 20480
   scsihw    = "virtio-scsi-pci"
-  boot      = "order=sata0;sata2"
+  boot      = "order=sata0;sata3"
   vm_state  = "running"
   onboot    = true
   startup   = "order=15,up=30"
   skip_ipv6 = true
+  tags      = "k8s,talos"
 
   cpu {
     cores = 2
@@ -106,11 +125,29 @@ resource "proxmox_vm_qemu" "talos_worker" {
         }
       }
       sata2 {
+        disk {
+          size    = "10G"
+          storage = "local-lvm"
+          discard = true
+        }
+      }
+      sata3 {
         cdrom {
           iso = "local:iso/${local.talos_iso_name}"
         }
       }
     }
+  }
+
+  efidisk {
+    efitype           = "4m"
+    storage           = "local-lvm"
+    pre_enrolled_keys = false
+  }
+
+  tpm_state {
+    storage = "local-lvm"
+    version = "v2.0"
   }
 
   network {

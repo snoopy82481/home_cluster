@@ -5,7 +5,7 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 bootstrap_dir := justfile_dir() + '/bootstrap'
 kubernetes_dir := justfile_dir() + '/kubernetes'
 controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
-nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
+nodes := `talosctl config info -o yaml | yq -r '[.nodes[] | tostring] | join (" ")'`
 
 [private]
 default: talos k8s (kubeconfig "node") wait namespaces resources crds apps kubeconfig
@@ -57,7 +57,7 @@ wait:
 namespaces:
     just log info "Running stage..." "stage" "$0"
     find "{{ kubernetes_dir }}/apps" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | while IFS= read -r ns; do \
-        if ! kubectl create namespace "$ns" --dry-run=client -o yaml | kubectl apply --server-side --field-manager flux-client-side-apply -f -; then \
+        if ! kubectl create namespace "$ns" --dry-run=client -o yaml | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then \
             just log fatal "Failed to apply namespace" "stage" "$0" "namespace" "$ns"; \
         fi; \
     done
@@ -65,14 +65,14 @@ namespaces:
 [doc('Apply Kubernetes resources')]
 resources:
     just log info "Running stage..." "stage" "$0"
-    if ! just template "{{ bootstrap_dir }}/resources.yaml.j2" | kubectl apply --server-side --field-manager flux-client-side-apply -f -; then \
+    if ! just template "{{ bootstrap_dir }}/resources.yaml.j2" | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then \
         just log fatal "Failed to apply resources" "stage" "$0"; \
     fi;
 
 [doc('Apply Helmfile CRDs')]
 crds:
     just log info "Running stage..." "stage" "$0"
-    if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/00-crds.yaml" template -q | kubectl apply --server-side --field-manager flux-client-side-apply -f -; then \
+    if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/00-crds.yaml" template -q | kubectl apply --server-side --field-manager  bootstrap --force-conflicts -f -; then \
         just log fatal "Failed to apply crds" "stage" "$0"; \
     fi;
 

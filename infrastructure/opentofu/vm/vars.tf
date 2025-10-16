@@ -51,5 +51,5 @@ locals {
   talos_image_url   = local.cluster_config.talosImageURL
   talos_image_hash  = regex("([0-9a-f]{64})", local.talos_image_url)[0]
   talos_image_short = substr(local.talos_image_hash, 0, 8)
-  talos_iso_name    = "talos-${local.talos_version}-${local.talos_image_short}.iso"
+  talos_iso_name    = "talos-${local.talos_version}-${local.talos_image_short}-secureboot.iso"
 }

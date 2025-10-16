@@ -1,0 +1,15 @@
+{{- $basePath := printf "../../../kubernetes/apps/%s/%s/app" .Release.Namespace .Release.Name -}}
+{{- $file := "" -}}
+{{- $special := list "cilium" "kubelet-csr-approver" -}}
+
+{{- if has .Release.Name $special -}}
+  {{- $file = (printf "%s/helm/values.yaml" $basePath) -}}
+{{- else if (file.Exists (printf "%s/helmrelease.yaml" $basePath)) -}}
+  {{- $file = (printf "%s/helmrelease.yaml" $basePath) -}}
+{{- else if (file.Exists (printf "%s/helm-release.yaml" $basePath)) -}}
+  {{- $file = (printf "%s/helm-release.yaml" $basePath) -}}
+{{- else -}}
+  {{- fail (printf "No helmrelease file found for namespace=%s, release=%s (checked helmrelease.yaml, helm-release.yaml)" .Release.Namespace .Release.Name) -}}
+{{- end -}}
+
+{{ (fromYaml (readFile $file)).spec.values | toYaml }}
