@@ -253,7 +253,7 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-            sectionName: grafana
+            sectionName: https
         hostnames:
           - grafana.idahobealefamily.com
         rules:
