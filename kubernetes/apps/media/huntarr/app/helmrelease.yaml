@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: *app
   interval: 1h
   values:
     controllers:
@@ -19,7 +19,7 @@ spec:
               tag: 8.2.10@sha256:b5a47c2b43806165f433d308d69a21e74a687ce59f4fcccb612d6a7acb3af6d7
 
             env:
-              TZ: "${TIMEZONE}"
+              TZ: America/Boise
 
             probes:
               liveness: &probes
@@ -58,9 +58,9 @@ spec:
           gethomepage.dev/icon: sh-huntarr
           gethomepage.dev/description: "Huntarr is a media management tool that helps you organize and manage your media libraries."
         parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: *app
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
         rules:
@@ -70,7 +70,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: huntarr-config-v1
+        existingClaim: "{{ .Release.Name }}"
 
       tmpfs:
         type: emptyDir

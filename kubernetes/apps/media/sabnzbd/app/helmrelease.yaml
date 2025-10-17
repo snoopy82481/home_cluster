@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: *app
   interval: 1h
   values:
     controllers:
@@ -33,7 +33,7 @@ spec:
               repository: ghcr.io/home-operations/sabnzbd
               tag: 4.5.3@sha256:ecb57bd6257fbfbd9aee70d8ef3df8814b7270ae793fd1f44219ae73cacd519a
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/Boise
               SABNZBD__PORT: &port 8080
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
                 sabnzbd,
@@ -91,9 +91,9 @@ spec:
       *app :
         enabled: true
         parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: *app
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
         rules:

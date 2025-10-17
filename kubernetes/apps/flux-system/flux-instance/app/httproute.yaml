@@ -8,9 +8,9 @@ spec:
   hostnames:
     - flux-webhook.idahobealefamily.com
   parentRefs:
-    - name: external
-      namespace: kube-system
-      sectionName: flux-webhook
+    - name: envoy-external
+      namespace: networking
+      sectionName: https
   rules:
     - backendRefs:
         - name: webhook-receiver

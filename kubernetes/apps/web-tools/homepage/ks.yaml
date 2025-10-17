@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cilium-gateways
-      namespace: kube-system
+      namespace: networking
   interval: 1h
   path: ./kubernetes/apps/web-tools/homepage/app
   postBuild:

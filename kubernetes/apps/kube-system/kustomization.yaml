@@ -16,4 +16,3 @@ resources:
   - ./reloader/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./spegel/ks.yaml
-  - ./gateway-api-crds/ks.yaml

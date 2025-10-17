@@ -96,7 +96,8 @@
     "kube-prometheus-stack",
     "huntarr",
     "homepage",
-    "tqm"
+    "tqm",
+    "envoy-gateway"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",

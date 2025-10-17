@@ -43,7 +43,6 @@ releases:
     needs:
       - kube-system/cilium
 
-
   - name: spegel
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel

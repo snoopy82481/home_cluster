@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: overseerr-cache-v1
+  name: overseerr-cache
   namespace: media
   labels:
     app.kubernetes.io/name: &name overseerr
@@ -12,5 +12,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi
   storageClassName: ceph-block

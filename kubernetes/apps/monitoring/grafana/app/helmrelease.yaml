@@ -251,8 +251,8 @@ spec:
       main:
         enabled: true
         parentRefs:
-          - name: internal
-            namespace: kube-system
+          - name: envoy-internal
+            namespace: networking
             sectionName: grafana
         hostnames:
           - grafana.idahobealefamily.com

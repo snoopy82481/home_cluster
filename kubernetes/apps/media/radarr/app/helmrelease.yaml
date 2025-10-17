@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: *app
   interval: 1h
   values:
     controllers:
@@ -78,15 +78,14 @@ spec:
       *app :
         enabled: true
         parentRefs:
-          - name: internal
-            namespace: kube-system
+          - name: envoy-internal
+            namespace: networking
             sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
 
     persistence:
       config:
-        enabled: true
         existingClaim: "{{ .Release.Name }}"
 
       tmpfs:

@@ -52,10 +52,7 @@ spec:
       enabled: true
 
     gatewayAPI:
-      enabled: true
-      enableAlpn: true
-      xffNumTrustedHops: 1
-      enableAppProtocol: true
+      enabled: false
 
     hubble:
       enabled: false
