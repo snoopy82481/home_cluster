@@ -5,6 +5,8 @@ kind: Kustomization
 metadata:
   name: qbittorrent
 spec:
+  components:
+    - ../../../../components/storage
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
