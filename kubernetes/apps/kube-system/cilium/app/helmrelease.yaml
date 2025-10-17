@@ -133,7 +133,6 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
 
-
         dashboards:
           annotations:
             grafana_folder: Cilium

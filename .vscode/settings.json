@@ -4,7 +4,7 @@
     "**/opentofu/**/*.tf": "terraform",
     "*.env": "dotenv",
     "*.just": "just",
-    "Justfile": "just",
+    "Justfile": "just"
   },
   "prettier.configPath": ".ci/prettier/.prettierrc.yaml",
   "prettier.ignorePath": ".github/linters/.prettierignore",
@@ -32,7 +32,7 @@
     "*.sops.yaml": "lock",
     "helmfile.yaml": "helm",
     "kubeconfig": "kubernetes",
-    "talosconfig": "kubernetes",
+    "talosconfig": "kubernetes"
   },
   "material-icon-theme.folders.associations": {
     // top level
