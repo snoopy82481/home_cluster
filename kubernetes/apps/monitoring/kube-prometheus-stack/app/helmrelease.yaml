@@ -39,9 +39,9 @@ spec:
           parentRefs:
             - name: envoy-internal
               namespace: networking
-              sectionName: alertmanager
+              sectionName: https
           hostnames:
-            - "alertmanager.idahobealefamily.com"
+            - alertmanager.idahobealefamily.com
 
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
