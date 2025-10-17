@@ -94,7 +94,7 @@ spec:
                 originRequest:
                   originServerName: external.idahobealefamily.com
                   http20Origin: true
-                service: https://cilium-gateway-external.kube-system.svc.cluster.local
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - service: http_status:404
 
     persistence:

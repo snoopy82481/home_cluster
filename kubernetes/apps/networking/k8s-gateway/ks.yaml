@@ -7,10 +7,6 @@ metadata:
 spec:
   interval: 1h
   path: ./kubernetes/apps/networking/k8s-gateway/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-settings
-        kind: ConfigMap
   prune: true
   sourceRef:
     kind: GitRepository

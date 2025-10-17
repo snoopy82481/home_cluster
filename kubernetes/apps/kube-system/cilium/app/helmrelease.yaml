@@ -52,10 +52,7 @@ spec:
       enabled: true
 
     gatewayAPI:
-      enabled: true
-      enableAlpn: true
-      xffNumTrustedHops: 1
-      enableAppProtocol: true
+      enabled: false
 
     hubble:
       enabled: false
@@ -135,7 +132,6 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-
 
         dashboards:
           annotations:

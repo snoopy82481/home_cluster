@@ -37,8 +37,8 @@ spec:
         main:
           enabled: true
           parentRefs:
-            - name: internal
-              namespace: kube-system
+            - name: envoy-internal
+              namespace: networking
               sectionName: alertmanager
           hostnames:
             - "alertmanager.idahobealefamily.com"
@@ -142,9 +142,9 @@ spec:
         main:
           enabled: true
           parentRefs:
-            - name: internal
-              namespace: kube-system
-              sectionName: *app
+            - name: envoy-internal
+              namespace: networking
+              sectionName: https
           hostnames:
             - prometheus.idahobealefamily.com
 

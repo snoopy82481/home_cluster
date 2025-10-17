@@ -43,8 +43,8 @@ spec:
           host:
             name: "rook.idahobealefamily.com"
           parentRefs:
-            - name: internal
-              namespace: kube-system
+            - name: envoy-internal
+              namespace: networking
               sectionName: rook-ceph-dashboard
 
       dashboard:

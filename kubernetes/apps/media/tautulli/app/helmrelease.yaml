@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: *app
   interval: 1h
   values:
     controllers:
@@ -23,7 +23,7 @@ spec:
               tag: 2.16.0@sha256:2a092f86a51f5718111097b0fced33eaa876b5904a543b7504f92357a4f75635
 
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/Boise
               TAUTULLI_HTTP_BASE_URL: "https://{{ .Release.Name }}.idahobealefamily.com"
               TAUTULLI_HTTP_PORT: &port 8181
 
@@ -73,9 +73,9 @@ spec:
       *app :
         enabled: true
         parentRefs:
-          - name: external
-            namespace: kube-system
-            sectionName: *app
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
         rules:
@@ -85,7 +85,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: tautulli-config-v1
+        existingClaim: "{{ .Release.Name }}"
 
       tmpfs:
         type: emptyDir

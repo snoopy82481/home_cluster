@@ -6,8 +6,8 @@ metadata:
   name: &app homepage
 spec:
   dependsOn:
-    - name: cilium-gateways
-      namespace: kube-system
+    - name: envoy-gateway
+      namespace: networking
   interval: 1h
   path: ./kubernetes/apps/web-tools/homepage/app
   postBuild:

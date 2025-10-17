@@ -169,15 +169,14 @@ spec:
       *app :
         enabled: true
         parentRefs:
-          - name: internal
-            namespace: kube-system
+          - name: envoy-internal
+            namespace: networking
             sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
 
     persistence:
       config:
-        enabled: true
         existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           *app :
