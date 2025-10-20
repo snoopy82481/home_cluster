@@ -93,7 +93,7 @@ spec:
               - hostname: "*.idahobealefamily.com"
                 originRequest:
                   originServerName: external.idahobealefamily.com
-                  http20Origin: true
+                  http2Origin: true
                 service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - service: http_status:404
 
