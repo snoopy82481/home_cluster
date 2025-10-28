@@ -97,7 +97,8 @@
     "huntarr",
     "homepage",
     "tqm",
-    "envoy-gateway"
+    "envoy-gateway",
+    "victoria-logs"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",
