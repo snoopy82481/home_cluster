@@ -8,10 +8,11 @@ spec:
   route:
     groupBy:
       - alertname
+      - cluster
       - job
     groupInterval: 10m
     groupWait: 1m
-    receiver: pushover
+    receiver: discord
     repeatInterval: 12h
     routes:
       - receiver: "null"
@@ -42,5 +43,5 @@ spec:
       discordConfigs:
         - sendResolved: true
           apiURL:
-            key: alertmanager-secret
+            key: cluster-secrets
             name: DISCORD_WEBHOOK_URL

@@ -1,7 +1,7 @@
 logging {
   level  = "warn"
   format = "json"
-  write_to = [loki.write.default.receiver]
+  write_to = [loki.write.victorialogs.receiver]
 }
 
 prometheus.exporter.self "default" {
@@ -24,6 +24,12 @@ loki.write "default" {
   }
 }
 
+loki.write "victorialogs" {
+  endpoint {
+    url = "http://victorialogs.monitoring.svc.cluster.local:9428/insert/loki/api/v1/push"
+  }
+}
+
 loki.source.syslog "local" {
   listener {
     address = "0.0.0.0:5044"
@@ -37,7 +43,7 @@ loki.source.syslog "local" {
     labels = { component = "loki.source.syslog", protocol = "udp" }
   }
 
-  forward_to = [loki.write.default.receiver]
+  forward_to = [loki.write.victorialogs.receiver]
 }
 
 discovery.kubernetes "pods" {
@@ -132,11 +138,11 @@ loki.process "pod_logs" {
       }
   }
 
-  forward_to = [loki.write.default.receiver]
+  forward_to = [loki.write.victorialogs.receiver]
 }
 
 loki.process "cluster_events" {
-  forward_to = [loki.write.default.receiver]
+  forward_to = [loki.write.victorialogs.receiver]
 
   stage.static_labels {
     values = {
@@ -162,5 +168,5 @@ local.file_match "node_logs" {
 
 loki.source.file "node_logs" {
   targets    = local.file_match.node_logs.targets
-  forward_to = [loki.write.default.receiver]
+  forward_to = [loki.write.victorialogs.receiver]
 }
