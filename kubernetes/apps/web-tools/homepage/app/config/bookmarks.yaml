@@ -1,6 +1,6 @@
 ---
 - Networking:
-    - Cisco CBS350:
+    - Cisco_CBS350:
         - href: https://cisco-cbs350.idahobealefamily.com
           icon: mdi-network-outline
-          description: Cisco CBS350 Switch Management
+          description: "Cisco CBS350 Switch Management"

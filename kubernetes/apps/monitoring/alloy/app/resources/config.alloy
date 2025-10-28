@@ -26,7 +26,7 @@ loki.write "default" {
 
 loki.write "victorialogs" {
   endpoint {
-    url = "http://victorialogs.monitoring.svc.cluster.local:9428/insert/loki/api/v1/push"
+    url = "http://victoria-logs-server.monitoring.svc.cluster.local:9428/insert/loki/api/v1/push"
   }
 }
 

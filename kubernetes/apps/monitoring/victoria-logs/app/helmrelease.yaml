@@ -19,6 +19,12 @@ spec:
         size: 20Gi
       route:
         enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: *app
+          gethomepage.dev/group: Monitoring
+          gethomepage.dev/icon: si-victoriametrics
+          gethomepage.dev/description: "Victoria Logs is a log aggregation and management solution built on top of VictoriaMetrics, designed to efficiently collect, store, and analyze log data from various sources."
         hostnames:
           - victoria-logs.idahobealefamily.com
         parentRefs:

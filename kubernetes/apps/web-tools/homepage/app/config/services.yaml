@@ -167,6 +167,10 @@
             - load
             - memory
             - wanStatus
+    - Cisco CBS350:
+        href: https://cisco-cbs350.idahobealefamily.com
+        icon: mdi-network-outline
+        description: "Cisco CBS350 Switch Management"
 - Infrastructure:
     - Proxmox:
         href: https://proxmox.idahobealefamily.com:8006
