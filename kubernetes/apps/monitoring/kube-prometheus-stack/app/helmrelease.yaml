@@ -22,8 +22,6 @@ spec:
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
-          global:
-            resolveTimeout: 5m
         externalUrl: https://alertmanager.idahobealefamily.com
         storage:
           volumeClaimTemplate:
@@ -39,7 +37,6 @@ spec:
           parentRefs:
             - name: envoy-internal
               namespace: networking
-              sectionName: https
           hostnames:
             - alertmanager.idahobealefamily.com
 
@@ -144,7 +141,6 @@ spec:
           parentRefs:
             - name: envoy-internal
               namespace: networking
-              sectionName: https
           hostnames:
             - prometheus.idahobealefamily.com
 

@@ -2,6 +2,7 @@ set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 kubernetes_dir := justfile_dir() + '/kubernetes'
+templates_dir := justfile_dir() + '/kubernetes/templates'
 
 [private]
 default:
@@ -86,6 +87,16 @@ view-secret namespace secret:
 rook-password:
     kubectl view-secret -n rook-ceph rook-ceph-dashboard-password -q
 
+[doc('Create app deployment')]
+create-app namespace name template="other":
+    mkdir -p "{{ kubernetes_dir }}/apps/{{ namespace }}/{{ name }}/app"
+    find "{{ templates_dir }}/{{ template }}" -type f -name "*.j2" | while IFS= read -r tpl; do \
+        relpath=$(realpath --relative-to="{{ templates_dir }}/{{ template }}" "$tpl"); \
+        out="{{ kubernetes_dir }}/apps/{{ namespace }}/{{ name }}/${relpath%.j2}"; \
+        just template "$tpl" "-D app_name={{ name }} -D namespace={{ namespace }}" > "$out"; \
+    done
+    echo "  - ./{{ name }}/ks.yaml" >> "{{ kubernetes_dir }}/apps/{{ namespace }}/kustomization.yaml"
+    just log info "Created app deployment at {{ kubernetes_dir }}/apps/{{ namespace }}/{{ name }}"
 
 [private]
 render-local-ks ns ks:

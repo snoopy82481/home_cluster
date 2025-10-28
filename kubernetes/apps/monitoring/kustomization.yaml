@@ -14,4 +14,4 @@ resources:
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./kyverno/ks.yaml
-  - ./loki/ks.yaml
+  - ./victoria-logs/ks.yaml
