@@ -6,9 +6,9 @@ metadata:
 stringData:
     VPN_SERVICE_PROVIDER: ENC[AES256_GCM,data:Gf5dUjML,iv:YIe0ymVJy6uFYwRmBm8MKRz3E6gMJF4s4Wp93iKxh08=,tag:+VQQEbJkvG9Y2pqqsE0R6w==,type:str]
     VPN_PORT_FORWARDING_PROVIDER: ENC[AES256_GCM,data:abfanB5XGu7h,iv:vK6zqq9dwFt1eOYMbFKJP1J9wuOOh26NXGs6syLSFHQ=,tag:3hv9paLx9mcIxHRUNDA+pQ==,type:str]
-    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:H18R3C/tWd/uqDu0Fsmi8xdIMnemYoeJbQqA3ti2j9Ne3KLxJIvD9VYilEI=,iv:I/JmjLsZNLd+GYLVP+sgKTJ7VNgeatcV2kTZnDoNKXQ=,tag:VADPG+6vf1BJj1NE0KIiIA==,type:str]
-    WIREGUARD_PUBLIC_KEY: ENC[AES256_GCM,data:nfzi4pjqFdz+b1YmUZ2uSdc6r6skVomoQCl9nu5MtkwFsNAX0txabnWdDaI=,iv:qgxuhIpchuzKhnDCWd+wtZVBlmeDNY+gLezhhk8rVu0=,tag:XZJhA6guvTDLHiLM83BGHQ==,type:str]
-    WIREGUARD_ENDPOINT_IP: ENC[AES256_GCM,data:apAKy2/177TlyEtBDA==,iv:WFCc1tokIXtC+KF3PPIiqWYQTflf/zOAfD+mXCWnIzY=,tag:yHDfL4AQNFzUMZgSVLH1wg==,type:str]
+    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:rE5C5eTDYqLEcgsPxscNgrv7ze9H9gg4hNEqvzT8wcbi3WNbJ2ASPpZmeOE=,iv:cIHLhh2lY9gdI8auhA38sGs8cIplCt6KcETUdBgQXUk=,tag:yetcIcATgcJPx0BxAp0PiA==,type:str]
+    WIREGUARD_PUBLIC_KEY: ENC[AES256_GCM,data:I3RS0LE+zB9GSEmk1Uafdym2DQ7H7uBcPmF4DACIrE461vS4KaguVwFjltM=,iv:9zJRbgi0uwzWDNn6XMRSGQfD7fX3sp1/Bf7uTTHbQV4=,tag:dL6yogYg4LR2xROLST3ERg==,type:str]
+    WIREGUARD_ENDPOINT_IP: ENC[AES256_GCM,data:Hr1H74pu/Kezzozyew==,iv:/dzM7b+ObP3Ffl8QfyToM0mKGmLbgwLNoOzdRwS2va4=,tag:XChW+7fODMF5q9ZiCY3EhQ==,type:str]
     WIREGUARD_ENDPOINT_PORT: ENC[AES256_GCM,data:3unt1Mk=,iv:Lqo/r80VcENv8iWRCg+n6kA5arT5awhbrWb5qLLQ4Z8=,tag:UbmXd/CbBnOIia5pbgksgA==,type:str]
     WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:hwIyIwAxI0SD3sg=,iv:KPkQCTkxI3rfjfAok0ww84Ku9Pa4IVNIOSPaXq+VNyA=,tag:cKnvCXyw5+VqafAPsgVcdg==,type:str]
     GLUETUN_CONTROL_SERVER_API_KEY: ENC[AES256_GCM,data:NwJVmyl8UEMz/76cx0cMcLykB9Ki6w==,iv:3oZvgJyN2R0Xnw/9CrCD8ZAmRQRcw5CNRCQ2PFOICuY=,tag:ZI08VKg5Qdxfw3vKUS+R2g==,type:str]
@@ -23,7 +23,7 @@ sops:
             ZjVVU1JJUkpuRkhoN3N1bU9KNEtMVE0K4tG0BXQNmNR5Ja4wLQQavBIqfOo7673Q
             35DoBloMhz0nCafTzQAFtUDk3cE+YMv687RczFPJMNG5ojStZERpVg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-05-29T21:53:38Z"
-    mac: ENC[AES256_GCM,data:G+q67N/xxaY7PDfkem+C0zype0SBgPyJCxPwcBeS+OrLT713zbcu7449EKvFrE3qK8rIKX3ChR0rMj8hebSQ02ROzIFUp9sMLtxWUALIeaFlQHoGBMhmUn7qmEh2gdfRkIH/i85GyAvjKYgX7o7HVn2V6jDEZaQ5csAKUv0c2Ig=,iv:Sye0i4CnOR3sqa+vdYQTY3N8pmK6uU86mF0ylm6Rk74=,tag:zbtBQQ1dHIk6FGTNOCwFEQ==,type:str]
+    lastmodified: "2025-10-28T21:04:17Z"
+    mac: ENC[AES256_GCM,data:hk13urcV6z6VzEqqsbSoikhsJMnBUK46+rh0dk9dCeWbOYwcL/jBPENmXoi+B+9GCFL3HxI2m4j1W0o7uQZT8gIWbNKnPT6Ai5zlR9ehnI8ibY594XzyoRV7tWT6LSfgMQAhCpPpVfuYaPVm2iH3U4rhamSINEqArJIjlIoZ0bY=,iv:WMLZS01lwhuYOTHsjCfvdFIHFQxGMEi0IwPcg2ohAQI=,tag:1DEojltpjxPl1AYUvGwA2Q==,type:str]
     encrypted_regex: ^(data|stringData)$
-    version: 3.10.2
+    version: 3.11.0
