@@ -8,3 +8,4 @@ resources:
   - ./secret.sops.yaml
   - ./prometheusrule.yaml
   - ./ocirepository.yaml
+  - ./grafanadashboard.yaml

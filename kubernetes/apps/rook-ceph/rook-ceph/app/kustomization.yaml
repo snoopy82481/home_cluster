@@ -6,3 +6,4 @@ namespace: rook-ceph
 resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+  - ./grafanadashboard.yaml
