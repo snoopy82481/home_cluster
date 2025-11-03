@@ -30,7 +30,7 @@ spec:
     access: proxy
     jsonData:
       implementation: prometheus
-    url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+    url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadatasource_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
