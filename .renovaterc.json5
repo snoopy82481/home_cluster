@@ -15,13 +15,14 @@
     'helpers:pinGitHubActionDigests',
     ':timezone(America/Boise)',
     'github>snoopy82481/home_cluster//.renovate/autoMerge.json5',
+    'github>snoopy82481/home_cluster//.renovate/changelogs.json5',
     'github>snoopy82481/home_cluster//.renovate/grafanaDashboards.json5',
     'github>snoopy82481/home_cluster//.renovate/customManagers.json5',
     'github>snoopy82481/home_cluster//.renovate/groups.json5',
     'github>snoopy82481/home_cluster//.renovate/labels.json5',
     'github>snoopy82481/home_cluster//.renovate/semanticCommits.json5',
   ],
-  "ignorePaths": [
+  ignorePaths: [
     "**/*.sops.*",
     "**/archive/**",
   ],
