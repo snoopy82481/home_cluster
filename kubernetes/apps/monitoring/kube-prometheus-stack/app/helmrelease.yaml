@@ -150,7 +150,7 @@ spec:
         image:
           registry: docker.io
           repository: prompp/prompp
-          tag: 0.6.2
+          tag: 0.6.4
           sha: "be217ebe5e16788cef61f1555be079ec3486c37b8b97c1af7e3371125ea805e4"
         securityContext:
           runAsNonRoot: true
