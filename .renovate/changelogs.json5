@@ -11,5 +11,10 @@
       matchPackageNames: ["/spegel/"],
       changelogUrl: "https://github.com/spegel-org/spegel/blob/main/CHANGELOG.md",
     },
+    {
+      description: "Changelog URL for qBittorrent",
+      matchPackageNames: ["/qbittorrent/"],
+      changelogUrl: "https://www.qbittorrent.org/news",
+    },
   ],
 }

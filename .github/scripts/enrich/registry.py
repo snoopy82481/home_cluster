@@ -1,0 +1,16 @@
+from scripts.enrich.providers import (
+    bjw_helm,
+    cloudflared,
+    kubernetes,
+    qbittorrent,
+    spegel,
+)
+from scripts.enrich.types import Provider
+
+PROVIDERS: dict[str, Provider] = {
+    "cloudflare/cloudflared": cloudflared.provider,
+    "spegel-org/spegel": spegel.provider,
+    "qbittorrent/qbittorrent": qbittorrent.provider,
+    "bjw-s-labs/common": bjw_helm.provider,
+    "kubernetes/kubernetes": kubernetes.provider,
+}
