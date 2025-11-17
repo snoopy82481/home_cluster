@@ -4,7 +4,7 @@ import re
 
 import yaml
 from scripts.enrich.logging import log
-from scripts.enrich.types import ChangeEntry, RenovateDep
+from scripts.enrich.special_class import ChangeEntry, RenovateDep
 from scripts.enrich.utils import http_get
 
 

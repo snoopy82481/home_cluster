@@ -7,7 +7,7 @@ import re
 import requests
 from scripts.enrich.logging import log
 from scripts.enrich.registry import PROVIDERS
-from scripts.enrich.types import RenovateDep
+from scripts.enrich.special_class import RenovateDep
 
 
 def fetch_pr_body(pr_number: str) -> str:

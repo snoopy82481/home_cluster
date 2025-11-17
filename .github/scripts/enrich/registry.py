@@ -5,7 +5,7 @@ from scripts.enrich.providers import (
     qbittorrent,
     spegel,
 )
-from scripts.enrich.types import Provider
+from scripts.enrich.special_class import Provider
 
 PROVIDERS: dict[str, Provider] = {
     "cloudflare/cloudflared": cloudflared.provider,
