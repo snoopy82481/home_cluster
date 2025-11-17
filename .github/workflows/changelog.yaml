@@ -80,7 +80,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           LOG_LEVEL: INFO
         run: |
-          NEW_BODY="$(python3 scripts/enrich/main.py)"
+          NEW_BODY="$(python3 .github/scripts/enrich/main.py)"
           # Escape output for GitHub Actions
           NEW_BODY="${NEW_BODY//'%'/'%25'}"
           NEW_BODY="${NEW_BODY//$'\n'/'%0A'}"
