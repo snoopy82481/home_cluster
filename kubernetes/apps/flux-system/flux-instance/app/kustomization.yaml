@@ -8,5 +8,6 @@ resources:
   - ./secret.sops.yaml
   - ./httproute.yaml
   - ./receiver.yaml
+  - ./podmonitor.yaml
   - ./prometheusrule.yaml
   - ./grafanadashboard.yaml

@@ -5,9 +5,6 @@ kind: Kustomization
 namespace: media
 components:
   - ../../components/common
-  - ../../components/namespace
-replacements:
-  - path: ../../components/replacements/ks.yaml
 resources:
   - ./bazarr/ks.yaml
   # - ./bazarr-anime/ks.yaml
@@ -26,3 +23,4 @@ resources:
   - ./sonarruhd/ks.yaml
   - ./tautulli/ks.yaml
   - ./seerr/ks.yaml
+  - ./namespace.yaml

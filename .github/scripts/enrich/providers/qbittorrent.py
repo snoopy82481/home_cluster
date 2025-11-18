@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from bs4 import BeautifulSoup
-from scripts.enrich.logging import log
+from scripts.enrich.logging_config import log
 from scripts.enrich.special_class import RenovateDep
 from scripts.enrich.utils import http_get
 

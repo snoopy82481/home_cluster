@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: cert-manager
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -46,3 +47,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: cert-manager

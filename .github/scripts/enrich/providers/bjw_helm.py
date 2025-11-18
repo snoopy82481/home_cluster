@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 
 import yaml
-from scripts.enrich.logging import log
+from scripts.enrich.logging_config import log
 from scripts.enrich.special_class import ChangeEntry, RenovateDep
 from scripts.enrich.utils import http_get
 

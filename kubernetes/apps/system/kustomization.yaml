@@ -5,9 +5,7 @@ kind: Kustomization
 namespace: system
 components:
   - ../../components/common
-  - ../../components/namespace
-replacements:
-  - path: ../../components/replacements/ks.yaml
 resources:
   - ./atuin/ks.yaml
   - ./generic-device-plugin/ks.yaml
+  - ./namespace.yaml

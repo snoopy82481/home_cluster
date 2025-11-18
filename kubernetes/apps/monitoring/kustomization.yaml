@@ -5,9 +5,6 @@ kind: Kustomization
 namespace: monitoring
 components:
   - ../../components/common
-  - ../../components/namespace
-replacements:
-  - path: ../../components/replacements/ks.yaml
 resources:
   - ./alloy/ks.yaml
   - ./grafana/ks.yaml
@@ -15,3 +12,4 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./kyverno/ks.yaml
   - ./victoria-logs/ks.yaml
+  - ./namespace.yaml

@@ -5,9 +5,7 @@ kind: Kustomization
 namespace: downloads
 components:
   - ../../components/common
-  - ../../components/namespace
-replacements:
-  - path: ../../components/replacements/ks.yaml
 resources:
   - ./qbittorrent/ks.yaml
   - ./tqm/ks.yaml
+  - ./namespace.yaml
