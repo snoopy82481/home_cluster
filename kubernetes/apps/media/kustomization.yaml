@@ -9,11 +9,11 @@ components:
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
-  # - ./bazarr/ks.yaml
+  - ./bazarr/ks.yaml
   # - ./bazarr-anime/ks.yaml
   # - ./bazarr-uhd/ks.yaml
   - ./flaresolverr/ks.yaml
-  - ./huntarr/ks.yaml
+  # - ./huntarr/ks.yaml
   - ./overseerr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
@@ -25,3 +25,4 @@ resources:
   - ./sonarranime/ks.yaml
   - ./sonarruhd/ks.yaml
   - ./tautulli/ks.yaml
+  - ./seerr/ks.yaml

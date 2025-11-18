@@ -17,4 +17,4 @@ log lvl msg *args:
 
 [private]
 template file *args:
-    minijinja-cli "{{ file }}" {{ args }}
+    minijinja-cli --config-file .minijinja.toml "{{ file }}" {{ args }}

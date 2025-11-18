@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: {{ app_name }}
+  name: #{ app_name }#
 spec:
   {% if storage %}
   components:
@@ -13,11 +13,11 @@ spec:
       namespace: rook-ceph
   {% endif %}
   interval: 1h
-  path: {{ ["./kubernetes/apps", namespace, app_name, "app"] | join("/") }}
+  path: #{ ["./kubernetes/apps", namespace, app_name, "app"] | join("/") }#
   postBuild:
     {% if storage %}
     substitute:
-      APP: {{ app_name }}
+      APP: #{ app_name }#
       STORAGE_CAPACITY: 1Gi
     {% endif %}
     substituteFrom:

@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: #{ app_name }#
+  name: seerr
 spec:
   components:
     - ../../../../components/storage
@@ -11,11 +11,11 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: #{ ["./kubernetes/apps", namespace, app_name, "app"] | join("/") }#
+  path: ./kubernetes/apps/media/seerr/app
   postBuild:
     substitute:
-      APP: #{ app_name }#
-      STORAGE_CAPACITY: 1Gi
+      APP: seerr
+      STORAGE_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-settings
         kind: ConfigMap
