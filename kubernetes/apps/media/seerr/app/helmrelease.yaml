@@ -29,7 +29,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
+                    path: /api/v1/status
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -77,6 +77,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/config
 
       media:
         type: nfs
@@ -98,7 +100,7 @@ spec:
         advancedMounts:
           *app :
             *app :
-              - path: /config/logs
+              - path: /app/config/logs
                 subPath: logs
               - path: /tmp
                 subPath: tmp
