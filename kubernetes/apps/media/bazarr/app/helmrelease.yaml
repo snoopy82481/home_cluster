@@ -14,7 +14,6 @@ spec:
       *app :
         annotations:
           reloader.stakater.com/auto: "true"
-          configmap.reloader.stakater.com/reload: cluster-settings
 
         containers:
           *app :
@@ -25,6 +24,7 @@ spec:
               tag: 1.5.3@sha256:2f1c32cb1420b2e56f60cfdf7823737eb501fdb2c13669429d23ab3a02e9ad90
 
             env:
+              BAZARR__PORT: &port 80
               TZ: America/Boise
 
             probes:
@@ -34,7 +34,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: &port 6767
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -78,10 +78,6 @@ spec:
             sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
-        rules:
-          - backendRefs:
-              - identifier: *app
-                port: *port
 
     persistence:
       config:
@@ -109,7 +105,5 @@ spec:
             *app :
               - path: /tmp
                 subPath: tmp
-              - path: /config/cache
-                subPath: cache
               - path: /config/log
                 subPath: log
