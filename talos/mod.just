@@ -15,7 +15,11 @@ default:
 
 [doc('Apply Talos config to a node')]
 apply-node node *args:
-    just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
+    talhelper gencommand apply -n "{{ node }}" {{ args }} | bash
+
+[doc('Bootstrap the Talos cluster')]
+bootstrap:
+    talhelper gencommand bootstrap | bash
 
 [doc('Download Talos machine image')]
 download-image version schematic:

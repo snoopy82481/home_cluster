@@ -12,5 +12,3 @@ spec:
   ref:
     tag: 3.6.0
   url: oci://ghcr.io/kyverno/charts/kyverno
-  verify:
-    provider: cosign

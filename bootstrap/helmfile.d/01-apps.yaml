@@ -1,6 +1,5 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/helmfile
-
 helmDefaults:
   cleanupOnFail: true
   wait: true
@@ -47,8 +46,10 @@ releases:
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: 0.5.1
-    values: ["./templates/values.yaml.gotmpl"]
-    needs: ["kube-system/coredns"]
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/coredns
 
   - name: cert-manager
     namespace: cert-manager
@@ -57,7 +58,7 @@ releases:
     values:
       - ./templates/values.yaml.gotmpl
     needs:
-      - kube-system/coredns
+      - kube-system/spegel
 
   - name: flux-operator
     namespace: flux-system

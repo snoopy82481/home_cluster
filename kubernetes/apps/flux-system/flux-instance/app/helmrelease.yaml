@@ -12,7 +12,7 @@ spec:
   values:
     instance:
       distribution:
-        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.32.0
+        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.33.0
         version: 2.x
       cluster:
         networkPolicy: false
@@ -91,6 +91,8 @@ spec:
                 path: /spec/template/spec/containers/0/args/-
                 value: --feature-gates=CacheSecretsAndConfigMaps=true
             target:
+              kind: Deployment
+              name: source-controller
           - # Flux near OOM detection for Helm
             patch: |
               - op: add

@@ -16,8 +16,10 @@ spec:
       enabled: true
 
     bpf:
+      datapathMode: netkit
       masquerade: true
-      hostLegacyRouting: true
+      preallocateMaps: true
+      tproxy: true
 
     bpfClockProbe: true
 
@@ -43,10 +45,7 @@ spec:
       enabled: true
 
     envoy:
-      rollOutPods: true
-      prometheus:
-        serviceMonitor:
-          enabled: true
+      enabled: false
 
     externalIPs:
       enabled: true
@@ -71,7 +70,7 @@ spec:
     k8sServicePort: 7445
 
     l2announcements:
-      enabled: true
+      enabled: false
 
     LoadBalancer:
       algorithm: meglev
@@ -84,23 +83,11 @@ spec:
       replicas: 2
       dashboards:
         enabled: true
-        annotations:
-          grafana_folder: Cilium
       rollOutPods: true
       prometheus:
         enabled: true
         serviceMonitor:
           enabled: true
-          metricRelabelings:
-            - action: drop
-              regex: workqueue_(work|queue)_duration_seconds_bucket
-              sourceLabels: ["__name__"]
-            - action: drop
-              regex: controller_runtime_reconcile_time_seconds_bucket
-              sourceLabels: ["__name__"]
-            - action: drop
-              regex: cilium_k8s_client_(rate_limiter_duration|api_latency_time)_seconds_bucket
-              sourceLabels: ["__name__"]
 
     prometheus:
       enabled: true
@@ -132,7 +119,3 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-
-        dashboards:
-          annotations:
-            grafana_folder: Cilium

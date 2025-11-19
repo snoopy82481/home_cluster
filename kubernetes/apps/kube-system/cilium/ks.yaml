@@ -5,15 +5,8 @@ kind: Kustomization
 metadata:
   name: cilium
 spec:
-  dependsOn:
-    - name: cert-manager-tls
-      namespace: cert-manager
   interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository

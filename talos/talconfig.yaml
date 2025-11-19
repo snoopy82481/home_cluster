@@ -89,7 +89,7 @@ controlPlane:
   patches:
     - "@./patches/controller/api-access.yaml"
     - "@./patches/controller/cluster.yaml"
-    # - "@./patches/controller/admission-controller-patch.yaml"
+    - "@./patches/controller/admission-controller-patch.yaml"
 
 worker:
   schematic:

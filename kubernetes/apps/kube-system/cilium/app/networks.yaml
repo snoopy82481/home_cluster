@@ -9,20 +9,6 @@ spec:
   blocks:
     - cidr: 192.168.20.0/24
 ---
-# yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
-apiVersion: cilium.io/v2alpha1
-kind: CiliumL2AnnouncementPolicy
-metadata:
-  name: l2-policy
-spec:
-  loadBalancerIPs: true
-  interfaces:
-    - ^eth[0-9]+
-    - ^ens[0-9]+
-  nodeSelector:
-    matchLabels:
-      kubernetes.io/os: linux
----
 # yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/cilium.io/ciliumbgpclusterconfig_v2.json
 apiVersion: cilium.io/v2
 kind: CiliumBGPClusterConfig
@@ -81,3 +67,19 @@ spec:
             operator: NotIn
             values:
               - never-used-value
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-api
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: k8s.idahobealefamily.com
+    lbipam.cilium.io/ips: 192.168.20.59
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    k8s-app: kube-apiserver
+    tier: control-plane
+  ports:
+    - port: 6443
