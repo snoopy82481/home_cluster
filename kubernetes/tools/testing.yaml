@@ -19,7 +19,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: rook-ceph-tools
-          image: quay.io/ceph/ceph:v20.1.1
+          image: quay.io/ceph/ceph:v20.2.0
           command:
             - /bin/bash
             - -c
