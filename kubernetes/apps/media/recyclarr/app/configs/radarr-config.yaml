@@ -6,6 +6,12 @@ radarr:
     base_url: http://radarr.media.svc.cluster.local:7878
     api_key: !env_var RADARR_APIKEY
 
+    media_naming:
+      folder: default
+      movie:
+        rename: true
+        standard: plex-tmdb
+
     include:
       - template: radarr-quality-definition-sqp-streaming
       - template: radarr-quality-profile-sqp-1-1080p

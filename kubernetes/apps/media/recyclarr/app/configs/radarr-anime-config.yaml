@@ -6,6 +6,12 @@ radarr:
     base_url: http://radarranime.media.svc.cluster.local:7878
     api_key: !env_var RADARR_ANIME_APIKEY
 
+    media_naming:
+      folder: default
+      movie:
+        rename: true
+        standard: plex-anime-tmdb
+
     include:
       - template: radarr-quality-definition-movie
       - template: radarr-quality-profile-anime

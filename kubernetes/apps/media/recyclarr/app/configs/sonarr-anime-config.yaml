@@ -6,6 +6,15 @@ sonarr:
     base_url: http://sonarranime.media.svc.cluster.local:8989
     api_key: !env_var SONARR_ANIME_APIKEY
 
+    media_naming:
+      series: default
+      season: default
+      episodes:
+        rename: true
+        standard: default
+        daily: default
+        anime: default
+
     include:
       - template: sonarr-quality-definition-anime
       - template: sonarr-v4-quality-profile-anime
