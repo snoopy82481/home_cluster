@@ -6,11 +6,7 @@ namespace: media
 components:
   - ../../components/common
 resources:
-  - ./bazarr/ks.yaml
-  # - ./bazarr-anime/ks.yaml
-  # - ./bazarr-uhd/ks.yaml
   - ./flaresolverr/ks.yaml
-  # - ./huntarr/ks.yaml
   - ./overseerr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
