@@ -1,11 +1,5 @@
-from scripts.enrich.providers import (
-    bjw_helm,
-    cloudflared,
-    kubernetes,
-    qbittorrent,
-    spegel,
-)
-from scripts.enrich.special_class import Provider
+from .providers import bjw_helm, cloudflared, kubernetes, qbittorrent, spegel
+from .special_class import Provider
 
 PROVIDERS: dict[str, Provider] = {
     "cloudflare/cloudflared": cloudflared.provider,

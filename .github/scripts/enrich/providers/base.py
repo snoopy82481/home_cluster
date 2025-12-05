@@ -1,4 +1,4 @@
-from scripts.enrich.special_class import Provider
+from ..special_class import Provider
 
 # Placeholder for future expansion:
 # - caching mixins

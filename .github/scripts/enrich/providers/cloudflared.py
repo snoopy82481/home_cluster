@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import re
 
-from scripts.enrich.logging_config import log
-from scripts.enrich.special_class import RenovateDep
-from scripts.enrich.utils import extract_version_block, http_get
+from ..logging_config import log
+from ..special_class import RenovateDep
+from ..utils import extract_version_block, http_get
 
 
 def cloudflared_header(line: str) -> str | None:

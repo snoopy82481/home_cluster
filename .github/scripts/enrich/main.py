@@ -5,9 +5,10 @@ import os
 import re
 
 import requests
-from scripts.enrich.logging_config import log
-from scripts.enrich.registry import PROVIDERS
-from scripts.enrich.special_class import RenovateDep
+
+from .logging_config import log
+from .registry import PROVIDERS
+from .special_class import RenovateDep
 
 
 def fetch_pr_body(pr_number: str) -> str:

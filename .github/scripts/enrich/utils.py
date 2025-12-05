@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import requests
-from scripts.enrich.logging_config import log
+
+from .logging_config import log
 
 
 def http_get(url: str) -> str:

@@ -3,9 +3,10 @@ from __future__ import annotations
 import re
 
 import yaml
-from scripts.enrich.logging_config import log
-from scripts.enrich.special_class import ChangeEntry, RenovateDep
-from scripts.enrich.utils import http_get
+
+from ..logging_config import log
+from ..special_class import ChangeEntry, RenovateDep
+from ..utils import http_get
 
 
 def provider(dep: RenovateDep) -> str:
