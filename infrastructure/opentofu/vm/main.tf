@@ -16,24 +16,29 @@ resource "proxmox_vm_qemu" "talos_master" {
   target_node = var.proxmox_host
   vmid        = var.master_vmid + count.index
 
-  agent     = 1
-  os_type   = "linux"
-  qemu_os   = "l26"
-  bios      = "ovmf"
-  balloon   = 0
-  memory    = 16384
-  scsihw    = "virtio-scsi-pci"
-  boot      = "order=sata0;sata2"
-  vm_state  = "running"
-  onboot    = true
-  startup   = "order=15,up=30"
-  skip_ipv6 = true
-  tags      = "k8s,talos"
+  agent              = 1
+  os_type            = "linux"
+  qemu_os            = "l26"
+  bios               = "ovmf"
+  balloon            = 0
+  memory             = 16384
+  scsihw             = "virtio-scsi-pci"
+  boot               = "order=sata0;sata2"
+  vm_state           = "running"
+  start_at_node_boot = true
+  skip_ipv6          = true
+  tags               = "k8s,talos"
+
+  startup_shutdown {
+    order               = 15
+    shutdown_timeout    = 30
+    startup_delay       = 30
+  }
 
   cpu {
-    cores = 3
+    cores   = 3
     sockets = 2
-    type = "IvyBridge"
+    type    = "IvyBridge"
   }
 
   disks {
@@ -88,24 +93,29 @@ resource "proxmox_vm_qemu" "talos_worker" {
   target_node = var.proxmox_host
   vmid        = var.worker_vmid + count.index
 
-  agent     = 1
-  os_type   = "linux"
-  qemu_os   = "l26"
-  bios      = "ovmf"
-  balloon   = 0
-  memory    = 20480
-  scsihw    = "virtio-scsi-pci"
-  boot      = "order=sata0;sata3"
-  vm_state  = "running"
-  onboot    = true
-  startup   = "order=15,up=30"
-  skip_ipv6 = true
-  tags      = "k8s,talos"
+  agent              = 1
+  os_type            = "linux"
+  qemu_os            = "l26"
+  bios               = "ovmf"
+  balloon            = 0
+  memory             = 20480
+  scsihw             = "virtio-scsi-pci"
+  boot               = "order=sata0;sata3"
+  vm_state           = "running"
+  start_at_node_boot = true
+  skip_ipv6          = true
+  tags               = "k8s,talos"
+
+  startup_shutdown {
+    order               = 15
+    shutdown_timeout    = 30
+    startup_delay       = 30
+  }
 
   cpu {
-    cores = 2
+    cores   = 2
     sockets = 2
-    type = "IvyBridge"
+    type    = "IvyBridge"
   }
 
   disks {
