@@ -98,7 +98,8 @@
     "homepage",
     "tqm",
     "envoy-gateway",
-    "victoria-logs"
+    "victoria-logs",
+    "just"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",

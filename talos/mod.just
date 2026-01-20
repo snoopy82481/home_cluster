@@ -5,13 +5,51 @@ scripts_dir := justfile_dir() + '/scripts'
 talos_dir := justfile_dir() + '/talos'
 controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
 nodes := `talosctl config info -o yaml | yq -r '[.nodes[] | tostring] | join(",")'`
-talos_version := `yq .talosversion "talenv.yaml"`
+talos_version := `yq .talosVersion "talenv.yaml"`
 talos_url := `yq .talosImageURL "talenv.yaml"`
 kubernetes_version := `yq .kubernetesVersion "talenv.yaml"`
+proxmox_user := "root"
+proxmox_host := "proxmox"
+proxmox_iso_dir := "/var/lib/vz/template/iso"
+ssh_opts := "-o BatchMode=yes -o ConnectTimeout=5"
 
 [private]
 default:
     just -l talos
+
+[private]
+_download_local_atomic url out_path:
+  @tmp="{{ out_path }}.part"; \
+  fname="$(basename "{{ out_path }}")"; \
+  gum spin --title "Downloading ${fname} ..." -- \
+    curl -sfL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors \
+      -o "${tmp}" "{{ url }}"; \
+  mv -f "${tmp}" "{{ out_path }}"; \
+  sha256sum "{{ out_path }}" | awk '{print $1}'
+
+[private]
+_push_remote_atomic local_path remote_path:
+  @remote_tmp="{{ remote_path }}.part"; \
+  fname="$(basename "{{ local_path }}")"; \
+  gum spin --title "Uploading ${fname} to {{ proxmox_host }} ..." -- \
+    scp {{ ssh_opts }} "{{ local_path }}" {{ proxmox_user }}@{{ proxmox_host }}:"${remote_tmp}"; \
+  gum spin --title "Finalizing ${fname} on {{ proxmox_host }} ..." -- \
+    ssh {{ ssh_opts }} {{ proxmox_user }}@{{ proxmox_host }} "mv -f '${remote_tmp}' '{{ remote_path }}'"; \
+  ssh {{ ssh_opts }} {{ proxmox_user }}@{{ proxmox_host }} "sha256sum '{{ remote_path }}'" | awk '{print $1}'
+
+[private]
+_sync_image_atomic fname url:
+  @fname="{{ fname }}"; \
+  url="{{ url }}"; \
+  local_path="{{ talos_dir }}/${fname}"; \
+  remote_path="{{ proxmox_iso_dir }}/${fname}"; \
+  local_sha="$(just talos _download_local_atomic "${url}" "${local_path}")"; \
+  remote_sha="$(just talos _push_remote_atomic "${local_path}" "${remote_path}")"; \
+  if [[ "${local_sha}" != "${remote_sha}" ]]; then \
+    just log error "Checksum mismatch for ${fname}" local "${local_sha}" remote "${remote_sha}"; \
+    exit 2; \
+  fi; \
+  just log info "Uploaded + verified Talos ISO" file="${fname}" sha256="${remote_sha}" host="{{ proxmox_host }}"
 
 [doc('Apply Talos config to a node')]
 apply-node node *args:
@@ -21,25 +59,38 @@ apply-node node *args:
 bootstrap:
     talhelper gencommand bootstrap | bash
 
-[doc('Download Talos machine image')]
-download-image version schematic:
-    gum spin --title "Downloading Talos {{ version }} ..." -- \
-    curl -sfL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors \
-        -o "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}.iso" \
-        "https://factory.talos.dev/image/{{ schematic }}/{{ version }}/metal-amd64.iso"
-    just log info "Downloaded Talos" version "{{ version }}" schematic "{{ schematic }}"
-    scp "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}.iso" root@proxmox:/var/lib/vz/template/iso/
-    just log info "Uploaded Talos" version "{{ version }}" schematic "{{ schematic }}" "to Proxmox"
+[doc('Download Talos machine image (atomic: download -> checksum -> push -> verify)')]
+download-image version schematic secureboot="true":
+  @suffix=""; \
+  path="metal-amd64.iso"; \
+  case "{{ secureboot }}" in \
+    true|1|yes|y|sb) suffix="-secureboot"; path="metal-amd64-secureboot.iso" ;; \
+    false|0|no|n|nsb) suffix=""; path="metal-amd64.iso" ;; \
+    *) just log error "secureboot must be true/false (or 1/0, yes/no, sb/nsb)" value "{{ secureboot }}"; exit 2 ;; \
+  esac; \
+  short="{{ replace_regex(schematic, '^(.{8}).*', '$1') }}"; \
+  fname="talos-{{ version }}-${short}${suffix}.iso"; \
+  url="https://factory.talos.dev/image/{{ schematic }}/{{ version }}/${path}"; \
+  just talos _sync_image_atomic "${fname}" "${url}" \
+  gum spin --spinner dot --title "Remove local ISO: ${fname}" -- \
+    rm -f "{{ talos_dir }}/${fname}"; \
+  just log info "Removed local Talos iso ${fname}"
 
-[doc('Download Talos SecureBoot machine image')]
-download-image-secureboot version schematic:
-    gum spin --title "Downloading Talos {{ version }} ..." -- \
-    curl -sfL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors \
-        -o "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}-secureboot.iso" \
-        "https://factory.talos.dev/image/{{ schematic }}/{{ version }}/metal-amd64-secureboot.iso"
-    just log info "Downloaded Talos" version "{{ version }}" schematic "{{ schematic }}"
-    scp "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}-secureboot.iso" root@proxmox:/var/lib/vz/template/iso/
-    just log info "Uploaded Talos" version "{{ version }}" schematic "{{ schematic }}" "to Proxmox"
+[doc("Remove old Talos machine images (local + proxmox)")]
+remove-image:
+  @shopt -s nullglob; \
+  files=({{ talos_dir }}/*.iso); \
+  if (( ${#files[@]} == 0 )); then \
+    just log error "No Talos ISO found in {{ talos_dir }}"; \
+    exit 0; \
+  fi; \
+  for iso in "${files[@]}"; do \
+    fname="$(basename "$iso")"; \
+    gum spin --spinner dot --title "Deleting local ISO: ${fname}" -- rm -f "$iso"; \
+    gum spin --spinner dot --title "Deleting remote ISO on {{ proxmox_host }}: ${fname}" -- \
+      ssh {{ ssh_opts }} {{ proxmox_user }}@{{ proxmox_host }} "rm -f '{{ proxmox_iso_dir }}/${fname}'"; \
+    just log info "Removed Talos iso ${fname}"; \
+  done
 
 [doc('Generate schematic ID from Talos schematic')]
 gen-schematic-id:
