@@ -1,3 +1,4 @@
+{% set external = (external | string | lower) in ['true','1','yes','y','on'] %}
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -10,6 +11,7 @@ spec:
     name: *app
   interval: 1h
   values:
+{% if template == "app-template" %}
     controllers:
       *app :
         containers:
@@ -106,3 +108,4 @@ spec:
                 subPath: logs
               - path: /tmp
                 subPath: tmp
+{% endif %}

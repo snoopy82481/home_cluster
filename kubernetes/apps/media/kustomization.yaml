@@ -7,16 +7,15 @@ components:
   - ../../components/common
 resources:
   - ./flaresolverr/ks.yaml
+  - ./namespace.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
-  - ./radarruhd/ks.yaml
   - ./radarranime/ks.yaml
+  - ./radarruhd/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
+  - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./sonarranime/ks.yaml
   - ./sonarruhd/ks.yaml
   - ./tautulli/ks.yaml
-  - ./seerr/ks.yaml
-  - ./namespace.yaml
-
