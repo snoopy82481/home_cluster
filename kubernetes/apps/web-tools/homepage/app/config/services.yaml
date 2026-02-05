@@ -115,7 +115,12 @@
         widget:
           type: truenas
           url: https://truenas.idahobealefamily.com
+          version: 2
           key: ${TRUENAS_AUDIT_API_KEY}
+    - Rook-Ceph:
+        href: https://rook.idahobealefamily.com
+        icon: rook-ceph.png
+        description: Rook-Ceph Storage Dashboard
 - Networking:
     - Omada:
         href: https://${SVC_OMADA_ADDRESS}:8043
