@@ -50,31 +50,6 @@
               type: radarr
               url: http://radarruhd.media.svc.cluster.local.:7878
               key: ${RADARR_UHD_APIKEY}
-    # - Bazarr:
-    #     - Bazarr:
-    #         href: https://bazarr.idahobealefamily.com
-    #         icon: bazarr.png
-    #         description: Subtitle Manager
-    #         widget:
-    #           type: bazarr
-    #           url: http://bazarr.media.svc.cluster.local.:6767
-    #           key: ${BAZARR_APIKEY}
-    #     - Bazarr Anime:
-    #         href: https://bazarr-anime.idahobealefamily.com
-    #         icon: bazarr.png
-    #         description: Anime Subtitle Manager
-    #         widget:
-    #           type: bazarr
-    #           url: http://bazarr-anime.media.svc.cluster.local.:6767
-    #           key: ${BAZARR_ANIME_APIKEY}
-    #     - Bazarr UHD:
-    #         href: https://bazarr-uhd.idahobealefamily.com
-    #         icon: bazarr.png
-    #         description: UHD Subtitle Manager
-    #         widget:
-    #           type: bazarr
-    #           url: http://bazarr-uhd.media.svc.cluster.local.:6767
-    #           key: ${BAZARR_UHD_APIKEY}
     - Prowlarr:
         href: https://prowlarr.idahobealefamily.com
         icon: prowlarr.png
@@ -167,6 +142,15 @@
             - load
             - memory
             - wanStatus
+    - Cloudflared:
+        href: https://dash.cloudflare.com/
+        icon: cloudflare-zero-trust.png
+        description: Cloudflared Tunnel
+        widget:
+          type: cloudflared
+          accountid: ${CLOUDFLARE_ACCOUNT_ID}
+          tunnelid: ${CLOUDFLARE_TUNNEL_ID}
+          key: ${CLOUDFLARE_HOMEPAGE_API_TOKEN}
     - Cisco CBS350:
         href: https://cisco-cbs350.idahobealefamily.com
         icon: si-cisco
