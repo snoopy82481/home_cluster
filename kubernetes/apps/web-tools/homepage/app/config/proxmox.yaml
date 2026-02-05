@@ -1,0 +1,4 @@
+proxmox:
+  url: https://proxmox.idahobealefamily.com:8006
+  username: ${PROXMOX_TOKEN_ID}
+  password: ${PROXMOX_TOKEN_SECRET}
