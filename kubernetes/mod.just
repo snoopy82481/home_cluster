@@ -1,5 +1,6 @@
 set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
+set script-interpreter := ['bash', '-euo', 'pipefail']
 
 kubernetes_dir := justfile_dir() + '/kubernetes'
 templates_dir := justfile_dir() + '/kubernetes/templates'
@@ -87,16 +88,41 @@ view-secret namespace secret:
 rook-password:
     kubectl view-secret -n rook-ceph rook-ceph-dashboard-password -q
 
+# [doc('Create app deployment')]
+# create-app namespace app_name template="other" storage="true" external="false":
+#     mkdir -p "{{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}/app"
+#     # find "{{ templates_dir }}/{{ template }}" -type f -name "*.j2" | while IFS= read -r tpl; do \
+#     fd -e j2 --full-path "{{ templates_dir }}/{{ template }}" | while IFS= read -r tpl; do \
+#         relpath=$(realpath --relative-to="{{ templates_dir }}/{{ template }}" "$tpl"); \
+#         # relpath=$(realpath "$tpl"); \
+#         just log info "Rendering template $tpl to {{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}/${relpath%.j2}"; \
+#         out="{{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}/${relpath%.j2}"; \
+#         just template "$tpl" "-D app_name={{ app_name }} -D namespace={{ namespace }} -D storage={{ storage }} -D external={{ external }}" > "$out"; \
+#     done
+#     echo "  - ./{{ app_name }}/ks.yaml" >> "{{ kubernetes_dir }}/apps/{{ namespace }}/kustomization.yaml"
+#     just log info "Created app deployment at {{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}"
+
 [doc('Create app deployment')]
-create-app namespace name template="other" storage="true" external="false":
-    mkdir -p "{{ kubernetes_dir }}/apps/{{ namespace }}/{{ name }}/app"
-    find "{{ templates_dir }}/{{ template }}" -type f -name "*.j2" | while IFS= read -r tpl; do \
-        relpath=$(realpath --relative-to="{{ templates_dir }}/{{ template }}" "$tpl"); \
-        out="{{ kubernetes_dir }}/apps/{{ namespace }}/{{ name }}/${relpath%.j2}"; \
-        just template "$tpl" "-D app_name={{ name }} -D namespace={{ namespace }} -D storage={{ storage }} -D external={{ external }}" > "$out"; \
-    done
-    echo "  - ./{{ name }}/ks.yaml" >> "{{ kubernetes_dir }}/apps/{{ namespace }}/kustomization.yaml"
-    just log info "Created app deployment at {{ kubernetes_dir }}/apps/{{ namespace }}/{{ name }}"
+[script]
+create-app namespace app_name template="other" storage="true" external="false":
+    mkdir -p "{{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}/app"
+
+    while IFS= read -r tpl; do
+        relpath="$(realpath --relative-to="{{ templates_dir }}/{{ template }}" "$tpl")"
+        out="{{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}/${relpath%.j2}"
+
+        just log info "Rendering template $tpl to $out"
+
+        # ensure parent dir exists for nested templates
+        mkdir -p "$(dirname "$out")"
+
+        just template "$tpl" \
+          "-D app_name={{ app_name }} -D namespace={{ namespace }} -D storage={{ storage }} -D external={{ external }}" \
+          > "$out"
+    done < <(fd -e j2 --full-path "{{ templates_dir }}/{{ template }}")
+
+    echo "  - ./{{ app_name }}/ks.yaml" >> "{{ kubernetes_dir }}/apps/{{ namespace }}/kustomization.yaml"
+    just log info "Created app deployment at {{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}"
 
 [private]
 render-local-ks ns ks:

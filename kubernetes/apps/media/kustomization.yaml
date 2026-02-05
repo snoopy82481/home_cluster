@@ -19,3 +19,4 @@ resources:
   - ./tautulli/ks.yaml
   - ./seerr/ks.yaml
   - ./namespace.yaml
+

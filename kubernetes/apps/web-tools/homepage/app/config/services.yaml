@@ -83,14 +83,14 @@
           type: prowlarr
           url: http://prowlarr.media.svc.cluster.local.:9696
           key: ${PROWLARR_APIKEY}
-    - Overseerr:
-        href: https://overseerr.idahobealefamily.com
-        icon: overseerr.png
+    - Seerr:
+        href: https://seerr.idahobealefamily.com
+        icon: jellyseerr.png
         description: Request Manager
         widget:
-          type: overseerr
-          url: http://overseerr.media.svc.cluster.local.:5055
-          key: ${OVERSEERR_API_KEY}
+          type: jellyseerr
+          url: http://seerr.media.svc.cluster.local.:5055
+          key: ${SEERR_API_KEY}
     - Tautulli:
         href: https://tautulli.idahobealefamily.com
         icon: tautulli.png

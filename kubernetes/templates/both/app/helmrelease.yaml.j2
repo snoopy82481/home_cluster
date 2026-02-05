@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app #{ app_name }#
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  interval: 1h
+  values:
+{% if template == "app-template" %}
+    controllers:
+      *app :
+        containers:
+          *app :
+            image:
+              repository: #! Change this to the app's image repository
+              tag: #! Change this to the app's image tag
+
+            env:
+              TZ: America/Boise
+              PORT: &port 0000 #! Change this to the app's port
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - "ALL"
+
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 1Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      *app :
+        controller: *app
+        ports:
+          http:
+            port: *port
+
+    route:
+      *app :
+        enabled: true
+        parentRefs:
+        {% if external %}
+          - name: envoy-external
+            namespace: networking
+        {% else %}
+          - name: envoy-internal
+            namespace: networking
+        {% endif %}
+        hostnames:
+          - "{{ .Release.Name }}.idahobealefamily.com"
+
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+
+      media:
+        type: nfs
+        server: truenas.idahobealefamily.com
+        path: /mnt/storage1/data
+        globalMounts:
+          - path: /media
+
+      backup:
+        type: nfs
+        server: truenas.idahobealefamily.com
+        path: /mnt/storage0/backup
+        globalMounts:
+          - path: /backup
+            subPath: "{{ .Release.Name }}"
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            *app :
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
+{% endif %}
