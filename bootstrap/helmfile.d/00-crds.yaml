@@ -21,7 +21,7 @@ releases:
   - name: envoy-gateway
     namespace: networking
     chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
-    version: v1.6.3
+    version: v1.7.0
 
   - name: grafana-operator
     namespace: monitoring
