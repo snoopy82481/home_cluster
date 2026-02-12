@@ -97,7 +97,7 @@
         description: Monitoring Dashboard
         widget:
           type: grafana
-          url: http://grafana.monitoring.svc.cluster.local.:3000
+          url: http://grafana-service.monitoring.svc.cluster.local.:3000
           username: ${GRAFANA_ADMIN_USER}
           password: ${GRAFANA_ADMIN_PASSWORD}
     - Prometheus:
