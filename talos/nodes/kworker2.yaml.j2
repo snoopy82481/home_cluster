@@ -1,0 +1,89 @@
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: kworker2
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: kworker2-to-kmaster1
+selector:
+  match: link.driver == "virtio_net"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: kworker2-to-kmaster1
+addresses:
+  - address: 192.168.20.9/32
+mtu: 65520
+routes:
+  - destination: 192.168.20.5/32
+    metric: 2048
+up: true
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: kworker2-to-kmaster2
+selector:
+  match: link.driver == "virtio_net"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: kworker2-to-kmaster2
+addresses:
+  - address: 192.168.20.9/32
+mtu: 65520
+routes:
+  - destination: 192.168.20.6/32
+    metric: 2048
+up: true
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: kworker2-to-kmaster3
+selector:
+  match: link.driver == "virtio_net"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: kworker2-to-kmaster3
+addresses:
+  - address: 192.168.20.9/32
+mtu: 65520
+routes:
+  - destination: 192.168.20.7/32
+    metric: 2048
+up: true
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: kworker2-to-kworker1
+selector:
+  match: link.driver == "virtio_net"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: kworker2-to-kworker1
+addresses:
+  - address: 192.168.20.9/32
+mtu: 65520
+routes:
+  - destination: 192.168.20.8/32
+    metric: 2048
+up: true
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: kworker2-to-kworker3
+selector:
+  match: link.driver == "virtio_net"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: kworker2-to-kworker3
+addresses:
+  - address: 192.168.20.9/32
+mtu: 65520
+routes:
+  - destination: 192.168.20.10/32
+    metric: 2048
+up: true
