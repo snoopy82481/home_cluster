@@ -16,7 +16,7 @@ spec:
           *app :
             image:
               repository: ghcr.io/seerr-team/seerr
-              tag: develop@sha256:96f639220a3b2a58570ebe4917c76c8573ff7d4a4f09d88f1176f8eb90e8947f
+              tag: v3.0.1@sha256:1b5fc1ea825631d9d165364472663b817a4c58ef6aa1013f58d82c1570d7c866
 
             env:
               TZ: America/Boise
@@ -87,21 +87,6 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/config
-
-      media:
-        type: nfs
-        server: truenas.idahobealefamily.com
-        path: /mnt/storage1/data
-        globalMounts:
-          - path: /media
-
-      backup:
-        type: nfs
-        server: truenas.idahobealefamily.com
-        path: /mnt/storage0/backup
-        globalMounts:
-          - path: /backup
-            subPath: "{{ .Release.Name }}"
 
       tmpfs:
         type: emptyDir
