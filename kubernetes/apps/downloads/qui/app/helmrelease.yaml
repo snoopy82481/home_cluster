@@ -21,6 +21,8 @@ spec:
             env:
               QUI__HOST: 0.0.0.0
               QUI__PORT: &port 80
+              QUI__LOG_LEVEL: info
+              QUI__SESSION_SECRET: ${QUI_SESSION_SECRET}
               TZ: America/Boise
 
             probes:
@@ -77,6 +79,12 @@ spec:
     route:
       *app :
         enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: qui
+          gethomepage.dev/group: Storage
+          gethomepage.dev/description: A fast, modern web interface for qBittorrent. Supports managing multiple qBittorrent instances from a single, lightweight application.
+          gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/qui-light.svg
         parentRefs:
           - name: envoy-internal
             namespace: networking
