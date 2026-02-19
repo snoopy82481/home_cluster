@@ -17,6 +17,22 @@ spec:
       enabled: true
       createPrometheusRules: true
 
+    route:
+      dashboard:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Rook Ceph Dashboard
+          gethomepage.dev/group: Storage
+          gethomepage.dev/description: "Rook Ceph Storage Dashboard"
+          gethomepage.dev/icon: rook.png
+        host:
+          name: rook.idahobealefamily.com
+          path: /
+          pathType: PathPrefix
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+
     cephClusterSpec:
       cephConfig:
         global:
@@ -35,21 +51,7 @@ spec:
         readAffinity:
           enabled: true
 
-      route:
-        dashboard:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/name: Rook Ceph Dashboard
-            gethomepage.dev/group: Storage
-            gethomepage.dev/description: "Rook Ceph Storage Dashboard"
-            gethomepage.dev/icon: rook.png
-          host:
-            name: rook.idahobealefamily.com
-            path: /
-            pathType: PathPrefix
-          parentRefs:
-            - name: envoy-internal
-              namespace: networking
+
 
       dashboard:
         enabled: true
