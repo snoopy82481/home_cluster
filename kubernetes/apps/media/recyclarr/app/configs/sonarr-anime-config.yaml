@@ -15,13 +15,15 @@ sonarr:
         daily: default
         anime: default
 
+    media_management:
+      propers_and_repacks: do_not_prefer
+
     include:
       - template: sonarr-quality-definition-anime
       - template: sonarr-v4-quality-profile-anime
       - template: sonarr-v4-custom-formats-anime
 
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
 
     custom_formats:
       - trash_ids:

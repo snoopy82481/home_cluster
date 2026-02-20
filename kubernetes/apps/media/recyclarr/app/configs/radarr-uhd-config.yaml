@@ -12,6 +12,9 @@ radarr:
         rename: true
         standard: plex-tmdb
 
+    media_management:
+      propers_and_repacks: do_not_prefer
+
     include:
       - template: radarr-quality-definition-sqp-uhd
       - template: radarr-quality-profile-sqp-2
@@ -40,7 +43,6 @@ radarr:
           - name: Remux-1080p
 
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
 
     custom_formats:
       # anime

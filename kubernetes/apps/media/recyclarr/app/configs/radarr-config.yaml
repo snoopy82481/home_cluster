@@ -12,13 +12,15 @@ radarr:
         rename: true
         standard: plex-tmdb
 
+    media_management:
+      propers_and_repacks: do_not_prefer
+
     include:
       - template: radarr-quality-definition-sqp-streaming
       - template: radarr-quality-profile-sqp-1-1080p
       - template: radarr-custom-formats-sqp-1-1080p
 
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
 
     custom_formats:
       - trash_ids:

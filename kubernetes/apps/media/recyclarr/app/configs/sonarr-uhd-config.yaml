@@ -15,13 +15,15 @@ sonarr:
         daily: default
         anime: default
 
+    media_management:
+      propers_and_repacks: do_not_prefer
+
     include:
       - template: sonarr-quality-definition-series
       - template: sonarr-v4-quality-profile-web-2160p
       - template: sonarr-v4-custom-formats-web-2160p
 
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
 
     custom_formats:
       # Scores from TRaSH json
