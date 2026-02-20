@@ -12,13 +12,15 @@ radarr:
         rename: true
         standard: plex-anime-tmdb
 
+    media_management:
+      propers_and_repacks: do_not_prefer
+
     include:
       - template: radarr-quality-definition-movie
       - template: radarr-quality-profile-anime
       - template: radarr-custom-formats-anime
 
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
 
     custom_formats:
       - trash_ids:
