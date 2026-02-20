@@ -18,10 +18,14 @@ sonarr:
     media_management:
       propers_and_repacks: do_not_prefer
 
-    include:
-      - template: sonarr-quality-definition-anime
-      - template: sonarr-v4-quality-profile-anime
-      - template: sonarr-v4-custom-formats-anime
+    quality_definition:
+      type: anime
+
+    quality_profiles:
+      - trash_id: 72dae194fc92bf828f32cde7744e51a1  # WEB-1080p
+      - trash_id: 20e0fc959f1f1704bed501f23bdae76f  # [Anime] Remux-1080p
+        reset_unmatched_scores:
+          enabled: true
 
     delete_old_custom_formats: true
 
@@ -29,17 +33,17 @@ sonarr:
       - trash_ids:
           - 026d5aadd1a6b4e550b134cb6c72b3ca # Uncensored
         assign_scores_to:
-          - name: Remux-1080p - Anime
+          - name: "[Anime] Remux-1080p"
             score: 101 # Adjust scoring as desired
 
       - trash_ids:
           - b2550eb333d27b75833e25b8c2557b38 # 10bit
         assign_scores_to:
-          - name: Remux-1080p - Anime
+          - name: "[Anime] Remux-1080p"
             score: 0 # Adjust scoring as desired
 
       - trash_ids:
           - 418f50b10f1907201b6cfdf881f467b7 # Anime Dual Audio
         assign_scores_to:
-          - name: Remux-1080p - Anime
+          - name: "[Anime] Remux-1080p"
             score: 10 # Adjust scoring as desired

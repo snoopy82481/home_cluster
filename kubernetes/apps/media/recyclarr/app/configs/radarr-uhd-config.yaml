@@ -15,12 +15,8 @@ radarr:
     media_management:
       propers_and_repacks: do_not_prefer
 
-    include:
-      - template: radarr-quality-definition-sqp-uhd
-      - template: radarr-quality-profile-sqp-2
-      - template: radarr-custom-formats-sqp-2
-
     quality_profiles:
+      - trash_id: c3933358ba2356bafc41524f81471069
       - name: Remux|Bluray|IMAX-E|2160p - Anime
         reset_unmatched_scores:
           enabled: true

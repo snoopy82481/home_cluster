@@ -18,9 +18,11 @@ sonarr:
     media_management:
       propers_and_repacks: do_not_prefer
 
-    include:
-      - template: sonarr-quality-definition-series
-      - template: sonarr-v4-quality-profile-web-1080p
-      - template: sonarr-v4-custom-formats-web-1080p
-
     delete_old_custom_formats: true
+
+    quality_profiles:
+      - trash_id: 72dae194fc92bf828f32cde7744e51a1  # WEB-1080p
+
+    custom_format_groups:
+      add:
+        - trash_id: abe720fab2d27682adc2a735136cec02 # [Streaming Services] General

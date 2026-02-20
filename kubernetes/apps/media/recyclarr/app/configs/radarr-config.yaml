@@ -15,15 +15,6 @@ radarr:
     media_management:
       propers_and_repacks: do_not_prefer
 
-    include:
-      - template: radarr-quality-definition-sqp-streaming
-      - template: radarr-quality-profile-sqp-1-1080p
-      - template: radarr-custom-formats-sqp-1-1080p
-
-    delete_old_custom_formats: true
-
-    custom_formats:
-      - trash_ids:
-          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
-        assign_scores_to:
-          - name: SQP-1 (1080p)
+    quality_profiles:
+      - trash_id: 0896c29d74de619df168d23b98104b22
+      - trash_id: abe720fab2d27682adc2a735136cec02 # [Streaming Services] General
