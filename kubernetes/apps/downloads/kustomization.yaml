@@ -9,4 +9,3 @@ resources:
   - ./namespace.yaml
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
-  # - ./tqm/ks.yaml
