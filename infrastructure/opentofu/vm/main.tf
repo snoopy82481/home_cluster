@@ -30,9 +30,9 @@ resource "proxmox_vm_qemu" "talos_master" {
   tags               = "k8s,talos"
 
   startup_shutdown {
-    order               = 15
-    shutdown_timeout    = 30
-    startup_delay       = 30
+    order            = 15
+    shutdown_timeout = 30
+    startup_delay    = 30
   }
 
   cpu {
@@ -107,9 +107,9 @@ resource "proxmox_vm_qemu" "talos_worker" {
   tags               = "k8s,talos"
 
   startup_shutdown {
-    order               = 15
-    shutdown_timeout    = 30
-    startup_delay       = 30
+    order            = 15
+    shutdown_timeout = 30
+    startup_delay    = 30
   }
 
   cpu {
