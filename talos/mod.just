@@ -93,7 +93,19 @@ remove-image:
   shopt -s nullglob
   files=({{ talos_dir }}/*.iso)
   if (( ${#files[@]} == 0 )); then
-    just log error "No Talos ISO found in {{ talos_dir }}"
+    mapfile -t files < <(
+      ssh {{ ssh_opts }} {{ proxmox_user }}@{{ proxmox_host }} \
+        "find '{{ proxmox_iso_dir }}' -maxdepth 1 -type f -name 'talos-*.iso' -printf '%f\n'"
+    )
+    if (( ${#files[@]} == 0 )); then
+      just log error "No Talos ISO found locally or on {{ proxmox_host }}"
+      exit 0
+    fi
+    for fname in "${files[@]}"; do
+      gum spin --spinner dot --title "Deleting remote ISO on {{ proxmox_host }}: ${fname}" -- \
+        ssh {{ ssh_opts }} {{ proxmox_user }}@{{ proxmox_host }} "rm -f '{{ proxmox_iso_dir }}/${fname}'"
+      just log info "Removed Talos iso ${fname}"
+    done
     exit 0
   fi
   for iso in "${files[@]}"; do
@@ -108,6 +120,9 @@ remove-image:
 update-image version schematic secureboot="true":
     just talos remove-image
     just talos download-image "{{ version }}" "{{ schematic }}" "{{ secureboot }}"
+    just infra proxmox-init
+    just infra proxmox-plan
+    just infra proxmox-apply
 
 [doc('Generate schematic ID from Talos schematic')]
 gen-schematic-id:

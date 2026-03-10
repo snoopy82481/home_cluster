@@ -27,15 +27,15 @@ proxmox-validate *args:
 
 [doc('Show the changes OpenTofu will make')]
 proxmox-plan env="talos" *args:
-  just infra _proxmox_tofu plan -out={{ env }}.tfplan {{ args }}
+  just infra _proxmox_tofu plan -out={{ env }}_plan.tfplan {{ args }}
 
 [doc('Apply the proxmox OpenTofu changes')]
-promox-apply *args:
+proxmox-apply *args:
   just infra _proxmox_tofu apply -auto-approve {{ args }}
 
 [doc('Apply a saved proxmox OpenTofu plan file')]
 proxmox-apply-plan env="talos":
-  cd {{ opentofu_vm_dir }} && tofu apply -auto-approve {{ env }}.tfplan
+  cd {{ opentofu_vm_dir }} && tofu apply -auto-approve {{ env }}_plan.tfplan
 
 [doc('Destroy proxmox resources')]
 promox-destroy *args:
