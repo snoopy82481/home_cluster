@@ -21,7 +21,6 @@ default:
 [script]
 [private]
 _download_local_atomic url out_path:
-  #!/bin/bash
   tmp="{{ out_path }}.part"
   fname="$(basename "{{ out_path }}")"
   gum spin --title "Downloading ${fname} ..." -- \
@@ -33,7 +32,6 @@ _download_local_atomic url out_path:
 [script]
 [private]
 _push_remote_atomic local_path remote_path:
-  #!/bin/bash
   fname="$(basename "{{ local_path }}")"
   gum spin --title "Uploading ${fname} to {{ proxmox_host }} ..." -- \
     scp {{ ssh_opts }} "{{ local_path }}" {{ proxmox_user }}@{{ proxmox_host }}:"{{ remote_path }}"
@@ -42,7 +40,6 @@ _push_remote_atomic local_path remote_path:
 [script]
 [private]
 _sync_image_atomic fname url:
-  #!/bin/bash
   fname="{{ fname }}"
   url="{{ url }}"
   local_path="{{ talos_dir }}/{{ fname }}"
@@ -66,7 +63,6 @@ bootstrap:
 [script]
 [doc('Download Talos machine image (atomic: download -> checksum -> push -> verify)')]
 download-image version schematic secureboot="true":
-  #!/bin/bash
   suffix=""
   path="metal-amd64.iso"
   case "{{ secureboot }}" in
@@ -94,7 +90,6 @@ download-image version schematic secureboot="true":
 [script]
 [doc("Remove old Talos machine images (local + proxmox)")]
 remove-image:
-  #!/bin/bash
   shopt -s nullglob
   files=({{ talos_dir }}/*.iso)
   if (( ${#files[@]} == 0 )); then
