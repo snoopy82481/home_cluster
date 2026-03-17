@@ -60,10 +60,10 @@
           key: ${PROWLARR_APIKEY}
     - Seerr:
         href: https://seerr.idahobealefamily.com
-        icon: jellyseerr.png
+        icon: seerr.png
         description: Request Manager
         widget:
-          type: jellyseerr
+          type: seerr
           url: http://seerr.media.svc.cluster.local.:5055
           key: ${SEERR_API_KEY}
     - Tautulli:
