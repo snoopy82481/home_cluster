@@ -47,10 +47,10 @@ _sync_image_atomic fname url:
   local_sha="$(just talos _download_local_atomic "${url}" "${local_path}")"
   remote_sha="$(just talos _push_remote_atomic "${local_path}" "${remote_path}")"
   if [[ "${local_sha}" != "${remote_sha}" ]]; then
-    just log error "Checksum mismatch for {{ fname }}" local "${local_sha}" remote "${remote_sha}"
+    just log error "Checksum mismatch for {{ fname }}" "local" "${local_sha}" "remote" "${remote_sha}"
     exit 2
   fi
-  just log info "Uploaded + verified Talos ISO" file="{{ fname }}" sha256="${remote_sha}" host="{{ proxmox_host }}"
+  just log info "Uploaded + verified Talos ISO" "file" "{{ fname }}" "checksum" "${remote_sha}" "host" "{{ proxmox_host }}"
 
 [doc('Apply Talos config to a node')]
 apply-node node *args:
@@ -75,7 +75,7 @@ download-image version schematic secureboot="true":
       path="metal-amd64.iso"
       ;;
     *)
-      just log error "secureboot must be true/false (or 1/0, yes/no, sb/nsb)" value "{{ secureboot }}"
+      just log error "secureboot must be true/false (or 1/0, yes/no, sb/nsb)" "value" "{{ secureboot }}"
       exit 2
       ;;
   esac
