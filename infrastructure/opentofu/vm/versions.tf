@@ -6,7 +6,7 @@ terraform {
     }
     sops = {
       source  = "carlpett/sops"
-      version = "1.4.0"
+      version = "1.4.1"
     }
   }
   required_version = ">=1.3.0"
