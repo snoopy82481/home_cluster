@@ -5,9 +5,7 @@ kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: allow-ingress-world
 spec:
-  endpointSelector:
-    matchLabels:
-      ingress.home.arpa/world: allow
+  endpointSelector: {}
   ingress:
     - fromEntities:
         - world

@@ -5,9 +5,7 @@ kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: allow-ingress-lan
 spec:
-  endpointSelector:
-    matchLabels:
-      ingress.home.arpa/lan: "allow"
+  endpointSelector: {}
   ingress:
     - fromCIDRSet:
         - cidr: "192.168.0.0/24"
