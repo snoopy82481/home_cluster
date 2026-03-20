@@ -5,11 +5,15 @@ kind: Certificate
 metadata:
   name: idahobealefamily-com-production
 spec:
-  secretName: idahobealefamily-com-production-tls
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  commonName: idahobealefamily.com
   dnsNames:
     - idahobealefamily.com
     - "*.idahobealefamily.com"
+  duration: 160h
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  privateKey:
+    algorithm: ECDSA
+  secretName: idahobealefamily-com-production-tls
+  usages:
+    - digital signature
