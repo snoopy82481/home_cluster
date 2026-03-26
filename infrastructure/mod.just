@@ -38,7 +38,7 @@ proxmox-apply-plan env="talos":
   cd {{ opentofu_vm_dir }} && tofu apply -auto-approve {{ env }}_plan.tfplan
 
 [doc('Destroy proxmox resources')]
-promox-destroy *args:
+proxmox-destroy *args:
   just infra _proxmox_tofu destroy -auto-approve {{ args }}
 
 [doc('Show current proxmox Opentofu outputs')]
