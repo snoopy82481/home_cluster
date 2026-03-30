@@ -100,7 +100,8 @@
     "envoy-gateway",
     "victoria-logs",
     "just",
-    "qui"
+    "qui",
+    "atuin"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",
