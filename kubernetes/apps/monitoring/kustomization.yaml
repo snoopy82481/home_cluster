@@ -10,6 +10,6 @@ resources:
   - ./grafana/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
-  - ./kyverno/ks.yaml
+  # - ./kyverno/ks.yaml
   - ./victoria-logs/ks.yaml
   - ./namespace.yaml
