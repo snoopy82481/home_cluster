@@ -4,23 +4,30 @@ logging {
   write_to = [loki.write.victorialogs.receiver]
 }
 
-prometheus.exporter.self "default" {
-}
+prometheus.exporter.self "default" {}
 
 prometheus.scrape "metamonitoring" {
   targets    = prometheus.exporter.self.default.targets
-  forward_to = [prometheus.remote_write.default.receiver]
+  forward_to = [prometheus.remote_write.metrics.receiver]
 }
 
-prometheus.remote_write "default" {
-  endpoint {
-    url = "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/push"
+otelcol.receiver.otlp "proxmox" {
+  http {
+    endpoint = "0.0.0.0:4318"
+  }
+
+  output {
+    metrics = [otelcol.exporter.prometheus.proxmox.input]
   }
 }
 
-loki.write "default" {
+otelcol.exporter.prometheus "proxmox" {
+  forward_to = [prometheus.remote_write.metrics.receiver]
+}
+
+prometheus.remote_write "metrics" {
   endpoint {
-    url = "http://loki-headless.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+    url = "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/write"
   }
 }
 
@@ -32,22 +39,26 @@ loki.write "victorialogs" {
 
 loki.source.syslog "local" {
   listener {
-    address = "0.0.0.0:5044"
+    address  = "0.0.0.0:5044"
     protocol = "tcp"
-    labels = { component = "loki.source.syslog", protocol = "tcp" }
+    labels   = { component = "syslog", protocol = "tcp", cluster = "betty" }
   }
 
   listener {
-    address = "0.0.0.0:12345"
+    address  = "0.0.0.0:12345"
     protocol = "udp"
-    labels = { component = "loki.source.syslog", protocol = "udp" }
+    labels   = { component = "syslog", protocol = "udp", cluster = "betty" }
   }
 
   forward_to = [loki.write.victorialogs.receiver]
 }
 
-discovery.kubernetes "pods" {
+discovery.kubernetes "pod" {
   role = "pod"
+  selectors {
+    role = "pod"
+    field = "spec.nodeName=" + coalesce(sys.env("HOSTNAME"), constants.hostname)
+  }
 }
 
 discovery.kubernetes "nodes" {
@@ -67,7 +78,7 @@ discovery.kubernetes "endpointslices" {
 }
 
 discovery.relabel "pod_logs" {
-  targets = discovery.kubernetes.pods.targets
+  targets = discovery.kubernetes.pod.targets
 
   rule {
     source_labels = ["__meta_kubernetes_namespace"]
@@ -125,10 +136,8 @@ loki.source.kubernetes "pod_logs" {
 
 loki.source.kubernetes_events "cluster_events" {
   job_name   = "integrations/kubernetes/eventhandler"
-  log_format = "json"
-  forward_to = [
-    loki.process.cluster_events.receiver,
-  ]
+  log_format = "logfmt"
+  forward_to = [loki.process.cluster_events.receiver]
 }
 
 loki.process "pod_logs" {
