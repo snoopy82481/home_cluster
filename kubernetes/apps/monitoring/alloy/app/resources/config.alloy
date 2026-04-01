@@ -27,7 +27,7 @@ otelcol.exporter.prometheus "proxmox" {
 
 prometheus.remote_write "metrics" {
   endpoint {
-    url = "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/write"
+    url = "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/push"
   }
 }
 
@@ -67,10 +67,6 @@ discovery.kubernetes "nodes" {
 
 discovery.kubernetes "services" {
   role = "service"
-}
-
-discovery.kubernetes "endpoints" {
-  role = "endpoints"
 }
 
 discovery.kubernetes "endpointslices" {
