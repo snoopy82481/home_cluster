@@ -18,6 +18,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "CoreDNS Group",
@@ -30,21 +31,49 @@
     },
     {
       description: "Flux Operator Group",
-      groupName: "Flux Operator",
+      groupName: "flux-operator",
       matchDatasources: ["docker"],
-      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
+      matchPackageNames: ["/flux-operator/", "/flux-instance/", "/flux-operator-manifests/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 3,
+    },
+    {
+      description: "Kubernetes Group",
+      groupName: "kubernetes",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/kube-apiserver/",
+        "/kube-controller-manager/",
+        "/kube-proxy/",
+        "/kube-scheduler/",
+        "/kubelet/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 5,
     },
     {
       description: "Rook-Ceph Group",
-      groupName: "Rook-Ceph",
+      groupName: "rook-ceph",
       matchDatasources: ["docker"],
       matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Talos Group",
+      groupName: "talos",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/installer/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
     },
     {
       description: "Spegel Group",
@@ -54,6 +83,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
   ],
 }

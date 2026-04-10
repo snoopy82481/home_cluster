@@ -21,6 +21,7 @@
     'github>snoopy82481/home_cluster//.renovate/groups.json5',
     'github>snoopy82481/home_cluster//.renovate/labels.json5',
     'github>snoopy82481/home_cluster//.renovate/semanticCommits.json5',
+    'github>snoopy82481/home_cluster//.renovate/overrides.json5',
   ],
   ignorePaths: [
     "**/*.sops.*",
