@@ -170,7 +170,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
   - [x] [Prometheus](https://grafana.com/oss/prometheus/)
 - [x] Harden Kubernetes
   - [x] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
-- [xß] Documentation
+- [x] Documentation
   - [x] Create README.md
   - [x] Document workflow (Github Pages/Cloudflare pages/DeepWiki)
 
