@@ -7,11 +7,6 @@
       changelogUrl: "https://github.com/cloudflare/cloudflared/blob/master/RELEASE_NOTES",
     },
     {
-      description: "Changelog URL for Spegel",
-      matchPackageNames: ["/spegel/"],
-      changelogUrl: "https://github.com/spegel-org/spegel/blob/main/CHANGELOG.md",
-    },
-    {
       description: "Changelog URL for qBittorrent",
       matchPackageNames: ["/qbittorrent/"],
       changelogUrl: "https://www.qbittorrent.org/news",
