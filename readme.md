@@ -22,7 +22,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 [![Talos][talos_shield]][talos_url]&nbsp;&nbsp;
 [![kubernetes][kubernetes_shield]][kubernetes_url]&nbsp;&nbsp;
 [![Flux][flux_shield]][flux_url]&nbsp;&nbsp;
-[![GitHub last commit][last-commit-shield]]&nbsp;&nbsp;
+[![GitHub last commit][last_commit_shield]]&nbsp;&nbsp;
 [![Renovate][workflow_shield]][workflow_url]
 
 </div>
@@ -246,7 +246,7 @@ There is a lot of code jacking from:
 [renovatebot_shield]: https://img.shields.io/badge/Renovatebot-4A4A55?style=for-the-badge&logo=renovatebot&logoColor=white
 [flux_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fflux_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
 [talos_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
-[last-commit-shield]: https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge
+[last_commit_shield]: https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge
 [kromgo_age_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_age_days&style=flat-square&label=Age
 [kromgo_uptime_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_uptime_days&style=flat-square&label=Uptime
 [kromgo_node_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_node_count&style=flat-square&label=Nodes
