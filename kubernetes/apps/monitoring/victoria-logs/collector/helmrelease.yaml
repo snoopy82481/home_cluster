@@ -3,20 +3,18 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app victoria-metrics
+  name: &app victoria-logs-collector
 spec:
+  interval: 30m
   chartRef:
     kind: OCIRepository
     name: *app
-  interval: 1h
   values:
     fullnameOverride: *app
     global:
       image:
         registry: quay.io
-    crds:
+    podMonitor:
       enabled: true
-    operator:
-      enable_converter_ownership: true
-    serviceMonitor:
-      enabled: true
+    remoteWrite:
+      - url: http://victoria-logs.monitoring.svc.cluster.local:9428

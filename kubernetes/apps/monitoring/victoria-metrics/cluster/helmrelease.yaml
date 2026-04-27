@@ -3,18 +3,18 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: victoria-metrics-cluster
+  name: &app victoria-metrics-cluster
 spec:
   chartRef:
     kind: OCIRepository
-    name: victoria-metrics-cluster
+    name: *app
   interval: 1h
   valuesFrom:
     - kind: ConfigMap
       name: flux-metrics-configmap
       valuesKey: flux-metrics.yaml
   values:
-    fullnameOverride: victoria-metrics-cluster
+    fullnameOverride: *app
     alertmanager:
       config:
         route:
