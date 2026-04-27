@@ -29,7 +29,6 @@ spec:
       angular_support_enabled: "true"
     server:
       enable_gzip: "true"
-      root_url: https://grafana.idahobealefamily.com
   disableDefaultAdminSecret: true
   deployment:
     spec:
@@ -64,6 +63,13 @@ spec:
             - name: grafana-data
               persistentVolumeClaim:
                 claimName: grafana-pvc
+  httpRoute:
+    spec:
+      hostnames:
+        - grafana.idahobealefamily.com
+      parentRefs:
+        - name: envoy-internal
+          namespace: networking
   persistentVolumeClaim:
     spec:
       accessModes:
