@@ -9,7 +9,8 @@ resources:
   - ./alloy/ks.yaml
   - ./grafana/ks.yaml
   - ./kromgo/ks.yaml
-  - ./kube-prometheus-stack/ks.yaml
+  # - ./kube-prometheus-stack/ks.yaml
+  - ./namespace.yaml
   # - ./kyverno/ks.yaml
   - ./victoria-logs/ks.yaml
-  - ./namespace.yaml
+  - ./victoria-metrics/ks.yaml
