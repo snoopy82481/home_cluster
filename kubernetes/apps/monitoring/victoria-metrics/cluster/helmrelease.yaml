@@ -47,7 +47,7 @@ spec:
         receivers:
           - name: blackhole
           - name: discord
-            discordConfigs:
+            discord_configs:
               - title: |-
                   [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if eq .Status "firing" }}{{ if eq .CommonLabels.severity "critical" }}🔥{{ else if eq .CommonLabels.severity "warning" }}⚠️{{ else }}ℹ️{{ end }}{{ else }}✅{{ end }} {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }} {{ else if ne .CommonAnnotations.message ""}}{{ .CommonAnnotations.message }} {{ else if ne .CommonAnnotations.description ""}}{{ .CommonAnnotations.description }} {{ else }}{{ .CommonLabels.alertname }}{{ end }}
                 message: |-
@@ -60,8 +60,8 @@ spec:
                     {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
                     {{ end }}
                   {{ end }}
-                sendResolved: true
-                apiURL:
+                send_resolved: true
+                webhook_url_secret:
                   name: cluster-secrets
                   key: DISCORD_WEBHOOK_URL
       route:
