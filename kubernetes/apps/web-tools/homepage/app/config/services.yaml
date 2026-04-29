@@ -100,13 +100,13 @@
           url: http://grafana-service.monitoring.svc.cluster.local.:3000
           username: ${GRAFANA_ADMIN_USER}
           password: ${GRAFANA_ADMIN_PASSWORD}
-    - Prometheus:
-        href: https://prometheus.idahobealefamily.com
-        icon: prometheus.png
+    - Victoria Metrics:
+        href: https://vmsingle.idahobealefamily.com/vmui
+        icon: victoriametrics.png
         description: Monitoring Metrics
         widget:
           type: prometheus
-          url: http://prometheus-operated.monitoring.svc.cluster.local.:9090
+          url: http://vmsingle-victoria-metrics-cluster.monitoring.svc.cluster.local.:8428
 - Storage:
     - TrueNAS:
         href: https://truenas.idahobealefamily.com
