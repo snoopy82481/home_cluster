@@ -16,9 +16,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        serviceAccount:
-          identifier: *app
-
         containers:
           *app :
             image:
@@ -34,12 +31,31 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+
             resources:
               requests:
                 cpu: 15m
                 memory: 200M
               limits:
                 memory: 2G
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+
+    defaultPodOptions:
+      automountServiceAccountToken: true
+      hostUsers: false
+
+    service:
+      *app :
+        controller: *app
+        ports:
+          http:
+            port: &port 3000
 
     rbac:
       roles:
@@ -104,18 +120,9 @@ spec:
               name: *app
               namespace: web-tools
           roleRef:
+            apiGroup: rbac.authorization.k8s.io
             kind: ClusterRole
             name: *app
-
-    service:
-      *app :
-        controller: *app
-        ports:
-          http:
-            port: &port 3000
-
-    serviceAccount:
-      *app : {}
 
     route:
       *app :
@@ -123,7 +130,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-            sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
         rules:
