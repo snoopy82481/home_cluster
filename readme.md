@@ -22,7 +22,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 [![Talos][talos_shield]][talos_url]&nbsp;&nbsp;
 [![kubernetes][kubernetes_shield]][kubernetes_url]&nbsp;&nbsp;
 [![Flux][flux_shield]][flux_url]&nbsp;&nbsp;
-[![GitHub last commit]][last_commit_shield]]&nbsp;&nbsp;
+[![GitHub last commit]][last_commit_shield]&nbsp;&nbsp;
 [![Renovate][workflow_shield]][workflow_url]
 
 </div>
