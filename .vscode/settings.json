@@ -101,7 +101,8 @@
     "victoria-logs",
     "just",
     "qui",
-    "atuin"
+    "atuin",
+    "kavita"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",

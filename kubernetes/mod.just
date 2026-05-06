@@ -91,11 +91,44 @@ rook-password:
 [doc('Create app deployment')]
 [script]
 create-app namespace app_name template="other" storage="true" external="false" force="false":
+    branch="create-app/{{ app_name }}"
     out_dir="{{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}"
 
     if [[ -d "$out_dir" ]] && [[ -n "$(ls -A "$out_dir")" ]] && [[ "{{ force }}" != "true" ]]; then
       just log error "App directory already exists (use force=true to override): $out_dir"
       exit 1
+    fi
+
+    local_exists=false
+    remote_exists=false
+
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+      local_exists=true
+    fi
+
+    if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+      remote_exists=true
+    fi
+
+    if [[ "$local_exists" == "true" ]]; then
+      just log info "Switching to existing local branch: $branch"
+      git switch "$branch"
+    else
+      just log info "Creating local branch: $branch"
+      git switch -c "$branch"
+    fi
+
+    if [[ "$remote_exists" == "false" ]]; then
+      just log info "Remote branch does not exist. Pushing branch to origin: $branch"
+      git push -u origin "$branch"
+    else
+      just log info "Remote branch already exists: origin/$branch"
+
+      if git diff --quiet && git diff --cached --quiet; then
+        just log info "No local changes detected. Continuing."
+      else
+        just log info "Local changes detected on branch: $branch"
+      fi
     fi
 
     mkdir -p "$out_dir/app"
@@ -109,9 +142,13 @@ create-app namespace app_name template="other" storage="true" external="false" f
         # ensure parent dir exists for nested templates
         mkdir -p "$(dirname "$out")"
 
-        just template "$tpl" \
-          "-D template={{ template }} -D app_name={{ app_name }} -D namespace={{ namespace }} -D storage={{ storage }} -D external={{ external }}" \
-          > "$out"
+    just template "$tpl" \
+      -D "template_type={{ template }}" \
+      -D "app_name={{ app_name }}" \
+      -D "namespace={{ namespace }}" \
+      -D "storage={{ storage }}" \
+      -D "external={{ external }}" \
+      > "$out"
     done < <(fd -e j2 --absolute-path . "{{ templates_dir }}/apps")
 
     yq -i '.resources |= ((. // []) + ["./{{ app_name }}/ks.yaml"] | unique | sort)' "{{ kubernetes_dir }}/apps/{{ namespace }}/kustomization.yaml"

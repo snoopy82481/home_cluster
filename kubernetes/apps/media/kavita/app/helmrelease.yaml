@@ -1,31 +1,26 @@
-{% set external = (external | string | lower) in ['true','1','yes','y','on'] %}
-# DEBUG template_type=#{ template_type }#
-# DEBUG external=#{ external }#
-# DEBUG storage=#{ storage }#
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app #{ app_name }#
+  name: &app kavita
 spec:
   chartRef:
     kind: OCIRepository
     name: *app
   interval: 1h
   values:
-{% if template_type == "app-template" %}
     controllers:
       *app :
         containers:
           *app :
             image:
-              repository: #! Change this to the app's image repository
-              tag: #! Change this to the app's image tag
+              repository: ghcr.io/kareadita/kavita
+              tag: 0.9.0@sha256:36aab0c578d488f8b10bd33910953b50965aff9ac6adc476ef4692c38c60427e
 
             env:
               TZ: America/Boise
-              PORT: &port 0000 #! Change this to the app's port
+              PORT: &port 5000
 
             probes:
               liveness: &probes
@@ -73,13 +68,8 @@ spec:
       *app :
         enabled: true
         parentRefs:
-        {% if external %}
           - name: envoy-external
             namespace: networking
-        {% else %}
-          - name: envoy-internal
-            namespace: networking
-        {% endif %}
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
 
@@ -92,7 +82,7 @@ spec:
         server: truenas.idahobealefamily.com
         path: /mnt/storage1/data
         globalMounts:
-          - path: /media
+          - path: /media/books
 
       backup:
         type: nfs
@@ -111,4 +101,3 @@ spec:
                 subPath: logs
               - path: /tmp
                 subPath: tmp
-{% endif %}

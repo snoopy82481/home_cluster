@@ -7,6 +7,7 @@ components:
   - ../../components/common
 resources:
   - ./flaresolverr/ks.yaml
+  - ./kavita/ks.yaml
   - ./namespace.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
