@@ -101,4 +101,3 @@ spec:
                 subPath: logs
               - path: /tmp
                 subPath: tmp
-
