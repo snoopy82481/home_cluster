@@ -84,3 +84,13 @@ spec:
         globalMounts:
           - path: /backup
             subPath: "{{ .Release.Name }}"
+
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /kavita/config/logs
+            subPath: logs
+          - path: /kavita/config/cache
+            subPath: cache
+          - path: /tmp
+            subPath: tmp
