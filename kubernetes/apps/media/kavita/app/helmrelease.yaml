@@ -67,6 +67,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /kavita/config
 
       media:
         type: nfs
