@@ -33,7 +33,7 @@ prometheus.remote_write "metrics" {
 
 loki.write "victorialogs" {
   endpoint {
-    url = "http://victoria-logs-server.monitoring.svc.cluster.local:9428/insert/loki/api/v1/push"
+    url = "http://victoria-logs.monitoring.svc.cluster.local:9428/insert/loki/api/v1/push"
   }
 }
 

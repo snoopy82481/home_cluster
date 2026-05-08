@@ -10,6 +10,8 @@ spec:
     name: alloy
   interval: 1h
   values:
+    annotations:
+      reloader.stakater.com/auto: "true"
     fullnameOverride: alloy
     serviceMonitor:
       enabled: true
