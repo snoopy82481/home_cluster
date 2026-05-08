@@ -27,7 +27,7 @@ otelcol.exporter.prometheus "proxmox" {
 
 prometheus.remote_write "metrics" {
   endpoint {
-    url = "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/push"
+    url = "http://vmsingle-victoria-metrics.monitoring.svc.cluster.local:8428/api/v1/push"
   }
 }
 

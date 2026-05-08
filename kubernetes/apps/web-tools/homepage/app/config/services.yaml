@@ -106,7 +106,7 @@
         description: Monitoring Metrics
         widget:
           type: prometheus
-          url: http://vmsingle-victoria-metrics-cluster.monitoring.svc.cluster.local.:8428
+          url: http://vmsingle-victoria-metrics.monitoring.svc.cluster.local:8428
 - Storage:
     - TrueNAS:
         href: https://truenas.idahobealefamily.com
