@@ -99,9 +99,8 @@ spec:
               QBT__BitTorrent__Session__InterfaceAddress: "0.0.0.0"
               QBT__BitTorrent__Session__InterfaceName: wg0
               QBT__Preferences__WebUI__AlternativeUIEnabled: true
-              QBT__Preferences__WebUI__RootFolder: /add-ons/VueTorrent
 
-            securityContext: &securityContext
+            securityContext:
               runAsNonRoot: true
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -127,28 +126,6 @@ spec:
               limits:
                 memory: 8192Mi
 
-          vuetorrent:
-            dependsOn: *app
-
-            image:
-              repository: registry.k8s.io/git-sync/git-sync
-              tag: v4.6.0@sha256:228a26d5f55ac5ae9c51635812570ba0073e0b1e0bd8fc3a653a0523b918c092
-
-            args:
-              - --repo=https://github.com/WDaan/VueTorrent
-              - --ref=latest-release
-              - --period=86400s
-              - --root=/add-ons
-
-            resources:
-              requests:
-                cpu: 10m
-                memory: 25Mi
-              limits:
-                memory: 50Mi
-
-            securityContext: *securityContext
-
     defaultPodOptions:
       securityContext:
         runAsUser: 1000
@@ -171,7 +148,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-            sectionName: https
         hostnames:
           - "{{ .Release.Name }}.idahobealefamily.com"
 
@@ -197,11 +173,6 @@ spec:
         advancedMounts:
           *app :
             *app :
-              - path: /add-ons
-                subPath: add-ons
-              - path: /tmp
-                subPath: tmp
-            vuetorrent:
               - path: /add-ons
                 subPath: add-ons
               - path: /tmp
