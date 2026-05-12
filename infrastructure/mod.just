@@ -1,8 +1,8 @@
-set positional-arguments := true
-set quiet := true
+set positional-arguments
+set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
+set script-interpreter := ['bash', '-euo', 'pipefail']
 
-root_dir := justfile_dir()
 opentofu_vm_dir := justfile_dir() + "/infrastructure/opentofu/vm"
 
 [private]
@@ -13,7 +13,7 @@ default:
 _proxmox_tofu command *args:
   cd {{ opentofu_vm_dir }} && tofu {{ command }} {{ args }}
 
-[doc('Initialize proxmox OpenRofu dependencies')]
+[doc('Initialize proxmox OpenTofu dependencies')]
 proxmox-init *args:
   just infra _proxmox_tofu init {{ args }}
 
@@ -35,7 +35,7 @@ proxmox-apply *args:
 
 [doc('Apply a saved proxmox OpenTofu plan file')]
 proxmox-apply-plan env="talos":
-  cd {{ opentofu_vm_dir }} && tofu apply -auto-approve {{ env }}_plan.tfplan
+  just infra _proxmox_tofu apply -auto-approve {{ env }}_plan.tfplan
 
 [doc('Destroy proxmox resources')]
 proxmox-destroy *args:
@@ -44,7 +44,3 @@ proxmox-destroy *args:
 [doc('Show current proxmox Opentofu outputs')]
 proxmox-output *args:
   just infra _proxmox_tofu output {{ args }}
-
-test:
-  echo {{ root_dir }} && \
-  echo {{ opentofu_vm_dir }}

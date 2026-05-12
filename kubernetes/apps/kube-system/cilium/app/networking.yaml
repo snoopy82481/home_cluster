@@ -19,20 +19,20 @@ spec:
     matchLabels:
       kubernetes.io/os: linux
   bgpInstances:
-    - name: instance-64500
+    - name: cilium
       localASN: 64500
       peers:
         - name: peer-64501-udmp-v4
           peerASN: 64501
           peerAddress: 192.168.0.1
           peerConfigRef:
-            name: cilium-peer-v4
+            name: l3-bgp-peer-config
 ---
 # yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/cilium.io/ciliumbgppeerconfig_v2.json
 apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 metadata:
-  name: cilium-peer-v4
+  name: l3-bgp-peer-config
 spec:
   timers:
     keepAliveTimeSeconds: 3
@@ -52,7 +52,7 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 metadata:
-  name: lb-services
+  name: l3-bgp-advertisement
   labels:
     advertise: bgp
 spec:

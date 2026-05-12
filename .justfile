@@ -1,11 +1,19 @@
 #!/usr/bin/env -S just --justfile
 
-set quiet := true
+set lazy
+set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
+[group: 'Bootstrap']
 mod bootstrap "bootstrap"
+
+[group: 'Kube']
 mod kube "kubernetes"
+
+[group: 'Talos']
 mod talos "talos"
+
+[group: 'Infrastructure']
 mod infra "infrastructure"
 
 [private]

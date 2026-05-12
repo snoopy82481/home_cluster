@@ -1,13 +1,9 @@
-set quiet := true
+set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
 set script-interpreter := ['bash', '-euo', 'pipefail']
 
-scripts_dir := justfile_dir() + '/scripts'
-talos_dir := justfile_dir() + '/talos'
-controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
 nodes := `talosctl config info -o yaml | yq -r '[.nodes[] | tostring] | join(",")'`
 talos_version := `yq .talosVersion "talenv.yaml"`
-talos_url := `yq .talosImageURL "talenv.yaml"`
 kubernetes_version := `yq .kubernetesVersion "talenv.yaml"`
 proxmox_user := "root"
 proxmox_host := "proxmox"
@@ -24,7 +20,7 @@ _download_local_atomic url out_path:
   tmp="{{ out_path }}.part"
   fname="$(basename "{{ out_path }}")"
   gum spin --title "Downloading ${fname} ..." -- \
-    curl -sfL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors \
+    curl -fL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors --progress-bar \
       -o "${tmp}" "{{ url }}"
   mv -f "${tmp}" "{{ out_path }}"
   sha256sum "{{ out_path }}" | awk '{print $1}'
@@ -42,7 +38,7 @@ _push_remote_atomic local_path remote_path:
 _sync_image_atomic fname url:
   fname="{{ fname }}"
   url="{{ url }}"
-  local_path="{{ talos_dir }}/{{ fname }}"
+  local_path="{{ source_directory() }}/{{ fname }}"
   remote_path="{{ proxmox_iso_dir }}/{{ fname }}"
   local_sha="$(just talos _download_local_atomic "${url}" "${local_path}")"
   remote_sha="$(just talos _push_remote_atomic "${local_path}" "${remote_path}")"
@@ -84,14 +80,14 @@ download-image version schematic secureboot="true":
   url="https://factory.talos.dev/image/{{ schematic }}/{{ version }}/${path}"
   just talos _sync_image_atomic "${fname}" "${url}"
   gum spin --spinner dot --title "Remove local ISO: ${fname}" -- \
-    rm -f "{{ talos_dir }}/${fname}"
+    rm -f "{{ source_directory() }}/${fname}"
   just log info "Removed local Talos iso ${fname}"
 
 [script]
 [doc("Remove old Talos machine images (local + proxmox)")]
 remove-image:
   shopt -s nullglob
-  files=({{ talos_dir }}/*.iso)
+  files=({{ source_directory() }}/*.iso)
   if (( ${#files[@]} == 0 )); then
     mapfile -t files < <(
       ssh {{ ssh_opts }} {{ proxmox_user }}@{{ proxmox_host }} \
@@ -124,10 +120,6 @@ update-image version schematic secureboot="true":
     just infra proxmox-plan
     just infra proxmox-apply
 
-[doc('Generate schematic ID from Talos schematic')]
-gen-schematic-id:
-    curl -sX POST --data-binary @<(just template "{{ talos_dir }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
-
 [doc('Reboot a node')]
 reboot-node node:
     gum confirm "Reboot node {{ node }}?" --default="No" && \
@@ -138,44 +130,52 @@ reboot-all:
     gum confirm "Reboot all nodes?" --default="No" && \
         talosctl reboot -m powercycle -n {{ nodes }} || exit 0
 
-
 [doc('Render Talos config for a node')]
+[script]
 render-config node:
-    export IS_CONTROLLER="$(just talos machine-controller {{ node }})"; \
-    talosctl machineconfig patch <(just template "{{ talos_dir }}/machineconfig.yaml.j2") \
-        -p @<(just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2")
+    export CONTROLPLANE="$(just talos machine-controller {{ node }})"
+    export SCHEMATIC="$(just talos schematic-id)"
+    talosctl machineconfig patch <(just template "{{ source_directory() }}/machineconfig.yaml.j2") \
+        -p @<(just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2")
 
+[confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]
 reset-node node:
-    gum confirm "Reset node {{ node }}?" --default="No" && \
-        talosctl -n "{{ node }}" reset --reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false || exit 0
+    talosctl -n "{{ node }}" reset --reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false || exit 0
 
+[confirm('Shutdown node ' + node + ' [y|N] ?')]
 [doc('Shutdown a node')]
-shutdown-node node:
-    gum confirm "Shutdown node {{ node }}?" --default="No" && \
-        talosctl -n "{{ node }}" shutdown --force || exit 0
+shutdown-node node *args:
+    talosctl -n "{{ node }}" shutdown --force {{ args }}
 
+[confirm('Shutdown all nodes in the cluster [y|N] ?')]
 [doc('Shutdown all nodes in the cluster')]
-shutdown-all:
-    gum confirm "Shutdown all nodes?" --default="No" && \
-        talosctl -n "{{ nodes }}" shutdown --force || exit 0
+shutdown-all *args:
+    talosctl -n "{{ nodes }}" shutdown --force {{ args }}
 
+[confirm('Upgrade Kubernetes to ' + kubernetes_version + ' [y|N] ?')]
 [doc('Upgrade Kubernetes version on the cluster')]
 upgrade-k8s:
-    talhelper gencommand upgrade-k8s | bash
+    talosctl -n "$(talosctl config info -o yaml | yq -e '.endpoints[0]')" upgrade-k8s --to {{ kubernetes_version }}
 
+[confirm('Upgrade node ' + node + ' [y|N] ?')]
 [doc('Upgrade Talos version on a node')]
 upgrade-node node:
-    talhelper gencommand upgrade -n "{{ node }}" --extra-flags "--timeout=10m" | bash
+    export schematic="$(just talos gen-schematic-id)"; \
+    talosctl -n "{{ node }}" upgrade -i "factory.talos.dev/installer-secureboot/${schematic}:{{ talos_version }}" -m powercycle --timeout=10m
 
 [doc('Upgrade all nodes in the cluster')]
 upgrade-all:
     talhelper gencommand upgrade --extra-flags "--timeout=10m" | bash
 
 [private]
+schematic-id:
+    curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
+
+[private]
 machine-controller node:
-    just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2" | yq -e 'select(.machine) | (.machine.type == "controlplane") // ""'
+    just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2" | yq -e 'select(.machine) | (.machine.type == "controlplane") // ""'
 
 [private]
 machine-image:
-    just template "{{ talos_dir }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'
+    just template "{{ source_directory() }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'

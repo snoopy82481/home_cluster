@@ -1,8 +1,7 @@
-set quiet := true
+set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
 set script-interpreter := ['bash', '-euo', 'pipefail']
 
-kubernetes_dir := justfile_dir() + '/kubernetes'
 templates_dir := justfile_dir() + '/kubernetes/templates'
 
 [private]
@@ -11,15 +10,23 @@ default:
 
 [doc('Apply local Flux Kustomization')]
 apply-ks ns ks:
-    just k8s render-local-ks "{{ ns }}" "{{ ks }}" | kubectl apply --server-side --field-manager=kustomize-controller -f /dev/stdin
+    just kube render-local-ks "{{ ns }}" "{{ ks }}" | kubectl apply --server-side --force-conflicts --field-manager=kustomize-controller -f -
 
 [doc('Browse a PVC')]
-browse-pvc namespace claim:
-    kubectl browse-pvc -n {{ namespace }} -i mirror.gcr.io/alpine:latest {{ claim }}
+browse-pvc ns claim:
+    kubectl run -n {{ ns }} browse-pvc-{{ claim }} -it --rm --restart=Never \
+        --image=mirror.gcr.io/alpine:latest \
+        --overrides='{"spec":{"containers":[{"name":"browse-pvc-{{ claim }}","image":"mirror.gcr.io/alpine:latest","stdin":true,"tty":true,"command":["/bin/sh"],"workingDir":"/mnt","volumeMounts":[{"mountPath":"/mnt","name":"data"}]}],"volumes":[{"name":"data","persistentVolumeClaim":{"claimName":"{{ claim }}"}}]}}'
+
+[doc('Debug a node')]
+[script]
+debug-node node:
+    trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --field-selector spec.nodeName={{ node }} --ignore-not-found --wait=false' EXIT
+    kubectl debug node/{{ node }} -n default -it --image=mirror.gcr.io/alpine:latest --profile=sysadmin
 
 [doc('Delete local Flux Kustomization')]
 delete-ks ns ks:
-    just k8s render-local-ks "{{ ns }}" "{{ ks }}" | kubectl delete -f /dev/stdin
+    just kube render-local-ks "{{ ns }}" "{{ ks }}" | kubectl delete -f -
 
 [doc('Open a shell on a node')]
 node-shell node:
@@ -27,21 +34,10 @@ node-shell node:
     kubectl delete pod -n system -l app.kubernetes.io/managed-by=kubectl-debug
 
 [doc('Prune pods in Failed, Pending, Succeeded or Completed state')]
+[script]
 prune-pods:
-    for phase in Failed Pending Succeeded Completed; do \
-        kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true; \
-    done
-
-[doc('Snapshot VolSync PVCs')]
-snapshot:
-    kubectl get replicationsources --no-headers -A | while read -r ns name _; do \
-        kubectl -n "$ns" patch replicationsources "$name" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'; \
-    done
-
-[doc('Suspend or resume Keda ScaledObjects')]
-keda state:
-    kubectl get scaledobjects --no-headers -A | while read -r ns name _; do \
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite so "$name" autoscaling.keda.sh/paused{{ if state != "suspend" { "-" } else { "=true" } }}; \
+    for phase in Failed Pending Succeeded Completed; do
+        kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true
     done
 
 [doc('Suspend or resume VolSync')]
@@ -50,39 +46,9 @@ volsync state:
     flux -n volsync-system {{ state }} helmrelease volsync
     kubectl -n volsync-system scale deployment volsync --replicas {{ if state != "suspend" { "1" } else { "0" } }}
 
-[doc('Sync ExternalSecrets')]
-sync-es:
-    kubectl get es --no-headers -A | while read -r ns name _; do \
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite es "$name" force-sync="$(date +%s)"; \
-    done
-
-[doc('Sync GitRepositories')]
-sync-git:
-    kubectl get gitrepo --no-headers -A | while read -r ns name _; do \
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite gitrepo "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)"; \
-    done
-
-[doc('Sync HelmReleases')]
-sync-hr:
-    kubectl get hr --no-headers -A | while read -r ns name _; do \
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite hr "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)" reconcile.fluxcd.io/forceAt="$(date +%s)"; \
-    done
-
-[doc('Sync Kustomizations')]
-sync-ks:
-    kubectl get ks --no-headers -A | while read -r ns name _; do \
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite ks "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)"; \
-    done
-
-[doc('Sync OCIRepositories')]
-sync-oci:
-    kubectl get ocirepo --no-headers -A | while read -r ns name _; do \
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite ocirepo "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)"; \
-    done
-
 [doc('View a secret')]
 view-secret namespace secret:
-    kubectl view-secret -n {{ namespace }} {{ secret }} -a -q
+    kubectl view-secret -n {{ namespace }} {{ secret }}
 
 [doc('Get rook-ceph toolbox password')]
 rook-password:
@@ -92,7 +58,7 @@ rook-password:
 [script]
 create-app namespace app_name template="other" storage="true" external="false" force="false":
     branch="create-app/{{ app_name }}"
-    out_dir="{{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}"
+    out_dir="{{ source_directory() }}/apps/{{ namespace }}/{{ app_name }}"
 
     if [[ -d "$out_dir" ]] && [[ -n "$(ls -A "$out_dir")" ]] && [[ "{{ force }}" != "true" ]]; then
       just log error "App directory already exists (use force=true to override): $out_dir"
@@ -135,7 +101,7 @@ create-app namespace app_name template="other" storage="true" external="false" f
 
     while IFS= read -r tpl; do
         relpath="$(grealpath --relative-to="{{ templates_dir }}/apps" "$tpl")"
-        out="{{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}/${relpath%.j2}"
+        out="{{ source_directory() }}/apps/{{ namespace }}/{{ app_name }}/${relpath%.j2}"
 
         just log info "Rendering template $tpl to $out"
 
@@ -151,9 +117,9 @@ create-app namespace app_name template="other" storage="true" external="false" f
       > "$out"
     done < <(fd -e j2 --absolute-path . "{{ templates_dir }}/apps")
 
-    yq -i '.resources |= ((. // []) + ["./{{ app_name }}/ks.yaml"] | unique | sort)' "{{ kubernetes_dir }}/apps/{{ namespace }}/kustomization.yaml"
-    just log info "Created app deployment at {{ kubernetes_dir }}/apps/{{ namespace }}/{{ app_name }}"
+    yq -i '.resources |= ((. // []) + ["./{{ app_name }}/ks.yaml"] | unique | sort)' "{{ source_directory() }}/apps/{{ namespace }}/kustomization.yaml"
+    just log info "Created app deployment at {{ source_directory() }}/apps/{{ namespace }}/{{ app_name }}"
 
 [private]
 render-local-ks ns ks:
-    flux-local build ks --namespace "{{ ns }}" --path "{{ kubernetes_dir }}/flux/cluster" "{{ ks }}"
+    flux-local build ks --namespace "{{ ns }}" --path "{{ source_directory() }}/flux/cluster" "{{ ks }}"
