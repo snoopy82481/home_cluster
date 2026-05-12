@@ -84,8 +84,8 @@ spec:
             nameOverride: *app
 
             image:
-              repository: ghcr.io/home-operations/qbittorrent
-              tag: 5.2.0@sha256:08eb7ed4c7fe70425064d58154c35fccc89fafffd64ce9d1affed399e173ff20
+              repository: ghcr.io/home-operations/qbittorrent-libtorrentv1
+              tag: 5.2.0@sha256:84df7567235402431925d5d6ca763b744f612a3e02bfbe71cf64831bb59a08d3
 
             env:
               TZ: America/Boise
