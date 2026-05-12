@@ -11,9 +11,8 @@ spec:
   interval: 1h
   values:
     instance:
-      distribution:
-        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.48.0
-        version: 2.x
+      commonAnnotations:
+        fluxcd.controlplane.io/reconcileArtifactEvery: 1h
       cluster:
         networkPolicy: false
       components:
