@@ -9,6 +9,6 @@ talosImageURL: factory.talos.dev/installer-secureboot/ce4c980550dd2ab1b17bbf2b08
 # renovate: datasource=custom.talos-factory depName=siderolabs/talos
 talosVersion: v1.13.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.35.3
+kubernetesVersion: v1.36.1
 # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
 prometheusOperatorVersion: v0.91.0

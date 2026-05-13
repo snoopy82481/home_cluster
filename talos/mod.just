@@ -161,7 +161,7 @@ upgrade-k8s:
 [confirm('Upgrade node ' + node + ' [y|N] ?')]
 [doc('Upgrade Talos version on a node')]
 upgrade-node node:
-    export schematic="$(just talos gen-schematic-id)"; \
+    export schematic="$(just talos schematic-id)"; \
     talosctl -n "{{ node }}" upgrade -i "factory.talos.dev/installer-secureboot/${schematic}:{{ talos_version }}" -m powercycle --timeout=10m
 
 [doc('Upgrade all nodes in the cluster')]
