@@ -97,29 +97,37 @@ create-app namespace app_name template="other" storage="true" external="false" f
       fi
     fi
 
-    mkdir -p "$out_dir/app"
+    if [ ! -d "{{ source_directory() }}/{{ namespace }}" ]; then
+      just log warn "Namespace directory does not exist."
+      just log info "Creating: {{ source_directory() }}/{{ namespace }}"
+      mkdir -p "{{ source_directory() }}/{{ namespace }}"
+      just template "{{ source_directory() }}/templates/namespace.yaml.j2" > "{{ source_directory() }}/{{ namespace }}/namespace.yaml"
+      just template "{{ source_directory() }}/templates/kustomization.yaml.j2" > "{{ source_directory() }}/{{ namespace }}/kustomization.yaml"
+    fi
+
+    # mkdir -p "$out_dir/app"
 
     while IFS= read -r tpl; do
-        relpath="$(grealpath --relative-to="{{ templates_dir }}/apps" "$tpl")"
-        out="{{ source_directory() }}/apps/{{ namespace }}/{{ app_name }}/${relpath%.j2}"
+      relpath="$(grealpath --relative-to="{{ source_directory() }}/templates/apps" "$tpl")"
+      out="{{ source_directory() }}/apps/{{ namespace }}/{{ app_name }}/${relpath%.j2}"
 
-        just log info "Rendering template $tpl to $out"
+      just log info "Rendering template $tpl to $out"
 
-        # ensure parent dir exists for nested templates
+      # ensure parent dir exists for nested templates
+      if [ ! -d "$(dirname "$out")" ]; then
+        just log warn "Parent directory does not exist for output: $out"
+        just log info "Creating directory for output: $(dirname "$out")"
         mkdir -p "$(dirname "$out")"
+      fi
 
-    just template "$tpl" \
-      -D "template_type={{ template }}" \
-      -D "app_name={{ app_name }}" \
-      -D "namespace={{ namespace }}" \
-      -D "storage={{ storage }}" \
-      -D "external={{ external }}" \
-      > "$out"
-    done < <(fd -e j2 --absolute-path . "{{ templates_dir }}/apps")
+      just template "$tpl" \
+        -D "template_type={{ template }}" \
+        -D "app_name={{ app_name }}" \
+        -D "namespace={{ namespace }}" \
+        -D "storage={{ storage }}" \
+        -D "external={{ external }}" \
+        > "$out"
+    done < <(fd -e j2 --absolute-path . "{{ source_directory() }}/templates/apps")
 
     yq -i '.resources |= ((. // []) + ["./{{ app_name }}/ks.yaml"] | unique | sort)' "{{ source_directory() }}/apps/{{ namespace }}/kustomization.yaml"
     just log info "Created app deployment at {{ source_directory() }}/apps/{{ namespace }}/{{ app_name }}"
-
-[private]
-render-local-ks ns ks:
-    flux-local build ks --namespace "{{ ns }}" --path "{{ source_directory() }}/flux/cluster" "{{ ks }}"
