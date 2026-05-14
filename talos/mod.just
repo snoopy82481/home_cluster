@@ -120,15 +120,15 @@ update-image version schematic secureboot="true":
     just infra proxmox-plan
     just infra proxmox-apply
 
+[confirm('Reboot node ' + node + ' [y|N] ?')]
 [doc('Reboot a node')]
 reboot-node node:
-    gum confirm "Reboot node {{ node }}?" --default="No" && \
-        talosctl -n {{ node }} reboot -m powercycle || exit 0
+  talosctl -n {{ node }} reboot -m powercycle
 
+[confirm('Reboot all nodes in the cluster [y|N] ?')]
 [doc('Reboot all nodes in the cluster')]
 reboot-all:
-    gum confirm "Reboot all nodes?" --default="No" && \
-        talosctl reboot -m powercycle -n {{ nodes }} || exit 0
+  talosctl reboot -m powercycle -n {{ nodes }}
 
 [doc('Render Talos config for a node')]
 [script]
@@ -141,7 +141,7 @@ render-config node:
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]
 reset-node node:
-    talosctl -n "{{ node }}" reset --reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false || exit 0
+    talosctl -n "{{ node }}" reset --reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false
 
 [confirm('Shutdown node ' + node + ' [y|N] ?')]
 [doc('Shutdown a node')]
@@ -153,10 +153,10 @@ shutdown-node node *args:
 shutdown-all *args:
     talosctl -n "{{ nodes }}" shutdown --force {{ args }}
 
-[confirm('Upgrade Kubernetes to ' + kubernetes_version + ' [y|N] ?')]
+[confirm('Upgrade Kubernetes to ' + version + ' [y|N] ?')]
 [doc('Upgrade Kubernetes version on the cluster')]
-upgrade-k8s:
-    talosctl -n "$(talosctl config info -o yaml | yq -e '.endpoints[0]')" upgrade-k8s --to {{ kubernetes_version }}
+upgrade-k8s version=kubernetes_version:
+    talosctl -n "$(talosctl config info -o yaml | yq -e '.endpoints[0]')" upgrade-k8s --to {{ version }}
 
 [confirm('Upgrade node ' + node + ' [y|N] ?')]
 [doc('Upgrade Talos version on a node')]
