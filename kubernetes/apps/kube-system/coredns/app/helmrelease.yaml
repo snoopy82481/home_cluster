@@ -22,23 +22,6 @@ spec:
     replicaCount: 3
     servers:
       - zones:
-          - zone: idahobealefamily.com
-            scheme: dns://
-            use_tcp: true
-        port: 53
-        plugins:
-          - name: errors
-          - name: forward
-            parameters: . 192.168.20.1
-          - name: cache
-            parameters: 30
-            configBlock: |-
-              servfail 0
-          - name: loop
-          - name: log
-            configBlock: |-
-              class error
-      - zones:
           - zone: .
             scheme: dns://
             use_tcp: true
