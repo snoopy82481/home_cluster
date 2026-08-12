@@ -45,20 +45,16 @@ resource "proxmox_vm_qemu" "talos_master" {
     sata {
       sata0 {
         disk {
-          cache   = "writethrough"
-          discard = true
-          emulatessd = true
           size    = "64G"
           storage = "local-lvm"
+          discard = true
         }
       }
       sata1 {
         disk {
-          cache   = "writethrough"
-          discard = true
-          emulatessd = true
-          size    = "32G"
+          size    = "10G"
           storage = "local-lvm"
+          discard = true
         }
       }
       sata2 {
@@ -126,29 +122,23 @@ resource "proxmox_vm_qemu" "talos_worker" {
     sata {
       sata0 {
         disk {
-          cache   = "writethrough"
-          discard = true
-          emulatessd = true
-          size    = "64G"
+          size    = "40G"
           storage = "local-lvm"
+          discard = true
         }
       }
       sata1 {
         disk {
-          cache   = "writethrough"
-          discard = true
-          emulatessd = true
-          size    = "256G"
+          size    = "100G"
           storage = "local-lvm"
+          discard = true
         }
       }
       sata2 {
         disk {
-          cache   = "writethrough"
-          discard = true
-          emulatessd = true
-          size    = "32G"
+          size    = "10G"
           storage = "local-lvm"
+          discard = true
         }
       }
       sata3 {

@@ -49,8 +49,10 @@ _sync_image_atomic fname url:
   just log info "Uploaded + verified Talos ISO" "file" "{{ fname }}" "checksum" "${remote_sha}" "host" "{{ proxmox_host }}"
 
 [doc('Apply Talos config to a node')]
+[script]
 apply-node node *args:
-    talhelper gencommand apply -n "{{ node }}" {{ args }} | bash
+    just log info "Applying Talos machineconfig" "node" "{{ node }}";
+    just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
 
 [doc('Bootstrap the Talos cluster')]
 bootstrap:
@@ -133,10 +135,17 @@ reboot-all:
 [doc('Render Talos config for a node')]
 [script]
 render-config node:
-    export CONTROLPLANE="$(just talos machine-controller {{ node }})"
+    export IS_CONTROLPLANE="$(just talos machine-controller {{ node }})"
     export SCHEMATIC="$(just talos schematic-id)"
-    talosctl machineconfig patch <(just template "{{ source_directory() }}/machineconfig.yaml.j2") \
-        -p @<(just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2")
+    export TALOS_VERSION="{{ talos_version }}"
+    export K8S_VERSION="{{ kubernetes_version }}"
+
+    secrets="$(mktemp "${TMPDIR:-/tmp}/talsecret.XXXXXX.yaml")"
+    trap 'rm -f "${secrets}"' EXIT
+
+    sops decrypt --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" > "${secrets}"
+    just template "{{ source_directory() }}/machineconfig.yaml.j2" "${secrets}"
+    # talosctl machineconfig patch <(just template "{{ source_directory() }}/machineconfig.yaml.j2") -p @<(just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2")
 
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]
@@ -161,11 +170,11 @@ upgrade-k8s version=kubernetes_version:
 [confirm('Upgrade node ' + node + ' [y|N] ?')]
 [doc('Upgrade Talos version on a node')]
 upgrade-node node:
-    export schematic="$(just talos schematic-id)"; \
-    talosctl -n "{{ node }}" upgrade -i "factory.talos.dev/installer-secureboot/${schematic}:{{ talos_version }}" -m powercycle --timeout=10m
+    talosctl -n "{{ node }}" upgrade -i "$(just talos machine-image {{ node }})" -m powercycle --timeout=10m
 
+[confirm('Upgrade all nodes in the cluster to ' + version + ' [y|N] ?')]
 [doc('Upgrade all nodes in the cluster')]
-upgrade-all:
+upgrade-all version=talos_version:
     talhelper gencommand upgrade --extra-flags "--timeout=10m" | bash
 
 [private]
@@ -173,9 +182,12 @@ schematic-id:
     curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
 
 [private]
+[script]
 machine-controller node:
     just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2" | yq -e 'select(.machine) | (.machine.type == "controlplane") // ""'
 
+[doc('Get the machine image for a given node')]
 [private]
-machine-image:
-    just template "{{ source_directory() }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'
+[script]
+machine-image node:
+    talosctl --nodes {{ node }} get machineconfig -o yaml | yq -e 'select(.metadata.id == "v1alpha1") | .spec' | yq -e 'select(.machine) | .machine.install.image'
