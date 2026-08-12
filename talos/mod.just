@@ -44,6 +44,7 @@ _sync_image_atomic fname url:
     just log info "Uploaded + verified Talos ISO" "file" "{{ fname }}" "checksum" "${remote_sha}" "host" "{{ proxmox_host }}"
 
 [doc('Apply Talos config to a node')]
+[script]
 apply-node node *args:
     just log info "Applying Talos machineconfig" "node" "{{ node }}";
     just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
