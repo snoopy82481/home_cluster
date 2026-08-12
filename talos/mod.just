@@ -44,6 +44,7 @@ _sync_image_atomic fname url:
     just log info "Uploaded + verified Talos ISO" "file" "{{ fname }}" "checksum" "${remote_sha}" "host" "{{ proxmox_host }}"
 
 [doc('Apply Talos config to a node')]
+[script]
 apply-node node *args:
     just log info "Applying Talos machineconfig" "node" "{{ node }}";
     just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
@@ -183,6 +184,7 @@ schematic-file node="":
 schematic-id node="":
     curl -sX POST --data-binary @<(just template "$(just talos schematic-file "{{ node }}")") "https://factory.talos.dev/schematics" | jq -r '.id'
 
+[doc('Get the machine image for a given node')]
 [private]
 machine-role node:
     just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2" | yq -er 'select(.machine) | .machine.type'
