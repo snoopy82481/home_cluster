@@ -16,7 +16,7 @@ spec:
       enabled: true
 
     bpf:
-      datapathMode: netkit
+      datapathMode: veth
       masquerade: true
       preallocateMaps: true
 

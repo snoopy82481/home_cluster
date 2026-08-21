@@ -14,10 +14,6 @@ defaultInherit: default
 releases:
   - name: cilium
     namespace: kube-system
-    chart: oci://quay.io/cilium/charts/cilium
-    version: 1.20.1
-    values:
-      - ./templates/values.yaml.gotmpl
     hooks:
       - # Wait for CRDs to be available
         command: kubectl
