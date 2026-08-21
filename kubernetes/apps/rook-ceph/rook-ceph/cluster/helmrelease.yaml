@@ -35,11 +35,8 @@ spec:
 
     cephClusterSpec:
       cephConfig:
-        global:
-          bdev_enable_discard: "true"
-          bdev_async_discard_threads: "1"
-          osd_class_update_on_start: "false"
-          # device_failure_prediction_mode: local
+        mon:
+          mon_cluster_log_level: info
 
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
@@ -48,10 +45,10 @@ spec:
         disable: false
 
       csi:
+        cephfs:
+          kernelMountOptions: ms_mode=prefer-crc
         readAffinity:
-          enabled: true
-
-
+          enabled: false
 
       dashboard:
         enabled: true
@@ -59,63 +56,38 @@ spec:
         ssl: false
         prometheusEndpont: http://vmsingle-victoria-metrics.monitoring.svc.cluster.local:8428
 
+      healthCheck:
+        muteHealthWarning:
+          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_CLIENT_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_KEYS_ALLOWED:
+            policy: mute
+          AUTH_INSECURE_KEYS_CREATABLE:
+            policy: mute
+
       mgr:
         modules:
-          # - name: diskprediction_local
-          #   enabled: true
-          - name: insights
-            enabled: true
           - name: pg_autoscaler
-            enabled: true
-          - name: rook
             enabled: true
 
       network:
-        provider: host
+        connections:
+          requireMsgr2: true
 
       resources:
-        mgr:
-          requests:
-            cpu: "125m"
-            memory: "549M"
-          limits:
-            memory: "1219M"
-        mon:
-          requests:
-            cpu: "49m"
-            memory: "477M"
-          limits:
-            memory: "1059M"
         osd:
-          requests:
-            cpu: "442m"
-            memory: "2678M"
           limits:
-            memory: "5944M"
-        mgr-sidecar:
-          requests:
-            cpu: "49m"
-            memory: "94M"
-          limits:
-            memory: "208M"
-        crashcollector:
-          requests:
-            cpu: "15m"
-            memory: "64M"
-          limits:
-            memory: "64M"
-        logcollector:
-          requests:
-            cpu: "100m"
-            memory: "100M"
-          limits:
-            memory: "1G"
-        cleanup:
-          requests:
-            cpu: "250m"
-            memory: "100M"
-          limits:
-            memory: "1G"
+            memory: 8Gi
+
+      security:
+        cephx:
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+          csi:
+            keyType: aes
 
       storage:
         useAllNodes: false

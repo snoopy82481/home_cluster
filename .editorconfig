@@ -1,4 +1,5 @@
 # editorconfig.org
+
 root = true
 
 [*]
@@ -14,5 +15,7 @@ indent_size = 4
 trim_trailing_whitespace = false
 
 [*.{bash,py,sh}]
-indent_style = space
+indent_size = 4
+
+[*.just,*.justfile]
 indent_size = 4

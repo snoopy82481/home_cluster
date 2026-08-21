@@ -1,19 +1,24 @@
 #!/usr/bin/env -S just --justfile
 
+set minimum-version := '1.55.0'
+
+set default-list
+set default-script
 set lazy
 set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
+set script-interpreter := ['bash', '-euo', 'pipefail']
 
-[group: 'Bootstrap']
+[group('Bootstrap')]
 mod bootstrap "bootstrap"
 
-[group: 'Kube']
+[group('Kube')]
 mod kube "kubernetes"
 
-[group: 'Talos']
+[group('Talos')]
 mod talos "talos"
 
-[group: 'Infrastructure']
+[group('Infrastructure')]
 mod infra "infrastructure"
 
 [private]
@@ -26,4 +31,12 @@ log lvl msg *args:
 
 [private]
 template file *args:
-    minijinja-cli --config-file .minijinja.toml "{{ file }}" {{ args }}
+    if [[ "{{ file }}" == "-" ]]; then
+        minijinja-cli --config-file .minijinja.toml - {{ args }}
+    else
+        if grep -qE '^sops:[[:space:]]*(#.*)?$' "{{ file }}"; then
+            sops decrypt --input-type yaml --output-type yaml "{{ file }}"
+        else
+            cat "{{ file }}"
+        fi | minijinja-cli --config-file .minijinja.toml - {{ args }}
+    fi

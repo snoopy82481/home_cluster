@@ -7,7 +7,7 @@ components:
   - ../../components/common
 resources:
   - ./alloy/ks.yaml
-  - ./grafana/ks.yaml
+  - ./grafana-operator/ks.yaml
   - ./kromgo/ks.yaml
   - ./namespace.yaml
   - ./kyverno/ks.yaml

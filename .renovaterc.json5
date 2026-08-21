@@ -1,49 +1,164 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  dependencyDashboardTitle: 'Renovate Dashboard 🤖',
-  suppressNotifications: [
-    'prEditedNotification',
-    'prIgnoreNotification',
-  ],
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
   extends: [
-    'config:recommended',
-    'docker:enableMajor',
-    ':automergeBranch',
-    ':disableRateLimiting',
-    ':dependencyDashboard',
-    ':semanticCommits',
-    'helpers:pinGitHubActionDigests',
-    ':timezone(America/Boise)',
-    'github>snoopy82481/home_cluster//.renovate/autoMerge.json5',
-    'github>snoopy82481/home_cluster//.renovate/changelogs.json5',
-    'github>snoopy82481/home_cluster//.renovate/customManagers.json5',
-    'github>snoopy82481/home_cluster//.renovate/grafanaDashboards.json5',
-    'github>snoopy82481/home_cluster//.renovate/groups.json5',
-    'github>snoopy82481/home_cluster//.renovate/labels.json5',
-    'github>snoopy82481/home_cluster//.renovate/semanticCommits.json5',
-    'github>snoopy82481/home_cluster//.renovate/overrides.json5',
-    'github>snoopy82481/home_cluster//.renovate/talosFactory.json5',
+    "github>home-operations/renovate-presets#7.0.0",
+    "github>home-operations/renovate-presets//apps/grafanaDashboards.json5#7.0.0",
+    "github>home-operations/renovate-presets//apps/talosFactory.json5#7.0.0",
+    ":timezone(America/Boise)",
   ],
-  ignorePaths: [
-    "**/*.sops.*",
-    "**/archive/**",
-  ],
-  flux: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ["before 3am on the first day of the month"],
+    commitMessageExtra: "({{manager}})",
+    additionalBranchPrefix: "{{manager}}-",
   },
-  "helm-values": {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
-  },
-  helmfile: {
-    managerFilePatterns: ["/(^|/)helmfile\\.ya?ml(?:\\.j2)?$/"],
-  },
-  kubernetes: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
-  },
-  kustomize: {
-    managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
-  },
+  ignorePaths: ["**/*.sops.*", "**/archive/**"],
   terraform: {
-    "managerFilePatterns": ["/(^|/)infrastructure/opentofu/.+\\.tf$/"],
-  }
+    managerFilePatterns: ["/(^|/)infrastructure/opentofu/.+\\.tf$/"],
+  },
+  packageRules: [
+    // Auto-merge rules
+    {
+      description: "Auto-merge trusted OCI digests",
+      matchDatasources: ["docker"],
+      matchUpdateTypes: ["digest"],
+      matchPackageNames: ["/home-operations/"],
+      automerge: true,
+      automergeType: "pr",
+      ignoreTests: false,
+    },
+    {
+      description: "Auto-merge high-cadence OCI packages weekly",
+      matchDatasources: ["docker"],
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["/kube-prometheus-stack/"],
+      automerge: true,
+      automergeType: "pr",
+      ignoreTests: false,
+      schedule: ["before 6am on Monday"],
+    },
+    {
+      description: "Auto-merge GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      automerge: true,
+      automergeType: "branch",
+      minimumReleaseAge: "3 days",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge trusted GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchPackageNames: ["/^actions\\//", "/^renovatebot\\//"],
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      automerge: true,
+      automergeType: "branch",
+      minimumReleaseAge: "1 minute",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge Grafana dashboards",
+      matchDatasources: ["custom.grafana-dashboards"],
+      matchUpdateTypes: ["major"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge Renovate Presents",
+      matchManagers: ["renovate-config"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+    },
+    // Grouping rules
+    {
+      description: "Actions Runner Controller Group",
+      groupName: "actions-runner-controller",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/gha-runner-scale-set-controller/", "/gha-runner-scale-set/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Flux Operator Group",
+      groupName: "flux-operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Kubernetes Group",
+      groupName: "kubernetes",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/kube-apiserver/",
+        "/kube-controller-manager/",
+        "/kube-proxy/",
+        "/kube-scheduler/",
+        "/kubelet/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 5,
+    },
+    {
+      description: "Mise Tools Group",
+      matchManagers: ["mise"],
+      groupName: "mise tools",
+      groupSlug: "mise-tools",
+    },
+    {
+      description: "Rook-Ceph Group",
+      groupName: "rook-ceph",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      // After the mise tools catch-all so talos wins its own group; unites the
+      // mise pin, the factory installer image, and the tuppr upgrade version
+      description: "Talos Group",
+      groupName: "talos",
+      matchPackageNames: ["siderolabs/talos"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Hold Rook-Ceph at v1.19.x",
+      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
+      allowedVersions: "<1.20.0",
+    },
+    // Labeling rules
+    {
+      matchUpdateTypes: ["major"],
+      addLabels: ["type/major"],
+    },
+    {
+      matchUpdateTypes: ["minor"],
+      addLabels: ["type/minor"],
+    },
+    {
+      matchUpdateTypes: ["patch"],
+      addLabels: ["type/patch"],
+    },
+    {
+      matchUpdateTypes: ["digest"],
+      addLabels: ["type/digest"],
+    },
+  ],
 }

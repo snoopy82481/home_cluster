@@ -24,10 +24,10 @@ resource "proxmox_vm_qemu" "talos_master" {
   memory             = 16384
   scsihw             = "virtio-scsi-pci"
   boot               = "order=sata0;sata2"
-  vm_state           = "running"
+  power_state           = "running"
   start_at_node_boot = true
   skip_ipv6          = true
-  tags               = "k8s,talos"
+  tags               = "k8s,talos,controlplane"
 
   startup_shutdown {
     order            = 15
@@ -63,7 +63,7 @@ resource "proxmox_vm_qemu" "talos_master" {
       }
       sata2 {
         cdrom {
-          iso = "local:iso/${local.talos_iso_name}"
+          iso = "local:iso/${local.talos_iso_names.controlplane}"
         }
       }
     }
@@ -105,10 +105,10 @@ resource "proxmox_vm_qemu" "talos_worker" {
   memory             = 20480
   scsihw             = "virtio-scsi-pci"
   boot               = "order=sata0;sata3"
-  vm_state           = "running"
+  power_state           = "running"
   start_at_node_boot = true
   skip_ipv6          = true
-  tags               = "k8s,talos"
+  tags               = "k8s,talos,worker"
 
   startup_shutdown {
     order            = 15
@@ -153,7 +153,7 @@ resource "proxmox_vm_qemu" "talos_worker" {
       }
       sata3 {
         cdrom {
-          iso = "local:iso/${local.talos_iso_name}"
+          iso = "local:iso/${local.talos_iso_names.worker}"
         }
       }
     }

@@ -43,13 +43,12 @@ variable "worker_mac" {
 }
 
 locals {
-  cluster_config = yamldecode(
+  talos_images = yamldecode(
     file("${path.module}/../../../talos/talenv.yaml")
-  )
+  ).talosImages
 
-  talos_version     = local.cluster_config.talosVersion
-  talos_image_url   = local.cluster_config.talosImageURL
-  talos_image_hash  = regex("([0-9a-f]{64})", local.talos_image_url)[0]
-  talos_image_short = substr(local.talos_image_hash, 0, 8)
-  talos_iso_name    = "talos-${local.talos_version}-${local.talos_image_short}-secureboot.iso"
+  talos_iso_names = {
+    for role, image_url in local.talos_images :
+    role => "talos-${substr(regex("[0-9a-f]{64}", image_url), 0, 8)}-secureboot.iso"
+  }
 }

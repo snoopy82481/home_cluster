@@ -4,12 +4,9 @@ version: v1alpha1
 machine:
   ca:
     crt: {{ certs.os.crt }}
-    {% if ENV.IS_CONTROLPLANE %}
+    {% if role == "controlplane" %}
     key: {{ certs.os.key }}
     {% endif %}
-  certSANs:
-    - betty.idahobealefamily.com
-    - 127.0.0.1
   features:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
@@ -20,7 +17,7 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-    {% if ENV.IS_CONTROLPLANE %}
+    {% if role == "controlplane" %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedRoles:
@@ -55,14 +52,12 @@ machine:
         wsize=1048576
   install:
     disk: /dev/sda
-    image: factory.talos.dev/installer-secureboot/{{ ENV.SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
+    image: factory.talos.dev/installer-secureboot/{{ schematic }}:v1.13.9
     wipe: false
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
-    image: ghcr.io/siderolabs/kubelet:{{ ENV.K8S_VERSION }}
-    extraArgs:
-      rotate-server-certificates: "true"
+    image: ghcr.io/siderolabs/kubelet:v1.36.3
     extraConfig:
       maxPods: 150
       serializeImagePulls: false
@@ -114,11 +109,11 @@ machine:
 cluster:
   ca:
     crt: {{ certs.k8s.crt }}
-    {% if ENV.IS_CONTROLPLANE %}
+    {% if role == "controlplane" %}
     key: {{ certs.k8s.key }}
     {% endif %}
   controlPlane:
-    endpoint: https://192.168.20.1:6443
+    endpoint: https://k8s.internal:6443
   clusterName: betty
   discovery:
     enabled: true
@@ -138,7 +133,7 @@ cluster:
       - 10.43.0.0/16
   secret: {{ cluster.secret }}
   token: {{ secrets.bootstraptoken }}
-  {% if ENV.IS_CONTROLPLANE %}
+  {% if role == "controlplane" %}
   aggregatorCA:
     crt: {{ certs.k8saggregator.crt }}
     key: {{ certs.k8saggregator.key }}
@@ -150,20 +145,18 @@ cluster:
       rules:
         - level: RequestResponse
     certSANs:
-      - 192.168.20.1
-      - betty.idahobealefamily.com
-      - 127.0.0.1
+      - k8s.internal
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
       feature-gates: MutatingAdmissionPolicy=true,HPAScaleToZero=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
-    image: registry.k8s.io/kube-apiserver:{{ ENV.K8S_VERSION }}
+    image: registry.k8s.io/kube-apiserver:v1.36.3
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
       feature-gates: HPAScaleToZero=true
-    image: registry.k8s.io/kube-controller-manager:{{ ENV.K8S_VERSION }}
+    image: registry.k8s.io/kube-controller-manager:v1.36.3
   coreDNS:
     disabled: true
   etcd:
@@ -176,7 +169,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:{{ ENV.K8S_VERSION }}
+    image: registry.k8s.io/kube-proxy:v1.36.3
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -197,11 +190,18 @@ cluster:
           schedulerName: default-scheduler
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:{{ ENV.K8S_VERSION }}
+    image: registry.k8s.io/kube-scheduler:v1.36.3
   secretboxEncryptionSecret: {{ secrets.secretboxencryptionsecret }}
   serviceAccount:
     key: {{ serviceaccount.key }}
   {% endif %}
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+nameservers:
+  - address: 192.168.20.1
+searchDomains:
+  disableDefault: true
 ---
 apiVersion: v1alpha1
 kind: TimeSyncConfig
@@ -213,18 +213,27 @@ apiVersion: v1alpha1
 kind: KmsgLogConfig
 name: remote-log
 url: tcp://host:5044/
----
+{# ---
 apiVersion: v1alpha1
 kind: LinkAliasConfig
 name: net0
 selector:
-  match: link.driver == "virtio_net" && mac(link.permanent_addr).startsWith("BC:24:11:7A:")
+  match: link.driver == "virtio_net" && mac(link.permanent_addr).startsWith("bc:24:11:7a:") #}
+{# ---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: ens18
+mtu: 1500
+up: true
+routes:
+  - destination: 192.168.0.0/16
+    gateway: 192.168.20.1 #}
 ---
 apiVersion: v1alpha1
 kind: BondConfig
 name: bond0
 links:
-  - net0
+  - ens18
 bondMode: active-backup
 mtu: 1500
 ---
@@ -250,13 +259,13 @@ parent: bond0
 mtu: 1500
 ---
 apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
+kind: RawVolumeConfig
+name: miroir-slow
 provisioning:
   diskSelector:
-    {% if ENV.IS_CONTROLPLANE %}
+    {% if role == "controlplane" %}
     match: disk.dev_path  == "/dev/sdb"
     {% else %}
     match: disk.dev_path  == "/dev/sdc"
     {% endif %}
-  maxSize: 10GiB
+  maxSize: 64GiB
