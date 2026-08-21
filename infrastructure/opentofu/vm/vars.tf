@@ -20,7 +20,7 @@ variable "master_vmid" {
 variable "master_mac" {
   description = "MAC's for Master VM's"
   type        = list(string)
-  default     = ["5a:a0:b4:c2:70:67", "4e:ba:97:3f:c6:92", "1a:37:36:31:49:bb"]
+  default     = ["BC:24:11:7A:3E:91", "BC:24:11:7A:C4:2D", "BC:24:11:7A:58:F7"]
 }
 
 # Worker variables
@@ -31,25 +31,24 @@ variable "worker_hostname" {
 }
 
 variable "worker_vmid" {
-  description = "Starting ID for Master VM's"
+  description = "Starting ID for Worker VM's"
   type        = number
   default     = 303
 }
 
 variable "worker_mac" {
-  description = "MAC's for Master VM's"
+  description = "MAC's for Worker VM's"
   type        = list(string)
-  default     = ["3e:34:a5:07:d3:cd", "ba:f9:08:ad:95:16", "66:4a:42:25:c9:eb"]
+  default     = ["BC:24:11:7A:E1:6B", "BC:24:11:7A:92:34", "BC:24:11:7A:AF:D8"]
 }
 
 locals {
-  cluster_config = yamldecode(
+  talos_images = yamldecode(
     file("${path.module}/../../../talos/talenv.yaml")
-  )
+  ).talosImages
 
-  talos_version     = local.cluster_config.talosVersion
-  talos_image_url   = local.cluster_config.talosImageURL
-  talos_image_hash  = regex("([0-9a-f]{64})", local.talos_image_url)[0]
-  talos_image_short = substr(local.talos_image_hash, 0, 8)
-  talos_iso_name    = "talos-${local.talos_version}-${local.talos_image_short}-secureboot.iso"
+  talos_iso_names = {
+    for role, image_url in local.talos_images :
+    role => "talos-${substr(regex("[0-9a-f]{64}", image_url), 0, 8)}-secureboot.iso"
+  }
 }

@@ -3,7 +3,4 @@ newline = true
 trim-blocks = true
 lstrip-blocks = true
 env = true
-
-[syntax]
-variable-start = "#{"
-variable-end = "}#"
+strict = true

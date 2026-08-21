@@ -6,5 +6,6 @@ namespace: rook-ceph
 components:
   - ../../components/common
 resources:
+  - ./ceph-csi-drivers/ks.yaml
   - ./rook-ceph/ks.yaml
   - ./namespace.yaml

@@ -11,14 +11,6 @@ spec:
     name: rook-ceph
   interval: 1h
   values:
-    csi:
-      cephFSKernelMountOptions: ms_mode=prefer-crc
-      enableLiveness: true
-      serviceMonitor:
-        enabled: true
-
-    enableDiscoveryDaemon: true
-
     image:
       repository: ghcr.io/rook/ceph
 

@@ -20,10 +20,10 @@ spec:
       kubernetes.io/os: linux
   bgpInstances:
     - name: cilium
-      localASN: 64500
+      localASN: 64514
       peers:
-        - name: peer-64501-udmp-v4
-          peerASN: 64501
+        - name: pfSense
+          peerASN: 64513
           peerAddress: 192.168.0.1
           peerConfigRef:
             name: l3-bgp-peer-config
@@ -57,7 +57,7 @@ metadata:
     advertise: bgp
 spec:
   advertisements:
-    - advertisementType: "Service"
+    - advertisementType: Service
       service:
         addresses:
           - LoadBalancerIP

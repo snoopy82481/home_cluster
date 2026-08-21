@@ -24,10 +24,10 @@ resource "proxmox_vm_qemu" "talos_master" {
   memory             = 16384
   scsihw             = "virtio-scsi-pci"
   boot               = "order=sata0;sata2"
-  vm_state           = "running"
+  power_state           = "running"
   start_at_node_boot = true
   skip_ipv6          = true
-  tags               = "k8s,talos"
+  tags               = "k8s,talos,controlplane"
 
   startup_shutdown {
     order            = 15
@@ -45,21 +45,25 @@ resource "proxmox_vm_qemu" "talos_master" {
     sata {
       sata0 {
         disk {
+          cache   = "writethrough"
+          discard = true
+          emulatessd = true
           size    = "64G"
           storage = "local-lvm"
-          discard = true
         }
       }
       sata1 {
         disk {
-          size    = "10G"
-          storage = "local-lvm"
+          cache   = "writethrough"
           discard = true
+          emulatessd = true
+          size    = "32G"
+          storage = "local-lvm"
         }
       }
       sata2 {
         cdrom {
-          iso = "local:iso/${local.talos_iso_name}"
+          iso = "local:iso/${local.talos_iso_names.controlplane}"
         }
       }
     }
@@ -101,10 +105,10 @@ resource "proxmox_vm_qemu" "talos_worker" {
   memory             = 20480
   scsihw             = "virtio-scsi-pci"
   boot               = "order=sata0;sata3"
-  vm_state           = "running"
+  power_state           = "running"
   start_at_node_boot = true
   skip_ipv6          = true
-  tags               = "k8s,talos"
+  tags               = "k8s,talos,worker"
 
   startup_shutdown {
     order            = 15
@@ -122,28 +126,34 @@ resource "proxmox_vm_qemu" "talos_worker" {
     sata {
       sata0 {
         disk {
-          size    = "40G"
-          storage = "local-lvm"
+          cache   = "writethrough"
           discard = true
+          emulatessd = true
+          size    = "64G"
+          storage = "local-lvm"
         }
       }
       sata1 {
         disk {
-          size    = "100G"
-          storage = "local-lvm"
+          cache   = "writethrough"
           discard = true
+          emulatessd = true
+          size    = "256G"
+          storage = "local-lvm"
         }
       }
       sata2 {
         disk {
-          size    = "10G"
-          storage = "local-lvm"
+          cache   = "writethrough"
           discard = true
+          emulatessd = true
+          size    = "32G"
+          storage = "local-lvm"
         }
       }
       sata3 {
         cdrom {
-          iso = "local:iso/${local.talos_iso_name}"
+          iso = "local:iso/${local.talos_iso_names.worker}"
         }
       }
     }
