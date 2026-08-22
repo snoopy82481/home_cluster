@@ -1,7 +1,4 @@
 {% set external = (external | string | lower) in ['true','1','yes','y','on'] %}
-# DEBUG template_type=#{ template_type }#
-# DEBUG external=#{ external }#
-# DEBUG storage=#{ storage }#
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -81,11 +78,11 @@ spec:
             namespace: networking
         {% endif %}
         hostnames:
-          - "{{ .Release.Name }}.idahobealefamily.com"
+          - "{% raw %}{{ .Release.Name }}{% endraw %}.idahobealefamily.com"
 
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: "{% raw %}{{ .Release.Name }}{% endraw %}"
 
       media:
         type: nfs
@@ -100,7 +97,7 @@ spec:
         path: /mnt/storage0/backup
         globalMounts:
           - path: /backup
-            subPath: "{{ .Release.Name }}"
+            subPath: "{% raw %}{{ .Release.Name }}{% endraw %}"
 
       tmpfs:
         type: emptyDir
