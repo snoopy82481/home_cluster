@@ -18,3 +18,11 @@ spec:
       enabled: true
     remoteWrite:
       - url: http://victoria-logs.monitoring.svc.cluster.local:9428
+    collector:
+      streamFields:
+        - kubernetes.pod_name
+        - kubernetes.pod_namespace
+        - kubernetes.container_name
+        - kubernetes.pod_labels.app.kubernetes.io/name
+    extraArgs:
+      "kubernetesCollector.decolorizeFields": _msg

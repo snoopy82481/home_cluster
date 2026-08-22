@@ -6,7 +6,6 @@ namespace: monitoring
 components:
   - ../../components/common
 resources:
-  - ./alloy/ks.yaml
   - ./grafana-operator/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
