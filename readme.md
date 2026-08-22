@@ -9,6 +9,7 @@
 <img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" align="center" alt="home_cluster" width="144" height="144" />
 
 <!-- ### My home Kubernetes cluster -->
+
 ### My home Kubernetes cluster
 
 _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="🤖" width="16" height="16" />
@@ -72,6 +73,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ---
 
 ## About The Project
@@ -157,6 +159,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- ROADMAP -->
+
 ---
 
 ## Roadmap
@@ -166,19 +169,20 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Return cluster to operational state
 - [x] Add Hajimari to the cluster [125](https://github.com/snoopy82481/home_cluster/issues/125)
 - [x] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
-  - [x] [Grafana](https://grafana.com)
-  - [x] [Prometheus](https://grafana.com/oss/prometheus/)
+    - [x] [Grafana](https://grafana.com)
+    - [x] [Prometheus](https://grafana.com/oss/prometheus/)
 - [x] Harden Kubernetes
-  - [x] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
+    - [x] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
 - [x] Documentation
-  - [x] Create README.md
-  - [x] Document workflow (Github Pages/Cloudflare pages/DeepWiki)
+    - [x] Create README.md
+    - [x] Document workflow (Github Pages/Cloudflare pages/DeepWiki)
 
 See the [open issues](https://github.com/snoopy82481/home_cluster/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
+
 ---
 
 ## Contributing
@@ -197,6 +201,7 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
+
 ---
 
 ## License
@@ -215,6 +220,7 @@ Project Link: [https://github.com/snoopy82481/home_cluster](https://github.com/s
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- ACKNOWLEDGMENTS -->
+
 ---
 
 ## Acknowledgments
@@ -240,27 +246,26 @@ There is a lot of code jacking from:
 <!-- MARKDOWN LINKS & IMAGES -->
 
 <!-- IMAGE SHIELDS -->
+
 [license-shield]: https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge
 [workflow_shield]: https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&style=for-the-badge&label=%20&color=blue
-[pre-commit-shield]: https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white&label&style=for-the-badge
-[kubernetes_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fkubernetes_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
-[renovatebot_shield]: https://img.shields.io/badge/Renovatebot-4A4A55?style=for-the-badge&logo=renovatebot&logoColor=white
-[flux_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fflux_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
-[talos_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue
+[kubernetes_shield]: https://kromgo.idahobealefamily.com/badges/kubernetes_version
+[flux_shield]: https://kromgo.idahobealefamily.com/badges/flux_version
+[talos_shield]: https://kromgo.idahobealefamily.com/badges/talos_version
 [last_commit_shield]: https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge
-[kromgo_age_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_age_days&style=flat-square&label=Age
-[kromgo_uptime_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_uptime_days&style=flat-square&label=Uptime
-[kromgo_node_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_node_count&style=flat-square&label=Nodes
-[kromgo_pod_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_pod_count&style=flat-square&label=Pods
-[kromgo_cpu_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_cpu_usage&style=flat-square&label=CPU
-[kromgo_memory_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_memory_usage&style=flat-square&label=Memory
-[kromgo_alerts_shield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.idahobealefamily.com%2Fcluster_alert_count&style=flat-square&label=Alerts
+[kromgo_age_shield]: https://kromgo.idahobealefamily.com/badges/cluster_birth_age
+[kromgo_uptime_shield]: https://kromgo.idahobealefamily.com/badges/cluster_uptime_age
+[kromgo_node_shield]: https://kromgo.idahobealefamily.com/badges/cluster_node_count
+[kromgo_pod_shield]: https://kromgo.idahobealefamily.com/badges/cluster_pod_count
+[kromgo_cpu_shield]: https://kromgo.idahobealefamily.com/badges/cluster_cpu_usage
+[kromgo_memory_shield]: https://kromgo.idahobealefamily.com/badges/cluster_memory_usage
+[kromgo_alerts_shield]: https://kromgo.idahobealefamily.com/badges/cluster_alert_count
 [deepwiki_shield]: https://img.shields.io/badge/deepwiki-purple?label=&logo=deepl&style=for-the-badge&logoColor=white
 
 <!-- LINKS -->
+
 [license-url]: https://github.com/snoopy82481/home_cluster/blob/main/LICENSE
 [workflow_url]: https://github.com/snoopy82481/home_cluster/actions/workflows/renovate.yaml
-[pre-comit-url]: https://github.com/pre-commit/pre-commit
 [old_repo_url]: https://github.com/snoopy82481/new_template_k3s
 [kubernetes_url]: https://kubernetes.io
 [renovate_url]: https://www.mend.io/renovate/
