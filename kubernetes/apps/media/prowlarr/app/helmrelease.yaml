@@ -99,7 +99,7 @@ spec:
 
       backup:
         type: nfs
-        server: truenas.idahobealefamily.com
+        server: truenas.internal
         path: /mnt/storage0/backup
         globalMounts:
           - path: /backup

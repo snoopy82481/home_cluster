@@ -161,7 +161,7 @@ spec:
 
       media:
         type: nfs
-        server: truenas.idahobealefamily.com
+        server: truenas.internal
         path: /mnt/storage1/data
         advancedMounts:
           *app :

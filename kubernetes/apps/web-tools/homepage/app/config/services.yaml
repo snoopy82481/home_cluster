@@ -109,12 +109,12 @@
           url: http://vmsingle-victoria-metrics.monitoring.svc.cluster.local:8428
 - Storage:
     - TrueNAS:
-        href: https://truenas.idahobealefamily.com
+        href: https://truenas.internal
         icon: truenas.png
         description: TrueNAS Storage
         widget:
           type: truenas
-          url: https://truenas.idahobealefamily.com
+          url: https://truenas.internal
           version: 2
           key: ${TRUENAS_AUDIT_API_KEY}
 - Networking:
