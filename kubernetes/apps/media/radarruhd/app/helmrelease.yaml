@@ -116,4 +116,4 @@ spec:
         path: /mnt/storage0/backup
         globalMounts:
           - path: /backup
-            subPath: radarr4k
+            subPath: "{{ .Release.Name }}"
