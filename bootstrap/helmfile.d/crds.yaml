@@ -22,5 +22,8 @@ releases:
   - name: grafana-operator
     namespace: monitoring
 
-  - name: victoria-metrics
+  - name: kube-prometheus-stack
     namespace: monitoring
+
+  - name: snapshot-controller
+    namespace: kube-system

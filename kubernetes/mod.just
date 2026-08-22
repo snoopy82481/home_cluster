@@ -97,12 +97,12 @@ create-app namespace app_name template="other" storage="true" external="false" f
       fi
     fi
 
-    if [ ! -d "{{ source_directory() }}/{{ namespace }}" ]; then
+    if [ ! -d "{{ source_directory() }}/apps/{{ namespace }}" ]; then
       just log warn "Namespace directory does not exist."
-      just log info "Creating: {{ source_directory() }}/{{ namespace }}"
-      mkdir -p "{{ source_directory() }}/{{ namespace }}"
-      just template "{{ source_directory() }}/templates/namespace.yaml.j2" > "{{ source_directory() }}/{{ namespace }}/namespace.yaml"
-      just template "{{ source_directory() }}/templates/kustomization.yaml.j2" > "{{ source_directory() }}/{{ namespace }}/kustomization.yaml"
+      just log info "Creating: {{ source_directory() }}/apps/{{ namespace }}"
+      mkdir -p "{{ source_directory() }}/apps/{{ namespace }}"
+      just template "{{ source_directory() }}/templates/namespace.yaml.j2" > "{{ source_directory() }}/apps/{{ namespace }}/namespace.yaml"
+      just template "{{ source_directory() }}/templates/kustomization.yaml.j2" > "{{ source_directory() }}/apps/{{ namespace }}/kustomization.yaml"
     fi
 
     # mkdir -p "$out_dir/app"
