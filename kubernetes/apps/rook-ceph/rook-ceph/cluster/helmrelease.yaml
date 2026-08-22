@@ -80,14 +80,6 @@ spec:
           limits:
             memory: 8Gi
 
-      security:
-        cephx:
-          daemon:
-            keyRotationPolicy: KeyGeneration
-            keyGeneration: 2
-          csi:
-            keyType: aes
-
       storage:
         useAllNodes: false
         useAllDevices: false
