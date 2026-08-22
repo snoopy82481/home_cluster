@@ -14,7 +14,7 @@ spec:
           cloudflare:
             apiTokenSecretRef:
               name: cluster-secrets
-              key: SECRET_CLOUDFLARE_API_KEY
+              key: CLOUDFLARE_API_TOKEN
         selector:
           dnsZones:
             - idahobealefamily.com
@@ -34,7 +34,7 @@ spec:
           cloudflare:
             apiTokenSecretRef:
               name: cluster-secrets
-              key: SECRET_CLOUDFLARE_API_KEY
+              key: CLOUDFLARE_API_TOKEN
         selector:
           dnsZones:
             - idahobealefamily.com
