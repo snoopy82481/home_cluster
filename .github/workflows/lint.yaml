@@ -12,86 +12,161 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 env:
   # Currently no way to detect automatically
   DEFAULT_BRANCH: main
 
 jobs:
-  yamllint:
-    name: yamllint
+  filter:
+    name: changed files
     runs-on: ubuntu-latest
+    outputs:
+      markdown: ${{ steps.markdown.outputs.all_changed_files }}
+      oxfmt: ${{ steps.oxfmt.outputs.all_changed_files }}
+      yaml: ${{ steps.yaml.outputs.all_changed_files }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           fetch-depth: 0
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
+      - name: Get changed YAML files
+        id: yaml
+        uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
-          files: |
+          patterns: |
             **.yml
             **.yaml
 
+      - name: Get changed Markdown files
+        id: markdown
+        uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
+        with:
+          patterns: |
+            **.md
+
+      - name: Get changed Oxfmt files
+        id: oxfmt
+        uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
+        with:
+          patterns: |
+            **.cjs
+            **.css
+            **.cts
+            **.gql
+            **.graphql
+            **.graphqls
+            **.handlebars
+            **.hbs
+            **.htm
+            **.html
+            **.js
+            **.json
+            **.json5
+            **.jsonc
+            **.jsx
+            **.less
+            **.markdown
+            **.md
+            **.mdx
+            **.mjml
+            **.mjs
+            **.mts
+            **.pcss
+            **.postcss
+            **.scss
+            **.svelte
+            **.toml
+            **.ts
+            **.tsx
+            **.vue
+            **.yaml
+            **.yml
+
+  yamllint:
+    if: >-
+      ${{
+        needs.filter.outputs.yaml != '[]' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      }}
+    name: yamllint
+    needs: filter
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        yaml: ${{ fromJSON(needs.filter.outputs.yaml) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
       - name: Install yamllint
-        if: steps.changed-files.outputs.any_changed == 'true'
         shell: bash
         run: |
           pip install --user yamllint
 
       - name: Run yamllint
-        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          yamllint --config-file .ci/yamllint/.yamllint.yaml --format github ${{ steps.changed-files.outputs.all_changed_files }}
+          yamllint --config-file .ci/yamllint/.yamllint.yaml --format github $YAML
 
   markdownlint:
+    if: >-
+      ${{
+        needs.filter.outputs.markdown != '[]' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      }}
     name: markdownlint
+    needs: filter
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        markdown: ${{ fromJSON(needs.filter.outputs.markdown) }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
-        with:
-          files: |
-            **.md
+          persist-credentials: false
 
       - name: Run markdownlint-cli2
-        if: steps.changed-files.outputs.any_changed == 'true'
         uses: bjw-s/action-markdownlint-cli2@c3c44cc6f77516007f1a85d982ed6276e840dcec # v0.1
         with:
           markdownlint_config: .ci/markdownlint/.markdownlint.yaml
-          file_pattern: ${{ steps.changed-files.outputs.all_changed_files }}
+          file_pattern: $MARKDOWN
 
-  prettier:
-    name: prettier
+  oxfmt:
+    if: >-
+      ${{
+        needs.filter.outputs.oxfmt != '[]' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      }}
+    name: oxfmt
+    needs: filter
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        oxfmt: ${{ fromJSON(needs.filter.outputs.oxfmt) }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           fetch-depth: 0
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
-
-      - name: Run prettier
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: bjw-s/action-prettier-lint@1014e6a3453ff28a8b746715f44a75306d223266 # v0.1
-        with:
-          prettier_ignore: .ci/prettier/.prettierignore
-          prettier_config: .ci/prettier/.prettierrc.yaml
-          file_pattern: ${{ steps.changed-files.outputs.all_changed_files }}
+      - name: Run oxfmt
+        run: |
+          npx --yes oxfmt@0.64.0 --check --no-error-on-unmatched-pattern $OXFMT
 
   lint_success:
     needs:
-      - prettier
+      - filter
+      - oxfmt
       - yamllint
       - markdownlint
     if: |

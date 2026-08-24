@@ -19,11 +19,9 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 <!-- PROJECT SHIELDS-->
 <div align="center">
 
-[![GitHub License][license-shield]][license-url]&nbsp;&nbsp;
 [![Talos][talos_shield]][talos_url]&nbsp;&nbsp;
 [![kubernetes][kubernetes_shield]][kubernetes_url]&nbsp;&nbsp;
 [![Flux][flux_shield]][flux_url]&nbsp;&nbsp;
-[![GitHub last commit][last_commit_shield]]&nbsp;&nbsp;
 [![Renovate][workflow_shield]][workflow_url]
 
 </div>
@@ -169,13 +167,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Return cluster to operational state
 - [x] Add Hajimari to the cluster [125](https://github.com/snoopy82481/home_cluster/issues/125)
 - [x] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
-    - [x] [Grafana](https://grafana.com)
-    - [x] [Prometheus](https://grafana.com/oss/prometheus/)
+  - [x] [Grafana](https://grafana.com)
+  - [x] [Prometheus](https://grafana.com/oss/prometheus/)
 - [x] Harden Kubernetes
-    - [x] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
+  - [x] Add [Kyverno](https://kyverno.io) for Kubernetes Policy Management
 - [x] Documentation
-    - [x] Create README.md
-    - [x] Document workflow (Github Pages/Cloudflare pages/DeepWiki)
+  - [x] Create README.md
+  - [x] Document workflow (Github Pages/Cloudflare pages/DeepWiki)
 
 See the [open issues](https://github.com/snoopy82481/home_cluster/issues) for a full list of proposed features (and known issues).
 
@@ -247,12 +245,10 @@ There is a lot of code jacking from:
 
 <!-- IMAGE SHIELDS -->
 
-[license-shield]: https://img.shields.io/github/license/snoopy82481/home_cluster?style=for-the-badge
-[workflow_shield]: https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&style=for-the-badge&label=%20&color=blue
+[workflow_shield]: https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&label&logo=renovate&color=blue
 [kubernetes_shield]: https://kromgo.idahobealefamily.com/badges/kubernetes_version
 [flux_shield]: https://kromgo.idahobealefamily.com/badges/flux_version
 [talos_shield]: https://kromgo.idahobealefamily.com/badges/talos_version
-[last_commit_shield]: https://img.shields.io/github/last-commit/snoopy82481/home_cluster?style=for-the-badge
 [kromgo_age_shield]: https://kromgo.idahobealefamily.com/badges/cluster_birth_age
 [kromgo_uptime_shield]: https://kromgo.idahobealefamily.com/badges/cluster_uptime_age
 [kromgo_node_shield]: https://kromgo.idahobealefamily.com/badges/cluster_node_count
@@ -264,7 +260,6 @@ There is a lot of code jacking from:
 
 <!-- LINKS -->
 
-[license-url]: https://github.com/snoopy82481/home_cluster/blob/main/LICENSE
 [workflow_url]: https://github.com/snoopy82481/home_cluster/actions/workflows/renovate.yaml
 [old_repo_url]: https://github.com/snoopy82481/new_template_k3s
 [kubernetes_url]: https://kubernetes.io
