@@ -144,25 +144,25 @@ url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellche
 url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056932"
 
 [[tools.talos]]
-version = "1.13.8"
+version = "1.13.9"
 backend = "aqua:siderolabs/talos"
 
 [tools.talos."platforms.linux-arm64"]
-checksum = "sha256:255ed9ccd2cfa26c619c5d445c013e4b6bf9e7d5a5aecbd72145db01a531ec60"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-linux-arm64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384610"
+checksum = "sha256:51caed158eda73d2888cbf2df2d67551f9c9f8229aa42d3725e481d073e76f0b"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.9/talosctl-linux-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/520547649"
 provenance = "cosign"
 
 [tools.talos."platforms.linux-x64"]
-checksum = "sha256:406b56f9e4ff03b1557cc941b1f163aec8a6ebb36e28f0bbbe6d083589529261"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-linux-amd64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384584"
+checksum = "sha256:7e1d4b7d5846964bdcf63a794e3c8161bb6ef2983d5ace58ea5322f3bf32a27e"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.9/talosctl-linux-amd64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/520547641"
 provenance = "cosign"
 
 [tools.talos."platforms.macos-arm64"]
-checksum = "sha256:ede53ce2c8508fe3a95b80a3039ad8a07940a8d6a611d6a49d0154edfca766b8"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-darwin-arm64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384598"
+checksum = "sha256:ab4c27a959ff6c52f62c6cc2af07b22ca86ed27f1a138ed57582fa67f7b50f98"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.9/talosctl-darwin-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/520547612"
 provenance = "cosign"
 
 [[tools.yq]]
