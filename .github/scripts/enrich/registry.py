@@ -5,6 +5,7 @@ PROVIDERS: dict[str, Provider] = {
     "cloudflare/cloudflared": cloudflared.provider,
     "spegel-org/spegel": spegel.provider,
     "qbittorrent/qbittorrent": qbittorrent.provider,
+    "bjw-s-labs/helm-charts": bjw_helm.provider,
     "bjw-s-labs/common": bjw_helm.provider,
     "kubernetes/kubernetes": kubernetes.provider,
 }

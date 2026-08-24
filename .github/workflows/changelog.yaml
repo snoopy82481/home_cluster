@@ -7,48 +7,47 @@ on:
       - reopened
       - synchronize
 
-permissions:
-  contents: read
-  pull-requests: write
-
-env:
-  ENRICH_PACKAGES: |
-    cloudflared
-    spegel
-    qbittorrent
-    app-template
-    kubelet
-
 jobs:
   check-package:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       should_run: ${{ steps.check.outputs.should_run }}
-
     steps:
-      - name: Check PR title against package allowlist
+      - name: Check PR metadata for an enriched package
         id: check
-        run: |
-          TITLE="${{ github.event.pull_request.title }}"
-          SHOULD_RUN="false"
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          script: |
+            const supportedSources = new Set([
+              "cloudflare/cloudflared",
+              "spegel-org/spegel",
+              "qbittorrent/qbittorrent",
+              "bjw-s-labs/helm-charts",
+              "kubernetes/kubernetes",
+            ]);
+            const body = context.payload.pull_request.body ?? "";
+            const sourceUrls = body.matchAll(
+              /\[source\]\(https:\/\/(?:redirect\.)?github\.com\/([^/)]+\/[^/)#?]+)[^)]*\)/gi,
+            );
+            const shouldRun = Array.from(sourceUrls).some((match) =>
+              supportedSources.has(match[1].toLowerCase()),
+            );
 
-          # Loop through allowed package names:
-          while IFS= read -r ALLOWED; do
-            # Direct match (best case)
-            if echo "$TITLE" | grep -iq "$ALLOWED"; then
-              SHOULD_RUN="true"
-              break
-            fi
-          done <<< "${{ env.ENRICH_PACKAGES }}"
-
-          echo "should_run=$SHOULD_RUN" >> $GITHUB_OUTPUT
-          echo "Matched? $SHOULD_RUN"
+            core.setOutput("should_run", shouldRun);
+            core.info(`Matched enriched package: ${shouldRun}`);
 
   generate-changelog:
     name: Generate Changelog
     needs: check-package
-    if: needs.check-package.outputs.should_run == 'true'
+    if: >-
+      github.event.pull_request.user.login == 'app/snoopy82481-bot' &&
+      needs.check-package.outputs.should_run == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -56,6 +55,13 @@ jobs:
         with:
           client-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          permission-checks: write
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+          permission-statuses: write
+          permission-vulnerability-alerts: read
+          permission-workflows: write
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -80,7 +86,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           LOG_LEVEL: INFO
         run: |
-          NEW_BODY="$(python3 .github/scripts/enrich/main.py)"
+          NEW_BODY="$(PYTHONPATH=.github python3 -m scripts.enrich.main)"
           # Escape output for GitHub Actions
           NEW_BODY="${NEW_BODY//'%'/'%25'}"
           NEW_BODY="${NEW_BODY//$'\n'/'%0A'}"

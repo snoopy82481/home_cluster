@@ -3,12 +3,13 @@ from __future__ import annotations
 import json
 import os
 import re
+from urllib.parse import urlparse
 
 import requests
 
 from .logging_config import log
 from .registry import PROVIDERS
-from .special_class import RenovateDep
+from .special_class import Provider, RenovateDep
 
 
 def fetch_pr_body(pr_number: str) -> str:
@@ -29,23 +30,71 @@ def fetch_pr_body(pr_number: str) -> str:
     return r.json()["body"]
 
 
-def extract_metadata(pr_body: str) -> RenovateDep | None:
-    m = re.search(r"```json(.*?)```", pr_body, re.S)
-    if not m:
-        log.warning("No Renovate metadata found")
-        return None
-    data = json.loads(m.group(1))
-    return data["deps"][0]
+def extract_metadata(pr_body: str) -> list[RenovateDep]:
+    """Extract Renovate dependencies from legacy JSON or its current PR table."""
+    json_block = re.search(r"```json\s*(.*?)```", pr_body, re.DOTALL)
+    if json_block:
+        data = json.loads(json_block.group(1))
+        return data.get("deps", [])
+
+    dependencies: list[RenovateDep] = []
+    pattern = re.compile(
+        r"^\|\s*\[[^]]+\]\([^)]+\)\s*"
+        r"\(\[source\]\((?P<source>[^)]+)\).*?\)\s*\|\s*"
+        r"[^|]+\|\s*`(?P<current>[^`]+)`\s*(?:→|->)\s*"
+        r"`(?P<new>[^`]+)`\s*\|$",
+        re.MULTILINE,
+    )
+
+    for match in pattern.finditer(pr_body):
+        source_path = urlparse(match.group("source")).path.strip("/")
+        if source_path.count("/") != 1:
+            continue
+
+        dependencies.append(
+            {
+                "depName": source_path,
+                "packageName": source_path,
+                "manager": "",
+                "datasource": "",
+                "currentVersion": match.group("current"),
+                "newVersion": match.group("new"),
+                "registryUrl": None,
+            }
+        )
+
+    return dependencies
 
 
-def rewrite_body(old_body: str, notes: str, version: str) -> str:
-    if "[Compare Source]" not in old_body:
+def providers_for(
+    dependencies: list[RenovateDep],
+) -> list[tuple[RenovateDep, Provider]]:
+    providers: list[tuple[RenovateDep, Provider]] = []
+    for dep in dependencies:
+        provider = PROVIDERS.get(dep["packageName"].lower())
+        if provider:
+            providers.append((dep, provider))
+    return providers
+
+
+def rewrite_body(old_body: str, dep: RenovateDep, notes: str) -> str:
+    """Replace only the supported dependency's release-note details block."""
+    source = re.escape(dep["depName"])
+    pattern = re.compile(
+        rf"(?P<head><details>\s*<summary>.*?{source}.*?</summary>.*?"
+        r"\[Compare Source\]\([^)]+\))(?P<notes>.*?)"
+        r"(?P<end>\s*</details>)",
+        re.DOTALL | re.IGNORECASE,
+    )
+    match = pattern.search(old_body)
+    if not match:
+        log.warning("No matching Renovate release-notes section found")
         return old_body
 
-    top, _ = old_body.split("[Compare Source]", 1)
-    top += "[Compare Source]"
-
-    return f"{top}\n\n### v{version} changelog\n\n{notes}\n\n</details>"
+    version = dep["newVersion"]
+    heading = version if version.startswith("v") else f"v{version}"
+    replacement = f"{match.group('head')}\n\n### {heading} changelog\n\n{notes}{match.group('end')}"
+    return old_body[: match.start()] + replacement + old_body[match.end() :]
 
 
 if __name__ == "__main__":
@@ -54,21 +103,18 @@ if __name__ == "__main__":
         raise SystemExit("PR_NUMBER environment variable missing")
 
     body = fetch_pr_body(pr_number)
-    dep = extract_metadata(body)
-
-    if not dep:
+    selected = providers_for(extract_metadata(body))
+    if not selected:
+        log.warning("No supported dependency found")
         print(body)
         raise SystemExit(0)
 
-    pkg = dep["packageName"]
-
-    provider = PROVIDERS.get(pkg)
-    if not provider:
-        log.warning(f"No provider for {pkg}")
-        print(body)
-        raise SystemExit(0)
-
-    notes = provider(dep)
-    new_body = rewrite_body(body, notes, dep["newVersion"])
+    new_body = body
+    for dep, provider in selected:
+        notes = provider(dep)
+        if not notes:
+            log.warning(f"No changelog entries found for {dep['packageName']}")
+            continue
+        new_body = rewrite_body(new_body, dep, notes)
 
     print(new_body)
