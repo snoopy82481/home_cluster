@@ -6,8 +6,6 @@
     "*.just": "just",
     "Justfile": "just"
   },
-  "prettier.configPath": ".ci/prettier/.prettierrc.yaml",
-  "prettier.ignorePath": ".github/linters/.prettierignore",
   "explorer.autoReveal": false,
   "editor.fontLigatures": true,
   "editor.bracketPairColorization.enabled": true,
@@ -21,14 +19,10 @@
   "yaml.schemas": {
     "Kubernetes": "./kubernetes/*.yaml",
     "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "./kubernetes/apps/media/recyclarr/app/configs/*.yaml",
-    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "./kubernetes/apps/media/recyclarr/settings.yaml",
-    "https://taskfile.dev/schema.json": [
-      "**/Taskfile.yaml",
-      ".taskfiles/*.yml"
-    ],
-    "https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json": "./talos/talconfig.yaml"
+    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "./kubernetes/apps/media/recyclarr/settings.yaml"
   },
   "material-icon-theme.files.associations": {
+    "*.gotmpl": "smarty",
     "*.sops.yaml": "lock",
     "helmfile.yaml": "helm",
     "kubeconfig": "kubernetes",
@@ -36,8 +30,11 @@
   },
   "material-icon-theme.folders.associations": {
     // top level
-    ".taskfiles": "utils",
+    ".github/workflows": "ci",
+    ".private": "archive",
+    ".renovate": "robot",
     "bootstrap": "seeders",
+    "bootstrap/helmfile.d": "helm",
     "flux": "pipe",
     "talos": "linux",
     // namespaces
@@ -47,6 +44,7 @@
     "monitoring": "event",
     "flux-system": "pipe",
     "rook-ceph": "dump",
+    "system-upgrade": "update",
     // apps
     "cloudflared": "cloudflare",
     "radarr": "video",
@@ -60,7 +58,6 @@
   "conventionalCommits.scopes": [
     "ci",
     "actions",
-    "tasks",
     "vscode",
     "talos",
     "flux",
@@ -96,7 +93,6 @@
     "kube-prometheus-stack",
     "huntarr",
     "homepage",
-    "tqm",
     "envoy-gateway",
     "victoria-logs",
     "just",
@@ -106,7 +102,7 @@
   ],
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",
-    "vs-kubernetes.knownKubeconfigs": []
+    "vs-kubernetes.knownKubeconfigs": ["./kubeconfig"]
   },
   "sops.defaults.ageKeyFile": "age.key",
   "better-comments.tags": [
@@ -156,5 +152,23 @@
       "italic": false
     }
   ],
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv"
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  "[just]": {
+    "editor.defaultFormatter": "nefrob.vscode-just-syntax"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json5]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  }
 }
