@@ -1,12 +1,8 @@
+set default-list
+set default-script
 set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
 set script-interpreter := ['bash', '-euo', 'pipefail']
-
-templates_dir := justfile_dir() + '/kubernetes/templates'
-
-[private]
-default:
-    just -l kube
 
 [doc('Apply local Flux Kustomization')]
 apply-ks ns ks:
@@ -19,7 +15,6 @@ browse-pvc ns claim:
         --overrides='{"spec":{"containers":[{"name":"browse-pvc-{{ claim }}","image":"mirror.gcr.io/alpine:latest","stdin":true,"tty":true,"command":["/bin/sh"],"workingDir":"/mnt","volumeMounts":[{"mountPath":"/mnt","name":"data"}]}],"volumes":[{"name":"data","persistentVolumeClaim":{"claimName":"{{ claim }}"}}]}}'
 
 [doc('Debug a node')]
-[script]
 debug-node node:
     trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --field-selector spec.nodeName={{ node }} --ignore-not-found --wait=false' EXIT
     kubectl debug node/{{ node }} -n default -it --image=mirror.gcr.io/alpine:latest --profile=sysadmin
@@ -34,7 +29,6 @@ node-shell node:
     kubectl delete pod -n system -l app.kubernetes.io/managed-by=kubectl-debug
 
 [doc('Prune pods in Failed, Pending, Succeeded or Completed state')]
-[script]
 prune-pods:
     for phase in Failed Pending Succeeded Completed; do
         kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true
@@ -55,7 +49,6 @@ rook-password:
     kubectl view-secret -n rook-ceph rook-ceph-dashboard-password -q
 
 [doc('Create app deployment')]
-[script]
 create-app namespace app_name template="other" storage="true" external="false" force="false":
     branch="create-app/{{ app_name }}"
     out_dir="{{ source_directory() }}/apps/{{ namespace }}/{{ app_name }}"
