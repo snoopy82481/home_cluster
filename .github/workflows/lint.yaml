@@ -24,9 +24,9 @@ jobs:
     name: changed files
     runs-on: ubuntu-latest
     outputs:
-      markdown: ${{ steps.markdown.outputs.markdown }}
-      oxfmt: ${{ steps.oxfmt.outputs.oxfmt }}
-      yaml: ${{ steps.yaml.outputs.yaml }}
+      markdown: ${{ steps.markdown.outputs.all_changed_files }}
+      oxfmt: ${{ steps.oxfmt.outputs.all_changed_files }}
+      yaml: ${{ steps.yaml.outputs.all_changed_files }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -112,6 +112,8 @@ jobs:
           pip install --user yamllint
 
       - name: Run yamllint
+        env:
+          YAML: ${{ matrix.yaml }}
         run: |
           yamllint --config-file .ci/yamllint/.yamllint.yaml --format github $YAML
 
@@ -136,6 +138,8 @@ jobs:
 
       - name: Run markdownlint-cli2
         uses: bjw-s/action-markdownlint-cli2@c3c44cc6f77516007f1a85d982ed6276e840dcec # v0.1
+        env:
+          MARKDOWN: ${{ matrix.markdown }}
         with:
           markdownlint_config: .ci/markdownlint/.markdownlint.yaml
           file_pattern: $MARKDOWN
@@ -160,6 +164,8 @@ jobs:
           fetch-depth: 0
 
       - name: Run oxfmt
+        env:
+          OXFMT: ${{ matrix.oxfmt }}
         run: |
           npx --yes oxfmt@0.64.0 --check --no-error-on-unmatched-pattern $OXFMT
 
