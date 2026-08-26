@@ -8,7 +8,7 @@ metadata:
 spec:
   {% if storage %}
   components:
-    - ../../../../components/storage
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -19,7 +19,7 @@ spec:
     {% if storage %}
     substitute:
       APP: {{ app_name }}
-      STORAGE_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
     {% endif %}
     substituteFrom:
       - name: cluster-settings

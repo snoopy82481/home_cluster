@@ -57,6 +57,8 @@ hostDNS:
   enabled: true
   forwardKubeDNSToHost: true # Requires Cilium socketLB features
   resolveMemberNames: true
+nameservers:
+  - address: 192.168.20.1
 ---
 apiVersion: v1alpha1
 kind: DiscoveryServiceConfig
@@ -71,7 +73,7 @@ clusterSecret: {{ cluster.secret }}
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 installer:
-  image: factory.talos.dev/installer-secureboot/{{ ENV.SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
+  image: factory.talos.dev/installer-secureboot/{{ schematic }}:v1.13.9
 provisioning:
   diskSelector:
     match: disk.model == "MK000480GWCEV"
@@ -82,8 +84,13 @@ kind: RawVolumeConfig
 name: miroir-slow
 provisioning:
   diskSelector:
-    match: disk.model == "Corsair MP600 MICRO" && !system_disk
-  minSize: 1TB
+    {% if role == "controlplane" %}
+    match: disk.dev_path  == "/dev/sdb"
+    {% else %}
+    match: disk.dev_path  == "/dev/sdc"
+    {% endif %}
+  grow: true
+  minSize: 1GiB
 ---
 apiVersion: v1alpha1
 kind: FilesystemTrimConfig
@@ -92,6 +99,16 @@ interval: 168h0m0s
 apiVersion: v1alpha1
 kind: FilesystemScrubConfig
 interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: drbd
+parameters:
+  - usermode_helper=disabled
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: drbd_transport_tcp
 ---
 apiVersion: v1alpha1
 kind: TimeSyncConfig
@@ -162,7 +179,7 @@ config:
   shutdownGracePeriod: 90s
   shutdownGracePeriodCriticalPods: 60s
 defaultRuntimeSeccompProfileEnabled: true
-image: ghcr.io/siderolabs/kubelet:{{ ENV.K8S_VERSION }}
+image: ghcr.io/siderolabs/kubelet:v1.36.4
 ---
 apiVersion: v1alpha1
 kind: KubeNetworkConfig

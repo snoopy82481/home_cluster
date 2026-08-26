@@ -54,6 +54,12 @@ machine:
     disk: /dev/sda
     image: factory.talos.dev/installer-secureboot/{{ schematic }}:v1.13.9
     wipe: false
+  kernel:
+    modules:
+      - name: drbd
+        parameters:
+          - usermod_helper=disabled
+      - name: drbd_transport_tcp
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -61,6 +67,8 @@ machine:
     extraConfig:
       maxPods: 150
       serializeImagePulls: false
+      shutdownGracePeriod: 120s
+      shutdownGracePeriodCriticalPods: 60s
     nodeIP:
       validSubnets:
         - 192.168.20.0/24
@@ -149,8 +157,7 @@ cluster:
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: MutatingAdmissionPolicy=true,HPAScaleToZero=true
-      runtime-config: admissionregistration.k8s.io/v1beta1=true
+      feature-gates: HPAScaleToZero=true
     image: registry.k8s.io/kube-apiserver:v1.36.4
   controllerManager:
     extraArgs:
@@ -268,4 +275,5 @@ provisioning:
     {% else %}
     match: disk.dev_path  == "/dev/sdc"
     {% endif %}
-  maxSize: 64GiB
+  grow: true
+  minSize: 1GiB

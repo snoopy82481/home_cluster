@@ -8,4 +8,5 @@ components:
 resources:
   - ./atuin/ks.yaml
   - ./generic-device-plugin/ks.yaml
+  - ./kopiur/ks.yaml
   - ./namespace.yaml
