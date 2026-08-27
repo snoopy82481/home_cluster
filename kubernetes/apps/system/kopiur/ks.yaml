@@ -9,9 +9,9 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: kopiur
-      namespace: kopiur-system
+      namespace: system
   interval: 1h
-  path: ./kubernetes/apps/kopiur-system/kopiur/app
+  path: ./kubernetes/apps/system/kopiur/app
   postBuild:
     substituteFrom:
       - name: cluster-settings
@@ -21,7 +21,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: kopiur-system
+  targetNamespace: system
   wait: false
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
@@ -33,11 +33,11 @@ spec:
   dependsOn:
     - name: kopiur
   interval: 1h
-  path: ./kubernetes/apps/kopiur-system/kopiur/repository
+  path: ./kubernetes/apps/system/kopiur/repository
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: kopiur-system
+  targetNamespace: system
   wait: false
