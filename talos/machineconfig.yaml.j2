@@ -63,7 +63,7 @@ machine:
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
-    image: ghcr.io/siderolabs/kubelet:v1.36.4
+    image: ghcr.io/siderolabs/kubelet:v1.37.0
     extraConfig:
       maxPods: 150
       serializeImagePulls: false
@@ -158,12 +158,12 @@ cluster:
     extraArgs:
       enable-aggregator-routing: "true"
       feature-gates: HPAScaleToZero=true
-    image: registry.k8s.io/kube-apiserver:v1.36.4
+    image: registry.k8s.io/kube-apiserver:v1.37.0
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
       feature-gates: HPAScaleToZero=true
-    image: registry.k8s.io/kube-controller-manager:v1.36.4
+    image: registry.k8s.io/kube-controller-manager:v1.37.0
   coreDNS:
     disabled: true
   etcd:
@@ -176,7 +176,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.36.4
+    image: registry.k8s.io/kube-proxy:v1.37.0
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -197,7 +197,7 @@ cluster:
           schedulerName: default-scheduler
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:v1.36.4
+    image: registry.k8s.io/kube-scheduler:v1.37.0
   secretboxEncryptionSecret: {{ secrets.secretboxencryptionsecret }}
   serviceAccount:
     key: {{ serviceaccount.key }}
