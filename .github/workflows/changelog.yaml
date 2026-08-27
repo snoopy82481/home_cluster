@@ -26,6 +26,7 @@ jobs:
               "qbittorrent/qbittorrent",
               "bjw-s-labs/helm-charts",
               "kubernetes/kubernetes",
+              "siderolabs/kubelet",
               "atuinsh/atuin",
             ]);
             const body = context.payload.pull_request.body ?? "";
@@ -92,7 +93,7 @@ jobs:
           NEW_BODY="${NEW_BODY//'%'/'%25'}"
           NEW_BODY="${NEW_BODY//$'\n'/'%0A'}"
           NEW_BODY="${NEW_BODY//$'\r'/'%0D'}"
-          echo "body=$NEW_BODY" >> $GITHUB_OUTPUT
+          echo "body=$NEW_BODY" >> "$GITHUB_OUTPUT"
 
       - name: Apply PR update
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9

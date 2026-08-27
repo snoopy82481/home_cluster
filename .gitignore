@@ -52,3 +52,5 @@ wiki
 
 # Bootstrap
 /config.yaml
+
+__pycache__

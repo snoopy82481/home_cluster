@@ -8,5 +8,6 @@ PROVIDERS: dict[str, Provider] = {
     "bjw-s-labs/helm-charts": bjw_helm.provider,
     "bjw-s-labs/common": bjw_helm.provider,
     "kubernetes/kubernetes": kubernetes.provider,
+    "siderolabs/kubelet": kubernetes.provider,
     "atuinsh/atuin": atuin.provider,
 }
