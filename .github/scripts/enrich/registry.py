@@ -1,4 +1,4 @@
-from .providers import bjw_helm, cloudflared, kubernetes, qbittorrent, spegel
+from .providers import atuin, bjw_helm, cloudflared, kubernetes, qbittorrent, spegel
 from .special_class import Provider
 
 PROVIDERS: dict[str, Provider] = {
@@ -8,4 +8,5 @@ PROVIDERS: dict[str, Provider] = {
     "bjw-s-labs/helm-charts": bjw_helm.provider,
     "bjw-s-labs/common": bjw_helm.provider,
     "kubernetes/kubernetes": kubernetes.provider,
+    "atuinsh/atuin": atuin.provider,
 }

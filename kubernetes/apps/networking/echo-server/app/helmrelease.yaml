@@ -1,0 +1,54 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app echo-server
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  interval: 1h
+  values:
+    controllers:
+      *app :
+        containers:
+          *app :
+            image:
+              repository: ghcr.io/mendhak/http-https-echo
+              tag: 41
+
+            env:
+              TZ: America/Boise
+              HTTP_PORT: &port 8080
+              LOG_WITHOUT_NEWLINE: "true"
+              LOG_IGNORE_PATH: "/healthz"
+
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+
+            resources:
+              requests:
+                cpu: 5m
+                memory: 64M
+              limits:
+                memory: 64M
+
+    service:
+      *app :
+        controller: *app
+        ports:
+          http:
+            port: *port
+
+    route:
+      *app :
+        enabled: true
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        hostnames:
+          - "{{ .Release.Name }}.idahobealefamily.com"

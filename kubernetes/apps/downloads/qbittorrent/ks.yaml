@@ -6,7 +6,7 @@ metadata:
   name: qbittorrent
 spec:
   components:
-    - ../../../../components/storage
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -15,7 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: qbittorrent
-      STORAGE_CAPACITY: 2Gi
+      KOPIUR_CAPACITY: 2Gi
   prune: true
   sourceRef:
     kind: GitRepository

@@ -58,44 +58,44 @@ create-app namespace app_name template="other" storage="true" external="false" f
       exit 1
     fi
 
-    local_exists=false
-    remote_exists=false
+    # local_exists=false
+    # remote_exists=false
 
-    if git show-ref --verify --quiet "refs/heads/$branch"; then
-      local_exists=true
-    fi
+    # if git show-ref --verify --quiet "refs/heads/$branch"; then
+    #   local_exists=true
+    # fi
 
-    if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
-      remote_exists=true
-    fi
+    # if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+    #   remote_exists=true
+    # fi
 
-    if [[ "$local_exists" == "true" ]]; then
-      just log info "Switching to existing local branch: $branch"
-      git switch "$branch"
-    else
-      just log info "Creating local branch: $branch"
-      git switch -c "$branch"
-    fi
+    # if [[ "$local_exists" == "true" ]]; then
+    #   just log info "Switching to existing local branch: $branch"
+    #   git switch "$branch"
+    # else
+    #   just log info "Creating local branch: $branch"
+    #   git switch -c "$branch"
+    # fi
 
-    if [[ "$remote_exists" == "false" ]]; then
-      just log info "Remote branch does not exist. Pushing branch to origin: $branch"
-      git push -u origin "$branch"
-    else
-      just log info "Remote branch already exists: origin/$branch"
+    # if [[ "$remote_exists" == "false" ]]; then
+    #   just log info "Remote branch does not exist. Pushing branch to origin: $branch"
+    #   git push -u origin "$branch"
+    # else
+    #   just log info "Remote branch already exists: origin/$branch"
 
-      if git diff --quiet && git diff --cached --quiet; then
-        just log info "No local changes detected. Continuing."
-      else
-        just log info "Local changes detected on branch: $branch"
-      fi
-    fi
+    #   if git diff --quiet && git diff --cached --quiet; then
+    #     just log info "No local changes detected. Continuing."
+    #   else
+    #     just log info "Local changes detected on branch: $branch"
+    #   fi
+    # fi
 
     if [ ! -d "{{ source_directory() }}/apps/{{ namespace }}" ]; then
       just log warn "Namespace directory does not exist."
       just log info "Creating: {{ source_directory() }}/apps/{{ namespace }}"
       mkdir -p "{{ source_directory() }}/apps/{{ namespace }}"
-      just template "{{ source_directory() }}/templates/namespace.yaml.j2" > "{{ source_directory() }}/apps/{{ namespace }}/namespace.yaml"
-      just template "{{ source_directory() }}/templates/kustomization.yaml.j2" > "{{ source_directory() }}/apps/{{ namespace }}/kustomization.yaml"
+      just template "{{ source_directory() }}/templates/namespace/namespace.yaml.j2" > "{{ source_directory() }}/apps/{{ namespace }}/namespace.yaml"
+      just template "{{ source_directory() }}/templates/namespace/kustomization.yaml.j2" > "{{ source_directory() }}/apps/{{ namespace }}/kustomization.yaml"
     fi
 
     # mkdir -p "$out_dir/app"

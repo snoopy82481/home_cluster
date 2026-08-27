@@ -6,7 +6,7 @@ metadata:
   name: qui
 spec:
   components:
-    - ../../../../components/storage
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -15,7 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: qui
-      STORAGE_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

@@ -71,6 +71,7 @@
     "cert-manager",
     "external-dns",
     "k8s-gateway",
+    "kopiur",
     "rook-ceph",
     "qbittorrent",
     "bazarr",

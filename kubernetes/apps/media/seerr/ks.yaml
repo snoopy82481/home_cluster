@@ -6,7 +6,7 @@ metadata:
   name: seerr
 spec:
   components:
-    - ../../../../components/storage
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -15,7 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: seerr
-      STORAGE_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-settings
         kind: ConfigMap

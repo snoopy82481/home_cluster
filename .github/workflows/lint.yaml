@@ -115,7 +115,7 @@ jobs:
         env:
           YAML_FILE: ${{ matrix.yaml }}
         run: |
-          yamllint --config-file .ci/yamllint/.yamllint.yaml --format github "$YAML_FILE"
+          yamllint --config-file .github/linters/.yamllint.yaml --format github "$YAML_FILE"
 
   markdownlint:
     if: >-
@@ -141,7 +141,7 @@ jobs:
           MARKDOWN_FILE: ${{ matrix.markdown }}
         uses: bjw-s/action-markdownlint-cli2@c3c44cc6f77516007f1a85d982ed6276e840dcec # v0.1
         with:
-          markdownlint_config: .ci/markdownlint/.markdownlint.yaml
+          markdownlint_config: .github/linters/.markdownlint.yaml
           file_pattern: ${{ env.MARKDOWN_FILE }}
 
   oxfmt:

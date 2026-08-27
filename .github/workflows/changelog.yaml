@@ -26,6 +26,7 @@ jobs:
               "qbittorrent/qbittorrent",
               "bjw-s-labs/helm-charts",
               "kubernetes/kubernetes",
+              "atuinsh/atuin",
             ]);
             const body = context.payload.pull_request.body ?? "";
             const sourceUrls = body.matchAll(

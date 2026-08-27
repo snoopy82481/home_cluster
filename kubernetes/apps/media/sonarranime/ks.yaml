@@ -6,7 +6,7 @@ metadata:
   name: &app sonarranime
 spec:
   components:
-    - ../../../../components/storage
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -15,7 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      STORAGE_CAPACITY: 2Gi
+      KOPIUR_CAPACITY: 2Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
