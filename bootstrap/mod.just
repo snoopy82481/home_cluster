@@ -64,7 +64,6 @@ kubeconfig lb="cilium":
 [private]
 base: nodes-ready apply-secrets
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
-    export SOPS_AGE_KEY_FILE="${SOPS_AGE_KEY_FILE:-{{ source_directory() }}/../age.key}"
     if ! {
         kustomize build {{ source_directory() }}/kustomize/personal | yq 'select(has("sops") | not)'
         while IFS= read -r secret; do

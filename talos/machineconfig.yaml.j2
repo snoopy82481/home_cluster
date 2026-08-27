@@ -60,6 +60,7 @@ machine:
         parameters:
           - usermod_helper=disabled
       - name: drbd_transport_tcp
+      - name: dm_thin_pool
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true

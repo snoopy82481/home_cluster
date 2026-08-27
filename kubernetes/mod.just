@@ -34,12 +34,6 @@ prune-pods:
         kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true
     done
 
-[doc('Suspend or resume VolSync')]
-volsync state:
-    flux -n volsync-system {{ state }} kustomization volsync
-    flux -n volsync-system {{ state }} helmrelease volsync
-    kubectl -n volsync-system scale deployment volsync --replicas {{ if state != "suspend" { "1" } else { "0" } }}
-
 [doc('View a secret')]
 view-secret namespace secret:
     kubectl view-secret -n {{ namespace }} {{ secret }}
@@ -47,6 +41,20 @@ view-secret namespace secret:
 [doc('Get rook-ceph toolbox password')]
 rook-password:
     kubectl view-secret -n rook-ceph rook-ceph-dashboard-password -q
+
+[private]
+render-local-ks ns ks:
+    flate build ks --namespace "{{ ns }}" --output yaml "{{ ks }}"
+
+[arg('resource', pattern='hr|ks|gitrepo|ocirepo|es')]
+[doc('Sync a resource')]
+sync resource:
+    kubectl get {{ resource }} --no-headers -A | while read -r ns name _; do
+        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite {{ resource }} "$name" \
+            "force-sync=$(date +%s)" \
+            "reconcile.fluxcd.io/requestedAt=$(date +%s)" \
+            "reconcile.fluxcd.io/forceAt=$(date +%s)"
+    done
 
 [doc('Create app deployment')]
 create-app namespace app_name template="other" storage="true" external="false" force="false":
@@ -58,37 +66,37 @@ create-app namespace app_name template="other" storage="true" external="false" f
       exit 1
     fi
 
-    # local_exists=false
-    # remote_exists=false
+    local_exists=false
+    remote_exists=false
 
-    # if git show-ref --verify --quiet "refs/heads/$branch"; then
-    #   local_exists=true
-    # fi
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+      local_exists=true
+    fi
 
-    # if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
-    #   remote_exists=true
-    # fi
+    if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+      remote_exists=true
+    fi
 
-    # if [[ "$local_exists" == "true" ]]; then
-    #   just log info "Switching to existing local branch: $branch"
-    #   git switch "$branch"
-    # else
-    #   just log info "Creating local branch: $branch"
-    #   git switch -c "$branch"
-    # fi
+    if [[ "$local_exists" == "true" ]]; then
+      just log info "Switching to existing local branch: $branch"
+      git switch "$branch"
+    else
+      just log info "Creating local branch: $branch"
+      git switch -c "$branch"
+    fi
 
-    # if [[ "$remote_exists" == "false" ]]; then
-    #   just log info "Remote branch does not exist. Pushing branch to origin: $branch"
-    #   git push -u origin "$branch"
-    # else
-    #   just log info "Remote branch already exists: origin/$branch"
+    if [[ "$remote_exists" == "false" ]]; then
+      just log info "Remote branch does not exist. Pushing branch to origin: $branch"
+      git push -u origin "$branch"
+    else
+      just log info "Remote branch already exists: origin/$branch"
 
-    #   if git diff --quiet && git diff --cached --quiet; then
-    #     just log info "No local changes detected. Continuing."
-    #   else
-    #     just log info "Local changes detected on branch: $branch"
-    #   fi
-    # fi
+      if git diff --quiet && git diff --cached --quiet; then
+        just log info "No local changes detected. Continuing."
+      else
+        just log info "Local changes detected on branch: $branch"
+      fi
+    fi
 
     if [ ! -d "{{ source_directory() }}/apps/{{ namespace }}" ]; then
       just log warn "Namespace directory does not exist."
