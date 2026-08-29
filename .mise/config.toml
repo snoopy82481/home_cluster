@@ -12,7 +12,7 @@ postinstall = "lefthook install"
 
 [tools]
 actionlint = "1.7.12"
-cilium-cli = "0.19.7"
+cilium-cli = "0.20.0"
 "github:mitsuhiko/minijinja" = "2.24.0"
 jq = "1.8.2"
 just = "1.58.0"
