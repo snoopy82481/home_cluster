@@ -26,24 +26,24 @@ url_api = "https://api.github.com/repos/rhysd/actionlint/releases/assets/3849248
 provenance = "github-attestations"
 
 [[tools.cilium-cli]]
-version = "0.19.7"
+version = "0.20.0"
 backend = "aqua:cilium/cilium-cli"
-specifiers = ["0.19.7"]
+specifiers = ["0.20.0"]
 
 [tools.cilium-cli."platforms.linux-arm64"]
-checksum = "sha256:9482937f14061fb239f2dbb2f97f4103de1b101f5d5defbff319f294f9bd540f"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.7/cilium-linux-arm64.tar.gz"
-url_api = "https://api.github.com/repos/cilium/cilium-cli/releases/assets/493187079"
+checksum = "sha256:9a9281dc79bd10a61fa35078b8ab63eaf491ab2f47edc6b9a3541b2fe4ede3ff"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.20.0/cilium-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/cilium/cilium-cli/releases/assets/530475789"
 
 [tools.cilium-cli."platforms.linux-x64"]
-checksum = "sha256:cd15e0983bf0acc7946cd05d453d1e58376ea92dec2642e745212df2b07d8852"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.7/cilium-linux-amd64.tar.gz"
-url_api = "https://api.github.com/repos/cilium/cilium-cli/releases/assets/493187085"
+checksum = "sha256:94adc5c3be44d8240df91cec520536686f8a1eb29e5bc70c4c1c80137f00d764"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.20.0/cilium-linux-amd64.tar.gz"
+url_api = "https://api.github.com/repos/cilium/cilium-cli/releases/assets/530475792"
 
 [tools.cilium-cli."platforms.macos-arm64"]
-checksum = "sha256:c9aaa1b033919d47a3dce37bc266f1f1e0bc7a4f87e5288fc80f6061ec58cb3b"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.7/cilium-darwin-arm64.tar.gz"
-url_api = "https://api.github.com/repos/cilium/cilium-cli/releases/assets/493187083"
+checksum = "sha256:2850449e321c21e9556c312d0b6885838523d294b7e0b58955697507463a57cc"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.20.0/cilium-darwin-arm64.tar.gz"
+url_api = "https://api.github.com/repos/cilium/cilium-cli/releases/assets/530475790"
 
 [[tools."github:mitsuhiko/minijinja"]]
 version = "2.24.0"
