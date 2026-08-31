@@ -134,7 +134,10 @@ provenance = "github-attestations"
 [[tools.node]]
 version = "26.8.1"
 backend = "core:node"
-specifiers = ["26.7.0"]
+specifiers = [
+    "26.7.0",
+    "26.8.1",
+]
 
 [tools.node."platforms.linux-arm64"]
 checksum = "sha256:d5f973ce975e4bd03e6c2038260f7e9201615aa8e1ee293c72f8dcc2a6d9fddb"
