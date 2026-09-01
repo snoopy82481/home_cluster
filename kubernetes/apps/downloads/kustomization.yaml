@@ -6,6 +6,7 @@ namespace: downloads
 
 components:
   - ../../components/common
+  - ../../components/kopiur/secret
 
 resources:
   - ./namespace.yaml
