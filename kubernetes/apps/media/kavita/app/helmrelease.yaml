@@ -84,8 +84,3 @@ spec:
         globalMounts:
           - path: /backup
             subPath: "{{ .Release.Name }}"
-
-      tmpfs:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
