@@ -31,7 +31,7 @@ jobs:
             ]);
             const body = context.payload.pull_request.body ?? "";
             const sourceUrls = body.matchAll(
-              /\[source\]\(https:\/\/(?:redirect\.)?github\.com\/([^/)]+\/[^/)#?]+)[^)]*\)/gi,
+              /^\|\s*\[[^\]]+\]\(https:\/\/(?:redirect\.)?github\.com\/([^/)]+\/[^/)#?]+)\)/gim,
             );
             const shouldRun = Array.from(sourceUrls).some((match) =>
               supportedSources.has(match[1].toLowerCase()),

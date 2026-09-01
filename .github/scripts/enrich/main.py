@@ -3,8 +3,6 @@ from __future__ import annotations
 import json
 import os
 import re
-from urllib.parse import urlparse
-
 import requests
 
 from .logging_config import log
@@ -39,22 +37,18 @@ def extract_metadata(pr_body: str) -> list[RenovateDep]:
 
     dependencies: list[RenovateDep] = []
     pattern = re.compile(
-        r"^\|\s*\[[^]]+\]\([^)]+\)\s*"
-        r"\(\[source\]\((?P<source>[^)]+)\).*?\)\s*\|\s*"
+        r"^\|\s*\[[^]]+\]\(https:\/\/(?:redirect\.)?github\.com\/"
+        r"(?P<source>[^/)]+\/[^/)#?]+)\)\s*.*?\|\s*"
         r"[^|]+\|\s*`(?P<current>[^`]+)`\s*(?:→|->)\s*"
         r"`(?P<new>[^`]+)`\s*\|$",
         re.MULTILINE,
     )
 
     for match in pattern.finditer(pr_body):
-        source_path = urlparse(match.group("source")).path.strip("/")
-        if source_path.count("/") != 1:
-            continue
-
         dependencies.append(
             {
-                "depName": source_path,
-                "packageName": source_path,
+                "depName": match.group("source"),
+                "packageName": match.group("source"),
                 "manager": "",
                 "datasource": "",
                 "currentVersion": match.group("current"),
