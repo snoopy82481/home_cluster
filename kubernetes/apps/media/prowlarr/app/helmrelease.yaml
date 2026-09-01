@@ -24,29 +24,38 @@ spec:
             env:
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__APIKEY: ${PROWLARR_APIKEY}
               PROWLARR__AUTH__METHOD: External
               PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              PROWLARR__AUTH__APIKEY: ${PROWLARR_APIKEY}
-              PROWLARR__SERVER__PORT: &port 9696
+              PROWLARR__LOG__DBENABLED: "False"
               PROWLARR__LOG__LEVEL: info
+              PROWLARR__SERVER__ALLOWEDHOSTS: "*"
+              PROWLARR__SERVER__PORT: &port 9696
               PROWLARR__UPDATE__BRANCH: develop
               TZ: America/Boise
 
             probes:
-              liveness: &probes
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /ping
                     port: *port
-                  initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  timeoutSeconds: 5
+                  failureThreshold: 5
               startup:
-                enabled: false
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
 
             resources:
               requests:
