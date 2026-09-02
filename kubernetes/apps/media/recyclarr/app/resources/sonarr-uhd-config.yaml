@@ -21,7 +21,7 @@ sonarr:
     delete_old_custom_formats: true
 
     quality_profiles:
-      - trash_id: d1498e7d189fbe6c7110ceaabb7473e6  # WEB-2160p
+      - trash_id: d1498e7d189fbe6c7110ceaabb7473e6 # WEB-2160p
 
     custom_format_groups:
       add:

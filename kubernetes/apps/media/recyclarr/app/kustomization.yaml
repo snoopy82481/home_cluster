@@ -10,12 +10,12 @@ resources:
 configMapGenerator:
   - name: recyclarr-configs
     files:
-      - ./configs/sonarr-config.yaml
-      - ./configs/sonarr-anime-config.yaml
-      - ./configs/sonarr-uhd-config.yaml
-      - ./configs/radarr-config.yaml
-      - ./configs/radarr-anime-config.yaml
-      - ./configs/radarr-uhd-config.yaml
+      - ./resources/sonarr-config.yaml
+      - ./resources/sonarr-anime-config.yaml
+      - ./resources/sonarr-uhd-config.yaml
+      - ./resources/radarr-config.yaml
+      - ./resources/radarr-anime-config.yaml
+      - ./resources/radarr-uhd-config.yaml
 
 generatorOptions:
   disableNameSuffixHash: true
