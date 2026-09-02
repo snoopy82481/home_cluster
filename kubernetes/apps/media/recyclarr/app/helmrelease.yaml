@@ -12,18 +12,6 @@ spec:
   values:
     controllers:
       *app :
-        type: statefulset
-
-        statefulset:
-          volumeClaimTemplates:
-            - enabled: true
-              name: config
-              accessMode: ReadWriteOnce
-              size: 1Gi
-              storageClass: ceph-block
-              globalMounts:
-                - path: /config
-
         annotations:
           reloader.stakater.com/auto: "true"
 
@@ -35,6 +23,7 @@ spec:
 
             env:
               TZ: America/Boise
+              RECYCLARR_DATA_DIR: /tmp
 
             envFrom:
               - secretRef:
@@ -68,6 +57,9 @@ spec:
         enabled: false
 
     persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+
       recyclarr-configs:
         type: configMap
         name: recyclarr-configs
@@ -90,14 +82,5 @@ spec:
           - path: /config/configs/radarr-uhd-config.yaml
             subPath: radarr-uhd-config.yaml
 
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          *app :
-            *app :
-              - path: /config/logs
-                subPath: logs
-              - path: /config/repositories
-                subPath: repositories
-              - path: /tmp
-                subPath: tmp
