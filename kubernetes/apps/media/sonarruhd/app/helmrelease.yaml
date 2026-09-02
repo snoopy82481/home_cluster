@@ -24,6 +24,7 @@ spec:
 
             env:
               SONARR__APP__INSTANCENAME: "Sonarr UHD"
+              SONARR__APP__THEME: dark
               SONARR__AUTH__APIKEY: ${SONARR_UHD_APIKEY}
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
