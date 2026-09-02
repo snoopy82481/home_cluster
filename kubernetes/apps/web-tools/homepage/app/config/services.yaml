@@ -64,7 +64,7 @@
         description: Request Manager
         widget:
           type: seerr
-          url: http://seerr.media.svc.cluster.local.:5055
+          url: http://seerr.media.svc.cluster.local.:80
           key: ${SEERR_API_KEY}
     - Tautulli:
         href: https://tautulli.idahobealefamily.com
