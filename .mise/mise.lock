@@ -177,26 +177,26 @@ url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellche
 url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056932"
 
 [[tools.talos]]
-version = "1.13.9"
+version = "1.14.0"
 backend = "aqua:siderolabs/talos"
-specifiers = ["1.13.9"]
+specifiers = ["1.14.0"]
 
 [tools.talos."platforms.linux-arm64"]
-checksum = "sha256:51caed158eda73d2888cbf2df2d67551f9c9f8229aa42d3725e481d073e76f0b"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.9/talosctl-linux-arm64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/520547649"
+checksum = "sha256:19615e1d0eb222de86ec2f1487e7d6e74f5171a9038e73aeacde8cc647e3d9e0"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.0/talosctl-linux-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/542359013"
 provenance = "cosign"
 
 [tools.talos."platforms.linux-x64"]
-checksum = "sha256:7e1d4b7d5846964bdcf63a794e3c8161bb6ef2983d5ace58ea5322f3bf32a27e"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.9/talosctl-linux-amd64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/520547641"
+checksum = "sha256:2c147c4a99d124c95bd5c190fe054e0b3c93495f2243fd652ebd423adb8377c7"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.0/talosctl-linux-amd64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/542359015"
 provenance = "cosign"
 
 [tools.talos."platforms.macos-arm64"]
-checksum = "sha256:ab4c27a959ff6c52f62c6cc2af07b22ca86ed27f1a138ed57582fa67f7b50f98"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.9/talosctl-darwin-arm64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/520547612"
+checksum = "sha256:f0c65a0e970b6f23cf0160e432e7496ba93957a49f369780d4e53888ed66ef46"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.0/talosctl-darwin-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/542359001"
 provenance = "cosign"
 
 [[tools.yq]]
