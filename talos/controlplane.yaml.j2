@@ -6,13 +6,6 @@ machine:
     crt: {{ certs.os.crt }}
     key: {{ certs.os.key }}
 cluster:
-  # ca merges as a unit; crt must be repeated alongside key
-  ca:
-    crt: {{ certs.k8s.crt }}
-    key: {{ certs.k8s.key }}
-  aggregatorCA:
-    crt: {{ certs.k8saggregator.crt }}
-    key: {{ certs.k8saggregator.key }}
   etcd:
     advertisedSubnets:
       - 192.168.20.0/24
@@ -23,6 +16,22 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   serviceAccount:
     key: {{ certs.k8sserviceaccount.key }}
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerCAConfig
+issuingCA:
+  cert: |
+{{ certs_pem.k8s.crt | indent(width=4, first=true) }}
+  key: |
+{{ certs_pem.k8s.key | indent(width=4, first=true) }}
+---
+apiVersion: v1alpha1
+kind: KubeAggregatorCAConfig
+issuingCA:
+  cert: |
+{{ certs_pem.k8saggregator.crt | indent(width=4, first=true) }}
+  key: |
+{{ certs_pem.k8saggregator.key | indent(width=4, first=true) }}
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig

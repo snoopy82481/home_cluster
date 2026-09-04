@@ -14,11 +14,6 @@ machine:
       - endpoint: tcp://127.0.0.1:5044/
         format: json_lines
 cluster:
-  ca:
-    crt: {{ certs.k8s.crt }}
-  clusterName: main
-  controlPlane:
-    endpoint: https://k8s.internal:6443
   token: {{ secrets.bootstraptoken }}
 ---
 apiVersion: v1alpha1
@@ -202,3 +197,8 @@ serviceSubnets:
 apiVersion: v1alpha1
 kind: KubePrismConfig
 port: 7445
+---
+apiVersion: v1alpha1
+kind: KubeClusterConfig
+clusterName: main
+endpoint: https://k8s.internal:6443

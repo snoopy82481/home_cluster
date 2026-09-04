@@ -126,6 +126,7 @@ reboot-all:
 
 [doc('Render Talos config for a node')]
 render-config node:
+    export SOPS_AGE_KEY_FILE="${SOPS_AGE_KEY_FILE:-{{ source_directory() }}/../age.key}"
     schematic="$(just talos schematic-id)"
     role="controlplane"
 
@@ -133,8 +134,8 @@ render-config node:
       role="worker"
     fi
 
-    talosctl machineconfig patch <(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" "just template '{{ source_directory() }}/cluster.yaml.j2' {} -D 'schematic=${schematic}'") \
-      -p @<(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" "just template '{{ source_directory() }}/${role}.yaml.j2' {}") \
+    talosctl machineconfig patch <(just template "{{ source_directory() }}/cluster.yaml.j2" <(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" "yq '.certs_pem = (.certs | with_entries(.value |= with_entries(.value |= @base64d)))' {}") -f yaml -D "schematic=${schematic}") \
+      -p @<(just template "{{ source_directory() }}/${role}.yaml.j2" <(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" "yq '.certs_pem = (.certs | with_entries(.value |= with_entries(.value |= @base64d)))' {}") -f yaml) \
       -p @<(just template "{{ source_directory() }}/nodes/${role}/{{ node }}.yaml.j2")
 
 [confirm('Reset node ' + node + ' [y|N] ?')]

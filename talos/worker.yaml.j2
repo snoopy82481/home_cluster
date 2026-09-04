@@ -10,3 +10,9 @@ provisioning:
     match: disk.dev_path  == "/dev/sdc"
   grow: true
   minSize: 1GiB
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerCAConfig
+acceptedCAs:
+  - |
+{{ certs_pem.k8s.crt | indent(width=6, first=true) }}
