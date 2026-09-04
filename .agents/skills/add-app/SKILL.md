@@ -10,8 +10,7 @@ Scaffolds `kubernetes/apps/<namespace>/<app>/` with a Flux Kustomization (`ks.ya
 | Reference app                         | Shows                                                                  |
 | ------------------------------------- | ---------------------------------------------------------------------- |
 | `kubernetes/apps/network/echo-server` | Minimal stateless app + route                                          |
-| `kubernetes/apps/selfhosted/wotcher`  | Secrets, config file via configMapGenerator, kopiur-backed persistence |
-| `kubernetes/apps/selfhosted/searxng`  | Custom probes, CiliumNetworkPolicy, dragonfly dependency               |
+| `kubernetes/apps/media/recyclarr`     | Secrets, config file via configMapGenerator, kopiur-backed persistence |
 
 ## Step 1: Gather details
 

@@ -124,3 +124,12 @@ allowedRoles:
 allowedKubernetesNamespaces:
   - system
   - system-upgrade
+---
+apiVersion: v1alpha1
+kind: RawVolumeConfig
+name: miroir-slow
+provisioning:
+  diskSelector:
+    match: disk.dev_path  == "/dev/sdb"
+  grow: true
+  minSize: 1GiB

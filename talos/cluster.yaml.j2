@@ -1,5 +1,4 @@
 ---
-version: v1alpha1
 machine:
   ca:
     crt: {{ certs.os.crt }}
@@ -8,6 +7,12 @@ machine:
     diskQuotaSupport: true
     rbac: true
   token: {{ secrets.bootstraptoken }}
+  logging:
+    destinations:
+      - endpoint: udp://127.0.0.1:12345/
+        format: json_lines
+      - endpoint: tcp://127.0.0.1:5044/
+        format: json_lines
 cluster:
   ca:
     crt: {{ certs.k8s.crt }}
@@ -17,16 +22,10 @@ cluster:
   token: {{ cluster.secret }}
 ---
 apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: net0
-selector:
-  match: link.driver == "virtio_net" && mac(link.permanent_addr).startsWith("BC:24:11:7A:")
----
-apiVersion: v1alpha1
 kind: BondConfig
 name: bond0
 links:
-  - net0
+  - ens18
 bondMode: active-backup
 mtu: 1500
 ---
@@ -55,10 +54,11 @@ apiVersion: v1alpha1
 kind: ResolverConfig
 hostDNS:
   enabled: true
-  forwardKubeDNSToHost: true # Requires Cilium socketLB features
+  forwardKubeDNSToHost: true
   resolveMemberNames: true
-nameservers:
-  - address: 192.168.20.1
+{# nameservers:
+  - address: 192.168.20.1 #}
+searchDomains: []
 ---
 apiVersion: v1alpha1
 kind: DiscoveryServiceConfig
@@ -76,21 +76,8 @@ installer:
   image: factory.talos.dev/installer-secureboot/{{ schematic }}:v1.14.0
 provisioning:
   diskSelector:
-    match: disk.model == "MK000480GWCEV"
+    match: disk.dev_path  == "/dev/sda"
   wipe: false
----
-apiVersion: v1alpha1
-kind: RawVolumeConfig
-name: miroir-slow
-provisioning:
-  diskSelector:
-    {% if role == "controlplane" %}
-    match: disk.dev_path  == "/dev/sdb"
-    {% else %}
-    match: disk.dev_path  == "/dev/sdc"
-    {% endif %}
-  grow: true
-  minSize: 1GiB
 ---
 apiVersion: v1alpha1
 kind: FilesystemTrimConfig
@@ -168,7 +155,7 @@ apiVersion: v1alpha1
 kind: KubeNodeConfig
 nodeIP:
   validSubnets:
-    - 192.168.42.0/24
+    - 192.168.20.0/24
 labels:
   topology.kubernetes.io/region: main
 ---

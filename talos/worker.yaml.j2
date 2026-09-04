@@ -1,0 +1,12 @@
+---
+machine:
+  type: worker
+---
+apiVersion: v1alpha1
+kind: RawVolumeConfig
+name: miroir-slow
+provisioning:
+  diskSelector:
+    match: disk.dev_path  == "/dev/sdc"
+  grow: true
+  minSize: 1GiB

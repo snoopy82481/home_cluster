@@ -134,7 +134,8 @@ render-config node:
     fi
 
     talosctl machineconfig patch <(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" \
-    "just template '{{ source_directory() }}/machineconfig.yaml.j2' {} -D 'schematic=${schematic}' -D 'role=${role}'") \
+    "just template '{{ source_directory() }}/machineconfig.yaml.j2' {} -D 'schematic=${schematic}'") \
+      -p @<(just template "{{ source_directory() }}/${role}.yaml.j2") \
       -p @<(just template "{{ source_directory() }}/nodes/${role}/{{ node }}.yaml.j2")
 
 [confirm('Reset node ' + node + ' [y|N] ?')]
