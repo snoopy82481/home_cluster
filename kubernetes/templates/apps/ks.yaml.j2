@@ -9,9 +9,6 @@ spec:
   {% if storage %}
   components:
     - ../../../../components/kopiur/backup
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   {% endif %}
   interval: 1h
   path: {{ ["./kubernetes/apps", namespace, app_name, "app"] | join("/") }}
