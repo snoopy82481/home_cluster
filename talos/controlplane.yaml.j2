@@ -11,8 +11,8 @@ cluster:
     crt: {{ certs.k8s.crt }}
     key: {{ certs.k8s.key }}
   aggregatorCA:
-    crt: {{ certs.aggregator.crt }}
-    key: {{ certs.aggregator.key }}
+    crt: {{ certs.k8saggregator.crt }}
+    key: {{ certs.k8saggregator.key }}
   etcd:
     advertisedSubnets:
       - 192.168.20.0/24
@@ -22,7 +22,7 @@ cluster:
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
   serviceAccount:
-    key: {{ certs.serviceaccount.key }}
+    key: {{ certs.k8sserviceaccount.key }}
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig

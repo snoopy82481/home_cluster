@@ -29,9 +29,9 @@ nodes:
 [private]
 k8s:
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
-    until op=$(just talos bootstrap 2>&1 || true) && [[ "$op" == *"AlreadyExists"* ]]; do \
-        just log info "Kubernetes bootstrap in progress. Retrying in 5 seconds..." "stage" "{{ recipe_name() }}"; \
-        sleep 5; \
+    until op=$(talosctl -n "{{ controller }}" bootstrap 2>&1 || true) && [[ "$op" == *"AlreadyExists"* ]]; do
+        just log info "Kubernetes bootstrap in progress. Retrying in 5 seconds..." "stage" "{{ recipe_name() }}"
+        sleep 5
     done
 
 [private]
