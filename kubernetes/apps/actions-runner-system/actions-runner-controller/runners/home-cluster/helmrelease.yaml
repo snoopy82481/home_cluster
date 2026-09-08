@@ -11,7 +11,7 @@ spec:
   interval: 1h
   values:
     githubConfigUrl: https://github.com/snoopy82481/home_cluster
-    githubConfigSecret: home-ops-runner-secret
+    githubConfigSecret: home-cluster-runner-secret
     minRunners: 0
     maxRunners: 3
     containerMode:
