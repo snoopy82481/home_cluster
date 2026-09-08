@@ -6,7 +6,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<img src="https://raw.githubusercontent.com/snoopy82481/home_cluster/main/docs/src/images/logo.png" align="center" alt="home_cluster" width="144" height="144" />
+<img src="https://raw.githubusercontent.com/snoopy82481/home-cluster/main/docs/src/images/logo.png" align="center" alt="home-cluster" width="144" height="144" />
 
 <!-- ### My home Kubernetes cluster -->
 
@@ -40,7 +40,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 
 <div align="center">
 
-[Report Bug](https://github.com/snoopy82481/home_cluster/issues/new?template=bug-report.yaml) · [Request Feature](https://github.com/snoopy82481/home_cluster/issues/new?template=feature-request.yaml)
+[Report Bug](https://github.com/snoopy82481/home-cluster/issues/new?template=bug-report.yaml) · [Request Feature](https://github.com/snoopy82481/home-cluster/issues/new?template=feature-request.yaml)
 
 </div>
 
@@ -130,7 +130,7 @@ This is an example of how to list things you need to use the software and how to
 2. Clone the repo
 
    ```sh
-   git clone https://github.com/snoopy82481/home_cluster.git
+   git clone https://github.com/snoopy82481/home-cluster.git
    ```
 
 3. Install NPM packages
@@ -165,8 +165,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Talos Config
 - [x] Cilium CNI
 - [x] Return cluster to operational state
-- [x] Add Hajimari to the cluster [125](https://github.com/snoopy82481/home_cluster/issues/125)
-- [x] Add monitoring [128](https://github.com/snoopy82481/home_cluster/issues/128)
+- [x] Add Hajimari to the cluster [125](https://github.com/snoopy82481/home-cluster/issues/125)
+- [x] Add monitoring [128](https://github.com/snoopy82481/home-cluster/issues/128)
   - [x] [Grafana](https://grafana.com)
   - [x] [Prometheus](https://grafana.com/oss/prometheus/)
 - [x] Harden Kubernetes
@@ -175,7 +175,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
   - [x] Create README.md
   - [x] Document workflow (Github Pages/Cloudflare pages/DeepWiki)
 
-See the [open issues](https://github.com/snoopy82481/home_cluster/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/snoopy82481/home-cluster/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -213,7 +213,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - email@email_client.com
 
-Project Link: [https://github.com/snoopy82481/home_cluster](https://github.com/snoopy82481/home_cluster)
+Project Link: [https://github.com/snoopy82481/home-cluster](https://github.com/snoopy82481/home-cluster)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
@@ -245,7 +245,7 @@ There is a lot of code jacking from:
 
 <!-- IMAGE SHIELDS -->
 
-[workflow_shield]: https://img.shields.io/github/actions/workflow/status/snoopy82481/home_cluster/renovate.yaml?branch=main&label&logo=renovate&color=blue
+[workflow_shield]: https://img.shields.io/github/actions/workflow/status/snoopy82481/home-cluster/renovate.yaml?branch=main&label&logo=renovate&color=blue
 [kubernetes_shield]: https://kromgo.idahobealefamily.com/badges/kubernetes_version
 [flux_shield]: https://kromgo.idahobealefamily.com/badges/flux_version
 [talos_shield]: https://kromgo.idahobealefamily.com/badges/talos_version
@@ -260,11 +260,11 @@ There is a lot of code jacking from:
 
 <!-- LINKS -->
 
-[workflow_url]: https://github.com/snoopy82481/home_cluster/actions/workflows/renovate.yaml
+[workflow_url]: https://github.com/snoopy82481/home-cluster/actions/workflows/renovate.yaml
 [old_repo_url]: https://github.com/snoopy82481/new_template_k3s
 [kubernetes_url]: https://kubernetes.io
 [renovate_url]: https://www.mend.io/renovate/
 [flux_url]: https://fluxcd.io
 [talos_url]: https://www.talos.dev
 [kromgo_url]: https://github.com/kashalls/kromgo
-[deepwiki_url]: https://deepwiki.com/snoopy82481/home_cluster
+[deepwiki_url]: https://deepwiki.com/snoopy82481/home-cluster

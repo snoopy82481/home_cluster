@@ -10,7 +10,7 @@ spec:
     name: *name
   interval: 1h
   values:
-    githubConfigUrl: https://github.com/snoopy82481/home_cluster
+    githubConfigUrl: https://github.com/snoopy82481/home-cluster
     githubConfigSecret: home-cluster-runner-secret
     minRunners: 0
     maxRunners: 3
