@@ -19,10 +19,19 @@ spec:
       name: kopiur-repository-secret
       namespace: system
       key: KOPIA_PASSWORD
-  scheduleDefaults:
-    timezone: America/Boise
-  create:
-    enabled: true
   identityDefaults:
     hostnameExpr: namespace
     usernameExpr: policyName
+  maintenance:
+    schedule:
+      quick:
+        cron: 0 * * * *
+        jitter: 10m
+      full:
+        cron: 0 3 * * *
+        jitter: 1h
+  parameters:
+    epoch:
+      minDuration: 1h
+  scheduleDefaults:
+    timezone: America/Boise

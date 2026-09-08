@@ -1,6 +1,10 @@
 {% set external = (external | string | lower) in ['true','1','yes','y','on'] %}
 ---
+{% if template_type == "app-template" %}
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+{% else %}
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+{% endif %}
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -90,14 +94,6 @@ spec:
         path: /mnt/storage1/data
         globalMounts:
           - path: /media
-
-      backup:
-        type: nfs
-        server: truenas.internal
-        path: /mnt/storage0/backup
-        globalMounts:
-          - path: /backup
-            subPath: "{% raw %}{{ .Release.Name }}{% endraw %}"
 
       tmpfs:
         type: emptyDir
