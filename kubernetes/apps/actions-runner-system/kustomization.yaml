@@ -1,13 +1,10 @@
-{% set storage  = (storage  | string | lower) in ['true','1','yes','y','on'] %}
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: {{ namespace }}
-
+namespace: minijinja::functions::builtins::namespace
 components:
   - ../../components/common
-{{ "  - ../../components/kopiur/secret" if storage else "" }}
-
 resources:
+  - ./actions-runner-controller/ks.yaml
   - ./namespace.yaml

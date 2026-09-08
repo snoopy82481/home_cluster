@@ -103,7 +103,7 @@ create-app namespace app_name template="other" storage="true" external="false" f
       just log info "Creating: {{ source_directory() }}/apps/{{ namespace }}"
       mkdir -p "{{ source_directory() }}/apps/{{ namespace }}"
       just template "{{ source_directory() }}/templates/namespace/namespace.yaml.j2" > "{{ source_directory() }}/apps/{{ namespace }}/namespace.yaml"
-      just template "{{ source_directory() }}/templates/namespace/kustomization.yaml.j2" > "{{ source_directory() }}/apps/{{ namespace }}/kustomization.yaml"
+      just template "{{ source_directory() }}/templates/namespace/kustomization.yaml.j2" -D "storage={{ storage }}" > "{{ source_directory() }}/apps/{{ namespace }}/kustomization.yaml"
     fi
 
     # mkdir -p "$out_dir/app"
