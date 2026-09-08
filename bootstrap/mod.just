@@ -7,6 +7,7 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 
 kubernetes_dir := justfile_dir() + '/kubernetes'
 controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
+controllers := `talosctl config info -o yaml | yq -r '[.endpoints[] | tostring] | join (" ")'`
 nodes := `talosctl config info -o yaml | yq -r '[.nodes[] | tostring] | join (" ")'`
 
 [confirm('Bootstrap cluster? [y|N]')]
@@ -62,7 +63,7 @@ kubeconfig lb="cilium":
     fi
 
 [private]
-base: nodes-ready apply-secrets
+base: api-ready nodes-ready apply-secrets
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
     if ! {
         kustomize build {{ source_directory() }}/kustomize/personal | yq 'select(has("sops") | not)'
@@ -88,9 +89,9 @@ apps:
 [private]
 api-ready:
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
-    for n in {{ nodes }}; do
-        until [[ "$(curl -ks -o /dev/null -w '%{http_code}' --connect-timeout 2 "https://${n}:6443/readyz")" == "200" ]]; do
-            just log info "Waiting for kube-apiserver. Retrying in 5 seconds..." "stage" "{{ recipe_name() }}" "node" "$n"
+    for c in {{ controllers }}; do
+        until [[ "$(curl -ks -o /dev/null -w '%{http_code}' --connect-timeout 2 "https://${c}:6443/readyz")" == "200" ]]; do
+            just log info "Waiting for kube-apiserver. Retrying in 5 seconds..." "stage" "{{ recipe_name() }}" "node" "$c"
             sleep 5
         done
     done
