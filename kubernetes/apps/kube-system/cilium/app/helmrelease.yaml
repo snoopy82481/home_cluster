@@ -46,9 +46,6 @@ spec:
     envoy:
       enabled: false
 
-    externalIPs:
-      enabled: true
-
     gatewayAPI:
       enabled: false
 
