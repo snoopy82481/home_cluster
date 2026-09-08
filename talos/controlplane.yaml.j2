@@ -14,8 +14,6 @@ cluster:
       key: {{ certs.etcd.key }}
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
-  serviceAccount:
-    key: {{ certs.k8sserviceaccount.key }}
 ---
 apiVersion: v1alpha1
 kind: KubeAPIServerCAConfig
@@ -142,3 +140,10 @@ provisioning:
     match: disk.dev_path  == "/dev/sdb"
   grow: true
   minSize: 1GiB
+---
+apiVersion: v1alpha1
+kind: KubeServiceAccountConfig
+issuer:
+  privateKey: |
+{{ sa_pem.key | indent(width=4, first=true) }}
+  issuerURL: https://k8s.internal:6443

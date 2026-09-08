@@ -134,8 +134,8 @@ render-config node:
       role="worker"
     fi
 
-    talosctl machineconfig patch <(just template "{{ source_directory() }}/cluster.yaml.j2" <(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" "yq '.certs_pem = (.certs | with_entries(.value |= with_entries(.value |= @base64d)))' {}") -f yaml -D "schematic=${schematic}") \
-      -p @<(just template "{{ source_directory() }}/${role}.yaml.j2" <(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" "yq '.certs_pem = (.certs | with_entries(.value |= with_entries(.value |= @base64d)))' {}") -f yaml) \
+    talosctl machineconfig patch <(just template "{{ source_directory() }}/cluster.yaml.j2" <(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" "yq '.certs_pem = (.certs | with_entries(.value |= with_entries(.value |= @base64d))) | .sa_pem = (.serviceaccount | with_entries(.value |= @base64d))' {}") -f yaml -D "schematic=${schematic}") \
+      -p @<(just template "{{ source_directory() }}/${role}.yaml.j2" <(sops exec-file --filename talsecret.yaml --input-type yaml --output-type yaml "{{ source_directory() }}/talsecret.sops.yaml" "yq '.certs_pem = (.certs | with_entries(.value |= with_entries(.value |= @base64d))) | .sa_pem = (.serviceaccount | with_entries(.value |= @base64d))' {}") -f yaml) \
       -p @<(just template "{{ source_directory() }}/nodes/${role}/{{ node }}.yaml.j2")
 
 [confirm('Reset node ' + node + ' [y|N] ?')]
