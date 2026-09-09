@@ -89,11 +89,12 @@ jobs:
           LOG_LEVEL: INFO
         run: |
           NEW_BODY="$(PYTHONPATH=.github python3 -m scripts.enrich.main)"
-          # Escape output for GitHub Actions
-          NEW_BODY="${NEW_BODY//'%'/'%25'}"
-          NEW_BODY="${NEW_BODY//$'\n'/'%0A'}"
-          NEW_BODY="${NEW_BODY//$'\r'/'%0D'}"
-          echo "body=$NEW_BODY" >> "$GITHUB_OUTPUT"
+          delimiter="$(openssl rand -hex 16)"
+          {
+            echo "body<<${delimiter}"
+            printf '%s\n' "$NEW_BODY"
+            echo "$delimiter"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Apply PR update
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
@@ -101,7 +102,10 @@ jobs:
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
             const prNumber = context.payload.pull_request.number;
-            const newBody = core.getInput("body", { required: true });
+            const newBody = process.env.PR_BODY;
+            if (!newBody?.trim()) {
+              throw new Error("Generated PR body is empty");
+            }
 
             await github.rest.pulls.update({
               owner: context.repo.owner,
@@ -110,4 +114,4 @@ jobs:
               body: newBody
             });
         env:
-          body: ${{ steps.enrich.outputs.body }}
+          PR_BODY: ${{ steps.enrich.outputs.body }}
