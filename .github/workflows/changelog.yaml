@@ -44,7 +44,7 @@ jobs:
     name: Generate Changelog
     needs: check-package
     if: >-
-      github.event.pull_request.user.login == 'app/snoopy82481-bot' &&
+      github.event.pull_request.user.login == 'snoopy82481-bot[bot]' &&
       needs.check-package.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     permissions:
