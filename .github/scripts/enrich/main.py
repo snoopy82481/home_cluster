@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+
 import requests
 
 from .logging_config import log
@@ -37,8 +38,8 @@ def extract_metadata(pr_body: str) -> list[RenovateDep]:
 
     dependencies: list[RenovateDep] = []
     pattern = re.compile(
-        r"^\|\s*\[[^]]+\]\(https:\/\/(?:redirect\.)?github\.com\/"
-        r"(?P<source>[^/)]+\/[^/)#?]+)\)\s*.*?\|\s*"
+        r"^\|\s*(?:\[[^]]+\]\(https:\/\/(?:redirect\.)?github\.com\/"
+        r"(?P<source>[^/)]+\/[^/)#?]+)\)|ghcr\.io/(?P<image>atuinsh/atuin))\s*.*?\|\s*"
         r"[^|]+\|\s*`(?P<current>[^`]+)`\s*(?:→|->)\s*"
         r"`(?P<new>[^`]+)`\s*\|$",
         re.MULTILINE,
@@ -47,8 +48,8 @@ def extract_metadata(pr_body: str) -> list[RenovateDep]:
     for match in pattern.finditer(pr_body):
         dependencies.append(
             {
-                "depName": match.group("source"),
-                "packageName": match.group("source"),
+                "depName": match.group("source") or match.group("image"),
+                "packageName": match.group("source") or match.group("image"),
                 "manager": "",
                 "datasource": "",
                 "currentVersion": match.group("current"),
@@ -72,21 +73,37 @@ def providers_for(
 
 
 def rewrite_body(old_body: str, dep: RenovateDep, notes: str) -> str:
-    """Replace only the supported dependency's release-note details block."""
+    """Replace the dependency's release notes, creating a section when absent."""
     source = re.escape(dep["depName"])
     pattern = re.compile(
-        rf"(?P<head><details>\s*<summary>.*?{source}.*?</summary>.*?"
+        rf"(?P<head><details>\s*<summary>[^\n]*{source}[^\n]*</summary>(?:(?!</details>).)*?"
         r"\[Compare Source\]\([^)]+\))(?P<notes>.*?)"
         r"(?P<end>\s*</details>)",
         re.DOTALL | re.IGNORECASE,
     )
     match = pattern.search(old_body)
-    if not match:
-        log.warning("No matching Renovate release-notes section found")
-        return old_body
-
     version = dep["newVersion"]
     heading = version if version.startswith("v") else f"v{version}"
+    if not match:
+        block = (
+            f"<details>\n<summary>{dep['depName']}</summary>\n\n"
+            f"### {heading} changelog\n\n{notes}\n\n</details>"
+        )
+        existing = re.search(
+            rf"<details>\s*<summary>[^\n]*{source}[^\n]*</summary>.*?</details>",
+            old_body,
+            re.DOTALL | re.IGNORECASE,
+        )
+        if existing:
+            return old_body[: existing.start()] + block + old_body[existing.end() :]
+        release_heading = "### Release Notes\n"
+        if release_heading in old_body:
+            return old_body.replace(release_heading, f"{release_heading}\n{block}\n", 1)
+        configuration = re.search(r"^### Configuration\b", old_body, re.MULTILINE)
+        position = configuration.start() if configuration else len(old_body)
+        section = f"### Release Notes\n\n{block}\n\n---\n\n"
+        return old_body[:position] + "\n" + section + old_body[position:]
+
     replacement = f"{match.group('head')}\n\n### {heading} changelog\n\n{notes}{match.group('end')}"
     return old_body[: match.start()] + replacement + old_body[match.end() :]
 
