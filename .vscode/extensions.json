@@ -1,22 +1,25 @@
 {
   "recommendations": [
-    "albert.TabOut",
-    "will-stone.in-any-case",
-    "EditorConfig.editorconfig",
-    "PKief.material-icon-theme",
-    "HashiCorp.terraform",
+    "aaron-bond.better-comments",
+    "albert.tabout",
+    "blueglassblock.better-json5",
     "britesnow.vscode-toggle-quotes",
+    "editorconfig.editorconfig",
+    "fcrespo82.markdown-table-formatter",
+    "hashicorp.terraform",
+    "hverlin.mise-vscode",
+    "irongeek.vscode-env",
     "mitchdenny.ecdc",
     "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "nefrob.vscode-just-syntax",
     "oderwat.indent-rainbow",
+    "oxc.oxc-vscode",
+    "pkief.material-icon-theme",
     "redhat.vscode-yaml",
     "signageos.signageos-vscode-sops",
+    "tamasfe.even-better-toml",
+    "tinkertrain.theme-panda",
     "usernamehw.errorlens",
-    "fcrespo82.markdown-table-formatter",
-    "irongeek.vscode-env",
-    "BlueGlassBlock.better-json5",
-    "oxc.oxc-vscode",
-    "hverlin.mise-vscode",
-    "nefrob.vscode-just-syntax"
+    "vivaxy.vscode-conventional-commits"
   ]
 }

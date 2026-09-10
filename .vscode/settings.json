@@ -1,60 +1,51 @@
 {
-  "files.associations": {
-    "**/*.json5": "json5",
-    "**/opentofu/**/*.tf": "terraform",
-    "*.env": "dotenv",
-    "*.just": "just",
-    "Justfile": "just"
-  },
-  "explorer.autoReveal": false,
-  "editor.fontLigatures": true,
-  "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": true,
-  "editor.guides.bracketPairsHorizontal": true,
-  "editor.guides.highlightActiveBracketPair": true,
-  "editor.hover.delay": 1500,
-  "files.trimTrailingWhitespace": true,
-  "cSpell.enabled": false,
-  "yaml.schemaStore.enable": true,
-  "yaml.schemas": {
-    "Kubernetes": "./kubernetes/*.yaml",
-    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "./kubernetes/apps/media/recyclarr/app/configs/*.yaml",
-    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "./kubernetes/apps/media/recyclarr/settings.yaml"
-  },
-  "material-icon-theme.files.associations": {
-    "*.gotmpl": "smarty",
-    "*.sops.yaml": "lock",
-    "helmfile.yaml": "helm",
-    "kubeconfig": "kubernetes",
-    "talosconfig": "kubernetes"
-  },
-  "material-icon-theme.folders.associations": {
-    // top level
-    ".github/workflows": "ci",
-    ".private": "archive",
-    ".renovate": "robot",
-    "bootstrap": "seeders",
-    "bootstrap/helmfile.d": "helm",
-    "flux": "pipe",
-    "talos": "linux",
-    // namespaces
-    "cert-manager": "guard",
-    "kube-system": "kubernetes",
-    "networking": "connection",
-    "monitoring": "event",
-    "flux-system": "pipe",
-    "rook-ceph": "dump",
-    "system-upgrade": "update",
-    // apps
-    "cloudflared": "cloudflare",
-    "radarr": "video",
-    "radarruhd": "video",
-    "radarranime": "video",
-    "sonarr": "video",
-    "sonarranime": "video",
-    "sonarruhd": "video",
-    "tautulli": "event"
-  },
+  "better-comments.tags": [
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#FF2D00",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "!",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#3498DB",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "?",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#474747",
+      "italic": false,
+      "strikethrough": true,
+      "tag": "//",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#FF8C00",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "todo",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#98C379",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "*",
+      "underline": false
+    }
+  ],
   "conventionalCommits.scopes": [
     "ci",
     "actions",
@@ -92,7 +83,6 @@
     "tautulli",
     "cloudflared",
     "kube-prometheus-stack",
-    "huntarr",
     "homepage",
     "envoy-gateway",
     "victoria-logs",
@@ -101,75 +91,75 @@
     "atuin",
     "kavita"
   ],
-  "vs-kubernetes": {
-    "vs-kubernetes.kubeconfig": "./kubeconfig",
-    "vs-kubernetes.knownKubeconfigs": ["./kubeconfig"]
+  "files.associations": {
+    "**/*.json5": "json5",
+    "*.tf": "terraform",
+    "*.env": "dotenv",
+    "*.just": "just",
+    "Justfile": "just"
   },
-  "sops.defaults.ageKeyFile": "age.key",
-  "better-comments.tags": [
-    {
-      "tag": "!",
-      "color": "#FF2D00",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "?",
-      "color": "#3498DB",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "//",
-      "color": "#474747",
-      "strikethrough": true,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "todo",
-      "color": "#FF8C00",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "*",
-      "color": "#98C379",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    }
-  ],
+  "files.trimTrailingWhitespace": true,
+  "material-icon-theme.files.associations": {
+    "*.gotmpl": "smarty",
+    "*.sops.yaml": "lock",
+    "helmfile.yaml": "helm",
+    "kubeconfig": "kubernetes",
+    "talosconfig": "kubernetes"
+  },
+  "material-icon-theme.folders.associations": {
+    // top level
+    ".github/workflows": "ci",
+    ".private": "archive",
+    ".renovate": "robot",
+    "bootstrap": "seeders",
+    "bootstrap/helmfile.d": "helm",
+    "flux": "pipe",
+    "talos": "linux",
+    "cert-manager": "guard",
+    // namespaces
+    "cloudflared": "cloudflare",
+    "flux-system": "pipe",
+    "kube-system": "kubernetes",
+    "monitoring": "event",
+    "networking": "connection",
+    "radarr": "video",
+    "radarranime": "video",
+    "radarruhd": "video",
+    "rook-ceph": "dump",
+    "sonarr": "video",
+    "sonarranime": "video",
+    "sonarruhd": "video",
+    "system-upgrade": "update",
+    "tautulli": "event"
+  },
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  "sops.defaults.ageKeyFile": "age.key",
+  "vs-kubernetes": {
+    "vs-kubernetes.knownKubeconfigs": ["./kubeconfig"],
+    "vs-kubernetes.kubeconfig": "./kubeconfig"
+  },
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json": "./kubernetes/apps/media/recyclarr/app/configs/*.yaml",
+    "https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json": "./kubernetes/apps/media/recyclarr/settings.yaml",
+    "Kubernetes": "./kubernetes/*.yaml"
+  },
+  "yaml.schemaStore.enable": true,
+  "[json][json5][jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  // "[json]": {
+  //   "editor.defaultFormatter": "oxc.oxc-vscode"
+  // },
+  // "[jsonc]": {
+  //   "editor.defaultFormatter": "oxc.oxc-vscode"
+  // },
   "[just]": {
     "editor.defaultFormatter": "nefrob.vscode-just-syntax"
   },
-  "[yaml]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
-  "[json5]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
   "[markdown]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[yaml]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
   }
 }
